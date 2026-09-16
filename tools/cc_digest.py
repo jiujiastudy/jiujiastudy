@@ -70,6 +70,14 @@ def print_context(ctx, date):
 
 def print_digest(d):
     print(f"# digest {d['date']}（采集 {d['collected_at']}{'，快速模式：只看作业和公告' if d.get('quick') else ''}）")
+    if d.get("course_changes"):
+        print("## 课程清单有变")
+        for c in d["course_changes"]:
+            print(" -", c)
+    if d.get("stale"):
+        print("## 这几门课这次没采到（用的是上次的数据）")
+        for code, when in d["stale"].items():
+            print(f" - {code}：{when or '上次'}")
     if d["errors"]:
         print("## 采集错误")
         for e in d["errors"]:

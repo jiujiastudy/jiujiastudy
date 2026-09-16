@@ -82,11 +82,12 @@ def evaluate(ctx, today, plan=None, rows=None):
         if not d or (today - d).days > 7:
             continue
         lvl = m.get("level") or classify_mood(m.get("word"))
+        # 只说「说过什么级别的状态」，不复述原话：这句会连着几天出现在状态行、雷达和桌面网页里（G02）
         if lvl == "病了":
             sick = True
-            signals.append(f"你 {m.get('date')} 说过{m.get('word')}")
+            signals.append(f"你 {m.get('date')} 说过身体不舒服")
             continue
-        signals.append(f"你 {m.get('date')} 说过「{m.get('word')}」")
+        signals.append(f"你 {m.get('date')} 说过状态不好")
         level = max(level, min(LEVELS.index(lvl), level + 1) if level else LEVELS.index(lvl))
 
     label = "病了" if sick else LEVELS[level]
@@ -129,11 +130,22 @@ def state_line(ev):
 
 
 def add_mood(ctx, word, note=None):
+    """记一次状态。只存日期和级别，**不存原话**：原话会被写进档案和桌面网页，还会连着几天被复读（G02）。"""
     from cc_record import touch
-    item = {"date": ctx.clock.today_user().isoformat(), "word": word.strip(), "level": classify_mood(word), "note": note}
+    item = {"date": ctx.clock.today_user().isoformat(), "level": classify_mood(word), "note": note}
     moods = ctx.state.setdefault("mood", [])
     moods.append(item)
-    cutoff = (ctx.clock.today_user() - dt.timedelta(days=30)).isoformat()
-    ctx.state["mood"] = [m for m in moods if (m.get("date") or "") >= cutoff]
+    cutoff = (ctx.clock.today_user() - dt.timedelta(days=7)).isoformat()  # 只留 7 天
+    ctx.state["mood"] = [{k: v for k, v in m.items() if k != "word"}  # 老档案里存过的原话，读的时候一并丢掉
+                         for m in moods if (m.get("date") or "") >= cutoff]
     touch(ctx)
     return item
+
+
+def clear_mood(ctx):
+    """把记过的状态全部删掉。"""
+    from cc_record import touch
+    n = len(ctx.state.get("mood") or [])
+    ctx.state["mood"] = []
+    touch(ctx)
+    return n

@@ -6,7 +6,7 @@
 3. 看输出决定：
    - 打印了「config.json：已新建」（token 早就在，站点也认出来了）→ 不用问任何事，直接第 5 步。
    - 否则只发一条消息，四种情况选一种（原文）：
-     - 认出一个：「在你浏览器记录里找到 Canvas 站点 canvas.xxx.edu，先按这个来，不对就告诉我。现在只差 token：Canvas → Account → Settings → Approved Integrations → New Access Token，Purpose 填 STCanvas，Expires 设学期最后一天，整段复制，粘进刚弹出的窗口（Windows：用户变量 → 新建，变量名 CANVAS_TOKEN，值粘 token，确定两次；Mac：终端里粘贴回车两次）。粘完随便回我一句。」
+     - 认出一个：「你学校的 Canvas 是不是 canvas.xxx.edu？是就回我一句（探测只是线索，token 只发给你确认过的那一个地址）。现在只差 token：Canvas → Account → Settings → Approved Integrations → New Access Token，Purpose 填 STCanvas，Expires 设学期最后一天，整段复制，粘进刚弹出的窗口（Windows：用户变量 → 新建，变量名 CANVAS_TOKEN，值粘 token，确定两次；Mac：终端里粘贴回车两次）。粘完随便回我一句。」
      - 有几个：「浏览器记录里有两个像 Canvas 的站点：A（常去）和 B，你学校用的是哪个？回一个就行。」+ token 那段。
      - 已读到记录但没找到：「把你平时登录 Canvas 的网址整个发我（地址栏 https:// 开头那一串）。」+ token 那段。
      - 记录读不了或可能被沙盒隐藏：先按宿主机制申请一次只读浏览器记录权限并重跑；仍不行才要网址。
@@ -18,7 +18,7 @@
 6. doctor 打印的「你需要做的事」：`--fix-perms` 这类自己能做的做掉；电脑时区和课程时区不同这类，只在用户人就在学校城市时提一句「把电脑时区改成 X」，否则不提。
 
 ## 站点探测（doctor --detect-site）
-读 Chrome / Edge / Brave / Firefox / Safari 的历史和书签：先复制到临时目录再只读打开，SQL 只取网址和访问次数；匹配 `*.instructure.com`、域名含 canvas 整词、路径 /login/canvas、/courses/数字；候选按访问次数排序，不带 token 探一下（Canvas 对 /api/v1/users/self 回 401）；只把认定的域名写进 HOME/site.json，临时副本删除。**不读网页标题，不保留任何网址。** Safari 的记录要系统的「完全磁盘访问」，读不了就直接要网址，不去申请权限。`--dry-run` 只列会读哪些文件。
+读 Chrome / Edge / Brave / Firefox / Safari 的历史和书签：先复制到临时目录再只读打开，SQL 只取网址和访问次数；匹配 `*.instructure.com`、域名含 canvas 整词、路径 /login/canvas、/courses/数字；候选按访问次数排序，全程不带 token（Canvas 对 /api/v1/users/self 回 401，用这个判断像不像）；**token 只发给用户确认过的那一个地址**，确认后跑 `doctor --host 网址` 才写 HOME/site.json，临时副本删除。**不读网页标题，不保留任何网址。** Safari 的记录要系统的「完全磁盘访问」，读不了就直接要网址，不去申请权限。`--dry-run` 只列会读哪些文件。
 
 ## token 放哪（都不用重启）
 读取顺序：环境变量 CANVAS_TOKEN → Windows 用户级注册表 → Mac 钥匙串（stcanvas-canvas）→ ~/.config/stcanvas/token。

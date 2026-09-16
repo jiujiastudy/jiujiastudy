@@ -42,6 +42,27 @@ def _course_code_by_id(ctx, cid):
     return next((c.get("code") for c in ctx.cfg.get("courses") or [] if str(c.get("id")) == str(cid)), None) or f"课程 {cid}"
 
 
+import re
+
+AI_RULE_RE = re.compile(r"(?i)(artificial intelligence|generative ai|\bAI\b|ChatGPT|academic integrity|学术诚信|人工智能)")
+
+
+def ai_rule_line(desc, limit=160):
+    """作业说明里关于 AI 的那一句，原样截一段。没有就返回 None。
+
+    只摆事实，不做判断：交不交、怎么交是学生自己的事（发起人 2026-09-16 决定）。
+    """
+    from htmlkit import strip_tags
+    text = re.sub(r"\s+", " ", strip_tags(desc or "")).strip()
+    if not text:
+        return None
+    for piece in re.split(r"(?<=[.!?。！？])\s*", text):  # 去掉标签后句子之间可能没有空格
+        if AI_RULE_RE.search(piece):
+            piece = piece.strip()
+            return piece if len(piece) <= limit else piece[:limit].rstrip() + "……"
+    return None
+
+
 def _write_preview(ctx, api, args, body):
     """写操作预览；拒绝空文件、错 id、不收上传、扩展名不符和次数用完。"""
     import re as _re
@@ -92,6 +113,11 @@ def _write_preview(ctx, api, args, body):
             p["lines"].append(f"留言：{args.comment}")
         if sub.get("submitted_at"):
             p["lines"].append(f"注意：{ctx.clock.fmt(parse_ts(sub['submitted_at']))} 已经交过一次，这次会成为第 {used + 1} 次提交")
+        rule = ai_rule_line(a.get("description"))
+        if rule:  # 这门课自己写的 AI 规定，原样摆一句；不做判断、不拦截（G03）
+            p["lines"].append(f"这门课的作业页写着：「{rule}」")
+            if p["url"]:
+                p["lines"].append(f"作业页：{p['url']}")
         return p
     path = (args.a or "").split("?")[0].rstrip("/")
     text = strip_tags(body.get("message") or body.get("body") or "").strip()

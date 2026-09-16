@@ -94,23 +94,18 @@ def doctor(args):
     detect_res = None
     if getattr(args, "detect_site", False) or (not host and not getattr(args, "school", None) and not getattr(args, "no_detect", False)):
         import cc_detect
-        try:
-            tok_for_detect = token()
-        except canvas_api.CanvasAuthError:
-            tok_for_detect = None
-        detect_res = cc_detect.detect(tok_for_detect, dry_run=getattr(args, "dry_run", False))
+        detect_res = cc_detect.detect(dry_run=getattr(args, "dry_run", False))  # 探测不带 token（S09）
         if detect_res.get("dry_run"):
             checks.append(("信息", "站点探测（预演）", "；".join(detect_res["files"]) or "当前没有枚举到浏览器记录文件；预演未读取内容"))
         elif detect_res.get("found"):
             found_host = cc_host.normalize_host(detect_res["found"])
             if not host:
-                host = found_host
                 found_candidate = next((c for c in detect_res["candidates"]
                                         if cc_host.normalize_host(c.get("url")) == found_host), None)
                 browsers = ", ".join((found_candidate or {}).get("browsers") or [])
-                ok("学校", f"浏览器记录里认出 {found_host}" + (f"（{browsers}）" if browsers else ""))
-                jsave(os.path.join(home, "site.json"), {"host": found_host, "source": "browser-history",
-                                                        "at": dt.datetime.now(dt.timezone.utc).isoformat()})
+                # 浏览器记录只是线索，不是答案：token 只发给用户确认过的地址，所以这里不自动采用（S09）
+                warn("学校", f"浏览器记录里最像的是 {found_host}" + (f"（{browsers}）" if browsers else ""),
+                     f"问用户一句「你学校的 Canvas 是不是 {found_host}？」；是就跑 doctor --host {found_host}，不是就让他发登录页网址")
             elif cc_host.normalize_host(host) == found_host:
                 ok("学校", f"浏览器记录与已指定地址一致：{host}")
             else:
@@ -227,6 +222,15 @@ def doctor(args):
         if me and not (cfg.get("user") or {}).get("id"):
             cfg["user"] = {"id": me.get("id"), "name": me.get("name")}
             jsave(os.path.join(home, "config.json"), cfg)
+
+    # 一门课都没有就什么都做不了：这是错误，不是提示（S02）
+    if cfg is not None:
+        live = [c for c in (cfg.get("courses") or []) if not c.get("inactive")]
+        if not live:
+            had = len(cfg.get("courses") or [])
+            err("课程", "config.json 里一门在读的课都没有" + (f"（{had} 门都已结课或退课）" if had else ""),
+                f"新学期开学后跑：{display_coach} collect --force；还是空的就是这个账号在 Canvas 上没有在读课程")
+            blocking = True
 
     # 6 state
     sp = os.path.join(home, "state.json")

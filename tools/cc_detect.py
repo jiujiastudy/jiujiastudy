@@ -214,7 +214,13 @@ def rank(hosts, limit=5):
 
 
 def detect(tok=None, limit=5, dry_run=False):
-    """扫描 + 探测 + （有 token 时）验证。返回 {candidates, found, me, files, skipped}。"""
+    """扫描 + 探测（不带 token）。返回 {candidates, found, me, files, skipped}。
+
+    探测一律不发 token：只用不带认证的请求判断一个站点像不像 Canvas，再按访问次数排序。
+    token 只发给用户确认过的那一个地址（doctor --host），否则浏览器记录里任何一个
+    会回 401 的站点——别的学校、仿冒站——都会拿到你的 token。
+    tok 参数留着只为兼容老调用，这里不再使用。
+    """
     import cc_host
     res = scan(dry_run=dry_run)
     read_status = "readable" if res.get("scanned") else ("unreadable" if res.get("files") else "unavailable_or_absent")
@@ -229,17 +235,7 @@ def detect(tok=None, limit=5, dry_run=False):
         c["is_canvas"] = cc_host.is_canvas(url)
         c["token_ok"] = None
     verified = [c for c in cands if c["is_canvas"]]
-    if tok:
-        for c in verified:
-            try:
-                import canvas_api
-                me = canvas_api.Canvas(c["url"], tok, timeout=20, retries=0).get("/api/v1/users/self")
-                c["token_ok"] = True
-                out["found"], out["me"] = c["url"], me
-                break
-            except Exception:  # noqa: BLE001
-                c["token_ok"] = False
-    if not out["found"] and verified:
+    if verified:
         top = verified[0]
         second = verified[1]["score"] if len(verified) > 1 else 0
         if len(verified) == 1 or top["score"] >= 3 * max(second, 1):

@@ -34,7 +34,7 @@ def bootstrap_config(home, host, api, me, all_courses=False, tz_override=None):
         active = (s is None or s <= today + dt.timedelta(days=14)) and (e is None or e >= today - dt.timedelta(days=7))
         if not (all_courses or active):
             continue
-        if looks_like_non_course(c.get("name")) or looks_like_non_course(c.get("course_code")):
+        if looks_like_non_course(c.get("name"), c.get("course_code")) or looks_like_non_course(c.get("course_code"), c.get("course_code")):
             skipped.append(f"{c.get('course_code') or c.get('name')}（{c.get('id')}）")
             continue
         objs.append(c)

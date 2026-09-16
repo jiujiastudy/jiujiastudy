@@ -133,37 +133,94 @@ def collect(ctx, date, quick=False, touch=False, download=None):
         lock.release()
 
 
+def refresh_courses(ctx, api, errors):
+    """每次完整采集对一次在读课程：新课加进来，看不到的课标 inactive（S02）。
+
+    课程清单原来只在第一次建档时拉一次，于是下学期的课、后加的课永远不出现，
+    学生看不到任何提示。这里只动 config，不动已经采到的数据。
+    """
+    from cc_courses import course_code_of, looks_like_non_course
+    try:
+        live = api.get("/api/v1/courses?enrollment_state=active&per_page=100")
+    except Exception as e:  # noqa: BLE001  课程清单拉不到不该挡住采集
+        errors.append(f"课程清单没刷新（{type(e).__name__}）")
+        return []
+    if not isinstance(live, list) or not live:
+        return []
+    raw = ctx.raw_cfg
+    if "courses" not in raw:
+        raw["courses"] = list(ctx.cfg.get("courses") or [])
+    known = {str(c.get("id")): c for c in raw["courses"]}
+    changes, seen = [], set()
+    for c in live:
+        cid = str(c.get("id") or "")
+        if not cid:
+            continue
+        seen.add(cid)
+        if cid in known:
+            if known[cid].pop("inactive", None):
+                changes.append(f"{known[cid].get('code')} 又能看到了")
+            continue
+        name, code_raw = c.get("name"), c.get("course_code")
+        if looks_like_non_course(name, code_raw) or looks_like_non_course(code_raw, code_raw):
+            continue
+        code = course_code_of(c)
+        raw["courses"].append({"id": c.get("id"), "code": code, "name": name})
+        changes.append(f"新课程：{code} {name}")
+    for cid, c in known.items():
+        if cid not in seen and not c.get("inactive"):
+            c["inactive"] = True
+            changes.append(f"{c.get('code')} 在 Canvas 上看不到了（结课或退课），数据保留")
+    if changes:
+        ctx.save_config()
+    return changes
+
+
 def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
     cfg, state, clock = ctx.cfg, ctx.state, ctx.clock
-    courses = course_pairs(cfg)
+    courses = course_pairs(cfg, include_inactive=False)
     rawdir = ctx.P("raw", "daily", date)
     os.makedirs(rawdir, exist_ok=True)
     api = ctx.api
     errors = []
+    failures = []  # 结构化的失败：{course, kind, code}，用来决定哪门课沿用旧数据（S03）
     pending_raw = {}
     collected_at = clock.now_utc().isoformat()
 
-    def get(path, name=None):
+    def get(path, name=None, course=None, kind=None):
+        short = path.split("?")[0]
         try:
             data = api.get(path)
         except urllib.error.HTTPError as e:
-            errors.append(f"HTTP {e.code}: {path.split('?')[0]}")
+            if course and e.code in (401, 403, 404):
+                # 课程级的 401/403/404 不是 token 的问题：多半退课了、或课程已结束、或没权限
+                errors.append(f"{course} 这门课打不开了（HTTP {e.code}，可能退课或课程已结束）")
+            else:
+                errors.append(f"HTTP {e.code}: {short}")
+            failures.append({"course": course, "kind": kind, "code": e.code})
             return None
         except urllib.error.URLError as e:
-            errors.append(f"网络错误 {path.split('?')[0]}: {e.reason}")
+            errors.append(f"网络错误 {short}: {e.reason}")
+            failures.append({"course": course, "kind": kind, "code": None})
             return None
         except Exception as e:  # noqa: BLE001
-            errors.append(f"{type(e).__name__}: {path.split('?')[0]}")
+            errors.append(f"{type(e).__name__}: {short}")
+            failures.append({"course": course, "kind": kind, "code": None})
             return None
         if name:
             pending_raw[name] = data
         return data
 
     prev = load_snapshot(ctx)
+    course_changes = refresh_courses(ctx, api, errors) if not quick else []
+    if course_changes:
+        courses = course_pairs(ctx.cfg, include_inactive=False)
     assignments, modules, group_ws = {}, {}, {}
     for cid, code in courses:
-        assignments[code] = get(f"/api/v1/courses/{cid}/assignments?per_page=100&include[]=submission", f"assignments_{cid}.json")
-        modules[code] = None if quick else get(f"/api/v1/courses/{cid}/modules?per_page=50&include[]=items&include[]=content_details", f"modules_{cid}.json")
+        assignments[code] = get(f"/api/v1/courses/{cid}/assignments?per_page=100&include[]=submission",
+                                f"assignments_{cid}.json", course=code, kind="assignments")
+        modules[code] = None if quick else get(f"/api/v1/courses/{cid}/modules?per_page=50&include[]=items&include[]=content_details",
+                                               f"modules_{cid}.json", course=code, kind="modules")
         b = jload(ctx.P("raw", f"bundle_{cid}.json"), {}) or {}
         group_ws[code] = {g["id"]: g.get("group_weight") for g in b.get("groups") or []}
     last_check = parse_ts(state.get("last_check")) or (clock.now_utc() - dt.timedelta(days=14))
@@ -202,7 +259,19 @@ def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
                     readiness[label] = errors[n0]
                     del errors[n0:]  # optional readiness failure is reported, not promoted as core failure
 
-    if errors:
+    # 哪几门课这次没采到作业：沿用它自己上次的数据，别把别的课一起冻住（S03）
+    stale, hard = {}, list(failures)
+    lost = sorted({f["course"] for f in failures if f.get("kind") == "assignments" and f.get("course")})
+    if lost and prev and (prev.get("assignments") or prev.get("items")):
+        when = clock.fmt(parse_ts(prev.get("collected_at"))) or "上次"
+        for code in lost:
+            stale[code] = prev.get("collected_at")
+            errors.append(f"{code} 这次没采到，用的还是 {when} 的数据")
+        hard = [f for f in failures if f.get("kind") != "assignments"]
+    if courses and len(stale) == len(courses):  # 一门都没采到：算整体失败，别拿整份旧数据冒充新的
+        hard, stale = list(failures), {}
+    hard = [f for f in hard if f.get("kind") != "modules"]  # 模块拉不到不影响 deadline，沿用上次的条目
+    if hard:
         # Never turn partial/empty responses into the canonical truth. In
         # particular, do not advance last_fetch/last_check: the next collect
         # must retry instead of reusing this failed attempt for ten minutes.
@@ -236,15 +305,32 @@ def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
     if quick:  # 模块和站内信没重新拉，沿用上次的
         snap["items"] = dict(prev.get("items") or {})
         snap["conversations"] = dict(prev.get("conversations") or {})
+    # 已结课/已退课的：不再去拉，但旧数据原样留着，免得 Canvas 一时看不到就把一门课的 deadline 全抹了（S02）
+    gone = {c["code"]: (prev.get("collected_at") if prev else None)
+            for c in (ctx.cfg.get("courses") or []) if c.get("inactive")}
+    snap["inactive"] = gone
+    for code in list(stale) + list(gone):  # 这次没采到的：把它上次的作业和模块条目原样带过来
+        for aid, a in (prev.get("assignments") or {}).items():
+            if a.get("course") == code:
+                snap["assignments"].setdefault(aid, a)
+        for iid, it in (prev.get("items") or {}).items():
+            if it.get("course") == code:
+                snap["items"].setdefault(iid, it)
+    for code, mods in modules.items():  # 只有模块失败：保留这门课上次的条目
+        if mods is None and not quick and code not in stale:
+            for iid, it in (prev.get("items") or {}).items():
+                if it.get("course") == code:
+                    snap["items"].setdefault(iid, it)
     snap["raw_dir"] = ctx.rel(rawdir)
     snap["collected_at"] = collected_at
-    snap["complete"] = True
+    snap["stale"] = stale  # {课程代码: 那门课上次采到的时间}
+    snap["complete"] = not stale
     for k in ("announcements", "conversations"):
         for i, v in (prev.get(k) or {}).items():
             snap[k].setdefault(i, v)
 
-    digest = {"date": date, "collected_at": collected_at, "quick": quick, "complete": True, "promoted": True,
-              "errors": errors, "readiness": readiness,
+    digest = {"date": date, "collected_at": collected_at, "quick": quick, "complete": not stale, "promoted": True,
+              "errors": errors, "readiness": readiness, "stale": stale, "course_changes": course_changes,
               "new_announcements": [], "staff_messages": [], "changed_assignments": [], "submission_changes": [],
               "new_items": [], "unlocked_items": [], "locked_items": [], "downloaded": [], "skipped_downloads": [], "removed_items": []}
     baseline = bool(prev.get("baseline"))
