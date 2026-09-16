@@ -1,7 +1,7 @@
 # 本周该学什么
 
 ## 命令
-`collect --touch`（10 分钟内采过就直接用上次的）→ `study --write`：脚本用元数据排好（每门课三桶 + 每天一件必做），写 `plans/<ISO周>.json`、`plans/<周>.md`、`reports/周报_<周>.html`，并复制成资料夹根目录的「STCanvas.html」（用户看这份），登记 INDEX 和日志。只看不写：`study`。想换周：`study --week 8`。
+`collect --touch`（10 分钟内采过就直接用上次的）→ `study --write`：脚本用元数据排好（每门课三桶 + 每天一件必做），写 `plans/<ISO周>.json`、`plans/<周>.md`、`reports/周报_<周>.html`，并复制成资料夹根目录的「本周清单.html」（用户看这份），登记 INDEX 和日志。只看不写：`study`。想换周：`study --week 8`。
 
 ## 脚本怎么排
 - 数据：模块条目（名称、类型、锁定、解锁时间、链接）、作业（截止、分值、提交状态、类型）、7 天内公告、手动 deadline。不读课件正文。

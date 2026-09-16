@@ -3,7 +3,7 @@
 目标：一眼看懂要做什么、什么时候之前。删比加好。
 
 ## 用在哪
-- 固定页面：STCanvas 周手帐（tools/render_week.py）和 Deadline 雷达（tools/cc_radar.py）由脚本生成，不手改 HTML。要改样子，改 tools/design.py 或渲染器，改完跑检查。
+- 固定页面：救驾 周手帐（tools/render_week.py）和 Deadline 雷达（tools/cc_radar.py）由脚本生成，不手改 HTML。要改样子，改 tools/design.py 或渲染器，改完跑检查。
 - 一次性页面：导读、讲义、对比、讲稿、排练表，任何给用户看的 HTML。按这次的内容自己设计结构，不必套 JSON 模板。Python 里 `sys.path.insert(0, "<skill>/tools"); from design import head, foot, status, tag`，正文只用下面的组件；不写 Python 就把 head() 生成的 `<style>` 整段复制过去。
 - 旧的复习包页面（render_unit.py 的 unit / plan / vocab / mock）颜色和字体已经接到这里，组件还是旧的，暂不受检。
 

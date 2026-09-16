@@ -1,6 +1,6 @@
 interface:
-  display_name: "STCanvas"
+  display_name: "救驾"
   short_description: "Canvas 截止日期与每周学习手帐"
-  default_prompt: "使用 $stcanvas 查看最近要交什么，并生成本周学习手帐。"
+  default_prompt: "使用 $jiujia 查看最近要交什么，并生成本周学习手帐。"
 policy:
   allow_implicit_invocation: true

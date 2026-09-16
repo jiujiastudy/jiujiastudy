@@ -321,11 +321,17 @@ def extract_text(path):
     ext = os.path.splitext(path)[1].lower()
     try:
         if ext == ".pdf":
-            pymupdf = optional("pymupdf")
-            if pymupdf is None:
-                return "", "ModuleNotFoundError: No module named 'pymupdf'"
-            with pymupdf.open(path) as doc:
-                return "\n".join(page.get_text() for page in doc), None
+            pypdf = optional("pypdf")
+            if pypdf is None:
+                return "", "ModuleNotFoundError: No module named 'pypdf'"
+            reader = pypdf.PdfReader(path)
+            out = []
+            for i, page in enumerate(reader.pages, 1):
+                try:
+                    out.append(page.extract_text() or "")
+                except Exception as e:  # noqa: BLE001  个别页取不出字不该毁掉整份
+                    out.append(f"[第 {i} 页取字失败：{type(e).__name__}]")
+            return "\n".join(out), None
         pptx = optional("pptx") if ext == ".pptx" else None
         if pptx is not None:
             try:

@@ -79,7 +79,7 @@ class FakeCtx:
 
     def __init__(self, base, api, courses):
         self.home = os.path.join(base, ".coach")
-        self.root = os.path.join(base, "STCanvas")
+        self.root = os.path.join(base, "救驾")
         self.cfg = {"courses": courses, "materials": {"max_mb": 50}}
         self.api = api
 

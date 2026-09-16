@@ -37,7 +37,7 @@ def coach_cmd(shell=None):
 
 
 ROOT_NAME = brand.NAME  # 桌面上的资料夹名
-WEEK_PAGE = brand.NAME + ".html"  # 资料夹根目录的周手帐
+WEEK_PAGE = "本周清单.html"  # 资料夹根目录那张周页：产品叫什么是一回事，文件名要让人一眼看懂
 LEGACY_HOME = os.path.join(os.path.expanduser("~"), brand.LEGACY_HOME_DIRNAME)  # 兼容旧版档案
 
 

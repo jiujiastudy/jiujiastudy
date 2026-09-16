@@ -70,7 +70,7 @@ class FakeHome:
             os.makedirs(base, exist_ok=True)
         self.dir = os.path.realpath(tempfile.mkdtemp(prefix=f"stc-{label}-", dir=base or None))
         self.user = os.path.join(self.dir, "user")
-        self.root = os.path.join(self.user, "Desktop", "STCanvas")
+        self.root = os.path.join(self.user, "Desktop", "救驾")
         self.archive = os.path.join(self.root, ".coach")
         self.tmp = os.path.join(self.dir, "tmp")
         for d in (os.path.join(self.user, "Desktop"), self.tmp, os.path.join(self.user, "AppData", "Roaming"),
@@ -271,7 +271,7 @@ def collect_artifacts(home, mask, date):
     if mds:
         text("plan.md", mds[0])
     text("radar_html.txt", os.path.join(R, "Deadline雷达.html"), html=True)
-    text("week_html.txt", os.path.join(R, "STCanvas.html"), html=True)
+    text("week_html.txt", os.path.join(R, "本周清单.html"), html=True)
     text("index.md", os.path.join(A, "INDEX.md"))
     text("log.md", os.path.join(A, "成果日志.md"))
     js("config.json", os.path.join(A, "config.json"))

@@ -1,13 +1,13 @@
 ---
-name: stcanvas
-description: STCanvas 是留学生的 Canvas 学习手帐：盯 deadline、排本周该学什么、按状态给建议。用户提到课程、作业、deadline、考试、Canvas、老师，或说「现在什么情况」「最近要交什么」「这周学什么」「做完了」「没状态 / 累 / 来不及」时使用；第一次用时自己完成设置，只向用户要 Canvas 网址和 token。
+name: jiujia
+description: 救驾（jiujia）是留学生的 Canvas 学习手帐：盯 deadline、排本周该学什么、按状态给建议。用户提到课程、作业、deadline、考试、Canvas、老师，或说「现在什么情况」「最近要交什么」「这周学什么」「做完了」「没状态 / 累 / 来不及」时使用；第一次用时自己完成设置，只向用户要 Canvas 网址和 token。
 ---
 
-# STCanvas
+# 救驾
 
-脚本在本文件同目录的 `tools/coach.py`。宿主给了本文件路径就直接用；没给就依次找 `~/.claude/skills/stcanvas`、`~/.codex/skills/stcanvas`、`~/.agents/skills/stcanvas`。解释器优先用宿主已经提供的 Python；Codex 桌面版先调用 `load_workspace_dependencies` 取得 Python executable，再试 `python3` / `python` / Windows `py -3`。已有任何可用解释器就不安装；全部不可用才征得用户同意安装。下文只写命令名。用用户说话的语言回答，默认中文。
+脚本在本文件同目录的 `tools/coach.py`。宿主给了本文件路径就直接用；没给就依次找 `~/.claude/skills/jiujia`、`~/.codex/skills/jiujia`、`~/.agents/skills/jiujia`。解释器优先用宿主已经提供的 Python；Codex 桌面版先调用 `load_workspace_dependencies` 取得 Python executable，再试 `python3` / `python` / Windows `py -3`。已有任何可用解释器就不安装；全部不可用才征得用户同意安装。下文只写命令名。用用户说话的语言回答，默认中文。
 
-两个地方。**资料夹**给人看：默认桌面的「STCanvas」，`paths` 打印具体路径；根目录是「STCanvas.html」和「Deadline雷达.html」，每门课一个文件夹，里面只有两个子文件夹，「课件」放 Canvas 原件，「产出」放 AI 做的一切。**机器档案**给 AI 用：config.json（学校、时区、课程）、state.json（进度、待确认、心情、手动 deadline）、raw/、plans/、reports/、text/（课件文字稿，默认不提取），在资料夹里的 .coach（老版档案仍兼容 ~/CourseCoach），用户不用管。显示的时间跟着用户电脑的时钟走；deadline 的「今天 / 明天 / 还有 N 天」按课程所在时区数，过没过期按真实时刻算。
+两个地方。**资料夹**给人看：默认桌面的「救驾」，`paths` 打印具体路径；根目录是「本周清单.html」和「Deadline雷达.html」，每门课一个文件夹，里面只有两个子文件夹，「课件」放 Canvas 原件，「产出」放 AI 做的一切。**机器档案**给 AI 用：config.json（学校、时区、课程）、state.json（进度、待确认、心情、手动 deadline）、raw/、plans/、reports/、text/（课件文字稿，默认不提取），在资料夹里的 .coach（老版档案仍兼容 ~/CourseCoach），用户不用管。显示的时间跟着用户电脑的时钟走；deadline 的「今天 / 明天 / 还有 N 天」按课程所在时区数，过没过期按真实时刻算。
 
 ## 主次
 第一优先永远是准确的 deadline 和这周的清单。课件只排队、后台补，任何时候都不让用户等下载。
