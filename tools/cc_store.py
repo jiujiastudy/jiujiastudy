@@ -1,6 +1,7 @@
-"""档案读写：读 JSON、原子写 JSON、点号键、命令行的 JSON 参数、跨进程文件锁。不含业务逻辑。"""
+"""档案读写：读 JSON、原子写 JSON 和文本、点号键、命令行的 JSON 参数、跨进程文件锁。不含业务逻辑。"""
 import json
 import os
+import shutil
 import sys
 import tempfile
 import time
@@ -34,6 +35,43 @@ def jsave(p, obj):
                 if attempt == 4:
                     raise
                 time.sleep(0.02 * (2 ** attempt))
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
+
+
+def _replace_retry(tmp, p):
+    # Windows 上杀毒软件或另一个进程刚打开过目标文件时，os.replace 会短暂失败。
+    for attempt in range(5):
+        try:
+            os.replace(tmp, p)
+            return
+        except PermissionError:
+            if attempt == 4:
+                raise
+            time.sleep(0.02 * (2 ** attempt))
+
+
+def save_text(p, text, keep_backup=True):
+    """原子写文本文件；覆盖已有文件前留一份 <文件名>.bak（只保留最近一次）。
+
+    页面（周报、雷达、复习包）以前是直接截断重写，一次重新生成就把上一版盖掉、找不回来。
+    """
+    d = os.path.dirname(p) or "."
+    os.makedirs(d, exist_ok=True)
+    if keep_backup and os.path.exists(p):
+        try:
+            shutil.copy2(p, p + ".bak")
+        except OSError:
+            pass
+    fd, tmp = tempfile.mkstemp(prefix=".tmp-", suffix=os.path.splitext(p)[1] or ".txt", dir=d)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(text)
+        _replace_retry(tmp, p)
     except BaseException:
         try:
             os.unlink(tmp)

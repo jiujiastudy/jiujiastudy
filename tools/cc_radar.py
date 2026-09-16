@@ -8,6 +8,7 @@ import cc_state
 from cc_collect import latest_digest, load_snapshot
 from cc_deadlines import deadline_rows, exam_today, plan_today, unresolved_pending
 from cc_downloads import load_downloads
+from cc_store import save_text
 from cc_time import parse_ts
 from htmlkit import esc, link, rich
 from design import foot, head, status as status_html, tag
@@ -220,10 +221,8 @@ def write(ctx, rs, today, ev=None):
         new = "\n".join(lines[:k] + ["", block, ""] + lines[k:]) + "\n"
     else:
         new = f"# DDL雷达\n\n{block}\n"
-    with open(md_path, "w", encoding="utf-8") as f:
-        f.write(new)
-    with open(html_path, "w", encoding="utf-8") as f:
-        f.write(to_html(ctx, rs, today, ev))
+    save_text(md_path, new)
+    save_text(html_path, to_html(ctx, rs, today, ev))
     normal, undated, overdue = split(rs)
     cc_record.record_product(ctx, "DDL雷达.md", f"📦 已更新 · 14 天内 {len(normal)} 条", log=f"DDL雷达更新：14 天内 {len(normal)} 条，待确认 {len(undated)} 条，已过期未交 {len(overdue)} 条")
     return [md_path, html_path]

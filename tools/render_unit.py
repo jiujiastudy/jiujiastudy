@@ -17,6 +17,7 @@ import glob, io, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from htmlkit import esc, rich  # noqa: E402
+from cc_store import save_text  # noqa: E402
 from cc_time import WD, parse_date  # noqa: E402
 from design import FONTS as _DFONTS, TOKENS as _TOKENS  # noqa: E402
 
@@ -643,5 +644,5 @@ if __name__ == "__main__":
         out = render_vocab(src)
     else:
         out = render_mock(src, int(sys.argv[4]) if len(sys.argv) > 4 else 25)
-    io.open(dst, "w", encoding="utf-8").write(out)
+    save_text(dst, out)
     print("written", dst)

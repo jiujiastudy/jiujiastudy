@@ -13,6 +13,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import brand  # noqa: E402
 from cc_paths import WEEK_PAGE  # noqa: E402
+from cc_store import save_text  # noqa: E402
 from design import foot, head, status, tag  # noqa: E402
 from htmlkit import esc, link, rich  # noqa: E402
 
@@ -345,6 +346,11 @@ def publish(ctx, html_path):
     try:
         os.makedirs(ctx.root, exist_ok=True)
         dst = os.path.join(ctx.root, WEEK_PAGE)
+        if os.path.exists(dst):  # 人看的那份被覆盖前留一份
+            try:
+                shutil.copy2(dst, dst + ".bak")
+            except OSError:
+                pass
         shutil.copy2(html_path, dst)
         return dst
     except OSError:
@@ -370,12 +376,10 @@ def write(src, html_out=None, md_out=None, week_no=None, generated=None, force_m
     html_out = html_out or os.path.join(os.path.dirname(plans_dir), "reports", f"周报_{base}.html")
     md_out = md_out or os.path.join(plans_dir, f"{base}.md")
     os.makedirs(os.path.dirname(html_out), exist_ok=True)
-    with io.open(html_out, "w", encoding="utf-8") as f:
-        f.write(render(r, week_no))
+    save_text(html_out, render(r, week_no))
     wrote_md = None
     if force_md or md_writable(md_out):
-        with io.open(md_out, "w", encoding="utf-8") as f:
-            f.write(to_markdown(r, week_no, generated))
+        save_text(md_out, to_markdown(r, week_no, generated))
         wrote_md = md_out
     return {"html": html_out, "md": wrote_md, "md_skipped": None if wrote_md else md_out, "week_no": week_no}
 
