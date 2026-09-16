@@ -13,6 +13,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import brand  # noqa: E402
 import cc_asks  # noqa: E402
+import cc_author  # noqa: E402
 from cc_paths import WEEK_PAGE  # noqa: E402
 from cc_store import save_text  # noqa: E402
 from design import foot, head, status, tag  # noqa: E402
@@ -148,7 +149,8 @@ def render(r, week_no=None, n_courses=None):
     days = r.get("days") or []
     gen = r.get("generated") or ""
     name = f"第 {week_no} 周" if week_no else (r.get("title") or "本周")
-    o = [head(f"{brand.NAME} · {name}", r.get("week", "week"), app=brand.SLUG)]
+    accs = cc_author.accounts()
+    o = [head(f"{brand.NAME} · {name}", r.get("week", "week"), app=brand.SLUG, extra_css=cc_author.css(accs))]
 
     # ---- 页头：周次、时间范围、数据截至、口号、进度
     rng = re.sub(r"\s*周[一二三四五六日]", "", re.sub(r"\s*·\s*\d+\s*门课\s*$", "", r.get("range") or ""))
@@ -274,8 +276,10 @@ def render(r, week_no=None, n_courses=None):
         o.append("</div></section>")
     o.append('<section class="end"><details class="fold"><summary>资料来源</summary><ul class="plain">'
              + "".join(f"<li>{esc(s.get('label'))}：{rich(s.get('ref'))}</li>" for s in r.get("sources") or [])
-             + "<li>标了待确认的，以 Canvas、课表和老师的答复为准。</li></ul></details></section>")
+             + "<li>标了待确认的，以 Canvas、课表和老师的答复为准。</li></ul></details>"
+             + cc_author.feedback_html(accs) + "</section>")
     o.append('<div class="toast" data-toast hidden><span></span><button type="button">复制</button></div>')
+    o.append(cc_author.footer_html(accs))
     return "\n".join(o) + foot()
 
 

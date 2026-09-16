@@ -252,6 +252,18 @@ CORE_JS = r"""
   });
   update();
 
+  // 作者脚注：隐藏偏好按浏览器存一份，所有周报共用（换电脑或清了浏览器数据就恢复显示）
+  var PKEY = (body.getAttribute('data-app') || 'coach') + ':prefs', prefs = {};
+  try { prefs = JSON.parse(localStorage.getItem(PKEY) || '{}') || {}; } catch (e) { prefs = {}; }
+  function author(hide) {
+    prefs.hideAuthor = !!hide;
+    try { localStorage.setItem(PKEY, JSON.stringify(prefs)); } catch (e) {}
+    all('[data-author]').forEach(function (el) { el.hidden = !!hide; });
+  }
+  if (prefs.hideAuthor) { author(true); }
+  all('[data-hide-author]').forEach(function (b) { b.addEventListener('click', function () { author(true); }); });
+  all('[data-show-author]').forEach(function (b) { b.addEventListener('click', function () { author(false); }); });
+
   // 深浅：打开页面时看电脑的钟，19:00 到 6:00 深色；右上角按钮临时切换，不记忆
   function auto(h) { h = (h == null) ? new Date().getHours() : h; return (h >= 19 || h < 6) ? 'dark' : 'light'; }
   var tb = d.createElement('button'); tb.type = 'button'; tb.className = 'theme';
