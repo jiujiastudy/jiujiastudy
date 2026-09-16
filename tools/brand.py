@@ -4,18 +4,18 @@
 """
 import os
 
-NAME = "救驾"                        # 给人看的名字：桌面资料夹、页面标题、确认窗口
-SLUG = "jiujia"                      # 小写：skills 下的文件夹名、~/.config 子目录、User-Agent、页面存储键
-ENV_PREFIX = "JIUJIA"                # 环境变量前缀：JIUJIA_HOME、JIUJIA_ROOT、JIUJIA_NO_DIALOG …
+NAME = "救驾"                  # 给人看的名字：桌面资料夹、页面标题、确认窗口
+SLUG = "jiujiastudy"          # 小写：skills 下的文件夹名、~/.config 子目录、User-Agent、页面存储键
+ENV_PREFIX = "JIUJIASTUDY"    # 环境变量前缀：JIUJIASTUDY_HOME、JIUJIASTUDY_ROOT、JIUJIASTUDY_NO_DIALOG …
 KEYCHAIN_SERVICE = SLUG + "-canvas"  # macOS 钥匙串里存 token 的服务名
 VERSION = "0.1.0"
 
-LEGACY_ENV_PREFIXES = ("STCANVAS", "COURSECOACH")  # 旧版环境变量前缀：仍然读
+LEGACY_ENV_PREFIXES = ("JIUJIA", "STCANVAS", "COURSECOACH")  # 旧版环境变量前缀：仍然读
 LEGACY_HOME_DIRNAME = "CourseCoach"     # 旧版机器档案 ~/CourseCoach：仍然认
 
 
 def env_name(key):
-    """当前的环境变量名，如 env_name("HOME") → JIUJIA_HOME。给提示文字用。"""
+    """当前的环境变量名，如 env_name("HOME") → JIUJIASTUDY_HOME。给提示文字用。"""
     return f"{ENV_PREFIX}_{key}"
 
 

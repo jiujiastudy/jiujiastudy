@@ -21,7 +21,7 @@
 读 Chrome / Edge / Brave / Firefox / Safari 的历史和书签：先复制到临时目录再只读打开，SQL 只取网址和访问次数；匹配 `*.instructure.com`、域名含 canvas 整词、路径 /login/canvas、/courses/数字；候选按访问次数排序，全程不带 token（Canvas 对 /api/v1/users/self 回 401，用这个判断像不像）；**token 只发给用户确认过的那一个地址**，确认后跑 `doctor --host 网址` 才写 HOME/site.json，临时副本删除。**不读网页标题，不保留任何网址。** Safari 的记录要系统的「完全磁盘访问」，读不了就直接要网址，不去申请权限。`--dry-run` 只列会读哪些文件。
 
 ## token 放哪（都不用重启）
-读取顺序：环境变量 CANVAS_TOKEN → Windows 用户级注册表 → Mac 钥匙串（jiujia-canvas）→ ~/.config/jiujia/token。
+读取顺序：环境变量 CANVAS_TOKEN → Windows 用户级注册表 → Mac 钥匙串（jiujiastudy-canvas）→ ~/.config/jiujiastudy/token。
 - Windows：`doctor --env-dialog` 弹「环境变量」窗口，用户变量 → 新建 → CANVAS_TOKEN → 值粘 token → 确定两次。
 - Mac：`doctor --env-dialog` 打开终端，已在等输入（security add-generic-password），粘贴回车两次。
 - 别在 Claude 的终端里 setx：写进的是隔离副本，用户电脑读不到，还留在历史里。

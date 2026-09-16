@@ -1,6 +1,6 @@
-"""照搬安装：学生跟 AI 说一句「帮我安装 jiujia」，AI 把仓库放进 skills 文件夹之后，能不能直接用。
+"""照搬安装：学生跟 AI 说一句「帮我安装 jiujiastudy」，AI 把仓库放进 skills 文件夹之后，能不能直接用。
 
-这条路以前只在文档里写着，没跑过。这里整份仓库复制进假的 ~/.claude/skills/jiujia，
+这条路以前只在文档里写着，没跑过。这里整份仓库复制进假的 ~/.claude/skills/jiujiastudy，
 再从那个位置一路走到第一份雷达和本周清单——中间只有「粘 token」是人做的，其余都不该要人动手。
 """
 import os
@@ -29,7 +29,7 @@ class InstallRehearsal(unittest.TestCase):
     def setUp(self):
         self.home = harness.FakeHome("install")
         # AI 会做的那一步：把仓库整个放进宿主找得到的位置
-        self.skill = os.path.join(self.home.user, ".claude", "skills", "jiujia")
+        self.skill = os.path.join(self.home.user, ".claude", "skills", "jiujiastudy")
         shutil.copytree(CODE, self.skill, ignore=SKIP)
         self.tools = os.path.join(self.skill, "tools")
 
@@ -58,7 +58,7 @@ class InstallRehearsal(unittest.TestCase):
         self.assertEqual(0, r.code, res.get("text"))
         self.assertIs(True, res["ready"])
         self.assertIn(("OK", "skill 位置"), {(c["level"], c["name"]) for c in res["checks"]},
-                      "装在 ~/.claude/skills/jiujia 就该判定位置正确")
+                      "装在 ~/.claude/skills/jiujiastudy 就该判定位置正确")
 
         for args in (("collect", "--touch", "--json"), ("radar", "--write", "--json"), ("study", "--write", "--json")):
             with self.subTest(cmd=args[0]):

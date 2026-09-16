@@ -70,16 +70,16 @@ class DoctorExitCodeTest(unittest.TestCase):
 
 class SkillLocationTest(unittest.TestCase):
     CASES = {  # folder holding SKILL.md, relative to a fake home -> a host finds it
-        ".claude/skills/jiujia": True,
-        ".agents/skills/jiujia": True,
-        ".codex/skills/jiujia": True,
-        "repo/.claude/skills/jiujia": True,        # project skill (Claude Code)
-        "repo/.agents/skills/jiujia": True,        # project skill (Codex)
-        "codexhome/skills/jiujia": True,           # $CODEX_HOME/skills
-        "plugin/skills/jiujia": True,              # plugin skill; plugin/.claude-plugin/plugin.json exists
-        ".claude/skills/jiujia-main/jiujia": False,  # unzipped one folder too deep
-        "Downloads/jiujia": False,
-        "notes/skills/jiujia": False,              # a folder called skills that no host reads
+        ".claude/skills/jiujiastudy": True,
+        ".agents/skills/jiujiastudy": True,
+        ".codex/skills/jiujiastudy": True,
+        "repo/.claude/skills/jiujiastudy": True,        # project skill (Claude Code)
+        "repo/.agents/skills/jiujiastudy": True,        # project skill (Codex)
+        "codexhome/skills/jiujiastudy": True,           # $CODEX_HOME/skills
+        "plugin/skills/jiujiastudy": True,              # plugin skill; plugin/.claude-plugin/plugin.json exists
+        ".claude/skills/jiujiastudy-main/jiujiastudy": False,  # unzipped one folder too deep
+        "Downloads/jiujiastudy": False,
+        "notes/skills/jiujiastudy": False,              # a folder called skills that no host reads
         ".claude/skills/empty": False,               # no SKILL.md
     }
 
@@ -91,7 +91,7 @@ class SkillLocationTest(unittest.TestCase):
                 os.makedirs(d)
                 if not rel.endswith("empty"):
                     with open(os.path.join(d, "SKILL.md"), "w", encoding="utf-8") as f:
-                        f.write("---\nname: jiujia\n---\n")
+                        f.write("---\nname: jiujiastudy\n---\n")
             os.makedirs(os.path.join(base, "plugin", ".claude-plugin"))
             with open(os.path.join(base, "plugin", ".claude-plugin", "plugin.json"), "w", encoding="utf-8") as f:
                 f.write('{"name": "p"}\n')

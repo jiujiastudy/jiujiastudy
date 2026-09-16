@@ -6,15 +6,15 @@
 
 跟你的 AI 说一句（把网址换成本仓库的地址）：
 
-> 帮我安装 救驾：https://github.com/&lt;账号&gt;/jiujia
+> 帮我安装 救驾：https://github.com/&lt;账号&gt;/jiujiastudy
 
 只说名字不带网址不可靠：模型不认识新仓库，同名仓库也可能是别人的，而这个技能会拿到你的 Canvas token。请只从上面这个地址安装。
 
 也可以自己放好文件，确认 `SKILL.md` 在这些位置之一：
 
-- Claude Code：`~/.claude/skills/jiujia/SKILL.md`
-- Codex：`~/.agents/skills/jiujia/SKILL.md`（`~/.codex/skills/jiujia/` 也认）
-- 其它读 Agent Skills 的工具：`~/.agents/skills/jiujia/SKILL.md`
+- Claude Code：`~/.claude/skills/jiujiastudy/SKILL.md`
+- Codex：`~/.agents/skills/jiujiastudy/SKILL.md`（`~/.codex/skills/jiujiastudy/` 也认）
+- 其它读 Agent Skills 的工具：`~/.agents/skills/jiujiastudy/SKILL.md`
 
 **装好不用重启**：让 AI 直接读 `SKILL.md`，按里面的「第一次」往下走就行。
 
@@ -47,7 +47,7 @@ Token 只发给你确认过的那一个学校地址。它不会出现在对话�
 
 - 给人看的：桌面「救驾」文件夹——本周清单、Deadline 雷达，每门课一个文件夹（课件放 Canvas 原件，产出放 AI 做的东西）。
 - 给程序用的：同一个文件夹里的隐藏目录 `.coach`（配置、进度、采集到的原始数据）。
-- token：Windows 存在凭据管理器 / 环境变量，macOS 存在钥匙串，Linux 存在 `~/.config/jiujia/token`。
+- token：Windows 存在凭据管理器 / 环境变量，macOS 存在钥匙串，Linux 存在 `~/.config/jiujiastudy/token`。
 - 一切都在你自己的电脑上。这个项目没有服务器，不上传任何东西。你让 AI 读的内容会经过你使用的那家 AI 服务。
 
 ## 卸载
