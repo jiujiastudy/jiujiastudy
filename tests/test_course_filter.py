@@ -52,7 +52,7 @@ class CourseCode(unittest.TestCase):
         self.assertEqual("31251", cc.course_code_of({"course_code": "31251_AUT2026", "id": 2}), "两门课不该互相污染")
 
     def test_正常代码照旧(self):
-        self.assertEqual("MECO6936", cc.course_code_of({"course_code": "MECO6936", "id": 3}))
+        self.assertEqual("PSYC2012", cc.course_code_of({"course_code": "PSYC2012", "id": 3}))
         self.assertEqual("EDUC6010", cc.course_code_of({"course_code": "EDUC 6010", "id": 4}))
 
 
