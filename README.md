@@ -4,7 +4,7 @@
 
 ## 安装
 
-跟你的 AI 说一句（把网址换成本仓库的地址）：
+跟你的 AI 说一句：
 
 > 帮我安装 救驾：https://github.com/sydney-sultan/jiujiastudy
 
