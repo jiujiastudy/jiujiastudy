@@ -24,33 +24,6 @@ BUCKETS = (("上课前要看的", "before_class"), ("要做的练习或小测", 
 STUDY_BUCKETS = (("课前看", "before_class"), ("要做", "todo"))
 WHEN_TAIL = re.compile(r"（(\d{2}-\d{2}) 周.(?:\s*(\d{1,2}:\d{2}))?）\s*$")
 
-# 周报的手帐布局：沿用公共颜色和字号，只调整层次、留白与对齐。
-JOURNAL_CSS = """
-.page{max-width:calc(35em + 2 * var(--s4));line-height:1.7}
-.top h1{font-size:var(--fs-l);font-weight:500}
-.page>section{margin-top:var(--s7)}
-.page>section.hero{margin-top:var(--s6)}
-.card,.card.flush{padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
-.hero h3{font-size:var(--fs-xl);font-weight:600;line-height:1.45;margin-top:var(--s3)}
-.hero h3 .code{display:block;margin-bottom:var(--s2)}
-.hero h3 a{color:var(--ink)}
-.hero .kicker{color:var(--muted)}
-.hero .meta,.hero .sub{margin-top:var(--s3)}
-.status{padding:0;background:transparent;font-size:var(--fs-s)}
-.status b{font-weight:500}
-.today .must{font-size:var(--fs-m);font-weight:500}
-.courses{grid-template-columns:1fr;gap:var(--s7)}
-.course h3{font-weight:500}
-.rows>li{padding:var(--s3) 0}
-.days>li{padding:var(--s4) 0}
-.days .must{font-weight:400}
-.days>li.is-today{background:transparent}
-.days>li.is-today+li{border-top-color:var(--line)}
-.sub{margin-left:0}
-.today details.fold{margin-left:0}
-.scroll,.meta,.d,.rel,.m{font-variant-numeric:tabular-nums}
-.toast,.theme{box-shadow:none}
-"""
 
 
 def cn(n):
@@ -147,7 +120,7 @@ def render(r, week_no=None, n_courses=None):
     days = r.get("days") or []
     gen = r.get("generated") or ""
     name = f"第 {week_no} 周" if week_no else (r.get("title") or "本周")
-    o = [head(f"{brand.NAME} · {name}", r.get("week", "week"), app=brand.SLUG, extra_css=JOURNAL_CSS)]
+    o = [head(f"{brand.NAME} · {name}", r.get("week", "week"), app=brand.SLUG)]
 
     # ---- 页头：周次、时间范围、数据截至、口号、进度
     rng = re.sub(r"\s*周[一二三四五六日]", "", re.sub(r"\s*·\s*\d+\s*门课\s*$", "", r.get("range") or ""))
@@ -178,7 +151,7 @@ def render(r, week_no=None, n_courses=None):
                  + "</section>")
     if hero and not same:
         bits = [x for x in (hero.get("when"), hero.get("why")) if x]
-        o.insert(2, '<section class="card hero"><p class="kicker">本周最要紧</p>'
+        o.append('<section class="card hero"><p class="kicker">本周最要紧</p>'
                  f'<h3><span class="code">{esc(hero.get("course"))}</span> {link(hero.get("url"), hero.get("title"))}</h3>'
                  + (f'<p class="meta num">{esc(" · ".join(bits))}</p>' if bits else "")
                  + (f'<p class="sub">第一步：{rich(hero["first_step"])}</p>' if hero.get("first_step") else "")
