@@ -196,7 +196,7 @@ def render(ctx, date, zh=None, out=None, record=True):
     one = one_thing_of(ctx, today, plan, rows, zh)
     changes = zh.get("changes") if zh.get("changes") is not None else auto_changes(digest, clock, (cfg.get("user") or {}).get("name"))
     pend = unresolved_pending(state)
-    # 只问一次：没问过的、或卡 7 天内 deadline 的才算「问」；其余进停车场，只列不催
+    # 只问一次：没问过的、或卡 7 天内 deadline 的才算「问」；其余进先搁着，只列不催
     def _soon(p):
         b = parse_date(p.get("blocks"))
         return int(p.get("times_asked") or 0) == 0 or (b is not None and (b - today).days <= 7)
@@ -281,7 +281,7 @@ def render(ctx, date, zh=None, out=None, record=True):
     else:
         o.append("<p>今天没有新的要你确认的事。</p>")
     if parked:
-        o.append(f'<details class="more"><summary>停车场（已问过，不催，{len(parked)} 条）</summary><ul>' + "".join(_pend_li(p) for p in parked) + "</ul></details>")
+        o.append(f'<details class="more"><summary>先搁着（已问过，不催，{len(parked)} 条）</summary><ul>' + "".join(_pend_li(p) for p in parked) + "</ul></details>")
 
     ep = cfg.get("exam_prep") or {}
     o.append("<footer><p>依据与出处</p><ul>")

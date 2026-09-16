@@ -208,7 +208,8 @@ def build(ctx, today, week=None, days=14):
                     "minutes": None, "minutes_src": None, "first_step": cc_radar.first_step_for(r), "source": r.get("src"),
                     "when": r["when"], "rel": r["rel"], "due_at": r["t"].isoformat() if r.get("t") else None,
                     "weight": r.get("weight"), "days_left": r.get("days_left"), "pending": r.get("pending"), "status": "📦",
-                    "exam": r.get("kind") == "exam"}
+                    "exam": r.get("kind") == "exam",
+                    "submission_types": r.get("submission_types") or [], "submitted": bool(r.get("submitted"))}
             if url_key := (r.get("url") or r["item"]):
                 if url_key in seen_urls and r.get("url"):
                     for x in todo:
@@ -367,7 +368,7 @@ def schedule_days(ctx, today, monday, courses_out, rows):
         if d.isoformat() in by_date:
             put_must(by_date[d.isoformat()], f"{c['code']} {core['verb']}：{core['title']}（{core['minutes']} 分钟）", core, "思考", "👤",
                      "如果看不进去，只看每页标题和最后一页小结。")
-    # 4. 其余进应做；装不下进停车场
+    # 4. 其余进应做；装不下进先搁着
     parking = []
     for c in courses_out:
         rest = [it for it in c["before_class"] + c["todo"] if it["id"] not in placed]
@@ -408,7 +409,7 @@ def last_week_review(ctx, monday):
         return ""
     txt = f"上周 {len(musts)} 件必做完成 {done} 件。"
     if left:
-        txt += "没完成的：" + "；".join((d.get("must") or "")[:30] for d in left[:3]) + "。挪到本周还是放停车场？说一句就行，不说就放停车场。"
+        txt += "没完成的：" + "；".join((d.get("must") or "")[:30] for d in left[:3]) + "。挪到本周还是先搁着？说一句就行，不说就先搁着。"
     return txt
 
 

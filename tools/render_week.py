@@ -12,6 +12,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import brand  # noqa: E402
+import cc_asks  # noqa: E402
 from cc_paths import WEEK_PAGE  # noqa: E402
 from cc_store import save_text  # noqa: E402
 from design import foot, head, status, tag  # noqa: E402
@@ -112,6 +113,33 @@ def _dl_row(x):
             f'<span class="m num">{esc(meta)}</span></li>')
 
 
+def _asks(asks):
+    """可以让我做的：前几条露出，其余折起来。点一下就复制（design.CORE_JS 里认 [data-copy]）。
+
+    用 esc 不用 rich：这句话是要被原样复制去跟 AI 说的，不能被自动加链接或加粗弄脏。
+    """
+    def li(a):
+        s = esc(a["text"])
+        return f'<li><button type="button" data-copy="{s}">{s}</button></li>'
+
+    top, rest = asks[:cc_asks.SHOW], asks[cc_asks.SHOW:]
+    return ('<section class="card asks"><p class="kicker">可以让我做的</p><ul>'
+            + "".join(li(a) for a in top) + "</ul>"
+            + (f'<details class="fold"><summary>还有 {len(rest)} 条</summary><ul>'
+               + "".join(li(a) for a in rest) + "</ul></details>" if rest else "")
+            + "</section>")
+
+
+def _parked(r):
+    """先搁着：上周复盘（带这份计划的生成日期）排在前，然后是这周排不下、只列不催的条目。
+
+    在渲染层合，不在 cc_study 里合：那边 plan["parking"] = plan.get("parking") or … 的 or
+    会让塞进去的复盘把排不下的条目整个顶掉，而 --zh 覆盖层又会把两个键各自整体替换。
+    """
+    first = [{"date": r.get("generated") or "", "text": r["review"]}] if r.get("review") else []
+    return first + list(r.get("parking") or [])
+
+
 def render(r, week_no=None, n_courses=None):
     st = r.get("study") or {}
     courses = st.get("courses") or []
@@ -130,6 +158,9 @@ def render(r, week_no=None, n_courses=None):
              + ('<div class="progress" data-progress><div class="bar"><div class="fill"></div></div><span class="ptxt"></span></div>' if courses else "")
              + "</header>")
     o.append(status(r.get("state")))
+    asks = cc_asks.suggest(r)
+    if asks:  # 挑不出东西就整块不出现，不留空壳
+        o.append(_asks(asks))
 
     # ---- 今天 + 本周最要紧（是同一件事就只出现一次）
     tops = r.get("top") or []
@@ -228,10 +259,11 @@ def render(r, week_no=None, n_courses=None):
         o.append("</div></section>")
 
     # ---- 很少出现的几块
-    if r.get("parking"):
-        o.append('<section><h2>停车场</h2><ul class="plain">'
+    parked = _parked(r)
+    if parked:
+        o.append('<section><h2>先搁着</h2><ul class="plain">'
                  + "".join(f"<li>{esc(p.get('date') or '') if isinstance(p, dict) else ''} {rich(p.get('text') if isinstance(p, dict) else str(p))}</li>"
-                           for p in r["parking"]) + "</ul></section>")
+                           for p in parked) + "</ul></section>")
     if r.get("courses"):  # 旧版手写周报的每门课
         o.append('<section><h2>每门课</h2><div class="courses">')
         for c in r["courses"]:
@@ -240,8 +272,6 @@ def render(r, week_no=None, n_courses=None):
                      + '<ul class="plain">' + "".join(f"<li>{rich(x)}</li>" for x in (c.get("items") or []) + (c.get("notes") or [])) + "</ul>"
                      + "".join(f'<p class="sub meta">{tag("待确认", "warn")}{esc(x)}</p>' for x in c.get("confirm") or []) + "</article>")
         o.append("</div></section>")
-    if r.get("review"):
-        o.append(f'<section><h2>回我一句</h2><p>{rich(r["review"])}</p></section>')
     o.append('<section class="end"><details class="fold"><summary>资料来源</summary><ul class="plain">'
              + "".join(f"<li>{esc(s.get('label'))}：{rich(s.get('ref'))}</li>" for s in r.get("sources") or [])
              + "<li>标了待确认的，以 Canvas、课表和老师的答复为准。</li></ul></details></section>")
@@ -305,16 +335,15 @@ def to_markdown(r, week_no=None, generated=None):
             should = (should + "；" if should else "") + d["revise"]
         L.append(f"| {(d.get('date') or '')[5:]} {d.get('weekday', '')} | {must} | {should} | {d.get('status') or '📦'} |")
     L.append("")
-    if r.get("parking"):
-        L += ["## 停车场（有日期）"] + [f"- {p.get('date') or ''} {p.get('text') if isinstance(p, dict) else p}" for p in r["parking"]] + [""]
+    parked = _parked(r)
+    if parked:
+        L += ["## 先搁着（有日期）"] + [f"- {p.get('date') or ''} {p.get('text') if isinstance(p, dict) else p}" for p in parked] + [""]
     if r.get("deadlines"):
         L += ["## 未来两周的 deadline", "", "| 时间 | 课 | 事项 | 权重 | 状态 |", "|---|---|---|---|---|"]
         L += [f"| {x.get('when')}{'，' + x['rel'] if x.get('rel') else ''} | {x.get('course')} | {x.get('item')}{'（待确认）' if x.get('pending') else ''} | {x.get('weight')} | {x.get('status')} |" for x in r["deadlines"]]
         L.append("")
         if r.get("clash"):
             L += [f"⚠️ {r['clash']}", ""]
-    if r.get("review"):
-        L += ["## 回我一句", "", r["review"], ""]
     if r.get("state"):
         ev = r["state"]
         L += [f"状态：{ev.get('label')}（{'；'.join(ev.get('signals') or []) or '没有异常信号'}）。建议：{ev.get('advice')}", ""]

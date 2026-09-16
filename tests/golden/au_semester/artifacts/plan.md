@@ -72,7 +72,7 @@
 | 03-28 周六 | DSGN3402 Prototype critique (15%)（03-30 周一 09:00（悉尼）= 06:00（北京））（第一步：打开作业页，看字数和格式要求。；如果今天做不完，明天第一件事继续，不排别的。；👤） | PSYC2012 读：Week 5 tutorial prep（20 分钟）；PSYC2012 看视频：Week 5 lecture recording（45 分钟） | 📦 |
 | 03-29 周日 | DSGN3402 Studio pitch (in class)（03-31 周二 课上）（第一步：打开作业页或课程公告，确认时间、地点和要交什么。；如果今天做不完，明天第一件事继续，不排别的。；👤） | 复习 PSYC2012：过一周的课件（Mid-semester test (20%) 还有 7 天）；PSYC2012 发帖：Week 5 discussion post（30 分钟）；周日：回我「做完了」，我记进度、排下周。 | 📦 |
 
-## 停车场（有日期）
+## 先搁着（有日期）
 - 2026-03-29 DSGN3402 读：W5 studio notes（20 分钟）
 - 2026-03-29 DSGN3402 看课件：W5_Studio_Toolkit.pdf（40 分钟）
 - 2026-03-29 DSGN3402 交：Prototype critique (15%)（90 分钟）

@@ -288,7 +288,11 @@
        "days_left": 1,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "online_upload"
+       ],
+       "submitted": true
       },
       {
        "id": "2102-6",
@@ -310,7 +314,11 @@
        "days_left": 8,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "online_upload"
+       ],
+       "submitted": false
       }
      ],
      "notes": [
@@ -389,7 +397,11 @@
        "days_left": -5,
        "pending": false,
        "status": "📦",
-       "exam": true
+       "exam": true,
+       "submission_types": [
+        "online_quiz"
+       ],
+       "submitted": false
       },
       {
        "id": "2031-4",
@@ -411,7 +423,11 @@
        "days_left": 2,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "online_upload"
+       ],
+       "submitted": false
       },
       {
        "id": "2031-5",
@@ -433,7 +449,11 @@
        "days_left": null,
        "pending": true,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "none"
+       ],
+       "submitted": false
       }
      ],
      "notes": [
@@ -516,7 +536,11 @@
        "days_left": 1,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "online_upload"
+       ],
+       "submitted": false
       },
       {
        "id": "1113-4",
@@ -538,7 +562,11 @@
        "days_left": 6,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "on_paper"
+       ],
+       "submitted": false
       },
       {
        "id": "1113-5",
@@ -560,7 +588,11 @@
        "days_left": null,
        "pending": true,
        "status": "📦",
-       "exam": true
+       "exam": true,
+       "submission_types": [
+        "on_paper"
+       ],
+       "submitted": false
       }
      ],
      "notes": [

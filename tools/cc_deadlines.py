@@ -11,6 +11,7 @@ from cc_store import jload
 from cc_time import norm_hhmm, parse_date, parse_ts, text_datetimes
 
 EXAM_RE = re.compile(r"(?i)\b(exam|test|quiz|midterm|final)\b|考试|测验|小测")
+SUBMITTED = ("submitted", "graded", "pending_review")  # Canvas 认这三种叫交了
 def _ann_texts(ctx, days=120):
     """公告全文索引：{课程代码: [(发布时间, 标题, 链接, 正文), ...]}，新的在前。
 
@@ -218,7 +219,7 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
             manual_aids.add(str(m["assignment_id"]))
     rows = []
 
-    def base(a, aid):
+    def base(a, aid):  # noqa: C901
         name = a.get("name") or ""
         w = a.get("weight")
         if not w or w == "—":
@@ -227,7 +228,8 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
         return {"id": aid, "course": a["course"], "item": name, "url": a.get("html_url"), "weight": w,
                 "status": status_text(a, clock), "note": notes.get(str(aid), ""), "origin": "canvas",
                 "kind": "exam" if (a.get("is_quiz") or EXAM_RE.search(name)) else "assignment",
-                "submission_types": a.get("submission_types") or [], "overdue": False, "undated": False}
+                "submission_types": a.get("submission_types") or [], "overdue": False, "undated": False,
+                "submitted": a.get("sub_state") in SUBMITTED}
 
     for aid, a in ((snap or {}).get("assignments") or {}).items():
         if str(aid) in manual_aids:
@@ -237,7 +239,7 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
         due = parse_ts(a.get("due_at")) or (parse_ts(a.get("lock_at")) if via_lock else None)
         graded = (a.get("points") or 0) > 0
         counts = graded or bool(a.get("is_quiz")) or bool(EXAM_RE.search(name)) or bool(re.search(r"\d+\s*%", name))
-        unsub = a.get("sub_state") not in ("submitted", "graded", "pending_review")
+        unsub = a.get("sub_state") not in SUBMITTED
         noted = notes.get(str(aid))
         if due:
             d = clock.course_date(due)

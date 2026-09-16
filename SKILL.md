@@ -16,7 +16,7 @@ description: 救驾（jiujia）是留学生的 Canvas 学习手帐：盯 deadlin
 1. 每句结论带出处（作业页、公告、模块、用户说过的话）；推断加 ⚠️。判断说「大概率」，不说「一定」。
 2. 只在两种时候开口：用户来问；现在不说就来不及。答完最多续一句下一步。
 3. 每次交付末尾一句状态评估加建议：直接用 `status` / `radar` / `study` / `record done` / `record mood` 打印的那句，可以换成用户的口吻，不加新判断（细则 references/state.md）。
-4. 待确认的事只问一次，之后进停车场；用户定过的事（state.decisions）不再提。
+4. 待确认的事只问一次，之后进先搁着；用户定过的事（state.decisions）不再提。
 5. 往 Canvas 发帖、发站内信、交作业：先不带 `--confirmed` 跑 `api post` / `api upload` 拿预览，原样给用户看；用户说「发」再加 `--confirmed`，脚本会弹系统确认窗口，用户本人点「确定」才真的发。窗口弹不出就不发，把链接给用户自己交。
 6. 出 deadline 清单、周报、雷达之前一律 `collect --force` 重新核对 Canvas（不吃 10 分钟缓存），哪怕几分钟前刚采过。脚本打印了采集错误或「没采到」的课，就照它的原话点名说哪门课、数据是几点的，再给清单；不许默默拿旧快照当最新的。每份清单末尾写一句数据截至时间。给别人看的清单同样照这条做。
 
@@ -31,7 +31,7 @@ description: 救驾（jiujia）是留学生的 Canvas 学习手帐：盯 deadlin
 | 任何话（会话开始） | `status`；要看 Canvas 数据先 `collect --touch`（10 分钟内采过它会直接用上次的）；status 说有课件待下载就 `collect --download --background`，不等它 | — |
 | 「现在什么情况」 | `status` 一屏：今天必做、每门课下一条、状态一句 | — |
 | 「最近要交什么」 | `collect --touch` → `radar --write`；复述每门课下一条、最急一条和第一步、撞车、待确认里今天要定的；不整表贴 | radar.md |
-| 「这周学什么」「这周干什么」「周报」 | `collect --force --touch` → `study --write --zh plans/<周>.zh.json`（覆盖层在就必须带上，不带等于把上课时间、tutor、最要紧那几件、停车场、复盘全丢掉）；覆盖层没有就先写一个再跑：脚本查不到的东西（上课时间和教室、tutor、为什么这件最要紧、要定的事、复盘）写进覆盖层，条目和日期交给脚本 | study.md |
+| 「这周学什么」「这周干什么」「周报」 | `collect --force --touch` → `study --write --zh plans/<周>.zh.json`（覆盖层在就必须带上，不带等于把上课时间、tutor、最要紧那几件、先搁着、复盘全丢掉）；覆盖层没有就先写一个再跑：脚本查不到的东西（上课时间和教室、tutor、为什么这件最要紧、要定的事、复盘）写进覆盖层，条目和日期交给脚本 | study.md |
 | 「做完了」「做完了 2001-2」「✓ 09-16」「2001 看完了」 | `record done <目标>`，回它打印的「✅ …，明天：…」和状态一句 | study.md |
 | 「没状态」「累」「来不及」「病了」 | `record mood <词>`，按它返回的建议说，别追问 | state.md |
 | 「这个日期只是占位」「老师说 X 号交」「公告说考试在 X」 | `record note <作业id> "…"`（Canvas 日期不算数，不再算过期）/ `record deadline "事项" --course 课 --due 日期 --time 时刻 --weight 权重 --url 作业链接`（进雷达；`--due` 认 2026-09-20 / 09-20，`--time` 认 23:59 / 4pm，认不出当场退回；`--list` 看、`--remove 序号` 删） | radar.md |

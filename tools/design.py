@@ -65,7 +65,14 @@ ul,ol{padding:0;list-style:none}
 .status.is-bad{background:var(--bad-soft)}.status.is-bad b{color:var(--bad)}
 
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:var(--s4) var(--s5)}
-.card.today,.card.hero{margin-top:var(--s3)}
+.card.today,.card.hero,.card.asks{margin-top:var(--s3)}
+.asks li{border-top:1px solid var(--line)}
+.asks li:first-child{border-top:0}
+.asks button{display:block;width:100%;padding:var(--s2) 0;border:0;background:none;color:var(--ink);font:400 var(--fs-m)/1.6 var(--font);text-align:left;cursor:pointer}
+.asks button:hover{color:var(--accent)}
+.asks button[data-copied]{color:var(--good)}
+.asks button[data-copied]::after{content:"已复制";margin-left:var(--s2);font-size:var(--fs-s)}
+.asks details.fold{margin-top:var(--s2)}
 .card.flush{padding:var(--s1) var(--s4)}
 .hero{border-color:var(--accent)}
 .hero .kicker{color:var(--accent)}
@@ -222,13 +229,27 @@ CORE_JS = r"""
       mark(b, true); update();
     });
   });
+  // 复制：剪贴板不让用就退回一个能自己选中的框。底部提示条和卡片里的建议共用这一份
+  function copy(t) {
+    var pr = navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(t) : Promise.reject();
+    return pr.then(function () { return true; }, function () { window.prompt('复制这句回我：', t); return false; });
+  }
   if (toast) {
     toast.querySelector('button').addEventListener('click', function () {
-      var t = toast.querySelector('span').textContent, btn = this;
-      var pr = navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(t) : Promise.reject();
-      pr.then(function () { btn.textContent = '已复制，粘到对话里'; }, function () { window.prompt('复制这句回我：', t); });
+      var btn = this;
+      copy(toast.querySelector('span').textContent).then(function (ok) { if (ok) { btn.textContent = '已复制，粘到对话里'; } });
     });
   }
+  // 页面上任何 [data-copy]：点一下就把那句话复制走
+  d.addEventListener('click', function (e) {
+    var el = e.target && e.target.closest ? e.target.closest('[data-copy]') : null;
+    if (!el) { return; }
+    copy(el.getAttribute('data-copy') || el.textContent).then(function (ok) {
+      if (!ok) { return; }
+      el.setAttribute('data-copied', '1');
+      setTimeout(function () { el.removeAttribute('data-copied'); }, 1600);
+    });
+  });
   update();
 
   // 深浅：打开页面时看电脑的钟，19:00 到 6:00 深色；右上角按钮临时切换，不记忆

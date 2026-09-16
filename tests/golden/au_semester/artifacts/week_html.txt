@@ -4,6 +4,14 @@
 把 deadline 交给机器，把凌晨三点还给自己。
 状态：过载只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 23:59（悉尼）= 20:59（北京），已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。
 7 天内到期的作业合计 60% 还没交；72 小时内有 3 条 deadline；有 1 项已过期未交（ACCT1101 Weekly Quiz 4）
+可以让我做的
+ACCT1101 Weekly Quiz 5，还有 2 天，出一套 10 道的模拟小测，带中文解析。
+PSYC2012 Lab Report (25%)，明天截止，先给我三个角度和一份提纲，正文我自己写。
+我这周排不开，帮我重排本周清单，只留必做的，按权重排。
+还有 3 条
+PSYC2012 Week 5 discussion post，还有 2 天，给我两个能接住别人的角度，正文我自己写。
+PSYC2012 Mid-semester test (20%)，还有 7 天，帮我做个复习包，复习计划和模拟小测都要。
+DSGN3402 Prototype critique (15%)，还有 5 天，先给我三个角度和一份提纲，正文我自己写。
 今天 · 03-25 周三 · 也是本周最要紧的一件
 PSYC2012 Lab Report (25%)（03-26 周四 17:00（悉尼）= 14:00（北京））
 第一步：打开作业页，看文件格式和命名要求。
@@ -88,7 +96,7 @@ W5 Studio: Prototyping
 交Prototype critique (15%) [<CANVAS>/courses/1103/modules/items/11030012]90 分钟
 公告 1 条
 03-20 周五 11:30（悉尼）= 08:30（北京） Studio room change for Week 6 [<CANVAS>/courses/1103/discussion_topics/90004]
-停车场
+先搁着
 2026-03-29 DSGN3402 读：W5 studio notes（20 分钟）
 2026-03-29 DSGN3402 看课件：W5_Studio_Toolkit.pdf（40 分钟）
 2026-03-29 DSGN3402 交：Prototype critique (15%)（90 分钟）

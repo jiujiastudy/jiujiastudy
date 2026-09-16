@@ -290,7 +290,11 @@
        "days_left": 1,
        "pending": false,
        "status": "📦",
-       "exam": true
+       "exam": true,
+       "submission_types": [
+        "online_quiz"
+       ],
+       "submitted": false
       },
       {
        "id": "1205-6",
@@ -312,7 +316,11 @@
        "days_left": 2,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "online_upload"
+       ],
+       "submitted": false
       },
       {
        "id": "1205-7",
@@ -334,7 +342,11 @@
        "days_left": null,
        "pending": true,
        "status": "📦",
-       "exam": true
+       "exam": true,
+       "submission_types": [
+        "on_paper"
+       ],
+       "submitted": false
       }
      ],
      "notes": [
@@ -434,7 +446,11 @@
        "days_left": -3,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "online_upload"
+       ],
+       "submitted": false
       },
       {
        "id": "3-5",
@@ -456,7 +472,11 @@
        "days_left": 4,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "online_text_entry"
+       ],
+       "submitted": false
       },
       {
        "id": "3-6",
@@ -478,7 +498,11 @@
        "days_left": null,
        "pending": true,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "on_paper"
+       ],
+       "submitted": false
       }
      ],
      "notes": [
@@ -575,7 +599,11 @@
        "days_left": 6,
        "pending": false,
        "status": "📦",
-       "exam": true
+       "exam": true,
+       "submission_types": [
+        "online_quiz"
+       ],
+       "submitted": false
       }
      ],
      "notes": [

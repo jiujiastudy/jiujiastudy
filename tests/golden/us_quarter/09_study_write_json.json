@@ -211,7 +211,11 @@
        "days_left": 1,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "external_tool"
+       ],
+       "submitted": false
       },
       {
        "id": "TH3B-2",
@@ -233,7 +237,11 @@
        "days_left": 7,
        "pending": false,
        "status": "📦",
-       "exam": true
+       "exam": true,
+       "submission_types": [
+        "on_paper"
+       ],
+       "submitted": false
       },
       {
        "id": "TH3B-3",
@@ -255,7 +263,11 @@
        "days_left": 8,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "external_tool"
+       ],
+       "submitted": false
       },
       {
        "id": "TH3B-4",
@@ -277,7 +289,11 @@
        "days_left": null,
        "pending": true,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "none"
+       ],
+       "submitted": false
       }
      ],
      "notes": [
@@ -360,7 +376,11 @@
        "days_left": 2,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "online_upload"
+       ],
+       "submitted": false
       },
       {
        "id": "EM1A-4",
@@ -382,7 +402,11 @@
        "days_left": 5,
        "pending": false,
        "status": "📦",
-       "exam": true
+       "exam": true,
+       "submission_types": [
+        "online_quiz"
+       ],
+       "submitted": false
       }
      ],
      "notes": [
@@ -430,7 +454,11 @@
        "days_left": 2,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "discussion_topic"
+       ],
+       "submitted": false
       },
       {
        "id": "RIT2-2",
@@ -452,7 +480,11 @@
        "days_left": 9,
        "pending": false,
        "status": "📦",
-       "exam": false
+       "exam": false,
+       "submission_types": [
+        "online_upload"
+       ],
+       "submitted": false
       }
      ],
      "notes": [],
