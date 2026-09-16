@@ -167,9 +167,12 @@ def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
         b = jload(ctx.P("raw", f"bundle_{cid}.json"), {}) or {}
         group_ws[code] = {g["id"]: g.get("group_weight") for g in b.get("groups") or []}
     last_check = parse_ts(state.get("last_check")) or (clock.now_utc() - dt.timedelta(days=14))
-    start = (last_check - dt.timedelta(days=1)).date().isoformat()
+    # 公告要往前多看一点：只从「上次检查前一天」开始的话，三周前那条写明考试日期的公告永远拿不到（S20/S21）。
+    start = min((last_check - dt.timedelta(days=1)).date(), (clock.now_utc() - dt.timedelta(days=60)).date()).isoformat()
+    # Canvas 不给 end_date 时只回 start_date 起 28 天。
+    end_q = (clock.now_utc() + dt.timedelta(days=1)).date().isoformat()
     ctxq = "&".join(f"context_codes[]=course_{cid}" for cid, _ in courses)
-    anns = get(f"/api/v1/announcements?{ctxq}&start_date={start}&per_page=50", "announcements.json") or []
+    anns = get(f"/api/v1/announcements?{ctxq}&start_date={start}&end_date={end_q}&per_page=50", "announcements.json") or []
     convs = [] if quick else (get("/api/v1/conversations?scope=inbox&per_page=30", "conversations.json") or [])
 
     readiness = {}

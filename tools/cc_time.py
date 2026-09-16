@@ -354,3 +354,73 @@ class Clock:
                 base = dt.datetime.combine(today, dt.time(12), tzinfo=zone).utcoffset().total_seconds() / 3600
                 s += f"，{d:%m-%d} 起{label}{'进入' if h > base else '结束'}夏令时"
         return s
+
+
+# ---- 公告正文里写明的日期（作业页没写 due_at 时才用）----
+_MONTHS = {m: i for i, ms in enumerate(
+    [("january", "jan"), ("february", "feb"), ("march", "mar"), ("april", "apr"), ("may",), ("june", "jun"),
+     ("july", "jul"), ("august", "aug"), ("september", "sep", "sept"), ("october", "oct"),
+     ("november", "nov"), ("december", "dec")], start=1) for m in ms}
+_MON_RE = "|".join(sorted(_MONTHS, key=len, reverse=True))
+_DMY = re.compile(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+(" + _MON_RE + r")\.?(?:\s*,?\s*(\d{4}))?\b", re.I)
+_MDY = re.compile(r"\b(" + _MON_RE + r")\.?\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?\b", re.I)
+_ISO = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
+_TIME = re.compile(r"\b(\d{1,2})(?:[:.](\d{2}))?\s*([ap])\.?m\.?\b|\b(\d{1,2}):(\d{2})\b", re.I)
+_PAREN = re.compile(r"\(([^)]{0,24})\)")
+
+
+def _near_time(text, lo, hi):
+    """日期前后各 40 个字符里找时间；找不到返回 None。"""
+    m = _TIME.search(text[max(0, lo - 40):hi + 40])
+    if not m:
+        return None
+    if m.group(3):
+        h, mi, ap = int(m.group(1)), int(m.group(2) or 0), m.group(3).lower()
+        h = 0 if (ap == "a" and h == 12) else (h + 12 if ap == "p" and h != 12 else h)
+    else:
+        h, mi = int(m.group(4)), int(m.group(5))
+    return "%02d:%02d" % (h, mi) if 0 <= h <= 23 and 0 <= mi <= 59 else None
+
+
+def _with_year(month, day, year, ref):
+    """没写年份时取离参考日期最近的那一年；写了年份就照写。"""
+    best = None
+    for y in ([year] if year else [ref.year - 1, ref.year, ref.year + 1]):
+        try:
+            d = dt.date(int(y), month, day)
+        except ValueError:
+            continue
+        if best is None or abs((d - ref).days) < abs((best - ref).days):
+            best = d
+    return best
+
+
+def text_datetimes(text, ref_date):
+    """从一段文字里找出写明的日期，返回 [(date, "HH:MM" 或 None), ...]，按出现先后去重。
+
+    只认写出月份名或 ISO 的写法（25 September 2026 / Sep 25, 2026 / 2026-09-25）。
+    9/25 这类纯数字日期各国月日顺序不同，含糊，一律不认。
+    """
+    if not text:
+        return []
+    # 「25 September (Friday) 2026」里的星期去掉，年份才接得上；
+    # 「(25 September @11.59pm)」这种把日期写在括号里的，内容留下。
+    s = _PAREN.sub(lambda m: " " + m.group(1) + " " if re.search(r"\d", m.group(1)) else " ", str(text))
+    found, seen = [], set()
+    for rx, kind in ((_DMY, "dmy"), (_MDY, "mdy"), (_ISO, "iso")):
+        for m in rx.finditer(s):
+            if kind == "iso":
+                try:
+                    d = dt.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+                except ValueError:
+                    continue
+            else:
+                day, mon, year = (m.group(1), m.group(2), m.group(3)) if kind == "dmy" else (m.group(2), m.group(1), m.group(3))
+                mon = _MONTHS.get(mon.lower())
+                d = _with_year(mon, int(day), year, ref_date) if mon else None
+            if not d or d in seen:
+                continue
+            seen.add(d)
+            found.append((m.start(), d, _near_time(s, m.start(), m.end())))
+    found.sort()
+    return [(d, t) for _, d, t in found]

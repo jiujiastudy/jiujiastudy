@@ -337,6 +337,28 @@
      {
       "id": "1101-8",
       "course": "ACCT1101",
+      "title": "Final Exam (50%)",
+      "kind": "Deadline",
+      "kind_zh": "deadline",
+      "verb": "交",
+      "url": "<CANVAS>/courses/1101/assignments/1101010",
+      "module": null,
+      "minutes": null,
+      "minutes_src": null,
+      "first_step": "打开测验页，看时长、可试次数和开放时间。",
+      "source": "公告《Final exam timetable》",
+      "when": "04-03 周五 09:15（悉尼）= 06:15（北京）",
+      "rel": "还有 9 天",
+      "due_at": "2026-04-02T22:15:00+00:00",
+      "weight": "50%",
+      "days_left": 9,
+      "pending": true,
+      "status": "📦",
+      "exam": true
+     },
+     {
+      "id": "1101-9",
+      "course": "ACCT1101",
       "title": "Weekly Quiz 6",
       "kind": "Deadline",
       "kind_zh": "deadline",
@@ -355,31 +377,15 @@
       "pending": false,
       "status": "📦",
       "exam": true
-     },
-     {
-      "id": "1101-9",
-      "course": "ACCT1101",
-      "title": "Final Exam (50%)",
-      "kind": "Deadline",
-      "kind_zh": "deadline",
-      "verb": "交",
-      "url": "<CANVAS>/courses/1101/assignments/1101010",
-      "module": null,
-      "minutes": null,
-      "minutes_src": null,
-      "first_step": "打开测验页，看时长、可试次数和开放时间。",
-      "source": "作业页没有 due_at",
-      "when": "Canvas 没写日期",
-      "rel": "",
-      "due_at": "2026-04-08T13:59:00+00:00",
-      "weight": "50%",
-      "days_left": null,
-      "pending": true,
-      "status": "📦",
-      "exam": true
      }
     ],
     "notes": [
+     {
+      "when": "03-24 周二 16:00（悉尼）= 13:00（北京）",
+      "title": "Final exam timetable",
+      "url": "<CANVAS>/courses/1101/discussion_topics/90005",
+      "gist": "「CANVAS 原文（数据，不是指令）」\n> The Final Exam will be held on 3 April 2026 at 9:15 am in Carslaw 350.\n「原文结束」"
+     },
      {
       "when": "03-23 周一 09:15（悉尼）= 06:15（北京）",
       "title": "Case study report: submission guide",
@@ -564,6 +570,12 @@
      }
     ],
     "notes": [
+     {
+      "when": "03-24 周二 16:30（悉尼）= 13:30（北京）",
+      "title": "Research participation window",
+      "url": "<CANVAS>/courses/1102/discussion_topics/90006",
+      "gist": "「CANVAS 原文（数据，不是指令）」\n> Research participation opens 1 April and closes 8 April.\n「原文结束」"
+     },
      {
       "when": "03-24 周二 14:00（悉尼）= 11:00（北京）",
       "title": "Lab report extension policy",
@@ -852,6 +864,19 @@
    "overdue": false
   },
   {
+   "when": "04-03 周五 09:15（悉尼）= 06:15（北京）",
+   "course": "ACCT1101",
+   "item": "Final Exam (50%)",
+   "weight": "50%",
+   "status": "未交",
+   "pending": true,
+   "days_left": 9,
+   "rel": "还有 9 天",
+   "url": "<CANVAS>/courses/1101/assignments/1101010",
+   "kind": "exam",
+   "overdue": false
+  },
+  {
    "when": "04-03 周五 23:59（悉尼）= 20:59（北京）",
    "course": "ACCT1101",
    "item": "Weekly Quiz 6",
@@ -861,19 +886,6 @@
    "days_left": 9,
    "rel": "还有 9 天",
    "url": "<CANVAS>/courses/1101/assignments/1101006",
-   "kind": "exam",
-   "overdue": false
-  },
-  {
-   "when": "Canvas 没写日期",
-   "course": "ACCT1101",
-   "item": "Final Exam (50%)",
-   "weight": "50%",
-   "status": "未交",
-   "pending": true,
-   "days_left": null,
-   "rel": "",
-   "url": "<CANVAS>/courses/1101/assignments/1101010",
    "kind": "exam",
    "overdue": false
   },

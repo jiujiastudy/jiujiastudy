@@ -65,11 +65,43 @@
  },
  {
   "id": 90005,
+  "title": "Final exam timetable",
+  "message": "<p>The Final Exam will be held on <strong>3 April 2026 at 9:15 am</strong> in Carslaw 350.</p>",
+  "posted_at": "2026-03-24T05:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/1101/discussion_topics/90005",
+  "context_code": "course_1101",
+  "author": {
+   "id": 7101,
+   "display_name": "Dr. Morgan Hale"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90006,
+  "title": "Research participation window",
+  "message": "<p>Research participation opens 1 April and closes 8 April.</p>",
+  "posted_at": "2026-03-24T05:30:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/1102/discussion_topics/90006",
+  "context_code": "course_1102",
+  "author": {
+   "id": 7201,
+   "display_name": "Prof. Lena Okafor"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90007,
   "title": "Library workshops this week",
   "message": "<p>Referencing workshop on Thursday.</p>",
   "posted_at": "2026-03-23T21:00:00Z",
   "delayed_post_at": null,
-  "html_url": "{{BASE}}/courses/1190/discussion_topics/90005",
+  "html_url": "{{BASE}}/courses/1190/discussion_topics/90007",
   "context_code": "course_1190",
   "author": {
    "id": 7901,

@@ -207,14 +207,14 @@
   "context_type": "Course",
   "course_id": 1190,
   "context_name": "Library Skills Hub",
-  "plannable_id": 90005,
+  "plannable_id": 90007,
   "plannable_type": "announcement",
   "plannable_date": "2026-03-23T21:00:00Z",
   "plannable": {
-   "id": 90005,
+   "id": 90007,
    "title": "Library workshops this week"
   },
-  "html_url": "{{BASE}}/courses/1190/discussion_topics/90005",
+  "html_url": "{{BASE}}/courses/1190/discussion_topics/90007",
   "new_activity": true,
   "planner_override": null,
   "submissions": false
@@ -257,6 +257,38 @@
    "title": "Lab report extension policy"
   },
   "html_url": "{{BASE}}/courses/1102/discussion_topics/90003",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 1101,
+  "context_name": "ACCT1101 Accounting Foundations",
+  "plannable_id": 90005,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-03-24T05:00:00Z",
+  "plannable": {
+   "id": 90005,
+   "title": "Final exam timetable"
+  },
+  "html_url": "{{BASE}}/courses/1101/discussion_topics/90005",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 1102,
+  "context_name": "PSYC2012 Cognition and Memory",
+  "plannable_id": 90006,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-03-24T05:30:00Z",
+  "plannable": {
+   "id": 90006,
+   "title": "Research participation window"
+  },
+  "html_url": "{{BASE}}/courses/1102/discussion_topics/90006",
   "new_activity": true,
   "planner_override": null,
   "submissions": false

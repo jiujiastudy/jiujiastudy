@@ -3,13 +3,69 @@
 """
 import datetime as dt
 import glob
+import html as html_mod
 import os
 import re
 
 from cc_store import jload
-from cc_time import parse_date, parse_ts
+from cc_time import parse_date, parse_ts, text_datetimes
 
 EXAM_RE = re.compile(r"(?i)\b(exam|test|quiz|midterm|final)\b|考试|测验|小测")
+def _ann_texts(ctx, days=120):
+    """公告全文索引：{课程代码: [(发布时间, 标题, 链接, 正文), ...]}，新的在前。
+
+    先读每天采集存下的 raw/daily/<日期>/announcements.json，再补 raw/bundle_<课程id>.json（老档案才有）。
+    这里要的是全文：digest 里的 text 会被截断，日期常常正好在截断之后。
+    """
+    pairs = [(c.get("id"), c.get("code")) for c in (ctx.cfg.get("courses") or []) if c.get("code")]
+    by_id = {str(cid): code for cid, code in pairs if cid}
+    out, seen = {}, set()
+    files = sorted(glob.glob(os.path.join(ctx.P("raw", "daily"), "*", "announcements.json")), reverse=True)
+    files += sorted(glob.glob(os.path.join(ctx.P("raw"), "bundle_*.json")))
+    for path in files:
+        data = jload(path, None)
+        anns = data if isinstance(data, list) else ((data or {}).get("announcements") or [])
+        cid_from_name = os.path.basename(path)[7:-5] if os.path.basename(path).startswith("bundle_") else None
+        for a in anns if isinstance(anns, list) else []:
+            if not isinstance(a, dict) or a.get("id") in seen:
+                continue
+            seen.add(a.get("id"))
+            ctxc = str(a.get("context_code") or "")
+            code = by_id.get(ctxc[7:]) or by_id.get(cid_from_name or "")
+            if not code:
+                continue
+            text = re.sub(r"\s+", " ", html_mod.unescape(re.sub(r"<[^>]+>", " ", a.get("message") or "")))
+            out.setdefault(code, []).append((a.get("posted_at") or "", a.get("title") or "", a.get("html_url"), text))
+    for code in out:
+        out[code].sort(reverse=True)
+    return out
+
+
+def _name_key(name):
+    """作业名去掉括号里的权重等杂项，留下拿去和公告比对的那部分。"""
+    return re.sub(r"\s+", " ", re.sub(r"[（(][^）)]*[）)]", " ", name or "")).strip().lower()
+
+
+def announced_date(ctx, a, today, end, index, exam_only_one):
+    """作业页没写日期时，看公告里有没有写明。找到返回 (date, "HH:MM" 或 None, 标题)，否则 None。
+
+    保守：只认同一门课的公告；要么公告里出现作业名本身，要么双方都像考试且这门课只有这一件没写日期的考试。
+    同一条公告里出现两个都落在窗口内的日期，算含糊，不用。
+    """
+    name = a.get("name") or ""
+    key = _name_key(name)
+    examish = bool(a.get("is_quiz")) or bool(EXAM_RE.search(name))
+    for posted, title, url, text in index.get(a.get("course"), []):
+        blob = (title + " " + text).lower()
+        strong = len(key) >= 4 and key in blob
+        if not strong and not (examish and EXAM_RE.search(title or "") and exam_only_one):
+            continue
+        hits = [(d, hhmm) for d, hhmm in text_datetimes(title + "。" + text, today) if today <= d <= end]
+        if len(set(d for d, _ in hits)) != 1:
+            continue  # 没有，或者不止一个，都不猜
+        d, hhmm = hits[0]
+        return d, hhmm, title
+    return None
 
 
 def unresolved_pending(state, today=None, soon_days=None):
@@ -110,6 +166,17 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
     end = today + dt.timedelta(days=days)
     notes = {str(k): v for k, v in (state.get("deadline_notes") or {}).items() if v}
     manual = state.get("manual_deadlines") or []
+    _idx = {}
+
+    def ann_index():  # 只有真的有没写日期的计分项时才去读公告
+        if not _idx:
+            _idx.update(_ann_texts(ctx) or {"": []})
+        return _idx
+
+    only_exam = {}  # 每门课有几件「没写日期的考试」：只有一件时才敢按公告配对
+    for _a in (snap.get("assignments") or {}).values():
+        if not _a.get("due_at") and not _a.get("lock_at") and (_a.get("is_quiz") or EXAM_RE.search(_a.get("name") or "")):
+            only_exam[_a.get("course")] = only_exam.get(_a.get("course"), 0) + 1
     manual_aids = set()
     for m in manual:
         mm = re.search(r"/assignments/(\d+)", m.get("url") or "")
@@ -161,9 +228,17 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
         elif include_undated and counts and unsub:
             ua = parse_ts(a.get("unlock_at"))
             r = base(a, aid)
-            when = (f"{clock.fmt_date(clock.course_date(ua))} 解锁，截止未写" if ua and clock.course_date(ua) > today else "Canvas 没写日期")
-            r.update({"t": clock.course_local_to_utc(end, "23:59"), "date": None, "when": when, "rel": "", "days_left": None,
-                      "pending": True, "undated": True, "src": "作业页没有 due_at"})
+            hit = announced_date(ctx, a, today, end, ann_index(), only_exam.get(a.get("course"), 0) == 1)
+            if hit:  # 作业页没写，但公告里写明了：填上日期，仍然留在「待确认」区
+                d, hhmm, title = hit
+                t = clock.course_local_to_utc(d, hhmm or "23:59")
+                r.update({"t": t, "date": d, "when": clock.fmt(t) + ("" if hhmm else "（公告只写了日期）"),
+                          "rel": clock.rel(d, today), "days_left": (d - today).days,
+                          "pending": True, "undated": False, "src": f"公告《{title}》"})
+            else:
+                when = (f"{clock.fmt_date(clock.course_date(ua))} 解锁，截止未写" if ua and clock.course_date(ua) > today else "Canvas 没写日期")
+                r.update({"t": clock.course_local_to_utc(end, "23:59"), "date": None, "when": when, "rel": "", "days_left": None,
+                          "pending": True, "undated": True, "src": "作业页没有 due_at"})
             rows.append(r)
     for m in manual:
         d = parse_date(m.get("date"))

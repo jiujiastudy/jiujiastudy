@@ -145,6 +145,20 @@
   },
   {
    "rel": "还有 9 天",
+   "when": "04-03 周五 09:15（悉尼）= 06:15（北京）",
+   "course": "ACCT1101",
+   "item": "Final Exam (50%)",
+   "weight": "50%",
+   "status": "未交",
+   "pending": true,
+   "url": "<CANVAS>/courses/1101/assignments/1101010",
+   "days_left": 9,
+   "kind": "exam",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 9 天",
    "when": "04-03 周五 23:59（悉尼）= 20:59（北京）",
    "course": "ACCT1101",
    "item": "Weekly Quiz 6",
@@ -156,20 +170,6 @@
    "kind": "exam",
    "overdue": false,
    "undated": false
-  },
-  {
-   "rel": "",
-   "when": "Canvas 没写日期",
-   "course": "ACCT1101",
-   "item": "Final Exam (50%)",
-   "weight": "50%",
-   "status": "未交",
-   "pending": true,
-   "url": "<CANVAS>/courses/1101/assignments/1101010",
-   "days_left": null,
-   "kind": "exam",
-   "overdue": false,
-   "undated": true
   },
   {
    "rel": "",

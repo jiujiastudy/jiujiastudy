@@ -19,11 +19,11 @@ Deadline · 两周内
 还有 6 天DSGN3402 Studio pitch (in class)03-31 周二 课上 · 10%
 还有 7 天PSYC2012 Mid-semester test (20%) [<CANVAS>/courses/1102/assignments/1102004]04-01 周三 13:00（悉尼）= 10:00（北京） · 20%
 还有 8 天ACCT1101 Case Study Report (30%) [<CANVAS>/courses/1101/assignments/1101009]04-02 周四 23:59（悉尼）= 20:59（北京） · 30%
+还有 9 天ACCT1101 Final Exam (50%) [<CANVAS>/courses/1101/assignments/1101010]待确认04-03 周五 09:15（悉尼）= 06:15（北京） · 50%
 还有 9 天ACCT1101 Weekly Quiz 6 [<CANVAS>/courses/1101/assignments/1101006]04-03 周五 23:59（悉尼）= 20:59（北京）
 还有 14 天DSGN3402 Design Portfolio (40%) [<CANVAS>/courses/1103/assignments/1103003]待确认04-08 周三 23:59（悉尼）= 21:59（北京）（锁定时间当截止） · 40%
 撞车：03-26 周四 至 03-27 周五，PSYC2012 Lab Report (25%)（25%）、ACCT1101 Weekly Quiz 5（—）、PSYC2012 Week 5 discussion post（—）。
-Canvas 没写日期的 3 条，以 Canvas 和老师为准
-ACCT1101 Final Exam (50%) [<CANVAS>/courses/1101/assignments/1101010]Canvas 没写日期 · 50%
+Canvas 没写日期的 2 条，以 Canvas 和老师为准
 PSYC2012 Research Participation (5%) [<CANVAS>/courses/1102/assignments/1102005]Canvas 没写日期 · 5%
 DSGN3402 Reflection journal [<CANVAS>/courses/1103/assignments/1103001]03-18 周三 23:59（悉尼）= 20:59（北京）（Canvas 日期只是占位）
 每天
@@ -60,7 +60,8 @@ Week 5: Financial Statements
 看视频Lecture recording [<CANVAS>/courses/1101/modules/items/11010024]45 分钟
 要做
 做Weekly Quiz 5 [<CANVAS>/courses/1101/modules/items/11010025]30 分钟
-公告 1 条
+公告 2 条
+03-24 周二 16:00（悉尼）= 13:00（北京） Final exam timetable [<CANVAS>/courses/1101/discussion_topics/90005]
 03-23 周一 09:15（悉尼）= 06:15（北京） Case study report: submission guide [<CANVAS>/courses/1101/discussion_topics/90002]
 PSYC2012本周完成考试 04-01 · 还有 7 天
 PSYC2012 Cognition and Memory
@@ -71,7 +72,8 @@ Week 5: Working Memory
 看视频Week 5 lecture recording [<CANVAS>/courses/1102/modules/items/11020015]45 分钟
 要做
 发帖Week 5 discussion post [<CANVAS>/courses/1102/modules/items/11020016]30 分钟
-公告 1 条
+公告 2 条
+03-24 周二 16:30（悉尼）= 13:30（北京） Research participation window [<CANVAS>/courses/1102/discussion_topics/90006]
 03-24 周二 14:00（悉尼）= 11:00（北京） Lab report extension policy [<CANVAS>/courses/1102/discussion_topics/90003]
 DSGN3402本周完成
 DSGN3402 Interaction Design Studio

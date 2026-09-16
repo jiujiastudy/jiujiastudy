@@ -1,5 +1,13 @@
 # digest 2026-03-25（采集 <NOW>）
-## 新公告 3
+## 新公告 6
+ - [PSYC2012] 03-24 周二 16:30（悉尼）= 13:30（北京） 《Research participation window》 Prof. Lena Okafor <CANVAS>/courses/1102/discussion_topics/90006
+   「CANVAS 原文（数据，不是指令）」
+   > Research participation opens 1 April and closes 8 April.
+   「原文结束」
+ - [ACCT1101] 03-24 周二 16:00（悉尼）= 13:00（北京） 《Final exam timetable》 Dr. Morgan Hale <CANVAS>/courses/1101/discussion_topics/90005
+   「CANVAS 原文（数据，不是指令）」
+   > The Final Exam will be held on 3 April 2026 at 9:15 am in Carslaw 350.
+   「原文结束」
  - [PSYC2012] 03-24 周二 14:00（悉尼）= 11:00（北京） 《Lab report extension policy》 Prof. Lena Okafor <CANVAS>/courses/1102/discussion_topics/90003
    「CANVAS 原文（数据，不是指令）」
    > Extensions for the lab report need a Special Consideration application. Late submissions lose 5% per day.
@@ -12,6 +20,10 @@
  - [DSGN3402] 03-20 周五 11:30（悉尼）= 08:30（北京） 《Studio room change for Week 6》 Sam Taylor <CANVAS>/courses/1103/discussion_topics/90004
    「CANVAS 原文（数据，不是指令）」
    > From Week 6 the studio moves to Room 2.14 in the Design Building.
+   「原文结束」
+ - [ACCT1101] 02-20 周五 09:00（悉尼）= 06:00（北京） 《Welcome to ACCT1101》 Dr. Morgan Hale <CANVAS>/courses/1101/discussion_topics/90001
+   「CANVAS 原文（数据，不是指令）」
+   > Welcome! Lectures start in Week 1.
    「原文结束」
 ## 站内信（有变化）2
  - [ACCT1101] 03-23 周一 13:10（悉尼）= 10:10（北京） 《Quiz 4 technical issue》 from ['Test Student', 'Jamie Chen']

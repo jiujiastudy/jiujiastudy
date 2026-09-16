@@ -376,6 +376,13 @@ def au_semester():
                    "Late submissions lose 5% per day.</p>", (7201, "Prof. Lena Okafor"))
     s.announcement(d_, "Studio room change for Week 6", s.at(3, 20, 11, 30),
                    "<p>From Week 6 the studio moves to Room 2.14 in the Design Building.</p>", (7301, "Sam Taylor"))
+    # 作业页没写日期、但公告里写明了：Final Exam (50%) 应该拿到 04-03 09:15，并留在「待确认」里（S20/G06）
+    s.announcement(a, "Final exam timetable", s.at(3, 24, 16, 0),
+                   "<p>The Final Exam will be held on <strong>3 April 2026 at 9:15 am</strong> in Carslaw 350.</p>",
+                   (7101, "Dr. Morgan Hale"))
+    # 反例：同一条公告里两个日期都落在窗口内，算含糊，Research Participation 必须仍然「没写日期」
+    s.announcement(p, "Research participation window", s.at(3, 24, 16, 30),
+                   "<p>Research participation opens 1 April and closes 8 April.</p>", (7201, "Prof. Lena Okafor"))
     s.announcement(1190, "Library workshops this week", s.at(3, 24, 8, 0), "<p>Referencing workshop on Thursday.</p>",
                    (7901, "Library Team"))
     s.conversation(a, "Quiz 4 technical issue", s.at(3, 23, 13, 10),

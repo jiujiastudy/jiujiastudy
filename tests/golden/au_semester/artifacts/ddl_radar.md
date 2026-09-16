@@ -35,8 +35,8 @@ _更新 03-25 周三 10:00（悉尼）= 07:00（北京） · 时间先悉尼后�
 
 | 剩余 | 时间 | 课 | 事项 | 权重 | 状态 | 出处 |
 |---|---|---|---|---|---|---|
+| 还有 9 天 | ⚠️ 04-03 周五 09:15（悉尼）= 06:15（北京） | ACCT1101 | [Final Exam (50%)](<CANVAS>/courses/1101/assignments/1101010) | 50% | 未交 | 公告《Final exam timetable》 |
 | 还有 14 天 | ⚠️ 04-08 周三 23:59（悉尼）= 21:59（北京）（锁定时间当截止） | DSGN3402 | [Design Portfolio (40%)](<CANVAS>/courses/1103/assignments/1103003) | 40% | 未交 | Canvas lock_at |
-| — | ⚠️ Canvas 没写日期 | ACCT1101 | [Final Exam (50%)](<CANVAS>/courses/1101/assignments/1101010) | 50% | 未交 | 作业页没有 due_at |
 | — | ⚠️ Canvas 没写日期 | PSYC2012 | [Research Participation (5%)](<CANVAS>/courses/1102/assignments/1102005) | 5% | 未交 | 作业页没有 due_at |
 | — | ⚠️ 03-18 周三 23:59（悉尼）= 20:59（北京）（Canvas 日期只是占位） | DSGN3402 | [Reflection journal](<CANVAS>/courses/1103/assignments/1103001) | — | 未交 | 你说明过：老师说 Canvas 日期只是占位，真正截止另行通知 |
 
@@ -48,14 +48,14 @@ _更新 03-25 周三 10:00（悉尼）= 07:00（北京） · 时间先悉尼后�
 
 ## 新变化（最近一次采集 03-25 周三 10:00（悉尼）= 07:00（北京））
 
+- PSYC2012 · 公告 · 03-24 周二 16:30（悉尼）= 13:30（北京）：Research participation window
+- ACCT1101 · 公告 · 03-24 周二 16:00（悉尼）= 13:00（北京）：Final exam timetable
 - PSYC2012 · 公告 · 03-24 周二 14:00（悉尼）= 11:00（北京）：Lab report extension policy
 - ACCT1101 · 公告 · 03-23 周一 09:15（悉尼）= 06:15（北京）：Case study report: submission guide
 - DSGN3402 · 公告 · 03-20 周五 11:30（悉尼）= 08:30（北京）：Studio room change for Week 6
+- ACCT1101 · 公告 · 02-20 周五 09:00（悉尼）= 06:00（北京）：Welcome to ACCT1101
 - ACCT1101 · 站内信 · 03-23 周一 13:10（悉尼）= 10:10（北京）：Quiz 4 technical issue
 - PSYC2012 · 站内信 · 03-12 周四 10:00（悉尼）= 07:00（北京）：Lab groups
-- ACCT1101 · 作业改动 · 02-02 周一 09:00（悉尼）= 06:00（北京）：Weekly Quiz 1
-- ACCT1101 · 作业改动 · 02-02 周一 09:00（悉尼）= 06:00（北京）：Weekly Quiz 2
-- ACCT1101 · 作业改动 · 02-02 周一 09:00（悉尼）= 06:00（北京）：Weekly Quiz 3
 
 状态：过载（7 天内到期的作业合计 60% 还没交；72 小时内有 3 条 deadline；有 1 项已过期未交（ACCT1101 Weekly Quiz 4））。建议：只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 23:59（悉尼）= 20:59（北京），已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。
 

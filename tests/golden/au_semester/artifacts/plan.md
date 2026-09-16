@@ -22,8 +22,9 @@
   - [ ] 1101-5 交：Weekly Quiz 4，03-20 周五 23:59（悉尼）= 20:59（北京），已过 5 天（<CANVAS>/courses/1101/assignments/1101004）
   - [ ] 1101-6 交：Weekly Quiz 5，03-27 周五 23:59（悉尼）= 20:59（北京），还有 2 天（<CANVAS>/courses/1101/assignments/1101005）
   - [ ] 1101-7 交：Case Study Report (30%)，04-02 周四 23:59（悉尼）= 20:59（北京），还有 8 天（<CANVAS>/courses/1101/assignments/1101009）
-  - [ ] 1101-8 交：Weekly Quiz 6，04-03 周五 23:59（悉尼）= 20:59（北京），还有 9 天（<CANVAS>/courses/1101/assignments/1101006）
-  - [ ] 1101-9 交：Final Exam (50%)，Canvas 没写日期（<CANVAS>/courses/1101/assignments/1101010）
+  - [ ] 1101-8 交：Final Exam (50%)，04-03 周五 09:15（悉尼）= 06:15（北京），还有 9 天（<CANVAS>/courses/1101/assignments/1101010）
+  - [ ] 1101-9 交：Weekly Quiz 6，04-03 周五 23:59（悉尼）= 20:59（北京），还有 9 天（<CANVAS>/courses/1101/assignments/1101006）
+- 公告 03-24 周二 16:00（悉尼）= 13:00（北京）：Final exam timetable
 - 公告 03-23 周一 09:15（悉尼）= 06:15（北京）：Case study report: submission guide
 
 ### PSYC2012 PSYC2012 Cognition and Memory（Week 5: Working Memory）
@@ -38,6 +39,7 @@
   - [ ] 2012-6 交：Week 5 discussion post，03-27 周五 23:59（悉尼）= 20:59（北京），还有 2 天（<CANVAS>/courses/1102/assignments/1102003）
   - [ ] 2012-7 交：Mid-semester test (20%)，04-01 周三 13:00（悉尼）= 10:00（北京），还有 7 天（<CANVAS>/courses/1102/assignments/1102004）
   - [ ] 2012-8 交：Research Participation (5%)，Canvas 没写日期（<CANVAS>/courses/1102/assignments/1102005）
+- 公告 03-24 周二 16:30（悉尼）= 13:30（北京）：Research participation window
 - 公告 03-24 周二 14:00（悉尼）= 11:00（北京）：Lab report extension policy
 
 ### DSGN3402 DSGN3402 Interaction Design Studio（W5 Studio: Prototyping）
@@ -87,8 +89,8 @@
 | 03-31 周二 课上，还有 6 天 | DSGN3402 | Studio pitch (in class) | 10% | 未交 |
 | 04-01 周三 13:00（悉尼）= 10:00（北京），还有 7 天 | PSYC2012 | Mid-semester test (20%) | 20% | 未交 |
 | 04-02 周四 23:59（悉尼）= 20:59（北京），还有 8 天 | ACCT1101 | Case Study Report (30%) | 30% | 未交 |
+| 04-03 周五 09:15（悉尼）= 06:15（北京），还有 9 天 | ACCT1101 | Final Exam (50%)（待确认） | 50% | 未交 |
 | 04-03 周五 23:59（悉尼）= 20:59（北京），还有 9 天 | ACCT1101 | Weekly Quiz 6 | — | 未交 |
-| Canvas 没写日期 | ACCT1101 | Final Exam (50%)（待确认） | 50% | 未交 |
 | Canvas 没写日期 | PSYC2012 | Research Participation (5%)（待确认） | 5% | 未交 |
 | 03-18 周三 23:59（悉尼）= 20:59（北京）（Canvas 日期只是占位） | DSGN3402 | Reflection journal（待确认） | — | 未交 |
 | 04-08 周三 23:59（悉尼）= 21:59（北京）（锁定时间当截止），还有 14 天 | DSGN3402 | Design Portfolio (40%)（待确认） | 40% | 未交 |

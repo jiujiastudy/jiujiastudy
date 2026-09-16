@@ -11,14 +11,14 @@
  "courses": {
   "ACCT1101": {
    "last_fetch": "<NOW>",
-   "latest_announcement_at": "2026-03-22T22:15:00Z",
+   "latest_announcement_at": "2026-03-24T05:00:00Z",
    "counts": {
     "assignments": 10
    }
   },
   "PSYC2012": {
    "last_fetch": "<NOW>",
-   "latest_announcement_at": "2026-03-24T03:00:00Z",
+   "latest_announcement_at": "2026-03-24T05:30:00Z",
    "counts": {
     "assignments": 5
    }
