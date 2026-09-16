@@ -1,0 +1,298 @@
+[
+ {
+  "id": 4402101,
+  "name": "第一周 课程介绍",
+  "position": 1,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44020001,
+    "module_id": 4402101,
+    "position": 1,
+    "title": "课程介绍与考核方式",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020001",
+    "page_url": "课程介绍与考核方式",
+    "url": "{{BASE}}/api/v1/courses/4402/pages/课程介绍与考核方式",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4402102,
+  "name": "第二周 Unit 1 Campus Life",
+  "position": 2,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44020002,
+    "module_id": 4402102,
+    "position": 1,
+    "title": "第二周 学习任务",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020002",
+    "page_url": "第二周-学习任务",
+    "url": "{{BASE}}/api/v1/courses/4402/pages/第二周-学习任务",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 44020003,
+    "module_id": 4402102,
+    "position": 2,
+    "title": "Unit 1 课文讲解.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020003",
+    "content_id": 4402501,
+    "url": "{{BASE}}/api/v1/courses/4402/files/4402501",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Unit 1 课文讲解.pptx"
+    }
+   },
+   {
+    "id": 44020004,
+    "module_id": 4402102,
+    "position": 3,
+    "title": "Unit 1 听力音频",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020004",
+    "external_url": "https://video.example/english/unit1",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4402103,
+  "name": "第三周 Unit 2 Friendship",
+  "position": 3,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44020005,
+    "module_id": 4402103,
+    "position": 1,
+    "title": "第三周 学习任务",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020005",
+    "page_url": "第三周-学习任务",
+    "url": "{{BASE}}/api/v1/courses/4402/pages/第三周-学习任务",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 44020006,
+    "module_id": 4402103,
+    "position": 2,
+    "title": "Unit 2 课文讲解.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020006",
+    "content_id": 4402502,
+    "url": "{{BASE}}/api/v1/courses/4402/files/4402502",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Unit 2 课文讲解.pptx"
+    }
+   },
+   {
+    "id": 44020007,
+    "module_id": 4402103,
+    "position": 3,
+    "title": "Unit 2 听力音频",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020007",
+    "external_url": "https://video.example/english/unit2",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4402104,
+  "name": "第四周 Unit 3 Technology",
+  "position": 4,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44020008,
+    "module_id": 4402104,
+    "position": 1,
+    "title": "第四周 学习任务",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020008",
+    "page_url": "第四周-学习任务",
+    "url": "{{BASE}}/api/v1/courses/4402/pages/第四周-学习任务",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 44020009,
+    "module_id": 4402104,
+    "position": 2,
+    "title": "Unit 3 课文讲解.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020009",
+    "content_id": 4402503,
+    "url": "{{BASE}}/api/v1/courses/4402/files/4402503",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Unit 3 课文讲解.pptx"
+    }
+   },
+   {
+    "id": 44020010,
+    "module_id": 4402104,
+    "position": 3,
+    "title": "Unit 3 听力音频",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020010",
+    "external_url": "https://video.example/english/unit3",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4402105,
+  "name": "第五周 Unit 4 Food and Culture",
+  "position": 5,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44020011,
+    "module_id": 4402105,
+    "position": 1,
+    "title": "第五周 学习任务",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020011",
+    "page_url": "第五周-学习任务",
+    "url": "{{BASE}}/api/v1/courses/4402/pages/第五周-学习任务",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 44020012,
+    "module_id": 4402105,
+    "position": 2,
+    "title": "Unit 4 课文讲解.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020012",
+    "content_id": 4402504,
+    "url": "{{BASE}}/api/v1/courses/4402/files/4402504",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Unit 4 课文讲解.pptx"
+    }
+   },
+   {
+    "id": 44020013,
+    "module_id": 4402105,
+    "position": 3,
+    "title": "Unit 4 听力音频",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020013",
+    "external_url": "https://video.example/english/unit4",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4402106,
+  "name": "第六周 Unit 5 Travel",
+  "position": 6,
+  "unlock_at": "2026-03-29T16:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "locked",
+  "items": [
+   {
+    "id": 44020014,
+    "module_id": 4402106,
+    "position": 1,
+    "title": "第六周 学习任务",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020014",
+    "page_url": "第六周-学习任务",
+    "url": "{{BASE}}/api/v1/courses/4402/pages/第六周-学习任务",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-29T16:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-29T16:00:00Z."
+    }
+   },
+   {
+    "id": 44020015,
+    "module_id": 4402106,
+    "position": 2,
+    "title": "Unit 5 课文讲解.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020015",
+    "content_id": 4402505,
+    "url": "{{BASE}}/api/v1/courses/4402/files/4402505",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-29T16:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-29T16:00:00Z.",
+     "display_name": "Unit 5 课文讲解.pptx"
+    }
+   },
+   {
+    "id": 44020016,
+    "module_id": 4402106,
+    "position": 3,
+    "title": "Unit 5 听力音频",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/4402/modules/items/44020016",
+    "external_url": "https://video.example/english/unit5",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-29T16:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-29T16:00:00Z."
+    }
+   }
+  ]
+ }
+]

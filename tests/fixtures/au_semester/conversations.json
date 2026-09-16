@@ -1,0 +1,58 @@
+[
+ {
+  "id": 80001,
+  "subject": "Quiz 4 technical issue",
+  "workflow_state": "unread",
+  "last_message": "Hi, if Quiz 4 did not load for you, email me before Friday and I will reopen it.",
+  "last_message_at": "2026-03-23T02:10:00Z",
+  "last_authored_message_at": null,
+  "message_count": 2,
+  "participants": [
+   {
+    "id": 5001,
+    "name": "Test Student",
+    "full_name": "Test Student"
+   },
+   {
+    "id": 7102,
+    "name": "Jamie Chen",
+    "full_name": "Jamie Chen"
+   }
+  ],
+  "audience": [
+   7102
+  ],
+  "context_name": "ACCT1101 Accounting Foundations",
+  "context_code": "course_1101",
+  "starred": false,
+  "private": true
+ },
+ {
+  "id": 80002,
+  "subject": "Lab groups",
+  "workflow_state": "read",
+  "last_message": "Your lab group is Group 7. Please meet before Week 5.",
+  "last_message_at": "2026-03-11T23:00:00Z",
+  "last_authored_message_at": null,
+  "message_count": 2,
+  "participants": [
+   {
+    "id": 5001,
+    "name": "Test Student",
+    "full_name": "Test Student"
+   },
+   {
+    "id": 7201,
+    "name": "Prof. Lena Okafor",
+    "full_name": "Prof. Lena Okafor"
+   }
+  ],
+  "audience": [
+   7201
+  ],
+  "context_name": "PSYC2012 Cognition and Memory",
+  "context_code": "course_1102",
+  "starred": false,
+  "private": true
+ }
+]

@@ -1,0 +1,58 @@
+[
+ {
+  "id": 80001,
+  "subject": "HW7 question 4 typo",
+  "workflow_state": "unread",
+  "last_message": "Question 4 on HW7 has a typo: it should be n^2, not n^3.",
+  "last_message_at": "2026-02-25T02:30:00Z",
+  "last_authored_message_at": null,
+  "message_count": 2,
+  "participants": [
+   {
+    "id": 6001,
+    "name": "Test Student",
+    "full_name": "Test Student"
+   },
+   {
+    "id": 8102,
+    "name": "Chris Park",
+    "full_name": "Chris Park"
+   }
+  ],
+  "audience": [
+   8102
+  ],
+  "context_name": "MATH 3B: Calculus",
+  "context_code": "course_2201",
+  "starred": false,
+  "private": true
+ },
+ {
+  "id": 80002,
+  "subject": "Lab section swap",
+  "workflow_state": "unread",
+  "last_message": "Your swap to Section 3 is approved.",
+  "last_message_at": "2026-02-22T19:00:00Z",
+  "last_authored_message_at": null,
+  "message_count": 2,
+  "participants": [
+   {
+    "id": 6001,
+    "name": "Test Student",
+    "full_name": "Test Student"
+   },
+   {
+    "id": 8201,
+    "name": "Dr. Rafael Soto",
+    "full_name": "Dr. Rafael Soto"
+   }
+  ],
+  "audience": [
+   8201
+  ],
+  "context_name": "CHEM 1A: General Chemistry",
+  "context_code": "course_2202",
+  "starred": false,
+  "private": true
+ }
+]

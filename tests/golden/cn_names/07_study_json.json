@@ -1,0 +1,726 @@
+{
+ "plan": {
+  "week": "2026-W13",
+  "week_no": 5,
+  "week_source": "modules",
+  "title": "第 5 周",
+  "range": "03-23 周一 至 03-29 周日 · 3 门课",
+  "tz_note": "时间为北京时间",
+  "generated": "2026-03-25",
+  "generated_by": "study",
+  "canvas_check": "数据截至 03-25 周三 20:00",
+  "mantra": "把 deadline 交给机器，把凌晨三点还给自己。",
+  "top": [
+   {
+    "course": "MA1205",
+    "title": "小测2",
+    "when": "03-26 周四 19:00",
+    "why": "权重 —，明天",
+    "first_step": "打开测验页，看时长、可试次数和开放时间。"
+   },
+   {
+    "course": "MA1205",
+    "title": "作业5（10％）",
+    "when": "03-27 周五 23:59，还有 2 天",
+    "why": "权重 —，未交",
+    "first_step": "打开作业页，看文件格式和命名要求。"
+   },
+   {
+    "course": "3",
+    "title": "Unit 4 写作任务",
+    "when": "03-29 周日 23:59，还有 4 天",
+    "why": "权重 —，未交",
+    "first_step": "打开作业页，看字数和格式要求。"
+   }
+  ],
+  "days": [
+   {
+    "date": "2026-03-23",
+    "weekday": "周一",
+    "fixed": [],
+    "must": "整理这周的笔记，把没看完的补上",
+    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must_if_then": null,
+    "must_minutes": null,
+    "must_kind": "机械",
+    "must_who": "👤",
+    "must_course": null,
+    "must_item_id": null,
+    "must_url": null,
+    "should": [],
+    "revise": null,
+    "status": "📦"
+   },
+   {
+    "date": "2026-03-24",
+    "weekday": "周二",
+    "fixed": [],
+    "must": "整理这周的笔记，把没看完的补上",
+    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must_if_then": null,
+    "must_minutes": null,
+    "must_kind": "机械",
+    "must_who": "👤",
+    "must_course": null,
+    "must_item_id": null,
+    "must_url": null,
+    "should": [],
+    "revise": null,
+    "status": "📦"
+   },
+   {
+    "date": "2026-03-25",
+    "weekday": "周三",
+    "fixed": [],
+    "must": "MA1205 小测2（03-26 周四 19:00）",
+    "must_first_step": "打开测验页，看时长、可试次数和开放时间。",
+    "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
+    "must_minutes": null,
+    "must_kind": "自己写",
+    "must_who": "👤",
+    "must_course": "MA1205",
+    "must_item_id": "1205-5",
+    "must_url": "<CANVAS>/courses/4401/assignments/4401003",
+    "should": [
+     "MA1205 看课件：第5周 定积分的应用.pdf（40 分钟）",
+     "3 读：第六周 学习任务（20 分钟）"
+    ],
+    "revise": null,
+    "status": "📦"
+   },
+   {
+    "date": "2026-03-26",
+    "weekday": "周四",
+    "fixed": [
+     "19:00 MA1205 小测2 截止"
+    ],
+    "must": "MA1205 作业5（10％）（03-27 周五 23:59）",
+    "must_first_step": "打开作业页，看文件格式和命名要求。",
+    "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
+    "must_minutes": null,
+    "must_kind": "自己写",
+    "must_who": "👤",
+    "must_course": "MA1205",
+    "must_item_id": "1205-6",
+    "must_url": "<CANVAS>/courses/4401/assignments/4401002",
+    "should": [
+     "MA1205 读：第5周 习题说明（20 分钟）",
+     "MA1205 交：作业5（10％）（90 分钟）"
+    ],
+    "revise": null,
+    "status": "📦"
+   },
+   {
+    "date": "2026-03-27",
+    "weekday": "周五",
+    "fixed": [
+     "23:59 MA1205 作业5（10％） 截止"
+    ],
+    "must": "整理这周的笔记，把没看完的补上",
+    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must_if_then": null,
+    "must_minutes": null,
+    "must_kind": "机械",
+    "must_who": "👤",
+    "must_course": null,
+    "must_item_id": null,
+    "must_url": null,
+    "should": [
+     "MA1205 做：小测2（30 分钟）",
+     "3 看课件：Unit 5 课文讲解.pptx（40 分钟）"
+    ],
+    "revise": null,
+    "status": "📦"
+   },
+   {
+    "date": "2026-03-28",
+    "weekday": "周六",
+    "fixed": [],
+    "must": "3 Unit 4 写作任务（03-29 周日 23:59）",
+    "must_first_step": "打开作业页，看字数和格式要求。",
+    "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
+    "must_minutes": null,
+    "must_kind": "自己写",
+    "must_who": "👤",
+    "must_course": "3",
+    "must_item_id": "3-5",
+    "must_url": "<CANVAS>/courses/4402/assignments/4402002",
+    "should": [
+     "3 看视频：Unit 5 听力音频（45 分钟）",
+     "C4403 看课件：第5讲 课件.pdf（40 分钟）"
+    ],
+    "revise": null,
+    "status": "📦"
+   },
+   {
+    "date": "2026-03-29",
+    "weekday": "周日",
+    "fixed": [
+     "23:59 3 Unit 4 写作任务 截止"
+    ],
+    "must": "复习 C4403：过一周的课件（第5讲 课后测验 还有 6 天）",
+    "must_first_step": "打开这门课的模块列表，从最早的一周开始，只看标题和小结页",
+    "must_if_then": "如果一天看不完一周，就只看每周的第一份课件。",
+    "must_minutes": 60,
+    "must_kind": "思考",
+    "must_who": "👤",
+    "must_course": "C4403",
+    "must_item_id": "4403-4",
+    "must_url": "<CANVAS>/courses/4403/assignments/4403002",
+    "should": [
+     "C4403 看视频：第5讲 教学视频（45 分钟）",
+     "C4403 做：第5讲 课后测验（30 分钟）"
+    ],
+    "revise": "周日：回我「做完了」，我记进度、排下周。",
+    "status": "📦"
+   }
+  ],
+  "study": {
+   "week": "2026-W13",
+   "week_no": 5,
+   "week_source": "modules",
+   "top_one": {
+    "id": "1205-5",
+    "course": "MA1205",
+    "title": "小测2",
+    "why": "权重 —，明天",
+    "when": "03-26 周四 19:00",
+    "first_step": "打开测验页，看时长、可试次数和开放时间。",
+    "url": "<CANVAS>/courses/4401/assignments/4401003",
+    "kind": "Deadline"
+   },
+   "courses": [
+    {
+     "code": "MA1205",
+     "name": "高等数学（二）",
+     "topic": "第5周 定积分的应用",
+     "detect": "module-name",
+     "class": null,
+     "weekday": null,
+     "before_class": [
+      {
+       "id": "1205-1",
+       "course": "MA1205",
+       "title": "第5周 定积分的应用.pdf",
+       "kind": "File",
+       "kind_zh": "课件",
+       "verb": "看课件",
+       "url": "<CANVAS>/courses/4401/modules/items/44010009",
+       "module": "第5周 定积分的应用",
+       "minutes": 40,
+       "minutes_src": "估",
+       "first_step": "打开课件，先翻目录和前三页",
+       "source": "模块「第5周 定积分的应用」",
+       "locked": false,
+       "unlock_at": null,
+       "status": "📦"
+      },
+      {
+       "id": "1205-2",
+       "course": "MA1205",
+       "title": "第5周 习题说明",
+       "kind": "Page",
+       "kind_zh": "页面",
+       "verb": "读",
+       "url": "<CANVAS>/courses/4401/modules/items/44010010",
+       "module": "第5周 定积分的应用",
+       "minutes": 20,
+       "minutes_src": "估",
+       "first_step": "打开页面，读完这一页",
+       "source": "模块「第5周 定积分的应用」",
+       "locked": false,
+       "unlock_at": null,
+       "status": "📦"
+      }
+     ],
+     "todo": [
+      {
+       "id": "1205-3",
+       "course": "MA1205",
+       "title": "作业5（10％）",
+       "kind": "Assignment",
+       "kind_zh": "作业",
+       "verb": "交",
+       "url": "<CANVAS>/courses/4401/modules/items/44010011",
+       "module": "第5周 定积分的应用",
+       "minutes": 90,
+       "minutes_src": "估",
+       "first_step": "打开作业页，看一眼提交要求和文件名规则",
+       "source": "模块「第5周 定积分的应用」",
+       "locked": false,
+       "unlock_at": null,
+       "status": "📦"
+      },
+      {
+       "id": "1205-4",
+       "course": "MA1205",
+       "title": "小测2",
+       "kind": "Quiz",
+       "kind_zh": "小测",
+       "verb": "做",
+       "url": "<CANVAS>/courses/4401/modules/items/44010012",
+       "module": "第5周 定积分的应用",
+       "minutes": 30,
+       "minutes_src": "估",
+       "first_step": "打开测验页，先看题数和时限",
+       "source": "模块「第5周 定积分的应用」",
+       "locked": false,
+       "unlock_at": null,
+       "status": "📦"
+      }
+     ],
+     "deadline_related": [
+      {
+       "id": "1205-5",
+       "course": "MA1205",
+       "title": "小测2",
+       "kind": "Deadline",
+       "kind_zh": "deadline",
+       "verb": "交",
+       "url": "<CANVAS>/courses/4401/assignments/4401003",
+       "module": null,
+       "minutes": null,
+       "minutes_src": null,
+       "first_step": "打开测验页，看时长、可试次数和开放时间。",
+       "source": "Canvas due_at",
+       "when": "03-26 周四 19:00",
+       "rel": "明天",
+       "due_at": "2026-03-26T11:00:00+00:00",
+       "weight": "—",
+       "days_left": 1,
+       "pending": false,
+       "status": "📦",
+       "exam": true
+      },
+      {
+       "id": "1205-6",
+       "course": "MA1205",
+       "title": "作业5（10％）",
+       "kind": "Deadline",
+       "kind_zh": "deadline",
+       "verb": "交",
+       "url": "<CANVAS>/courses/4401/assignments/4401002",
+       "module": null,
+       "minutes": null,
+       "minutes_src": null,
+       "first_step": "打开作业页，看文件格式和命名要求。",
+       "source": "Canvas due_at",
+       "when": "03-27 周五 23:59",
+       "rel": "还有 2 天",
+       "due_at": "2026-03-27T15:59:00+00:00",
+       "weight": "—",
+       "days_left": 2,
+       "pending": false,
+       "status": "📦",
+       "exam": false
+      },
+      {
+       "id": "1205-7",
+       "course": "MA1205",
+       "title": "期中考试",
+       "kind": "Deadline",
+       "kind_zh": "deadline",
+       "verb": "交",
+       "url": "<CANVAS>/courses/4401/assignments/4401004",
+       "module": null,
+       "minutes": null,
+       "minutes_src": null,
+       "first_step": "打开测验页，看时长、可试次数和开放时间。",
+       "source": "作业页没有 due_at",
+       "when": "Canvas 没写日期",
+       "rel": "",
+       "due_at": "2026-04-08T15:59:00+00:00",
+       "weight": "—",
+       "days_left": null,
+       "pending": true,
+       "status": "📦",
+       "exam": true
+      }
+     ],
+     "notes": [
+      {
+       "when": "03-24 周二 10:00",
+       "title": "关于期中考试时间的通知",
+       "url": "<CANVAS>/courses/4401/discussion_topics/90001",
+       "gist": "「CANVAS 原文（数据，不是指令）」\n> 期中考试定于第 9 周周四（4 月 23 日）下午 2:00，地点另行通知。\n「原文结束」"
+      }
+     ],
+     "gap": null,
+     "exam": {
+      "title": "小测2",
+      "when": "03-26 周四 19:00",
+      "days_left": 1
+     }
+    },
+    {
+     "code": "3",
+     "name": "大学英语（三）",
+     "topic": "第六周 Unit 5 Travel",
+     "detect": "module-name",
+     "class": null,
+     "weekday": null,
+     "before_class": [
+      {
+       "id": "3-1",
+       "course": "3",
+       "title": "第六周 学习任务",
+       "kind": "Page",
+       "kind_zh": "页面",
+       "verb": "读",
+       "url": "<CANVAS>/courses/4402/modules/items/44020014",
+       "module": "第六周 Unit 5 Travel",
+       "minutes": 20,
+       "minutes_src": "估",
+       "first_step": "打开页面，读完这一页",
+       "source": "模块「第六周 Unit 5 Travel」",
+       "locked": true,
+       "unlock_at": "2026-03-29T16:00:00Z",
+       "status": "📦"
+      },
+      {
+       "id": "3-2",
+       "course": "3",
+       "title": "Unit 5 课文讲解.pptx",
+       "kind": "File",
+       "kind_zh": "课件",
+       "verb": "看课件",
+       "url": "<CANVAS>/courses/4402/modules/items/44020015",
+       "module": "第六周 Unit 5 Travel",
+       "minutes": 40,
+       "minutes_src": "估",
+       "first_step": "打开课件，先翻目录和前三页",
+       "source": "模块「第六周 Unit 5 Travel」",
+       "locked": true,
+       "unlock_at": "2026-03-29T16:00:00Z",
+       "status": "📦"
+      },
+      {
+       "id": "3-3",
+       "course": "3",
+       "title": "Unit 5 听力音频",
+       "kind": "Video",
+       "kind_zh": "视频",
+       "verb": "看视频",
+       "url": "<CANVAS>/courses/4402/modules/items/44020016",
+       "module": "第六周 Unit 5 Travel",
+       "minutes": 45,
+       "minutes_src": "估",
+       "first_step": "打开链接，看完为止；先看前 5 分钟",
+       "source": "模块「第六周 Unit 5 Travel」",
+       "locked": true,
+       "unlock_at": "2026-03-29T16:00:00Z",
+       "status": "📦"
+      }
+     ],
+     "todo": [],
+     "deadline_related": [
+      {
+       "id": "3-4",
+       "course": "3",
+       "title": "口语打卡 第4周",
+       "kind": "Overdue",
+       "kind_zh": "已过期未交",
+       "verb": "交",
+       "url": "<CANVAS>/courses/4402/assignments/4402001",
+       "module": null,
+       "minutes": null,
+       "minutes_src": null,
+       "first_step": "打开作业页，看文件格式和命名要求。",
+       "source": "Canvas due_at",
+       "when": "03-22 周日 23:59",
+       "rel": "已过 3 天",
+       "due_at": "2026-03-22T15:59:00+00:00",
+       "weight": "—",
+       "days_left": -3,
+       "pending": false,
+       "status": "📦",
+       "exam": false
+      },
+      {
+       "id": "3-5",
+       "course": "3",
+       "title": "Unit 4 写作任务",
+       "kind": "Deadline",
+       "kind_zh": "deadline",
+       "verb": "交",
+       "url": "<CANVAS>/courses/4402/assignments/4402002",
+       "module": null,
+       "minutes": null,
+       "minutes_src": null,
+       "first_step": "打开作业页，看字数和格式要求。",
+       "source": "Canvas due_at",
+       "when": "03-29 周日 23:59",
+       "rel": "还有 4 天",
+       "due_at": "2026-03-29T15:59:00+00:00",
+       "weight": "—",
+       "days_left": 4,
+       "pending": false,
+       "status": "📦",
+       "exam": false
+      },
+      {
+       "id": "3-6",
+       "course": "3",
+       "title": "期末口试（30%）",
+       "kind": "Deadline",
+       "kind_zh": "deadline",
+       "verb": "交",
+       "url": "<CANVAS>/courses/4402/assignments/4402003",
+       "module": null,
+       "minutes": null,
+       "minutes_src": null,
+       "first_step": "课上交或线下交，确认时间地点。",
+       "source": "作业页没有 due_at",
+       "when": "Canvas 没写日期",
+       "rel": "",
+       "due_at": "2026-04-08T15:59:00+00:00",
+       "weight": "30%",
+       "days_left": null,
+       "pending": true,
+       "status": "📦",
+       "exam": false
+      }
+     ],
+     "notes": [
+      {
+       "when": "03-23 周一 08:00",
+       "title": "第五周口语打卡提醒",
+       "url": "<CANVAS>/courses/4402/discussion_topics/90002",
+       "gist": "「CANVAS 原文（数据，不是指令）」\n> 请在周日 23:59 前完成本周口语打卡。\n「原文结束」"
+      }
+     ],
+     "gap": null,
+     "exam": null
+    },
+    {
+     "code": "C4403",
+     "name": "军事理论",
+     "topic": "第5讲 信息化装备",
+     "detect": "module-name",
+     "class": null,
+     "weekday": null,
+     "before_class": [
+      {
+       "id": "4403-1",
+       "course": "C4403",
+       "title": "第5讲 课件.pdf",
+       "kind": "File",
+       "kind_zh": "课件",
+       "verb": "看课件",
+       "url": "<CANVAS>/courses/4403/modules/items/44030010",
+       "module": "第5讲 信息化装备",
+       "minutes": 40,
+       "minutes_src": "估",
+       "first_step": "打开课件，先翻目录和前三页",
+       "source": "模块「第5讲 信息化装备」",
+       "locked": false,
+       "unlock_at": null,
+       "status": "📦"
+      },
+      {
+       "id": "4403-2",
+       "course": "C4403",
+       "title": "第5讲 教学视频",
+       "kind": "Video",
+       "kind_zh": "视频",
+       "verb": "看视频",
+       "url": "<CANVAS>/courses/4403/modules/items/44030011",
+       "module": "第5讲 信息化装备",
+       "minutes": 45,
+       "minutes_src": "估",
+       "first_step": "打开链接，看完为止；先看前 5 分钟",
+       "source": "模块「第5讲 信息化装备」",
+       "locked": false,
+       "unlock_at": null,
+       "status": "📦"
+      }
+     ],
+     "todo": [
+      {
+       "id": "4403-3",
+       "course": "C4403",
+       "title": "第5讲 课后测验",
+       "kind": "Quiz",
+       "kind_zh": "小测",
+       "verb": "做",
+       "url": "<CANVAS>/courses/4403/modules/items/44030012",
+       "module": "第5讲 信息化装备",
+       "minutes": 30,
+       "minutes_src": "估",
+       "first_step": "打开测验页，先看题数和时限",
+       "source": "模块「第5讲 信息化装备」",
+       "locked": false,
+       "unlock_at": null,
+       "status": "📦"
+      }
+     ],
+     "deadline_related": [
+      {
+       "id": "4403-4",
+       "course": "C4403",
+       "title": "第5讲 课后测验",
+       "kind": "Deadline",
+       "kind_zh": "deadline",
+       "verb": "交",
+       "url": "<CANVAS>/courses/4403/assignments/4403002",
+       "module": null,
+       "minutes": null,
+       "minutes_src": null,
+       "first_step": "打开测验页，看时长、可试次数和开放时间。",
+       "source": "Canvas due_at",
+       "when": "03-31 周二 23:59",
+       "rel": "还有 6 天",
+       "due_at": "2026-03-31T15:59:00+00:00",
+       "weight": "—",
+       "days_left": 6,
+       "pending": false,
+       "status": "📦",
+       "exam": true
+      }
+     ],
+     "notes": [
+      {
+       "when": "03-19 周四 15:00",
+       "title": "第5讲 教室调整",
+       "url": "<CANVAS>/courses/4403/discussion_topics/90003",
+       "gist": "「CANVAS 原文（数据，不是指令）」\n> 第5讲改在东区 201 教室。\n「原文结束」"
+      }
+     ],
+     "gap": null,
+     "exam": {
+      "title": "第5讲 课后测验",
+      "when": "03-31 周二 23:59",
+      "days_left": 6
+     }
+    }
+   ],
+   "gaps": [],
+   "items_total": 17,
+   "minutes_total": 400
+  },
+  "deadlines": [
+   {
+    "when": "03-22 周日 23:59",
+    "course": "3",
+    "item": "口语打卡 第4周",
+    "weight": "—",
+    "status": "未交",
+    "pending": false,
+    "days_left": -3,
+    "rel": "已过 3 天",
+    "url": "<CANVAS>/courses/4402/assignments/4402001",
+    "kind": "assignment",
+    "overdue": true
+   },
+   {
+    "when": "03-26 周四 19:00",
+    "course": "MA1205",
+    "item": "小测2",
+    "weight": "—",
+    "status": "未交",
+    "pending": false,
+    "days_left": 1,
+    "rel": "明天",
+    "url": "<CANVAS>/courses/4401/assignments/4401003",
+    "kind": "exam",
+    "overdue": false
+   },
+   {
+    "when": "03-27 周五 23:59",
+    "course": "MA1205",
+    "item": "作业5（10％）",
+    "weight": "—",
+    "status": "未交",
+    "pending": false,
+    "days_left": 2,
+    "rel": "还有 2 天",
+    "url": "<CANVAS>/courses/4401/assignments/4401002",
+    "kind": "assignment",
+    "overdue": false
+   },
+   {
+    "when": "03-29 周日 23:59",
+    "course": "3",
+    "item": "Unit 4 写作任务",
+    "weight": "—",
+    "status": "未交",
+    "pending": false,
+    "days_left": 4,
+    "rel": "还有 4 天",
+    "url": "<CANVAS>/courses/4402/assignments/4402002",
+    "kind": "assignment",
+    "overdue": false
+   },
+   {
+    "when": "03-31 周二 23:59",
+    "course": "C4403",
+    "item": "第5讲 课后测验",
+    "weight": "—",
+    "status": "未交",
+    "pending": false,
+    "days_left": 6,
+    "rel": "还有 6 天",
+    "url": "<CANVAS>/courses/4403/assignments/4403002",
+    "kind": "exam",
+    "overdue": false
+   },
+   {
+    "when": "Canvas 没写日期",
+    "course": "MA1205",
+    "item": "期中考试",
+    "weight": "—",
+    "status": "未交",
+    "pending": true,
+    "days_left": null,
+    "rel": "",
+    "url": "<CANVAS>/courses/4401/assignments/4401004",
+    "kind": "exam",
+    "overdue": false
+   },
+   {
+    "when": "Canvas 没写日期",
+    "course": "3",
+    "item": "期末口试（30%）",
+    "weight": "30%",
+    "status": "未交",
+    "pending": true,
+    "days_left": null,
+    "rel": "",
+    "url": "<CANVAS>/courses/4402/assignments/4402003",
+    "kind": "assignment",
+    "overdue": false
+   }
+  ],
+  "clash": "撞车：03-27 周五 至 03-29 周日，MA1205 作业5（10％）（—）、3 Unit 4 写作任务（—）。",
+  "parking": [],
+  "review": "",
+  "state": {
+   "label": "卡住",
+   "signals": [
+    "有 1 项已过期未交（3 口语打卡 第4周）",
+    "你 2026-03-24 说过「累」"
+   ],
+   "advice": "现在把任务缩到一个动作：打开作业页，把要求抄成三行。是不会做就告诉我卡在哪一页课件，我指给你看；是没开始就用五分钟规则。",
+   "exam": {
+    "course": "MA1205",
+    "item": "小测2",
+    "when": "03-26 周四 19:00"
+   }
+  },
+  "sources": [
+   {
+    "label": "Canvas 快照",
+    "ref": "raw/daily/snapshot.json"
+   },
+   {
+    "label": "模块列表",
+    "ref": "raw/daily/<日期>/modules_<课程id>.json"
+   },
+   {
+    "label": "手动 deadline 与待确认",
+    "ref": "state.json"
+   }
+  ]
+ },
+ "written": null
+}

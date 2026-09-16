@@ -1,0 +1,438 @@
+[
+ {
+  "id": 3302101,
+  "name": "Lecture 1: Research Design",
+  "position": 1,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33020001,
+    "module_id": 3302101,
+    "position": 1,
+    "title": "PSY2031_Lecture01_ResearchDesign.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020001",
+    "content_id": 3302501,
+    "url": "{{BASE}}/api/v1/courses/3302/files/3302501",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSY2031_Lecture01_ResearchDesign.pptx"
+    }
+   },
+   {
+    "id": 33020002,
+    "module_id": 3302101,
+    "position": 2,
+    "title": "Lab 1: R worksheet",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020002",
+    "page_url": "lab-1:-r-worksheet",
+    "url": "{{BASE}}/api/v1/courses/3302/pages/lab-1:-r-worksheet",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3302102,
+  "name": "Lecture 2: Sampling",
+  "position": 2,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33020003,
+    "module_id": 3302102,
+    "position": 1,
+    "title": "PSY2031_Lecture02_Sampling.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020003",
+    "content_id": 3302502,
+    "url": "{{BASE}}/api/v1/courses/3302/files/3302502",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSY2031_Lecture02_Sampling.pptx"
+    }
+   },
+   {
+    "id": 33020004,
+    "module_id": 3302102,
+    "position": 2,
+    "title": "Lab 2: R worksheet",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020004",
+    "page_url": "lab-2:-r-worksheet",
+    "url": "{{BASE}}/api/v1/courses/3302/pages/lab-2:-r-worksheet",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3302103,
+  "name": "Lecture 3: Measurement",
+  "position": 3,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33020005,
+    "module_id": 3302103,
+    "position": 1,
+    "title": "PSY2031_Lecture03_Measurement.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020005",
+    "content_id": 3302503,
+    "url": "{{BASE}}/api/v1/courses/3302/files/3302503",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSY2031_Lecture03_Measurement.pptx"
+    }
+   },
+   {
+    "id": 33020006,
+    "module_id": 3302103,
+    "position": 2,
+    "title": "Lab 3: R worksheet",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020006",
+    "page_url": "lab-3:-r-worksheet",
+    "url": "{{BASE}}/api/v1/courses/3302/pages/lab-3:-r-worksheet",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3302104,
+  "name": "Lecture 4: t-tests",
+  "position": 4,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33020007,
+    "module_id": 3302104,
+    "position": 1,
+    "title": "PSY2031_Lecture04_t-tests.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020007",
+    "content_id": 3302504,
+    "url": "{{BASE}}/api/v1/courses/3302/files/3302504",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSY2031_Lecture04_t-tests.pptx"
+    }
+   },
+   {
+    "id": 33020008,
+    "module_id": 3302104,
+    "position": 2,
+    "title": "Lab 4: R worksheet",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020008",
+    "page_url": "lab-4:-r-worksheet",
+    "url": "{{BASE}}/api/v1/courses/3302/pages/lab-4:-r-worksheet",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3302105,
+  "name": "Lecture 5: One-way ANOVA",
+  "position": 5,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33020009,
+    "module_id": 3302105,
+    "position": 1,
+    "title": "PSY2031_Lecture05_One-wayANOVA.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020009",
+    "content_id": 3302505,
+    "url": "{{BASE}}/api/v1/courses/3302/files/3302505",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSY2031_Lecture05_One-wayANOVA.pptx"
+    }
+   },
+   {
+    "id": 33020010,
+    "module_id": 3302105,
+    "position": 2,
+    "title": "Lab 5: R worksheet",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020010",
+    "page_url": "lab-5:-r-worksheet",
+    "url": "{{BASE}}/api/v1/courses/3302/pages/lab-5:-r-worksheet",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3302106,
+  "name": "Lecture 6: Factorial ANOVA",
+  "position": 6,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33020011,
+    "module_id": 3302106,
+    "position": 1,
+    "title": "PSY2031_Lecture06_FactorialANOVA.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020011",
+    "content_id": 3302506,
+    "url": "{{BASE}}/api/v1/courses/3302/files/3302506",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSY2031_Lecture06_FactorialANOVA.pptx"
+    }
+   },
+   {
+    "id": 33020012,
+    "module_id": 3302106,
+    "position": 2,
+    "title": "Lab 6: R worksheet",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020012",
+    "page_url": "lab-6:-r-worksheet",
+    "url": "{{BASE}}/api/v1/courses/3302/pages/lab-6:-r-worksheet",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3302107,
+  "name": "Lecture 7: Repeated Measures",
+  "position": 7,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33020013,
+    "module_id": 3302107,
+    "position": 1,
+    "title": "PSY2031_Lecture07_RepeatedMeasures.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020013",
+    "content_id": 3302507,
+    "url": "{{BASE}}/api/v1/courses/3302/files/3302507",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSY2031_Lecture07_RepeatedMeasures.pptx"
+    }
+   },
+   {
+    "id": 33020014,
+    "module_id": 3302107,
+    "position": 2,
+    "title": "Lab 7: R worksheet",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020014",
+    "page_url": "lab-7:-r-worksheet",
+    "url": "{{BASE}}/api/v1/courses/3302/pages/lab-7:-r-worksheet",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33020015,
+    "module_id": 3302107,
+    "position": 3,
+    "title": "Weekly practice quiz 7",
+    "indent": 0,
+    "type": "Quiz",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020015",
+    "content_id": 3302001,
+    "url": "{{BASE}}/api/v1/courses/3302/assignments/3302001",
+    "content_details": {
+     "locked_for_user": false,
+     "points_possible": 1,
+     "due_at": "2026-03-06T17:00:00Z"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3302108,
+  "name": "Lecture 8: Nonparametric Tests",
+  "position": 8,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33020016,
+    "module_id": 3302108,
+    "position": 1,
+    "title": "PSY2031_Lecture08_NonparametricTests.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020016",
+    "content_id": 3302508,
+    "url": "{{BASE}}/api/v1/courses/3302/files/3302508",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSY2031_Lecture08_NonparametricTests.pptx"
+    }
+   },
+   {
+    "id": 33020017,
+    "module_id": 3302108,
+    "position": 2,
+    "title": "Lab 8: R worksheet",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020017",
+    "page_url": "lab-8:-r-worksheet",
+    "url": "{{BASE}}/api/v1/courses/3302/pages/lab-8:-r-worksheet",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33020018,
+    "module_id": 3302108,
+    "position": 3,
+    "title": "Weekly practice quiz 8",
+    "indent": 0,
+    "type": "Quiz",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020018",
+    "content_id": 3302002,
+    "url": "{{BASE}}/api/v1/courses/3302/assignments/3302002",
+    "content_details": {
+     "locked_for_user": false,
+     "points_possible": 1,
+     "due_at": "2026-03-13T17:00:00Z"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3302109,
+  "name": "Lecture 9: Mixed ANOVA",
+  "position": 9,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33020019,
+    "module_id": 3302109,
+    "position": 1,
+    "title": "PSY2031_Lecture09_MixedANOVA.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020019",
+    "content_id": 3302509,
+    "url": "{{BASE}}/api/v1/courses/3302/files/3302509",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSY2031_Lecture09_MixedANOVA.pptx"
+    }
+   },
+   {
+    "id": 33020020,
+    "module_id": 3302109,
+    "position": 2,
+    "title": "Lab 9: R worksheet",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020020",
+    "page_url": "lab-9:-r-worksheet",
+    "url": "{{BASE}}/api/v1/courses/3302/pages/lab-9:-r-worksheet",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3302110,
+  "name": "Lecture 10: Regression",
+  "position": 10,
+  "unlock_at": "2026-03-23T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "locked",
+  "items": [
+   {
+    "id": 33020021,
+    "module_id": 3302110,
+    "position": 1,
+    "title": "PSY2031_Lecture10_Regression.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020021",
+    "content_id": 3302510,
+    "url": "{{BASE}}/api/v1/courses/3302/files/3302510",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-23T00:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-23T00:00:00Z.",
+     "display_name": "PSY2031_Lecture10_Regression.pptx"
+    }
+   },
+   {
+    "id": 33020022,
+    "module_id": 3302110,
+    "position": 2,
+    "title": "Lab 10: R worksheet",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3302/modules/items/33020022",
+    "page_url": "lab-10:-r-worksheet",
+    "url": "{{BASE}}/api/v1/courses/3302/pages/lab-10:-r-worksheet",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-23T00:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-23T00:00:00Z."
+    }
+   }
+  ]
+ }
+]

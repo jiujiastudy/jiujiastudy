@@ -1,0 +1,66 @@
+[
+ {
+  "id": 90001,
+  "title": "Welcome to MATH 3B",
+  "message": "<p>See the syllabus for the homework schedule.</p>",
+  "posted_at": "2026-01-04T20:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/2201/discussion_topics/90001",
+  "context_code": "course_2201",
+  "author": {
+   "id": 8101,
+   "display_name": "Prof. Dana Whitfield"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90002,
+  "title": "Midterm 2 room assignments",
+  "message": "<p>Midterm 2 is on <strong>Wednesday March 4</strong> in your usual lecture room. Bring a photo ID.</p>",
+  "posted_at": "2026-02-23T18:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/2201/discussion_topics/90002",
+  "context_code": "course_2201",
+  "author": {
+   "id": 8101,
+   "display_name": "Prof. Dana Whitfield"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90003,
+  "title": "Lab safety reminder",
+  "message": "<p>Goggles are required for Lab 8. No open-toed shoes.</p>",
+  "posted_at": "2026-02-21T00:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/2202/discussion_topics/90003",
+  "context_code": "course_2202",
+  "author": {
+   "id": 8201,
+   "display_name": "Dr. Rafael Soto"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90004,
+  "title": "Office hours moved",
+  "message": "<p>Office hours move to Tuesdays 2-3 pm.</p>",
+  "posted_at": "2026-02-10T18:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/2203/discussion_topics/90004",
+  "context_code": "course_2203",
+  "author": {
+   "id": 8301,
+   "display_name": "Kim Nguyen"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ }
+]

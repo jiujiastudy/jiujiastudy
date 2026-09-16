@@ -1,0 +1,310 @@
+[
+ {
+  "id": 70001,
+  "title": "Tutorial 05",
+  "start_at": "2026-03-26T03:00:00Z",
+  "end_at": "2026-03-26T04:00:00Z",
+  "all_day": false,
+  "location_name": "Room 410",
+  "context_code": "course_1101",
+  "workflow_state": "active",
+  "html_url": "{{BASE}}/calendar?event_id=70001&include_contexts=course_1101",
+  "type": "event"
+ },
+ {
+  "id": 70002,
+  "title": "Mid-semester test",
+  "start_at": "2026-04-01T02:00:00Z",
+  "end_at": "2026-04-01T03:00:00Z",
+  "all_day": false,
+  "location_name": "Online",
+  "context_code": "course_1102",
+  "workflow_state": "active",
+  "html_url": "{{BASE}}/calendar?event_id=70002&include_contexts=course_1102",
+  "type": "event"
+ },
+ {
+  "id": 70003,
+  "title": "Studio crit",
+  "start_at": "2026-03-29T22:00:00Z",
+  "end_at": "2026-03-30T01:00:00Z",
+  "all_day": false,
+  "location_name": "Design Studio 2",
+  "context_code": "course_1103",
+  "workflow_state": "active",
+  "html_url": "{{BASE}}/calendar?event_id=70003&include_contexts=course_1103",
+  "type": "event"
+ },
+ {
+  "id": "assignment_1101001",
+  "title": "Weekly Quiz 1",
+  "start_at": "2026-02-27T12:59:00Z",
+  "end_at": "2026-02-27T12:59:00Z",
+  "all_day": false,
+  "context_code": "course_1101",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1101/assignments/1101001",
+  "type": "assignment",
+  "assignment": {
+   "id": 1101001,
+   "name": "Weekly Quiz 1",
+   "due_at": "2026-02-27T12:59:00Z",
+   "points_possible": 2
+  }
+ },
+ {
+  "id": "assignment_1101002",
+  "title": "Weekly Quiz 2",
+  "start_at": "2026-03-06T12:59:00Z",
+  "end_at": "2026-03-06T12:59:00Z",
+  "all_day": false,
+  "context_code": "course_1101",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1101/assignments/1101002",
+  "type": "assignment",
+  "assignment": {
+   "id": 1101002,
+   "name": "Weekly Quiz 2",
+   "due_at": "2026-03-06T12:59:00Z",
+   "points_possible": 2
+  }
+ },
+ {
+  "id": "assignment_1101003",
+  "title": "Weekly Quiz 3",
+  "start_at": "2026-03-13T12:59:00Z",
+  "end_at": "2026-03-13T12:59:00Z",
+  "all_day": false,
+  "context_code": "course_1101",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1101/assignments/1101003",
+  "type": "assignment",
+  "assignment": {
+   "id": 1101003,
+   "name": "Weekly Quiz 3",
+   "due_at": "2026-03-13T12:59:00Z",
+   "points_possible": 2
+  }
+ },
+ {
+  "id": "assignment_1101004",
+  "title": "Weekly Quiz 4",
+  "start_at": "2026-03-20T12:59:00Z",
+  "end_at": "2026-03-20T12:59:00Z",
+  "all_day": false,
+  "context_code": "course_1101",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1101/assignments/1101004",
+  "type": "assignment",
+  "assignment": {
+   "id": 1101004,
+   "name": "Weekly Quiz 4",
+   "due_at": "2026-03-20T12:59:00Z",
+   "points_possible": 2
+  }
+ },
+ {
+  "id": "assignment_1101005",
+  "title": "Weekly Quiz 5",
+  "start_at": "2026-03-27T12:59:00Z",
+  "end_at": "2026-03-27T12:59:00Z",
+  "all_day": false,
+  "context_code": "course_1101",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1101/assignments/1101005",
+  "type": "assignment",
+  "assignment": {
+   "id": 1101005,
+   "name": "Weekly Quiz 5",
+   "due_at": "2026-03-27T12:59:00Z",
+   "points_possible": 2
+  }
+ },
+ {
+  "id": "assignment_1101006",
+  "title": "Weekly Quiz 6",
+  "start_at": "2026-04-03T12:59:00Z",
+  "end_at": "2026-04-03T12:59:00Z",
+  "all_day": false,
+  "context_code": "course_1101",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1101/assignments/1101006",
+  "type": "assignment",
+  "assignment": {
+   "id": 1101006,
+   "name": "Weekly Quiz 6",
+   "due_at": "2026-04-03T12:59:00Z",
+   "points_possible": 2
+  }
+ },
+ {
+  "id": "assignment_1101007",
+  "title": "Weekly Quiz 7",
+  "start_at": "2026-04-17T13:59:00Z",
+  "end_at": "2026-04-17T13:59:00Z",
+  "all_day": false,
+  "context_code": "course_1101",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1101/assignments/1101007",
+  "type": "assignment",
+  "assignment": {
+   "id": 1101007,
+   "name": "Weekly Quiz 7",
+   "due_at": "2026-04-17T13:59:00Z",
+   "points_possible": 2
+  }
+ },
+ {
+  "id": "assignment_1101008",
+  "title": "Weekly Quiz 8",
+  "start_at": "2026-04-24T13:59:00Z",
+  "end_at": "2026-04-24T13:59:00Z",
+  "all_day": false,
+  "context_code": "course_1101",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1101/assignments/1101008",
+  "type": "assignment",
+  "assignment": {
+   "id": 1101008,
+   "name": "Weekly Quiz 8",
+   "due_at": "2026-04-24T13:59:00Z",
+   "points_possible": 2
+  }
+ },
+ {
+  "id": "assignment_1101009",
+  "title": "Case Study Report (30%)",
+  "start_at": "2026-04-02T12:59:00Z",
+  "end_at": "2026-04-02T12:59:00Z",
+  "all_day": false,
+  "context_code": "course_1101",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1101/assignments/1101009",
+  "type": "assignment",
+  "assignment": {
+   "id": 1101009,
+   "name": "Case Study Report (30%)",
+   "due_at": "2026-04-02T12:59:00Z",
+   "points_possible": 30
+  }
+ },
+ {
+  "id": "assignment_1102001",
+  "title": "Lab Report draft",
+  "start_at": "2026-03-20T06:00:00Z",
+  "end_at": "2026-03-20T06:00:00Z",
+  "all_day": false,
+  "context_code": "course_1102",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1102/assignments/1102001",
+  "type": "assignment",
+  "assignment": {
+   "id": 1102001,
+   "name": "Lab Report draft",
+   "due_at": "2026-03-20T06:00:00Z",
+   "points_possible": 0
+  }
+ },
+ {
+  "id": "assignment_1102002",
+  "title": "Lab Report (25%)",
+  "start_at": "2026-03-26T06:00:00Z",
+  "end_at": "2026-03-26T06:00:00Z",
+  "all_day": false,
+  "context_code": "course_1102",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1102/assignments/1102002",
+  "type": "assignment",
+  "assignment": {
+   "id": 1102002,
+   "name": "Lab Report (25%)",
+   "due_at": "2026-03-26T06:00:00Z",
+   "points_possible": 25
+  }
+ },
+ {
+  "id": "assignment_1102003",
+  "title": "Week 5 discussion post",
+  "start_at": "2026-03-27T12:59:00Z",
+  "end_at": "2026-03-27T12:59:00Z",
+  "all_day": false,
+  "context_code": "course_1102",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1102/assignments/1102003",
+  "type": "assignment",
+  "assignment": {
+   "id": 1102003,
+   "name": "Week 5 discussion post",
+   "due_at": "2026-03-27T12:59:00Z",
+   "points_possible": 1
+  }
+ },
+ {
+  "id": "assignment_1102004",
+  "title": "Mid-semester test (20%)",
+  "start_at": "2026-04-01T02:00:00Z",
+  "end_at": "2026-04-01T02:00:00Z",
+  "all_day": false,
+  "context_code": "course_1102",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1102/assignments/1102004",
+  "type": "assignment",
+  "assignment": {
+   "id": 1102004,
+   "name": "Mid-semester test (20%)",
+   "due_at": "2026-04-01T02:00:00Z",
+   "points_possible": 20
+  }
+ },
+ {
+  "id": "assignment_1103001",
+  "title": "Reflection journal",
+  "start_at": "2026-03-18T12:59:00Z",
+  "end_at": "2026-03-18T12:59:00Z",
+  "all_day": false,
+  "context_code": "course_1103",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1103/assignments/1103001",
+  "type": "assignment",
+  "assignment": {
+   "id": 1103001,
+   "name": "Reflection journal",
+   "due_at": "2026-03-18T12:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_1103002",
+  "title": "Prototype critique (15%)",
+  "start_at": "2026-03-29T22:00:00Z",
+  "end_at": "2026-03-29T22:00:00Z",
+  "all_day": false,
+  "context_code": "course_1103",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1103/assignments/1103002",
+  "type": "assignment",
+  "assignment": {
+   "id": 1103002,
+   "name": "Prototype critique (15%)",
+   "due_at": "2026-03-29T22:00:00Z",
+   "points_possible": 15
+  }
+ },
+ {
+  "id": "assignment_1103004",
+  "title": "Studio attendance",
+  "start_at": "2026-03-24T01:00:00Z",
+  "end_at": "2026-03-24T01:00:00Z",
+  "all_day": false,
+  "context_code": "course_1103",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/1103/assignments/1103004",
+  "type": "assignment",
+  "assignment": {
+   "id": 1103004,
+   "name": "Studio attendance",
+   "due_at": "2026-03-24T01:00:00Z",
+   "points_possible": 0
+  }
+ }
+]

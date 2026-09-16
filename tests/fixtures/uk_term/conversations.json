@@ -1,0 +1,58 @@
+[
+ {
+  "id": 80001,
+  "subject": "Lab report word count",
+  "workflow_state": "unread",
+  "last_message": "The 2,500-word limit excludes references and tables.",
+  "last_message_at": "2026-03-17T10:00:00Z",
+  "last_authored_message_at": null,
+  "message_count": 2,
+  "participants": [
+   {
+    "id": 7001,
+    "name": "Test Student",
+    "full_name": "Test Student"
+   },
+   {
+    "id": 9201,
+    "name": "Dr. Priya Nair",
+    "full_name": "Dr. Priya Nair"
+   }
+  ],
+  "audience": [
+   9201
+  ],
+  "context_name": "PSY2031 Research Methods II",
+  "context_code": "course_3302",
+  "starred": false,
+  "private": true
+ },
+ {
+  "id": 80002,
+  "subject": "Essay title approved",
+  "workflow_state": "read",
+  "last_message": "Your essay title is approved.",
+  "last_message_at": "2026-03-11T15:20:00Z",
+  "last_authored_message_at": null,
+  "message_count": 2,
+  "participants": [
+   {
+    "id": 7001,
+    "name": "Test Student",
+    "full_name": "Test Student"
+   },
+   {
+    "id": 9101,
+    "name": "Dr. Eleanor Grant",
+    "full_name": "Dr. Eleanor Grant"
+   }
+  ],
+  "audience": [
+   9101
+  ],
+  "context_name": "HIS2102 Modern Britain, 1800–1914",
+  "context_code": "course_3301",
+  "starred": false,
+  "private": true
+ }
+]

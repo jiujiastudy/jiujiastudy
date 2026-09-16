@@ -1,0 +1,90 @@
+{
+ "name": "cn_names",
+ "description": "Week 5 of a Chinese semester, week inferred from modules. Config codes are what the current doctor derives from these course_code values: MA1205, '3' (from 大学英语3) and C4403 (no letters or digits). Modules use 第5周, 第五周 Unit 4 and 第5讲; one weight uses a full-width ％.",
+ "now": "2026-03-25T12:00:00Z",
+ "date": "2026-03-25",
+ "token": "dummy",
+ "mock": {},
+ "config": {
+  "schema_version": 3,
+  "canvas_host": null,
+  "course_tz": "Asia/Shanghai",
+  "user_tz": "Asia/Shanghai",
+  "tz_labels": {},
+  "term": {
+   "name": "2025-2026学年第二学期",
+   "start": "2026-02-23",
+   "end": "2026-06-28",
+   "week1_monday": null,
+   "break": null,
+   "week_source": null
+  },
+  "user": {
+   "id": 8001,
+   "name": "测试同学"
+  },
+  "courses": [
+   {
+    "id": 4401,
+    "code": "MA1205",
+    "name": "高等数学（二）",
+    "section": null,
+    "weekday": null
+   },
+   {
+    "id": 4402,
+    "code": "3",
+    "name": "大学英语（三）",
+    "section": null,
+    "weekday": null
+   },
+   {
+    "id": 4403,
+    "code": "C4403",
+    "name": "军事理论",
+    "section": null,
+    "weekday": null
+   }
+  ],
+  "extra_sites": [],
+  "exam_prep": null,
+  "api_notes": {},
+  "notes": [],
+  "root": null,
+  "materials": {
+   "auto_download": true,
+   "max_mb": 50,
+   "per_run": 30
+  },
+  "agent": {
+   "kind": null
+  }
+ },
+ "state": {
+  "schema_version": 3,
+  "last_check": null,
+  "last_fetch": null,
+  "last_record": null,
+  "last_seen": null,
+  "last_done": "2026-03-19T12:00:00Z",
+  "counters": {
+   "pending": 0
+  },
+  "courses": {},
+  "pending_confirmations": [],
+  "decisions": [],
+  "mood": [
+   {
+    "date": "2026-03-24",
+    "word": "累",
+    "level": "落后",
+    "note": null
+   }
+  ],
+  "manual_deadlines": [],
+  "deadline_notes": {},
+  "locked_materials": [],
+  "current_plan": null,
+  "daily_report": {}
+ }
+}

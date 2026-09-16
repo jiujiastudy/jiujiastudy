@@ -1,0 +1,148 @@
+[
+ {
+  "id": 3301001,
+  "name": "Formative essay plan",
+  "description": "",
+  "created_at": "2025-12-08T10:00:00Z",
+  "updated_at": "2025-12-08T10:00:00Z",
+  "due_at": "2026-03-02T12:00:00Z",
+  "lock_at": null,
+  "unlock_at": null,
+  "points_possible": 0,
+  "grading_type": "points",
+  "assignment_group_id": null,
+  "submission_types": [
+   "online_upload"
+  ],
+  "allowed_extensions": [],
+  "allowed_attempts": -1,
+  "has_submitted_submissions": false,
+  "course_id": 3301,
+  "html_url": "{{BASE}}/courses/3301/assignments/3301001",
+  "published": true,
+  "position": 1,
+  "is_quiz_assignment": false,
+  "locked_for_user": false,
+  "omit_from_final_grade": false,
+  "workflow_state": "published",
+  "submission": {
+   "id": 33010010,
+   "assignment_id": 3301001,
+   "user_id": 7001,
+   "attempt": null,
+   "workflow_state": "unsubmitted",
+   "submitted_at": null,
+   "score": null,
+   "grade": null,
+   "graded_at": null,
+   "posted_at": null,
+   "submission_type": null,
+   "late": false,
+   "missing": false,
+   "excused": null,
+   "seconds_late": 0
+  }
+ },
+ {
+  "id": 3301002,
+  "name": "Source Analysis (40%)",
+  "description": "",
+  "created_at": "2025-12-08T10:00:00Z",
+  "updated_at": "2025-12-08T10:00:00Z",
+  "due_at": "2026-03-19T12:00:00Z",
+  "lock_at": null,
+  "unlock_at": null,
+  "points_possible": 40,
+  "grading_type": "points",
+  "assignment_group_id": null,
+  "submission_types": [
+   "online_upload"
+  ],
+  "allowed_extensions": [
+   "docx",
+   "pdf"
+  ],
+  "allowed_attempts": -1,
+  "has_submitted_submissions": true,
+  "course_id": 3301,
+  "html_url": "{{BASE}}/courses/3301/assignments/3301002",
+  "published": true,
+  "position": 2,
+  "is_quiz_assignment": false,
+  "locked_for_user": false,
+  "omit_from_final_grade": false,
+  "workflow_state": "published",
+  "submission": {
+   "id": 33010020,
+   "assignment_id": 3301002,
+   "user_id": 7001,
+   "attempt": 1,
+   "workflow_state": "submitted",
+   "submitted_at": "2026-03-17T21:14:00Z",
+   "score": null,
+   "grade": null,
+   "graded_at": null,
+   "posted_at": null,
+   "submission_type": "online_upload",
+   "late": false,
+   "missing": false,
+   "excused": null,
+   "seconds_late": 0,
+   "attachments": [
+    {
+     "id": 33010021,
+     "display_name": "source-analysis.docx",
+     "filename": "source-analysis.docx",
+     "size": 48213
+    }
+   ]
+  }
+ },
+ {
+  "id": 3301003,
+  "name": "Summative Essay – 3,000 words (60%)",
+  "description": "",
+  "created_at": "2025-12-08T10:00:00Z",
+  "updated_at": "2025-12-08T10:00:00Z",
+  "due_at": "2026-03-26T12:00:00Z",
+  "lock_at": null,
+  "unlock_at": null,
+  "points_possible": 60,
+  "grading_type": "points",
+  "assignment_group_id": null,
+  "submission_types": [
+   "online_upload"
+  ],
+  "allowed_extensions": [
+   "docx",
+   "pdf"
+  ],
+  "allowed_attempts": -1,
+  "has_submitted_submissions": false,
+  "course_id": 3301,
+  "html_url": "{{BASE}}/courses/3301/assignments/3301003",
+  "published": true,
+  "position": 3,
+  "is_quiz_assignment": false,
+  "locked_for_user": false,
+  "omit_from_final_grade": false,
+  "workflow_state": "published",
+  "submission": {
+   "id": 33010030,
+   "assignment_id": 3301003,
+   "user_id": 7001,
+   "attempt": null,
+   "workflow_state": "unsubmitted",
+   "submitted_at": null,
+   "score": null,
+   "grade": null,
+   "graded_at": null,
+   "posted_at": null,
+   "submission_type": null,
+   "late": false,
+   "missing": false,
+   "excused": null,
+   "seconds_late": 0
+  }
+ }
+]

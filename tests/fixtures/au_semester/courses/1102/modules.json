@@ -1,0 +1,707 @@
+[
+ {
+  "id": 1102101,
+  "name": "Week 1: What is Cognition",
+  "position": 1,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020001,
+    "module_id": 1102101,
+    "position": 1,
+    "title": "PSYC2012 Lecture 1 - What is Cognition.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020001",
+    "content_id": 1102501,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102501",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 1 - What is Cognition.pptx"
+    }
+   },
+   {
+    "id": 11020002,
+    "module_id": 1102101,
+    "position": 2,
+    "title": "Week 1 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020002",
+    "page_url": "week-1-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-1-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020003,
+    "module_id": 1102101,
+    "position": 3,
+    "title": "Week 1 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020003",
+    "external_url": "https://youtube.example/watch?v=psyc01",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102102,
+  "name": "Week 2: Perception",
+  "position": 2,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020004,
+    "module_id": 1102102,
+    "position": 1,
+    "title": "PSYC2012 Lecture 2 - Perception.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020004",
+    "content_id": 1102502,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102502",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 2 - Perception.pptx"
+    }
+   },
+   {
+    "id": 11020005,
+    "module_id": 1102102,
+    "position": 2,
+    "title": "Week 2 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020005",
+    "page_url": "week-2-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-2-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020006,
+    "module_id": 1102102,
+    "position": 3,
+    "title": "Week 2 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020006",
+    "external_url": "https://youtube.example/watch?v=psyc02",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102103,
+  "name": "Week 3: Attention",
+  "position": 3,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020007,
+    "module_id": 1102103,
+    "position": 1,
+    "title": "PSYC2012 Lecture 3 - Attention.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020007",
+    "content_id": 1102503,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102503",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 3 - Attention.pptx"
+    }
+   },
+   {
+    "id": 11020008,
+    "module_id": 1102103,
+    "position": 2,
+    "title": "Week 3 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020008",
+    "page_url": "week-3-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-3-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020009,
+    "module_id": 1102103,
+    "position": 3,
+    "title": "Week 3 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020009",
+    "external_url": "https://youtube.example/watch?v=psyc03",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102104,
+  "name": "Week 4: Short-term Memory",
+  "position": 4,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020010,
+    "module_id": 1102104,
+    "position": 1,
+    "title": "PSYC2012 Lecture 4 - Short-term Memory.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020010",
+    "content_id": 1102504,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102504",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 4 - Short-term Memory.pptx"
+    }
+   },
+   {
+    "id": 11020011,
+    "module_id": 1102104,
+    "position": 2,
+    "title": "Week 4 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020011",
+    "page_url": "week-4-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-4-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020012,
+    "module_id": 1102104,
+    "position": 3,
+    "title": "Week 4 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020012",
+    "external_url": "https://youtube.example/watch?v=psyc04",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102105,
+  "name": "Week 5: Working Memory",
+  "position": 5,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020013,
+    "module_id": 1102105,
+    "position": 1,
+    "title": "PSYC2012 Lecture 5 - Working Memory.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020013",
+    "content_id": 1102505,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102505",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 5 - Working Memory.pptx"
+    }
+   },
+   {
+    "id": 11020014,
+    "module_id": 1102105,
+    "position": 2,
+    "title": "Week 5 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020014",
+    "page_url": "week-5-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-5-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020015,
+    "module_id": 1102105,
+    "position": 3,
+    "title": "Week 5 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020015",
+    "external_url": "https://youtube.example/watch?v=psyc05",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020016,
+    "module_id": 1102105,
+    "position": 4,
+    "title": "Week 5 discussion post",
+    "indent": 0,
+    "type": "Discussion",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020016",
+    "content_id": 1102701,
+    "url": "{{BASE}}/api/v1/courses/1102/assignments/1102003",
+    "content_details": {
+     "locked_for_user": false,
+     "points_possible": 1,
+     "due_at": "2026-03-27T12:59:00Z"
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102106,
+  "name": "Week 6: Long-term Memory",
+  "position": 6,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020017,
+    "module_id": 1102106,
+    "position": 1,
+    "title": "PSYC2012 Lecture 6 - Long-term Memory.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020017",
+    "content_id": 1102506,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102506",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 6 - Long-term Memory.pptx"
+    }
+   },
+   {
+    "id": 11020018,
+    "module_id": 1102106,
+    "position": 2,
+    "title": "Week 6 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020018",
+    "page_url": "week-6-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-6-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020019,
+    "module_id": 1102106,
+    "position": 3,
+    "title": "Week 6 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020019",
+    "external_url": "https://youtube.example/watch?v=psyc06",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102107,
+  "name": "Week 7: Forgetting",
+  "position": 7,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020020,
+    "module_id": 1102107,
+    "position": 1,
+    "title": "PSYC2012 Lecture 7 - Forgetting.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020020",
+    "content_id": 1102507,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102507",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 7 - Forgetting.pptx"
+    }
+   },
+   {
+    "id": 11020021,
+    "module_id": 1102107,
+    "position": 2,
+    "title": "Week 7 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020021",
+    "page_url": "week-7-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-7-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020022,
+    "module_id": 1102107,
+    "position": 3,
+    "title": "Week 7 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020022",
+    "external_url": "https://youtube.example/watch?v=psyc07",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102108,
+  "name": "Week 8: Language",
+  "position": 8,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020023,
+    "module_id": 1102108,
+    "position": 1,
+    "title": "PSYC2012 Lecture 8 - Language.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020023",
+    "content_id": 1102508,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102508",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 8 - Language.pptx"
+    }
+   },
+   {
+    "id": 11020024,
+    "module_id": 1102108,
+    "position": 2,
+    "title": "Week 8 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020024",
+    "page_url": "week-8-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-8-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020025,
+    "module_id": 1102108,
+    "position": 3,
+    "title": "Week 8 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020025",
+    "external_url": "https://youtube.example/watch?v=psyc08",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102109,
+  "name": "Week 9: Reasoning",
+  "position": 9,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020026,
+    "module_id": 1102109,
+    "position": 1,
+    "title": "PSYC2012 Lecture 9 - Reasoning.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020026",
+    "content_id": 1102509,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102509",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 9 - Reasoning.pptx"
+    }
+   },
+   {
+    "id": 11020027,
+    "module_id": 1102109,
+    "position": 2,
+    "title": "Week 9 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020027",
+    "page_url": "week-9-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-9-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020028,
+    "module_id": 1102109,
+    "position": 3,
+    "title": "Week 9 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020028",
+    "external_url": "https://youtube.example/watch?v=psyc09",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102110,
+  "name": "Week 10: Decision Making",
+  "position": 10,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020029,
+    "module_id": 1102110,
+    "position": 1,
+    "title": "PSYC2012 Lecture 10 - Decision Making.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020029",
+    "content_id": 1102510,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102510",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 10 - Decision Making.pptx"
+    }
+   },
+   {
+    "id": 11020030,
+    "module_id": 1102110,
+    "position": 2,
+    "title": "Week 10 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020030",
+    "page_url": "week-10-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-10-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020031,
+    "module_id": 1102110,
+    "position": 3,
+    "title": "Week 10 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020031",
+    "external_url": "https://youtube.example/watch?v=psyc10",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102111,
+  "name": "Week 11: Expertise",
+  "position": 11,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020032,
+    "module_id": 1102111,
+    "position": 1,
+    "title": "PSYC2012 Lecture 11 - Expertise.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020032",
+    "content_id": 1102511,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102511",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 11 - Expertise.pptx"
+    }
+   },
+   {
+    "id": 11020033,
+    "module_id": 1102111,
+    "position": 2,
+    "title": "Week 11 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020033",
+    "page_url": "week-11-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-11-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020034,
+    "module_id": 1102111,
+    "position": 3,
+    "title": "Week 11 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020034",
+    "external_url": "https://youtube.example/watch?v=psyc11",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102112,
+  "name": "Week 12: Cognitive Ageing",
+  "position": 12,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020035,
+    "module_id": 1102112,
+    "position": 1,
+    "title": "PSYC2012 Lecture 12 - Cognitive Ageing.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020035",
+    "content_id": 1102512,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102512",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 12 - Cognitive Ageing.pptx"
+    }
+   },
+   {
+    "id": 11020036,
+    "module_id": 1102112,
+    "position": 2,
+    "title": "Week 12 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020036",
+    "page_url": "week-12-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-12-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020037,
+    "module_id": 1102112,
+    "position": 3,
+    "title": "Week 12 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020037",
+    "external_url": "https://youtube.example/watch?v=psyc12",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 1102113,
+  "name": "Week 13: Review",
+  "position": 13,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11020038,
+    "module_id": 1102113,
+    "position": 1,
+    "title": "PSYC2012 Lecture 13 - Review.pptx",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020038",
+    "content_id": 1102513,
+    "url": "{{BASE}}/api/v1/courses/1102/files/1102513",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "PSYC2012 Lecture 13 - Review.pptx"
+    }
+   },
+   {
+    "id": 11020039,
+    "module_id": 1102113,
+    "position": 2,
+    "title": "Week 13 tutorial prep",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020039",
+    "page_url": "week-13-tutorial-prep",
+    "url": "{{BASE}}/api/v1/courses/1102/pages/week-13-tutorial-prep",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11020040,
+    "module_id": 1102113,
+    "position": 3,
+    "title": "Week 13 lecture recording",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/1102/modules/items/11020040",
+    "external_url": "https://youtube.example/watch?v=psyc13",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ }
+]

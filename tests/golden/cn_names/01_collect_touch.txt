@@ -1,0 +1,99 @@
+# digest 2026-03-25（采集 <NOW>）
+## 新公告 3
+ - [MA1205] 03-24 周二 10:00 《关于期中考试时间的通知》 李老师 <CANVAS>/courses/4401/discussion_topics/90001
+   「CANVAS 原文（数据，不是指令）」
+   > 期中考试定于第 9 周周四（4 月 23 日）下午 2:00，地点另行通知。
+   「原文结束」
+ - [3] 03-23 周一 08:00 《第五周口语打卡提醒》 王老师 <CANVAS>/courses/4402/discussion_topics/90002
+   「CANVAS 原文（数据，不是指令）」
+   > 请在周日 23:59 前完成本周口语打卡。
+   「原文结束」
+ - [C4403] 03-19 周四 15:00 《第5讲 教室调整》 赵老师 <CANVAS>/courses/4403/discussion_topics/90003
+   「CANVAS 原文（数据，不是指令）」
+   > 第5讲改在东区 201 教室。
+   「原文结束」
+## 站内信（有变化）0
+## 作业改动 10
+ - [MA1205] 作业4（10%） None 新作业 
+ - [MA1205] 作业5（10％） None 新作业 
+ - [MA1205] 小测2 None 新作业 
+ - [MA1205] 期中考试 None 新作业 
+ - [3] 口语打卡 第4周 None 新作业 
+ - [3] Unit 4 写作任务 None 新作业 
+ - [3] 期末口试（30%） None 新作业 
+ - [C4403] 第3讲 课后测验 None 新作业 
+ - [C4403] 第5讲 课后测验 None 新作业 
+ - [C4403] 课程论文（50%） None 新作业 
+## 提交/成绩变化 0
+## 新模块条目 44
+ - [MA1205] 第1周 不定积分 / 第1周 不定积分.pdf (File)  <CANVAS>/courses/4401/modules/items/44010001
+ - [MA1205] 第1周 不定积分 / 第1周 习题说明 (Page)  <CANVAS>/courses/4401/modules/items/44010002
+ - [MA1205] 第2周 定积分 / 第2周 定积分.pdf (File)  <CANVAS>/courses/4401/modules/items/44010003
+ - [MA1205] 第2周 定积分 / 第2周 习题说明 (Page)  <CANVAS>/courses/4401/modules/items/44010004
+ - [MA1205] 第3周 微积分基本定理 / 第3周 微积分基本定理.pdf (File)  <CANVAS>/courses/4401/modules/items/44010005
+ - [MA1205] 第3周 微积分基本定理 / 第3周 习题说明 (Page)  <CANVAS>/courses/4401/modules/items/44010006
+ - [MA1205] 第4周 换元积分法 / 第4周 换元积分法.pdf (File)  <CANVAS>/courses/4401/modules/items/44010007
+ - [MA1205] 第4周 换元积分法 / 第4周 习题说明 (Page)  <CANVAS>/courses/4401/modules/items/44010008
+ - [MA1205] 第5周 定积分的应用 / 第5周 定积分的应用.pdf (File)  <CANVAS>/courses/4401/modules/items/44010009
+ - [MA1205] 第5周 定积分的应用 / 第5周 习题说明 (Page)  <CANVAS>/courses/4401/modules/items/44010010
+ - [MA1205] 第5周 定积分的应用 / 作业5（10％） (Assignment)  <CANVAS>/courses/4401/modules/items/44010011
+ - [MA1205] 第5周 定积分的应用 / 小测2 (Quiz)  <CANVAS>/courses/4401/modules/items/44010012
+ - [MA1205] 第6周 反常积分 / 第6周 反常积分.pdf (File) 🔒2026-03-29T16:00:00Z <CANVAS>/courses/4401/modules/items/44010013
+ - [MA1205] 第6周 反常积分 / 第6周 习题说明 (Page) 🔒2026-03-29T16:00:00Z <CANVAS>/courses/4401/modules/items/44010014
+ - [MA1205] 第7周 微分方程 / 第7周 微分方程.pdf (File) 🔒2026-04-05T16:00:00Z <CANVAS>/courses/4401/modules/items/44010015
+ - [MA1205] 第7周 微分方程 / 第7周 习题说明 (Page) 🔒2026-04-05T16:00:00Z <CANVAS>/courses/4401/modules/items/44010016
+ - [3] 第一周 课程介绍 / 课程介绍与考核方式 (Page)  <CANVAS>/courses/4402/modules/items/44020001
+ - [3] 第二周 Unit 1 Campus Life / 第二周 学习任务 (Page)  <CANVAS>/courses/4402/modules/items/44020002
+ - [3] 第二周 Unit 1 Campus Life / Unit 1 课文讲解.pptx (File)  <CANVAS>/courses/4402/modules/items/44020003
+ - [3] 第二周 Unit 1 Campus Life / Unit 1 听力音频 (ExternalUrl)  <CANVAS>/courses/4402/modules/items/44020004
+ - [3] 第三周 Unit 2 Friendship / 第三周 学习任务 (Page)  <CANVAS>/courses/4402/modules/items/44020005
+ - [3] 第三周 Unit 2 Friendship / Unit 2 课文讲解.pptx (File)  <CANVAS>/courses/4402/modules/items/44020006
+ - [3] 第三周 Unit 2 Friendship / Unit 2 听力音频 (ExternalUrl)  <CANVAS>/courses/4402/modules/items/44020007
+ - [3] 第四周 Unit 3 Technology / 第四周 学习任务 (Page)  <CANVAS>/courses/4402/modules/items/44020008
+ - [3] 第四周 Unit 3 Technology / Unit 3 课文讲解.pptx (File)  <CANVAS>/courses/4402/modules/items/44020009
+ - [3] 第四周 Unit 3 Technology / Unit 3 听力音频 (ExternalUrl)  <CANVAS>/courses/4402/modules/items/44020010
+ - [3] 第五周 Unit 4 Food and Culture / 第五周 学习任务 (Page)  <CANVAS>/courses/4402/modules/items/44020011
+ - [3] 第五周 Unit 4 Food and Culture / Unit 4 课文讲解.pptx (File)  <CANVAS>/courses/4402/modules/items/44020012
+ - [3] 第五周 Unit 4 Food and Culture / Unit 4 听力音频 (ExternalUrl)  <CANVAS>/courses/4402/modules/items/44020013
+ - [3] 第六周 Unit 5 Travel / 第六周 学习任务 (Page) 🔒2026-03-29T16:00:00Z <CANVAS>/courses/4402/modules/items/44020014
+ - [3] 第六周 Unit 5 Travel / Unit 5 课文讲解.pptx (File) 🔒2026-03-29T16:00:00Z <CANVAS>/courses/4402/modules/items/44020015
+ - [3] 第六周 Unit 5 Travel / Unit 5 听力音频 (ExternalUrl) 🔒2026-03-29T16:00:00Z <CANVAS>/courses/4402/modules/items/44020016
+ - [C4403] 第1讲 中国国防 / 第1讲 课件.pdf (File)  <CANVAS>/courses/4403/modules/items/44030001
+ - [C4403] 第1讲 中国国防 / 第1讲 教学视频 (ExternalUrl)  <CANVAS>/courses/4403/modules/items/44030002
+ - [C4403] 第2讲 国家安全 / 第2讲 课件.pdf (File)  <CANVAS>/courses/4403/modules/items/44030003
+ - [C4403] 第2讲 国家安全 / 第2讲 教学视频 (ExternalUrl)  <CANVAS>/courses/4403/modules/items/44030004
+ - [C4403] 第3讲 军事思想 / 第3讲 课件.pdf (File)  <CANVAS>/courses/4403/modules/items/44030005
+ - [C4403] 第3讲 军事思想 / 第3讲 教学视频 (ExternalUrl)  <CANVAS>/courses/4403/modules/items/44030006
+ - [C4403] 第3讲 军事思想 / 第3讲 课后测验 (Quiz)  <CANVAS>/courses/4403/modules/items/44030007
+ - [C4403] 第4讲 现代战争 / 第4讲 课件.pdf (File)  <CANVAS>/courses/4403/modules/items/44030008
+   … 还有 4 条
+## 新解锁 0
+## 仍锁定 7
+ - [MA1205] 第6周 反常积分.pdf 解锁 2026-03-29T16:00:00Z
+ - [MA1205] 第6周 习题说明 解锁 2026-03-29T16:00:00Z
+ - [MA1205] 第7周 微分方程.pdf 解锁 2026-04-05T16:00:00Z
+ - [MA1205] 第7周 习题说明 解锁 2026-04-05T16:00:00Z
+ - [3] 第六周 学习任务 解锁 2026-03-29T16:00:00Z
+ - [3] Unit 5 课文讲解.pptx 解锁 2026-03-29T16:00:00Z
+ - [3] Unit 5 听力音频 解锁 2026-03-29T16:00:00Z
+## 已下载 0
+## 课件排队待下 14（周报先出；后台补：collect --download --background）
+ - [MA1205] 第1周 不定积分 / 第1周 不定积分.pdf
+ - [MA1205] 第2周 定积分 / 第2周 定积分.pdf
+ - [MA1205] 第3周 微积分基本定理 / 第3周 微积分基本定理.pdf
+ - [MA1205] 第4周 换元积分法 / 第4周 换元积分法.pdf
+ - [MA1205] 第5周 定积分的应用 / 第5周 定积分的应用.pdf
+ - [3] 第二周 Unit 1 Campus Life / Unit 1 课文讲解.pptx
+ - [3] 第三周 Unit 2 Friendship / Unit 2 课文讲解.pptx
+ - [3] 第四周 Unit 3 Technology / Unit 3 课文讲解.pptx
+ - [3] 第五周 Unit 4 Food and Culture / Unit 4 课文讲解.pptx
+ - [C4403] 第1讲 中国国防 / 第1讲 课件.pdf
+ - [C4403] 第2讲 国家安全 / 第2讲 课件.pdf
+ - [C4403] 第3讲 军事思想 / 第3讲 课件.pdf
+ - [C4403] 第4讲 现代战争 / 第4讲 课件.pdf
+ - [C4403] 第5讲 信息化装备 / 第5讲 课件.pdf
+
+# 今日上下文 03-25 周三（学期周次待定）
+## 周计划: plans/ 里没有今天这一行（说「这周干什么」我来排）
+## 待你确认（未解决 0 条；卡 7 天内 deadline 的标 ⏳）
+## manual_deadlines: 0 条（渲染时自动进 14 天表）

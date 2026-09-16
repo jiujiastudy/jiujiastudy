@@ -1,0 +1,50 @@
+[
+ {
+  "id": 90001,
+  "title": "关于期中考试时间的通知",
+  "message": "<p>期中考试定于第 9 周周四（4 月 23 日）下午 2:00，地点另行通知。</p>",
+  "posted_at": "2026-03-24T02:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/4401/discussion_topics/90001",
+  "context_code": "course_4401",
+  "author": {
+   "id": 9401,
+   "display_name": "李老师"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90002,
+  "title": "第五周口语打卡提醒",
+  "message": "<p>请在周日 23:59 前完成本周口语打卡。</p>",
+  "posted_at": "2026-03-23T00:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/4402/discussion_topics/90002",
+  "context_code": "course_4402",
+  "author": {
+   "id": 9402,
+   "display_name": "王老师"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90003,
+  "title": "第5讲 教室调整",
+  "message": "<p>第5讲改在东区 201 教室。</p>",
+  "posted_at": "2026-03-19T07:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/4403/discussion_topics/90003",
+  "context_code": "course_4403",
+  "author": {
+   "id": 9403,
+   "display_name": "赵老师"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ }
+]

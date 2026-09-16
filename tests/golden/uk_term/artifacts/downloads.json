@@ -1,0 +1,249 @@
+{
+ "queue": [
+  {
+   "id": "33010002",
+   "course": "HIS2102",
+   "module": "Week 1: The Age of Reform",
+   "title": "HIS2102 Lecture 1.pdf",
+   "url": "<CANVAS>/courses/3301/modules/items/33010002",
+   "content_id": 3301501,
+   "type": "File"
+  },
+  {
+   "id": "33010005",
+   "course": "HIS2102",
+   "module": "Week 2: Industrial Towns",
+   "title": "HIS2102 Lecture 2.pdf",
+   "url": "<CANVAS>/courses/3301/modules/items/33010005",
+   "content_id": 3301502,
+   "type": "File"
+  },
+  {
+   "id": "33010008",
+   "course": "HIS2102",
+   "module": "Week 3: Chartism",
+   "title": "HIS2102 Lecture 3.pdf",
+   "url": "<CANVAS>/courses/3301/modules/items/33010008",
+   "content_id": 3301503,
+   "type": "File"
+  },
+  {
+   "id": "33010011",
+   "course": "HIS2102",
+   "module": "Week 4: The Hungry Forties",
+   "title": "HIS2102 Lecture 4.pdf",
+   "url": "<CANVAS>/courses/3301/modules/items/33010011",
+   "content_id": 3301504,
+   "type": "File"
+  },
+  {
+   "id": "33010014",
+   "course": "HIS2102",
+   "module": "Week 5: Victorian Religion",
+   "title": "HIS2102 Lecture 5.pdf",
+   "url": "<CANVAS>/courses/3301/modules/items/33010014",
+   "content_id": 3301505,
+   "type": "File"
+  },
+  {
+   "id": "33010018",
+   "course": "HIS2102",
+   "module": "Week 6: Gladstone and Disraeli",
+   "title": "HIS2102 Lecture 6.pdf",
+   "url": "<CANVAS>/courses/3301/modules/items/33010018",
+   "content_id": 3301506,
+   "type": "File"
+  },
+  {
+   "id": "33010021",
+   "course": "HIS2102",
+   "module": "Week 7: Empire and Trade",
+   "title": "HIS2102 Lecture 7.pdf",
+   "url": "<CANVAS>/courses/3301/modules/items/33010021",
+   "content_id": 3301507,
+   "type": "File"
+  },
+  {
+   "id": "33010024",
+   "course": "HIS2102",
+   "module": "Week 8: Women and Work",
+   "title": "HIS2102 Lecture 8.pdf",
+   "url": "<CANVAS>/courses/3301/modules/items/33010024",
+   "content_id": 3301508,
+   "type": "File"
+  },
+  {
+   "id": "33010027",
+   "course": "HIS2102",
+   "module": "Week 9: The Irish Question",
+   "title": "HIS2102 Lecture 9.pdf",
+   "url": "<CANVAS>/courses/3301/modules/items/33010027",
+   "content_id": 3301509,
+   "type": "File"
+  },
+  {
+   "id": "33020001",
+   "course": "PSY2031",
+   "module": "Lecture 1: Research Design",
+   "title": "PSY2031_Lecture01_ResearchDesign.pptx",
+   "url": "<CANVAS>/courses/3302/modules/items/33020001",
+   "content_id": 3302501,
+   "type": "File"
+  },
+  {
+   "id": "33020003",
+   "course": "PSY2031",
+   "module": "Lecture 2: Sampling",
+   "title": "PSY2031_Lecture02_Sampling.pptx",
+   "url": "<CANVAS>/courses/3302/modules/items/33020003",
+   "content_id": 3302502,
+   "type": "File"
+  },
+  {
+   "id": "33020005",
+   "course": "PSY2031",
+   "module": "Lecture 3: Measurement",
+   "title": "PSY2031_Lecture03_Measurement.pptx",
+   "url": "<CANVAS>/courses/3302/modules/items/33020005",
+   "content_id": 3302503,
+   "type": "File"
+  },
+  {
+   "id": "33020007",
+   "course": "PSY2031",
+   "module": "Lecture 4: t-tests",
+   "title": "PSY2031_Lecture04_t-tests.pptx",
+   "url": "<CANVAS>/courses/3302/modules/items/33020007",
+   "content_id": 3302504,
+   "type": "File"
+  },
+  {
+   "id": "33020009",
+   "course": "PSY2031",
+   "module": "Lecture 5: One-way ANOVA",
+   "title": "PSY2031_Lecture05_One-wayANOVA.pptx",
+   "url": "<CANVAS>/courses/3302/modules/items/33020009",
+   "content_id": 3302505,
+   "type": "File"
+  },
+  {
+   "id": "33020011",
+   "course": "PSY2031",
+   "module": "Lecture 6: Factorial ANOVA",
+   "title": "PSY2031_Lecture06_FactorialANOVA.pptx",
+   "url": "<CANVAS>/courses/3302/modules/items/33020011",
+   "content_id": 3302506,
+   "type": "File"
+  },
+  {
+   "id": "33020013",
+   "course": "PSY2031",
+   "module": "Lecture 7: Repeated Measures",
+   "title": "PSY2031_Lecture07_RepeatedMeasures.pptx",
+   "url": "<CANVAS>/courses/3302/modules/items/33020013",
+   "content_id": 3302507,
+   "type": "File"
+  },
+  {
+   "id": "33020016",
+   "course": "PSY2031",
+   "module": "Lecture 8: Nonparametric Tests",
+   "title": "PSY2031_Lecture08_NonparametricTests.pptx",
+   "url": "<CANVAS>/courses/3302/modules/items/33020016",
+   "content_id": 3302508,
+   "type": "File"
+  },
+  {
+   "id": "33020019",
+   "course": "PSY2031",
+   "module": "Lecture 9: Mixed ANOVA",
+   "title": "PSY2031_Lecture09_MixedANOVA.pptx",
+   "url": "<CANVAS>/courses/3302/modules/items/33020019",
+   "content_id": 3302509,
+   "type": "File"
+  },
+  {
+   "id": "33030002",
+   "course": "LAW1113",
+   "module": "Seminar 1: Offer and Acceptance",
+   "title": "LAW1113 Seminar 1 handout.pdf",
+   "url": "<CANVAS>/courses/3303/modules/items/33030002",
+   "content_id": 3303501,
+   "type": "File"
+  },
+  {
+   "id": "33030004",
+   "course": "LAW1113",
+   "module": "Seminar 2: Consideration",
+   "title": "LAW1113 Seminar 2 handout.pdf",
+   "url": "<CANVAS>/courses/3303/modules/items/33030004",
+   "content_id": 3303502,
+   "type": "File"
+  },
+  {
+   "id": "33030006",
+   "course": "LAW1113",
+   "module": "Seminar 3: Intention",
+   "title": "LAW1113 Seminar 3 handout.pdf",
+   "url": "<CANVAS>/courses/3303/modules/items/33030006",
+   "content_id": 3303503,
+   "type": "File"
+  },
+  {
+   "id": "33030008",
+   "course": "LAW1113",
+   "module": "Seminar 4: Terms",
+   "title": "LAW1113 Seminar 4 handout.pdf",
+   "url": "<CANVAS>/courses/3303/modules/items/33030008",
+   "content_id": 3303504,
+   "type": "File"
+  },
+  {
+   "id": "33030010",
+   "course": "LAW1113",
+   "module": "Seminar 5: Exclusion Clauses",
+   "title": "LAW1113 Seminar 5 handout.pdf",
+   "url": "<CANVAS>/courses/3303/modules/items/33030010",
+   "content_id": 3303505,
+   "type": "File"
+  },
+  {
+   "id": "33030012",
+   "course": "LAW1113",
+   "module": "Seminar 6: Misrepresentation",
+   "title": "LAW1113 Seminar 6 handout.pdf",
+   "url": "<CANVAS>/courses/3303/modules/items/33030012",
+   "content_id": 3303506,
+   "type": "File"
+  },
+  {
+   "id": "33030014",
+   "course": "LAW1113",
+   "module": "Seminar 7: Mistake",
+   "title": "LAW1113 Seminar 7 handout.pdf",
+   "url": "<CANVAS>/courses/3303/modules/items/33030014",
+   "content_id": 3303507,
+   "type": "File"
+  },
+  {
+   "id": "33030016",
+   "course": "LAW1113",
+   "module": "Seminar 8: Duress",
+   "title": "LAW1113 Seminar 8 handout.pdf",
+   "url": "<CANVAS>/courses/3303/modules/items/33030016",
+   "content_id": 3303508,
+   "type": "File"
+  },
+  {
+   "id": "33030018",
+   "course": "LAW1113",
+   "module": "Seminar 9: Frustration",
+   "title": "LAW1113 Seminar 9 handout.pdf",
+   "url": "<CANVAS>/courses/3303/modules/items/33030018",
+   "content_id": 3303509,
+   "type": "File"
+  }
+ ],
+ "done": [],
+ "in_progress": []
+}

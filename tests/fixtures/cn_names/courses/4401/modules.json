@@ -1,0 +1,322 @@
+[
+ {
+  "id": 4401101,
+  "name": "第1周 不定积分",
+  "position": 1,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44010001,
+    "module_id": 4401101,
+    "position": 1,
+    "title": "第1周 不定积分.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010001",
+    "content_id": 4401501,
+    "url": "{{BASE}}/api/v1/courses/4401/files/4401501",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "第1周 不定积分.pdf"
+    }
+   },
+   {
+    "id": 44010002,
+    "module_id": 4401101,
+    "position": 2,
+    "title": "第1周 习题说明",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010002",
+    "page_url": "第1周-习题说明",
+    "url": "{{BASE}}/api/v1/courses/4401/pages/第1周-习题说明",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4401102,
+  "name": "第2周 定积分",
+  "position": 2,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44010003,
+    "module_id": 4401102,
+    "position": 1,
+    "title": "第2周 定积分.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010003",
+    "content_id": 4401502,
+    "url": "{{BASE}}/api/v1/courses/4401/files/4401502",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "第2周 定积分.pdf"
+    }
+   },
+   {
+    "id": 44010004,
+    "module_id": 4401102,
+    "position": 2,
+    "title": "第2周 习题说明",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010004",
+    "page_url": "第2周-习题说明",
+    "url": "{{BASE}}/api/v1/courses/4401/pages/第2周-习题说明",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4401103,
+  "name": "第3周 微积分基本定理",
+  "position": 3,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44010005,
+    "module_id": 4401103,
+    "position": 1,
+    "title": "第3周 微积分基本定理.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010005",
+    "content_id": 4401503,
+    "url": "{{BASE}}/api/v1/courses/4401/files/4401503",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "第3周 微积分基本定理.pdf"
+    }
+   },
+   {
+    "id": 44010006,
+    "module_id": 4401103,
+    "position": 2,
+    "title": "第3周 习题说明",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010006",
+    "page_url": "第3周-习题说明",
+    "url": "{{BASE}}/api/v1/courses/4401/pages/第3周-习题说明",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4401104,
+  "name": "第4周 换元积分法",
+  "position": 4,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44010007,
+    "module_id": 4401104,
+    "position": 1,
+    "title": "第4周 换元积分法.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010007",
+    "content_id": 4401504,
+    "url": "{{BASE}}/api/v1/courses/4401/files/4401504",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "第4周 换元积分法.pdf"
+    }
+   },
+   {
+    "id": 44010008,
+    "module_id": 4401104,
+    "position": 2,
+    "title": "第4周 习题说明",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010008",
+    "page_url": "第4周-习题说明",
+    "url": "{{BASE}}/api/v1/courses/4401/pages/第4周-习题说明",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4401105,
+  "name": "第5周 定积分的应用",
+  "position": 5,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44010009,
+    "module_id": 4401105,
+    "position": 1,
+    "title": "第5周 定积分的应用.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010009",
+    "content_id": 4401505,
+    "url": "{{BASE}}/api/v1/courses/4401/files/4401505",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "第5周 定积分的应用.pdf"
+    }
+   },
+   {
+    "id": 44010010,
+    "module_id": 4401105,
+    "position": 2,
+    "title": "第5周 习题说明",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010010",
+    "page_url": "第5周-习题说明",
+    "url": "{{BASE}}/api/v1/courses/4401/pages/第5周-习题说明",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 44010011,
+    "module_id": 4401105,
+    "position": 3,
+    "title": "作业5（10％）",
+    "indent": 0,
+    "type": "Assignment",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010011",
+    "content_id": 4401002,
+    "url": "{{BASE}}/api/v1/courses/4401/assignments/4401002",
+    "content_details": {
+     "locked_for_user": false,
+     "points_possible": 10,
+     "due_at": "2026-03-27T15:59:00Z"
+    }
+   },
+   {
+    "id": 44010012,
+    "module_id": 4401105,
+    "position": 4,
+    "title": "小测2",
+    "indent": 0,
+    "type": "Quiz",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010012",
+    "content_id": 4401003,
+    "url": "{{BASE}}/api/v1/courses/4401/assignments/4401003",
+    "content_details": {
+     "locked_for_user": false,
+     "points_possible": 5,
+     "due_at": "2026-03-26T11:00:00Z"
+    }
+   }
+  ]
+ },
+ {
+  "id": 4401106,
+  "name": "第6周 反常积分",
+  "position": 6,
+  "unlock_at": "2026-03-29T16:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "locked",
+  "items": [
+   {
+    "id": 44010013,
+    "module_id": 4401106,
+    "position": 1,
+    "title": "第6周 反常积分.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010013",
+    "content_id": 4401506,
+    "url": "{{BASE}}/api/v1/courses/4401/files/4401506",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-29T16:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-29T16:00:00Z.",
+     "display_name": "第6周 反常积分.pdf"
+    }
+   },
+   {
+    "id": 44010014,
+    "module_id": 4401106,
+    "position": 2,
+    "title": "第6周 习题说明",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010014",
+    "page_url": "第6周-习题说明",
+    "url": "{{BASE}}/api/v1/courses/4401/pages/第6周-习题说明",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-29T16:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-29T16:00:00Z."
+    }
+   }
+  ]
+ },
+ {
+  "id": 4401107,
+  "name": "第7周 微分方程",
+  "position": 7,
+  "unlock_at": "2026-04-05T16:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "locked",
+  "items": [
+   {
+    "id": 44010015,
+    "module_id": 4401107,
+    "position": 1,
+    "title": "第7周 微分方程.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010015",
+    "content_id": 4401507,
+    "url": "{{BASE}}/api/v1/courses/4401/files/4401507",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-04-05T16:00:00Z",
+     "lock_explanation": "This module is locked until 2026-04-05T16:00:00Z.",
+     "display_name": "第7周 微分方程.pdf"
+    }
+   },
+   {
+    "id": 44010016,
+    "module_id": 4401107,
+    "position": 2,
+    "title": "第7周 习题说明",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/4401/modules/items/44010016",
+    "page_url": "第7周-习题说明",
+    "url": "{{BASE}}/api/v1/courses/4401/pages/第7周-习题说明",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-04-05T16:00:00Z",
+     "lock_explanation": "This module is locked until 2026-04-05T16:00:00Z."
+    }
+   }
+  ]
+ }
+]

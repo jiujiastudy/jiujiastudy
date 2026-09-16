@@ -1,0 +1,13 @@
+（1 分钟前刚采过，直接用上次的快照；要重拉加 --force）
+
+# 今日上下文 03-25 周三（学期第 5 周）
+## 周计划 .coach/plans/2026-W13.json（7 行，📦 7，✅ 0）
+ - 必做: PSYC2012 Lab Report (25%)（03-26 周四 17:00（悉尼）= 14:00（北京））
+ - 第一步: 打开作业页，看文件格式和命名要求。
+ - 如果-那么: 如果今天做不完，明天第一件事继续，不排别的。
+ - 应做: ACCT1101 看课件：ACCT1101 W5 Lecture Slides.pdf（40 分钟）；PSYC2012 看课件：PSYC2012 Lecture 5 - Working Memory.pptx（40 分钟）
+ - 状态: 📦
+## 待你确认（未解决 1 条；卡 7 天内 deadline 的标 ⏳）
+ - [pc-0001] PSYC2012: Lab Report 是个人交还是小组交（已问 1 次，首次 2026-03-20） ⏳
+## manual_deadlines: 1 条（渲染时自动进 14 天表）
+ - 2026-03-31 课上 DSGN3402 Studio pitch (in class)

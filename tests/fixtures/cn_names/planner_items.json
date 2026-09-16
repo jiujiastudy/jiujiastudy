@@ -1,0 +1,258 @@
+[
+ {
+  "context_type": "Course",
+  "course_id": 4403,
+  "context_name": "军事理论",
+  "plannable_id": 90003,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-03-19T07:00:00Z",
+  "plannable": {
+   "id": 90003,
+   "title": "第5讲 教室调整"
+  },
+  "html_url": "{{BASE}}/courses/4403/discussion_topics/90003",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 4401,
+  "context_name": "高等数学（二）",
+  "plannable_id": 4401001,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-20T15:59:00Z",
+  "plannable": {
+   "id": 4401001,
+   "title": "作业4（10%）",
+   "due_at": "2026-03-20T15:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/4401/assignments/4401001",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 4402,
+  "context_name": "大学英语（三）",
+  "plannable_id": 4402001,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-22T15:59:00Z",
+  "plannable": {
+   "id": 4402001,
+   "title": "口语打卡 第4周",
+   "due_at": "2026-03-22T15:59:00Z",
+   "points_possible": 2
+  },
+  "html_url": "{{BASE}}/courses/4402/assignments/4402001",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 4402,
+  "context_name": "大学英语（三）",
+  "plannable_id": 90002,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-03-23T00:00:00Z",
+  "plannable": {
+   "id": 90002,
+   "title": "第五周口语打卡提醒"
+  },
+  "html_url": "{{BASE}}/courses/4402/discussion_topics/90002",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 4401,
+  "context_name": "高等数学（二）",
+  "plannable_id": 90001,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-03-24T02:00:00Z",
+  "plannable": {
+   "id": 90001,
+   "title": "关于期中考试时间的通知"
+  },
+  "html_url": "{{BASE}}/courses/4401/discussion_topics/90001",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 4403,
+  "context_name": "军事理论",
+  "plannable_id": 4403001,
+  "plannable_type": "quiz",
+  "plannable_date": "2026-03-24T15:59:00Z",
+  "plannable": {
+   "id": 4403001,
+   "title": "第3讲 课后测验",
+   "due_at": "2026-03-24T15:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/4403/assignments/4403001",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 4401,
+  "context_name": "高等数学（二）",
+  "plannable_id": 4401003,
+  "plannable_type": "quiz",
+  "plannable_date": "2026-03-26T11:00:00Z",
+  "plannable": {
+   "id": 4401003,
+   "title": "小测2",
+   "due_at": "2026-03-26T11:00:00Z",
+   "points_possible": 5
+  },
+  "html_url": "{{BASE}}/courses/4401/assignments/4401003",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 4401,
+  "context_name": "高等数学（二）",
+  "plannable_id": 4401002,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-27T15:59:00Z",
+  "plannable": {
+   "id": 4401002,
+   "title": "作业5（10％）",
+   "due_at": "2026-03-27T15:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/4401/assignments/4401002",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 4402,
+  "context_name": "大学英语（三）",
+  "plannable_id": 4402002,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-29T15:59:00Z",
+  "plannable": {
+   "id": 4402002,
+   "title": "Unit 4 写作任务",
+   "due_at": "2026-03-29T15:59:00Z",
+   "points_possible": 20
+  },
+  "html_url": "{{BASE}}/courses/4402/assignments/4402002",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 4403,
+  "context_name": "军事理论",
+  "plannable_id": 4403002,
+  "plannable_type": "quiz",
+  "plannable_date": "2026-03-31T15:59:00Z",
+  "plannable": {
+   "id": 4403002,
+   "title": "第5讲 课后测验",
+   "due_at": "2026-03-31T15:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/4403/assignments/4403002",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 4403,
+  "context_name": "军事理论",
+  "plannable_id": 4403003,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-04-10T15:59:00Z",
+  "plannable": {
+   "id": 4403003,
+   "title": "课程论文（50%）",
+   "due_at": "2026-04-10T15:59:00Z",
+   "points_possible": 50
+  },
+  "html_url": "{{BASE}}/courses/4403/assignments/4403003",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ }
+]

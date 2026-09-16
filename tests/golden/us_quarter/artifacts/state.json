@@ -1,0 +1,73 @@
+{
+ "schema_version": 3,
+ "last_check": "<NOW>",
+ "last_fetch": "<NOW>",
+ "last_record": "<NOW>",
+ "last_seen": "<WALLCLOCK>",
+ "last_done": null,
+ "counters": {
+  "pending": 0
+ },
+ "courses": {
+  "MATH3B": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-02-23T18:00:00Z",
+   "counts": {
+    "assignments": 12
+   }
+  },
+  "CHEM1A": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-02-21T00:00:00Z",
+   "counts": {
+    "assignments": 5
+   }
+  },
+  "WRIT2": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-02-10T18:00:00Z",
+   "counts": {
+    "assignments": 5
+   }
+  }
+ },
+ "pending_confirmations": [],
+ "decisions": [],
+ "mood": [],
+ "manual_deadlines": [],
+ "deadline_notes": {},
+ "locked_materials": [
+  {
+   "course": "MATH3B",
+   "module": "Power Series",
+   "title": "Power Series notes.pdf",
+   "unlock_at": "2026-03-02T08:00:00Z"
+  },
+  {
+   "course": "MATH3B",
+   "module": "Power Series",
+   "title": "Power Series practice problems",
+   "unlock_at": "2026-03-02T08:00:00Z"
+  },
+  {
+   "course": "MATH3B",
+   "module": "Power Series",
+   "title": "Lecture video: Power Series",
+   "unlock_at": "2026-03-02T08:00:00Z"
+  },
+  {
+   "course": "CHEM1A",
+   "module": "Week 10: Review",
+   "title": "CHEM1A Week 10 slides.pdf",
+   "unlock_at": "2026-03-09T07:00:00Z"
+  },
+  {
+   "course": "CHEM1A",
+   "module": "Week 10: Review",
+   "title": "Week 10 reading guide",
+   "unlock_at": "2026-03-09T07:00:00Z"
+  }
+ ],
+ "current_plan": ".coach/plans/2026-W09.json",
+ "daily_report": {}
+}

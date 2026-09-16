@@ -1,0 +1,50 @@
+[
+ {
+  "id": 90001,
+  "title": "Essay deadline reminder",
+  "message": "<p>The summative essay is due <strong>Thursday 26 March at 12:00 noon</strong>.</p>",
+  "posted_at": "2026-03-16T09:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/3301/discussion_topics/90001",
+  "context_code": "course_3301",
+  "author": {
+   "id": 9101,
+   "display_name": "Dr. Eleanor Grant"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90002,
+  "title": "R drop-in sessions",
+  "message": "<p>Drop-in help with R every Thursday, 2-4 pm, Room B12.</p>",
+  "posted_at": "2026-03-12T14:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/3302/discussion_topics/90002",
+  "context_code": "course_3302",
+  "author": {
+   "id": 9201,
+   "display_name": "Dr. Priya Nair"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90003,
+  "title": "Seminar 9 room change",
+  "message": "<p>Seminar 9 moves to the Moot Court Room this week.</p>",
+  "posted_at": "2026-03-17T08:30:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/3303/discussion_topics/90003",
+  "context_code": "course_3303",
+  "author": {
+   "id": 9301,
+   "display_name": "Prof. Tom Ashworth"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ }
+]

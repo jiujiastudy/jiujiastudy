@@ -1,0 +1,162 @@
+[
+ {
+  "id": 70001,
+  "title": "习题课",
+  "start_at": "2026-03-26T06:00:00Z",
+  "end_at": "2026-03-26T07:40:00Z",
+  "all_day": false,
+  "location_name": "东区 305",
+  "context_code": "course_4401",
+  "workflow_state": "active",
+  "html_url": "{{BASE}}/calendar?event_id=70001&include_contexts=course_4401",
+  "type": "event"
+ },
+ {
+  "id": 70002,
+  "title": "口语测试",
+  "start_at": "2026-04-02T02:00:00Z",
+  "end_at": "2026-04-02T03:00:00Z",
+  "all_day": false,
+  "location_name": "外语楼 210",
+  "context_code": "course_4402",
+  "workflow_state": "active",
+  "html_url": "{{BASE}}/calendar?event_id=70002&include_contexts=course_4402",
+  "type": "event"
+ },
+ {
+  "id": "assignment_4401001",
+  "title": "作业4（10%）",
+  "start_at": "2026-03-20T15:59:00Z",
+  "end_at": "2026-03-20T15:59:00Z",
+  "all_day": false,
+  "context_code": "course_4401",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/4401/assignments/4401001",
+  "type": "assignment",
+  "assignment": {
+   "id": 4401001,
+   "name": "作业4（10%）",
+   "due_at": "2026-03-20T15:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_4401002",
+  "title": "作业5（10％）",
+  "start_at": "2026-03-27T15:59:00Z",
+  "end_at": "2026-03-27T15:59:00Z",
+  "all_day": false,
+  "context_code": "course_4401",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/4401/assignments/4401002",
+  "type": "assignment",
+  "assignment": {
+   "id": 4401002,
+   "name": "作业5（10％）",
+   "due_at": "2026-03-27T15:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_4401003",
+  "title": "小测2",
+  "start_at": "2026-03-26T11:00:00Z",
+  "end_at": "2026-03-26T11:00:00Z",
+  "all_day": false,
+  "context_code": "course_4401",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/4401/assignments/4401003",
+  "type": "assignment",
+  "assignment": {
+   "id": 4401003,
+   "name": "小测2",
+   "due_at": "2026-03-26T11:00:00Z",
+   "points_possible": 5
+  }
+ },
+ {
+  "id": "assignment_4402001",
+  "title": "口语打卡 第4周",
+  "start_at": "2026-03-22T15:59:00Z",
+  "end_at": "2026-03-22T15:59:00Z",
+  "all_day": false,
+  "context_code": "course_4402",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/4402/assignments/4402001",
+  "type": "assignment",
+  "assignment": {
+   "id": 4402001,
+   "name": "口语打卡 第4周",
+   "due_at": "2026-03-22T15:59:00Z",
+   "points_possible": 2
+  }
+ },
+ {
+  "id": "assignment_4402002",
+  "title": "Unit 4 写作任务",
+  "start_at": "2026-03-29T15:59:00Z",
+  "end_at": "2026-03-29T15:59:00Z",
+  "all_day": false,
+  "context_code": "course_4402",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/4402/assignments/4402002",
+  "type": "assignment",
+  "assignment": {
+   "id": 4402002,
+   "name": "Unit 4 写作任务",
+   "due_at": "2026-03-29T15:59:00Z",
+   "points_possible": 20
+  }
+ },
+ {
+  "id": "assignment_4403001",
+  "title": "第3讲 课后测验",
+  "start_at": "2026-03-24T15:59:00Z",
+  "end_at": "2026-03-24T15:59:00Z",
+  "all_day": false,
+  "context_code": "course_4403",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/4403/assignments/4403001",
+  "type": "assignment",
+  "assignment": {
+   "id": 4403001,
+   "name": "第3讲 课后测验",
+   "due_at": "2026-03-24T15:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_4403002",
+  "title": "第5讲 课后测验",
+  "start_at": "2026-03-31T15:59:00Z",
+  "end_at": "2026-03-31T15:59:00Z",
+  "all_day": false,
+  "context_code": "course_4403",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/4403/assignments/4403002",
+  "type": "assignment",
+  "assignment": {
+   "id": 4403002,
+   "name": "第5讲 课后测验",
+   "due_at": "2026-03-31T15:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_4403003",
+  "title": "课程论文（50%）",
+  "start_at": "2026-04-10T15:59:00Z",
+  "end_at": "2026-04-10T15:59:00Z",
+  "all_day": false,
+  "context_code": "course_4403",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/4403/assignments/4403003",
+  "type": "assignment",
+  "assignment": {
+   "id": 4403003,
+   "name": "课程论文（50%）",
+   "due_at": "2026-04-10T15:59:00Z",
+   "points_possible": 50
+  }
+ }
+]

@@ -1,0 +1,5 @@
+* text=auto eol=lf
+# Time zone files for the offline tests are binary (TZif); never convert them.
+tests/tzdata/** binary
+/tests export-ignore
+/.github export-ignore

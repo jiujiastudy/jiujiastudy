@@ -1,0 +1,126 @@
+[
+ {
+  "id": 1101,
+  "name": "ACCT1101 Accounting Foundations",
+  "course_code": "ACCT1101",
+  "workflow_state": "available",
+  "account_id": 10,
+  "start_at": null,
+  "end_at": null,
+  "enrollment_term_id": 301,
+  "time_zone": "Australia/Sydney",
+  "default_view": "modules",
+  "is_public": false,
+  "apply_assignment_group_weights": true,
+  "hide_final_grades": false,
+  "term": {
+   "id": 301,
+   "name": "Semester 1 2026",
+   "start_at": "2026-02-22T13:00:00Z",
+   "end_at": "2026-06-26T13:59:00Z"
+  },
+  "enrollments": [
+   {
+    "type": "student",
+    "role": "StudentEnrollment",
+    "role_id": 3,
+    "user_id": 5001,
+    "enrollment_state": "active"
+   }
+  ],
+  "_active": true
+ },
+ {
+  "id": 1102,
+  "name": "PSYC2012 Cognition and Memory",
+  "course_code": "PSYC2012_S1C_2026",
+  "workflow_state": "available",
+  "account_id": 10,
+  "start_at": null,
+  "end_at": null,
+  "enrollment_term_id": 301,
+  "time_zone": "Australia/Sydney",
+  "default_view": "modules",
+  "is_public": false,
+  "apply_assignment_group_weights": true,
+  "hide_final_grades": false,
+  "term": {
+   "id": 301,
+   "name": "Semester 1 2026",
+   "start_at": "2026-02-22T13:00:00Z",
+   "end_at": "2026-06-26T13:59:00Z"
+  },
+  "enrollments": [
+   {
+    "type": "student",
+    "role": "StudentEnrollment",
+    "role_id": 3,
+    "user_id": 5001,
+    "enrollment_state": "active"
+   }
+  ],
+  "_active": true
+ },
+ {
+  "id": 1103,
+  "name": "DSGN3402 Interaction Design Studio",
+  "course_code": "DSGN3402",
+  "workflow_state": "available",
+  "account_id": 10,
+  "start_at": null,
+  "end_at": null,
+  "enrollment_term_id": 301,
+  "time_zone": "Australia/Sydney",
+  "default_view": "modules",
+  "is_public": false,
+  "apply_assignment_group_weights": true,
+  "hide_final_grades": false,
+  "term": {
+   "id": 301,
+   "name": "Semester 1 2026",
+   "start_at": "2026-02-22T13:00:00Z",
+   "end_at": "2026-06-26T13:59:00Z"
+  },
+  "enrollments": [
+   {
+    "type": "student",
+    "role": "StudentEnrollment",
+    "role_id": 3,
+    "user_id": 5001,
+    "enrollment_state": "active"
+   }
+  ],
+  "_active": true
+ },
+ {
+  "id": 1190,
+  "name": "Library Skills Hub",
+  "course_code": "2026_LIB_SKILLS",
+  "workflow_state": "available",
+  "account_id": 10,
+  "start_at": null,
+  "end_at": null,
+  "enrollment_term_id": 301,
+  "time_zone": "Australia/Sydney",
+  "default_view": "modules",
+  "is_public": false,
+  "apply_assignment_group_weights": true,
+  "hide_final_grades": false,
+  "term": {
+   "id": 301,
+   "name": "Semester 1 2026",
+   "start_at": "2026-02-22T13:00:00Z",
+   "end_at": "2026-06-26T13:59:00Z"
+  },
+  "enrollments": [
+   {
+    "type": "student",
+    "role": "StudentEnrollment",
+    "role_id": 3,
+    "user_id": 5001,
+    "enrollment_state": "active"
+   }
+  ],
+  "_active": true
+ }
+]

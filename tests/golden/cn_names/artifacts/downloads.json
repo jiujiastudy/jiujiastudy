@@ -1,0 +1,132 @@
+{
+ "queue": [
+  {
+   "id": "44010001",
+   "course": "MA1205",
+   "module": "第1周 不定积分",
+   "title": "第1周 不定积分.pdf",
+   "url": "<CANVAS>/courses/4401/modules/items/44010001",
+   "content_id": 4401501,
+   "type": "File"
+  },
+  {
+   "id": "44010003",
+   "course": "MA1205",
+   "module": "第2周 定积分",
+   "title": "第2周 定积分.pdf",
+   "url": "<CANVAS>/courses/4401/modules/items/44010003",
+   "content_id": 4401502,
+   "type": "File"
+  },
+  {
+   "id": "44010005",
+   "course": "MA1205",
+   "module": "第3周 微积分基本定理",
+   "title": "第3周 微积分基本定理.pdf",
+   "url": "<CANVAS>/courses/4401/modules/items/44010005",
+   "content_id": 4401503,
+   "type": "File"
+  },
+  {
+   "id": "44010007",
+   "course": "MA1205",
+   "module": "第4周 换元积分法",
+   "title": "第4周 换元积分法.pdf",
+   "url": "<CANVAS>/courses/4401/modules/items/44010007",
+   "content_id": 4401504,
+   "type": "File"
+  },
+  {
+   "id": "44010009",
+   "course": "MA1205",
+   "module": "第5周 定积分的应用",
+   "title": "第5周 定积分的应用.pdf",
+   "url": "<CANVAS>/courses/4401/modules/items/44010009",
+   "content_id": 4401505,
+   "type": "File"
+  },
+  {
+   "id": "44020003",
+   "course": "3",
+   "module": "第二周 Unit 1 Campus Life",
+   "title": "Unit 1 课文讲解.pptx",
+   "url": "<CANVAS>/courses/4402/modules/items/44020003",
+   "content_id": 4402501,
+   "type": "File"
+  },
+  {
+   "id": "44020006",
+   "course": "3",
+   "module": "第三周 Unit 2 Friendship",
+   "title": "Unit 2 课文讲解.pptx",
+   "url": "<CANVAS>/courses/4402/modules/items/44020006",
+   "content_id": 4402502,
+   "type": "File"
+  },
+  {
+   "id": "44020009",
+   "course": "3",
+   "module": "第四周 Unit 3 Technology",
+   "title": "Unit 3 课文讲解.pptx",
+   "url": "<CANVAS>/courses/4402/modules/items/44020009",
+   "content_id": 4402503,
+   "type": "File"
+  },
+  {
+   "id": "44020012",
+   "course": "3",
+   "module": "第五周 Unit 4 Food and Culture",
+   "title": "Unit 4 课文讲解.pptx",
+   "url": "<CANVAS>/courses/4402/modules/items/44020012",
+   "content_id": 4402504,
+   "type": "File"
+  },
+  {
+   "id": "44030001",
+   "course": "C4403",
+   "module": "第1讲 中国国防",
+   "title": "第1讲 课件.pdf",
+   "url": "<CANVAS>/courses/4403/modules/items/44030001",
+   "content_id": 4403501,
+   "type": "File"
+  },
+  {
+   "id": "44030003",
+   "course": "C4403",
+   "module": "第2讲 国家安全",
+   "title": "第2讲 课件.pdf",
+   "url": "<CANVAS>/courses/4403/modules/items/44030003",
+   "content_id": 4403502,
+   "type": "File"
+  },
+  {
+   "id": "44030005",
+   "course": "C4403",
+   "module": "第3讲 军事思想",
+   "title": "第3讲 课件.pdf",
+   "url": "<CANVAS>/courses/4403/modules/items/44030005",
+   "content_id": 4403503,
+   "type": "File"
+  },
+  {
+   "id": "44030008",
+   "course": "C4403",
+   "module": "第4讲 现代战争",
+   "title": "第4讲 课件.pdf",
+   "url": "<CANVAS>/courses/4403/modules/items/44030008",
+   "content_id": 4403504,
+   "type": "File"
+  },
+  {
+   "id": "44030010",
+   "course": "C4403",
+   "module": "第5讲 信息化装备",
+   "title": "第5讲 课件.pdf",
+   "url": "<CANVAS>/courses/4403/modules/items/44030010",
+   "content_id": 4403505,
+   "type": "File"
+  }
+ ],
+ "done": [],
+ "in_progress": []
+}

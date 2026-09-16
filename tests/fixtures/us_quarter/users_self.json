@@ -1,0 +1,9 @@
+{
+ "id": 6001,
+ "name": "Test Student",
+ "short_name": "Test",
+ "sortable_name": "Student, Test",
+ "locale": null,
+ "effective_locale": "en",
+ "time_zone": "Pacific Time (US & Canada)"
+}

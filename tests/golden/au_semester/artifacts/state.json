@@ -1,0 +1,249 @@
+{
+ "schema_version": 3,
+ "last_check": "<NOW>",
+ "last_fetch": "<NOW>",
+ "last_record": "<NOW>",
+ "last_seen": "<WALLCLOCK>",
+ "last_done": null,
+ "counters": {
+  "pending": 1
+ },
+ "courses": {
+  "ACCT1101": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-03-22T22:15:00Z",
+   "counts": {
+    "assignments": 10
+   }
+  },
+  "PSYC2012": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-03-24T03:00:00Z",
+   "counts": {
+    "assignments": 5
+   }
+  },
+  "DSGN3402": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-03-20T00:30:00Z",
+   "counts": {
+    "assignments": 4
+   }
+  }
+ },
+ "pending_confirmations": [
+  {
+   "id": "pc-0001",
+   "course": "PSYC2012",
+   "text": "Lab Report 是个人交还是小组交",
+   "first_asked": "2026-03-20",
+   "last_asked": "2026-03-20",
+   "times_asked": 1,
+   "blocks": "2026-03-26",
+   "ask_en": "Is the lab report submitted individually or per group?",
+   "ask_zh": "实验报告是个人交还是小组交？",
+   "resolved": null,
+   "resolution": null
+  }
+ ],
+ "decisions": [],
+ "mood": [],
+ "manual_deadlines": [
+  {
+   "course": "DSGN3402",
+   "item": "Studio pitch (in class)",
+   "date": "2026-03-31",
+   "time": null,
+   "time_text": "课上",
+   "weight": "10%",
+   "status": "未交",
+   "note": "",
+   "source": "公告 03-20",
+   "url": null,
+   "pending": false,
+   "assignment_id": null,
+   "added": "2026-03-21"
+  }
+ ],
+ "deadline_notes": {
+  "1103001": "老师说 Canvas 日期只是占位，真正截止另行通知"
+ },
+ "locked_materials": [
+  {
+   "course": "ACCT1101",
+   "module": "Week 6: Inventory",
+   "title": "ACCT1101 W6 Lecture Slides.pdf",
+   "unlock_at": "2026-03-29T13:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 6: Inventory",
+   "title": "Week 6 tutorial questions",
+   "unlock_at": "2026-03-29T13:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 6: Inventory",
+   "title": "Lecture recording",
+   "unlock_at": "2026-03-29T13:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 6: Inventory",
+   "title": "Weekly Quiz 6",
+   "unlock_at": "2026-03-29T13:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 7: Receivables",
+   "title": "ACCT1101 W7 Lecture Slides.pdf",
+   "unlock_at": "2026-04-12T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 7: Receivables",
+   "title": "Week 7 tutorial questions",
+   "unlock_at": "2026-04-12T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 7: Receivables",
+   "title": "Lecture recording",
+   "unlock_at": "2026-04-12T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 7: Receivables",
+   "title": "Weekly Quiz 7",
+   "unlock_at": "2026-04-12T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 8: Non-current Assets",
+   "title": "ACCT1101 W8 Lecture Slides.pdf",
+   "unlock_at": "2026-04-19T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 8: Non-current Assets",
+   "title": "Week 8 tutorial questions",
+   "unlock_at": "2026-04-19T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 8: Non-current Assets",
+   "title": "Lecture recording",
+   "unlock_at": "2026-04-19T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 8: Non-current Assets",
+   "title": "Weekly Quiz 8",
+   "unlock_at": "2026-04-19T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 9: Liabilities",
+   "title": "ACCT1101 W9 Lecture Slides.pdf",
+   "unlock_at": "2026-04-26T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 9: Liabilities",
+   "title": "Week 9 tutorial questions",
+   "unlock_at": "2026-04-26T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 9: Liabilities",
+   "title": "Lecture recording",
+   "unlock_at": "2026-04-26T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 10: Equity",
+   "title": "ACCT1101 W10 Lecture Slides.pdf",
+   "unlock_at": "2026-05-03T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 10: Equity",
+   "title": "Week 10 tutorial questions",
+   "unlock_at": "2026-05-03T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 10: Equity",
+   "title": "Lecture recording",
+   "unlock_at": "2026-05-03T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 11: Cash Flow",
+   "title": "ACCT1101 W11 Lecture Slides.pdf",
+   "unlock_at": "2026-05-10T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 11: Cash Flow",
+   "title": "Week 11 tutorial questions",
+   "unlock_at": "2026-05-10T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 11: Cash Flow",
+   "title": "Lecture recording",
+   "unlock_at": "2026-05-10T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 12: Ratio Analysis",
+   "title": "ACCT1101 W12 Lecture Slides.pdf",
+   "unlock_at": "2026-05-17T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 12: Ratio Analysis",
+   "title": "Week 12 tutorial questions",
+   "unlock_at": "2026-05-17T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 12: Ratio Analysis",
+   "title": "Lecture recording",
+   "unlock_at": "2026-05-17T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 13: Revision",
+   "title": "ACCT1101 W13 Lecture Slides.pdf",
+   "unlock_at": "2026-05-24T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 13: Revision",
+   "title": "Week 13 tutorial questions",
+   "unlock_at": "2026-05-24T14:00:00Z"
+  },
+  {
+   "course": "ACCT1101",
+   "module": "Week 13: Revision",
+   "title": "Lecture recording",
+   "unlock_at": "2026-05-24T14:00:00Z"
+  },
+  {
+   "course": "DSGN3402",
+   "module": "W6 Studio: Testing",
+   "title": "W6 studio notes",
+   "unlock_at": "2026-03-29T13:00:00Z"
+  },
+  {
+   "course": "DSGN3402",
+   "module": "W6 Studio: Testing",
+   "title": "W6_Studio_Toolkit.pdf",
+   "unlock_at": "2026-03-29T13:00:00Z"
+  }
+ ],
+ "current_plan": ".coach/plans/2026-W13.json",
+ "daily_report": {}
+}

@@ -1,0 +1,577 @@
+[
+ {
+  "id": 3301101,
+  "name": "Week 1: The Age of Reform",
+  "position": 1,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33010001,
+    "module_id": 3301101,
+    "position": 1,
+    "title": "Seminar 1 reading list",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010001",
+    "page_url": "seminar-1-reading-list",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-1-reading-list",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33010002,
+    "module_id": 3301101,
+    "position": 2,
+    "title": "HIS2102 Lecture 1.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010002",
+    "content_id": 3301501,
+    "url": "{{BASE}}/api/v1/courses/3301/files/3301501",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "HIS2102 Lecture 1.pdf"
+    }
+   },
+   {
+    "id": 33010003,
+    "module_id": 3301101,
+    "position": 3,
+    "title": "Lecture 1 recording (Panopto)",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010003",
+    "external_url": "https://video.example/panopto/his2102-1",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3301102,
+  "name": "Week 2: Industrial Towns",
+  "position": 2,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33010004,
+    "module_id": 3301102,
+    "position": 1,
+    "title": "Seminar 2 reading list",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010004",
+    "page_url": "seminar-2-reading-list",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-2-reading-list",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33010005,
+    "module_id": 3301102,
+    "position": 2,
+    "title": "HIS2102 Lecture 2.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010005",
+    "content_id": 3301502,
+    "url": "{{BASE}}/api/v1/courses/3301/files/3301502",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "HIS2102 Lecture 2.pdf"
+    }
+   },
+   {
+    "id": 33010006,
+    "module_id": 3301102,
+    "position": 3,
+    "title": "Lecture 2 recording (Panopto)",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010006",
+    "external_url": "https://video.example/panopto/his2102-2",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3301103,
+  "name": "Week 3: Chartism",
+  "position": 3,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33010007,
+    "module_id": 3301103,
+    "position": 1,
+    "title": "Seminar 3 reading list",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010007",
+    "page_url": "seminar-3-reading-list",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-3-reading-list",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33010008,
+    "module_id": 3301103,
+    "position": 2,
+    "title": "HIS2102 Lecture 3.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010008",
+    "content_id": 3301503,
+    "url": "{{BASE}}/api/v1/courses/3301/files/3301503",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "HIS2102 Lecture 3.pdf"
+    }
+   },
+   {
+    "id": 33010009,
+    "module_id": 3301103,
+    "position": 3,
+    "title": "Lecture 3 recording (Panopto)",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010009",
+    "external_url": "https://video.example/panopto/his2102-3",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3301104,
+  "name": "Week 4: The Hungry Forties",
+  "position": 4,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33010010,
+    "module_id": 3301104,
+    "position": 1,
+    "title": "Seminar 4 reading list",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010010",
+    "page_url": "seminar-4-reading-list",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-4-reading-list",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33010011,
+    "module_id": 3301104,
+    "position": 2,
+    "title": "HIS2102 Lecture 4.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010011",
+    "content_id": 3301504,
+    "url": "{{BASE}}/api/v1/courses/3301/files/3301504",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "HIS2102 Lecture 4.pdf"
+    }
+   },
+   {
+    "id": 33010012,
+    "module_id": 3301104,
+    "position": 3,
+    "title": "Lecture 4 recording (Panopto)",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010012",
+    "external_url": "https://video.example/panopto/his2102-4",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3301105,
+  "name": "Week 5: Victorian Religion",
+  "position": 5,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33010013,
+    "module_id": 3301105,
+    "position": 1,
+    "title": "Seminar 5 reading list",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010013",
+    "page_url": "seminar-5-reading-list",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-5-reading-list",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33010014,
+    "module_id": 3301105,
+    "position": 2,
+    "title": "HIS2102 Lecture 5.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010014",
+    "content_id": 3301505,
+    "url": "{{BASE}}/api/v1/courses/3301/files/3301505",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "HIS2102 Lecture 5.pdf"
+    }
+   },
+   {
+    "id": 33010015,
+    "module_id": 3301105,
+    "position": 3,
+    "title": "Lecture 5 recording (Panopto)",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010015",
+    "external_url": "https://video.example/panopto/his2102-5",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3301106,
+  "name": "Reading Week (16–20 Feb)",
+  "position": 6,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33010016,
+    "module_id": 3301106,
+    "position": 1,
+    "title": "Reading week tasks",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010016",
+    "page_url": "reading-week-tasks",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/reading-week-tasks",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3301107,
+  "name": "Week 6: Gladstone and Disraeli",
+  "position": 7,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33010017,
+    "module_id": 3301107,
+    "position": 1,
+    "title": "Seminar 6 reading list",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010017",
+    "page_url": "seminar-6-reading-list",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-6-reading-list",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33010018,
+    "module_id": 3301107,
+    "position": 2,
+    "title": "HIS2102 Lecture 6.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010018",
+    "content_id": 3301506,
+    "url": "{{BASE}}/api/v1/courses/3301/files/3301506",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "HIS2102 Lecture 6.pdf"
+    }
+   },
+   {
+    "id": 33010019,
+    "module_id": 3301107,
+    "position": 3,
+    "title": "Lecture 6 recording (Panopto)",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010019",
+    "external_url": "https://video.example/panopto/his2102-6",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3301108,
+  "name": "Week 7: Empire and Trade",
+  "position": 8,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33010020,
+    "module_id": 3301108,
+    "position": 1,
+    "title": "Seminar 7 reading list",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010020",
+    "page_url": "seminar-7-reading-list",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-7-reading-list",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33010021,
+    "module_id": 3301108,
+    "position": 2,
+    "title": "HIS2102 Lecture 7.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010021",
+    "content_id": 3301507,
+    "url": "{{BASE}}/api/v1/courses/3301/files/3301507",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "HIS2102 Lecture 7.pdf"
+    }
+   },
+   {
+    "id": 33010022,
+    "module_id": 3301108,
+    "position": 3,
+    "title": "Lecture 7 recording (Panopto)",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010022",
+    "external_url": "https://video.example/panopto/his2102-7",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3301109,
+  "name": "Week 8: Women and Work",
+  "position": 9,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33010023,
+    "module_id": 3301109,
+    "position": 1,
+    "title": "Seminar 8 reading list",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010023",
+    "page_url": "seminar-8-reading-list",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-8-reading-list",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33010024,
+    "module_id": 3301109,
+    "position": 2,
+    "title": "HIS2102 Lecture 8.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010024",
+    "content_id": 3301508,
+    "url": "{{BASE}}/api/v1/courses/3301/files/3301508",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "HIS2102 Lecture 8.pdf"
+    }
+   },
+   {
+    "id": 33010025,
+    "module_id": 3301109,
+    "position": 3,
+    "title": "Lecture 8 recording (Panopto)",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010025",
+    "external_url": "https://video.example/panopto/his2102-8",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3301110,
+  "name": "Week 9: The Irish Question",
+  "position": 10,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33010026,
+    "module_id": 3301110,
+    "position": 1,
+    "title": "Seminar 9 reading list",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010026",
+    "page_url": "seminar-9-reading-list",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-9-reading-list",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33010027,
+    "module_id": 3301110,
+    "position": 2,
+    "title": "HIS2102 Lecture 9.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010027",
+    "content_id": 3301509,
+    "url": "{{BASE}}/api/v1/courses/3301/files/3301509",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "HIS2102 Lecture 9.pdf"
+    }
+   },
+   {
+    "id": 33010028,
+    "module_id": 3301110,
+    "position": 3,
+    "title": "Lecture 9 recording (Panopto)",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010028",
+    "external_url": "https://video.example/panopto/his2102-9",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33010029,
+    "module_id": 3301110,
+    "position": 4,
+    "title": "Seminar 9 prep questions",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010029",
+    "page_url": "seminar-9-prep-questions",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-9-prep-questions",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 3301111,
+  "name": "Week 10: Edwardian Britain",
+  "position": 11,
+  "unlock_at": "2026-03-23T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "locked",
+  "items": [
+   {
+    "id": 33010030,
+    "module_id": 3301111,
+    "position": 1,
+    "title": "Seminar 10 reading list",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010030",
+    "page_url": "seminar-10-reading-list",
+    "url": "{{BASE}}/api/v1/courses/3301/pages/seminar-10-reading-list",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-23T00:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-23T00:00:00Z."
+    }
+   },
+   {
+    "id": 33010031,
+    "module_id": 3301111,
+    "position": 2,
+    "title": "HIS2102 Lecture 10.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010031",
+    "content_id": 3301510,
+    "url": "{{BASE}}/api/v1/courses/3301/files/3301510",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-23T00:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-23T00:00:00Z.",
+     "display_name": "HIS2102 Lecture 10.pdf"
+    }
+   },
+   {
+    "id": 33010032,
+    "module_id": 3301111,
+    "position": 3,
+    "title": "Lecture 10 recording (Panopto)",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/3301/modules/items/33010032",
+    "external_url": "https://video.example/panopto/his2102-10",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-23T00:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-23T00:00:00Z."
+    }
+   }
+  ]
+ }
+]

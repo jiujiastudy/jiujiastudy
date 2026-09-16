@@ -1,0 +1,406 @@
+[
+ {
+  "id": 3303101,
+  "name": "Seminar 1: Offer and Acceptance",
+  "position": 1,
+  "unlock_at": "2026-01-12T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33030001,
+    "module_id": 3303101,
+    "position": 1,
+    "title": "Seminar 1 reading",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030001",
+    "page_url": "seminar-1-reading",
+    "url": "{{BASE}}/api/v1/courses/3303/pages/seminar-1-reading",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33030002,
+    "module_id": 3303101,
+    "position": 2,
+    "title": "LAW1113 Seminar 1 handout.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030002",
+    "content_id": 3303501,
+    "url": "{{BASE}}/api/v1/courses/3303/files/3303501",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "LAW1113 Seminar 1 handout.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3303102,
+  "name": "Seminar 2: Consideration",
+  "position": 2,
+  "unlock_at": "2026-01-19T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33030003,
+    "module_id": 3303102,
+    "position": 1,
+    "title": "Seminar 2 reading",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030003",
+    "page_url": "seminar-2-reading",
+    "url": "{{BASE}}/api/v1/courses/3303/pages/seminar-2-reading",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33030004,
+    "module_id": 3303102,
+    "position": 2,
+    "title": "LAW1113 Seminar 2 handout.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030004",
+    "content_id": 3303502,
+    "url": "{{BASE}}/api/v1/courses/3303/files/3303502",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "LAW1113 Seminar 2 handout.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3303103,
+  "name": "Seminar 3: Intention",
+  "position": 3,
+  "unlock_at": "2026-01-26T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33030005,
+    "module_id": 3303103,
+    "position": 1,
+    "title": "Seminar 3 reading",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030005",
+    "page_url": "seminar-3-reading",
+    "url": "{{BASE}}/api/v1/courses/3303/pages/seminar-3-reading",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33030006,
+    "module_id": 3303103,
+    "position": 2,
+    "title": "LAW1113 Seminar 3 handout.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030006",
+    "content_id": 3303503,
+    "url": "{{BASE}}/api/v1/courses/3303/files/3303503",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "LAW1113 Seminar 3 handout.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3303104,
+  "name": "Seminar 4: Terms",
+  "position": 4,
+  "unlock_at": "2026-02-02T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33030007,
+    "module_id": 3303104,
+    "position": 1,
+    "title": "Seminar 4 reading",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030007",
+    "page_url": "seminar-4-reading",
+    "url": "{{BASE}}/api/v1/courses/3303/pages/seminar-4-reading",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33030008,
+    "module_id": 3303104,
+    "position": 2,
+    "title": "LAW1113 Seminar 4 handout.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030008",
+    "content_id": 3303504,
+    "url": "{{BASE}}/api/v1/courses/3303/files/3303504",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "LAW1113 Seminar 4 handout.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3303105,
+  "name": "Seminar 5: Exclusion Clauses",
+  "position": 5,
+  "unlock_at": "2026-02-09T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33030009,
+    "module_id": 3303105,
+    "position": 1,
+    "title": "Seminar 5 reading",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030009",
+    "page_url": "seminar-5-reading",
+    "url": "{{BASE}}/api/v1/courses/3303/pages/seminar-5-reading",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33030010,
+    "module_id": 3303105,
+    "position": 2,
+    "title": "LAW1113 Seminar 5 handout.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030010",
+    "content_id": 3303505,
+    "url": "{{BASE}}/api/v1/courses/3303/files/3303505",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "LAW1113 Seminar 5 handout.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3303106,
+  "name": "Seminar 6: Misrepresentation",
+  "position": 6,
+  "unlock_at": "2026-02-23T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33030011,
+    "module_id": 3303106,
+    "position": 1,
+    "title": "Seminar 6 reading",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030011",
+    "page_url": "seminar-6-reading",
+    "url": "{{BASE}}/api/v1/courses/3303/pages/seminar-6-reading",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33030012,
+    "module_id": 3303106,
+    "position": 2,
+    "title": "LAW1113 Seminar 6 handout.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030012",
+    "content_id": 3303506,
+    "url": "{{BASE}}/api/v1/courses/3303/files/3303506",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "LAW1113 Seminar 6 handout.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3303107,
+  "name": "Seminar 7: Mistake",
+  "position": 7,
+  "unlock_at": "2026-03-02T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33030013,
+    "module_id": 3303107,
+    "position": 1,
+    "title": "Seminar 7 reading",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030013",
+    "page_url": "seminar-7-reading",
+    "url": "{{BASE}}/api/v1/courses/3303/pages/seminar-7-reading",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33030014,
+    "module_id": 3303107,
+    "position": 2,
+    "title": "LAW1113 Seminar 7 handout.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030014",
+    "content_id": 3303507,
+    "url": "{{BASE}}/api/v1/courses/3303/files/3303507",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "LAW1113 Seminar 7 handout.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3303108,
+  "name": "Seminar 8: Duress",
+  "position": 8,
+  "unlock_at": "2026-03-09T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33030015,
+    "module_id": 3303108,
+    "position": 1,
+    "title": "Seminar 8 reading",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030015",
+    "page_url": "seminar-8-reading",
+    "url": "{{BASE}}/api/v1/courses/3303/pages/seminar-8-reading",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33030016,
+    "module_id": 3303108,
+    "position": 2,
+    "title": "LAW1113 Seminar 8 handout.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030016",
+    "content_id": 3303508,
+    "url": "{{BASE}}/api/v1/courses/3303/files/3303508",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "LAW1113 Seminar 8 handout.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3303109,
+  "name": "Seminar 9: Frustration",
+  "position": 9,
+  "unlock_at": "2026-03-16T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 33030017,
+    "module_id": 3303109,
+    "position": 1,
+    "title": "Seminar 9 reading",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030017",
+    "page_url": "seminar-9-reading",
+    "url": "{{BASE}}/api/v1/courses/3303/pages/seminar-9-reading",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 33030018,
+    "module_id": 3303109,
+    "position": 2,
+    "title": "LAW1113 Seminar 9 handout.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030018",
+    "content_id": 3303509,
+    "url": "{{BASE}}/api/v1/courses/3303/files/3303509",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "LAW1113 Seminar 9 handout.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 3303110,
+  "name": "Seminar 10: Remedies",
+  "position": 10,
+  "unlock_at": "2026-03-23T00:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "locked",
+  "items": [
+   {
+    "id": 33030019,
+    "module_id": 3303110,
+    "position": 1,
+    "title": "Seminar 10 reading",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030019",
+    "page_url": "seminar-10-reading",
+    "url": "{{BASE}}/api/v1/courses/3303/pages/seminar-10-reading",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-23T00:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-23T00:00:00Z."
+    }
+   },
+   {
+    "id": 33030020,
+    "module_id": 3303110,
+    "position": 2,
+    "title": "LAW1113 Seminar 10 handout.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/3303/modules/items/33030020",
+    "content_id": 3303510,
+    "url": "{{BASE}}/api/v1/courses/3303/files/3303510",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-23T00:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-23T00:00:00Z.",
+     "display_name": "LAW1113 Seminar 10 handout.pdf"
+    }
+   }
+  ]
+ }
+]

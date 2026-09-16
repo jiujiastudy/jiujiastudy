@@ -1,0 +1,92 @@
+{
+ "schema_version": 3,
+ "last_check": "<NOW>",
+ "last_fetch": "<NOW>",
+ "last_record": "<NOW>",
+ "last_seen": "<WALLCLOCK>",
+ "last_done": "2026-03-19T12:00:00Z",
+ "counters": {
+  "pending": 0
+ },
+ "courses": {
+  "MA1205": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-03-24T02:00:00Z",
+   "counts": {
+    "assignments": 4
+   }
+  },
+  "3": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-03-23T00:00:00Z",
+   "counts": {
+    "assignments": 3
+   }
+  },
+  "C4403": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-03-19T07:00:00Z",
+   "counts": {
+    "assignments": 3
+   }
+  }
+ },
+ "pending_confirmations": [],
+ "decisions": [],
+ "mood": [
+  {
+   "date": "2026-03-24",
+   "word": "累",
+   "level": "落后",
+   "note": null
+  }
+ ],
+ "manual_deadlines": [],
+ "deadline_notes": {},
+ "locked_materials": [
+  {
+   "course": "MA1205",
+   "module": "第6周 反常积分",
+   "title": "第6周 反常积分.pdf",
+   "unlock_at": "2026-03-29T16:00:00Z"
+  },
+  {
+   "course": "MA1205",
+   "module": "第6周 反常积分",
+   "title": "第6周 习题说明",
+   "unlock_at": "2026-03-29T16:00:00Z"
+  },
+  {
+   "course": "MA1205",
+   "module": "第7周 微分方程",
+   "title": "第7周 微分方程.pdf",
+   "unlock_at": "2026-04-05T16:00:00Z"
+  },
+  {
+   "course": "MA1205",
+   "module": "第7周 微分方程",
+   "title": "第7周 习题说明",
+   "unlock_at": "2026-04-05T16:00:00Z"
+  },
+  {
+   "course": "3",
+   "module": "第六周 Unit 5 Travel",
+   "title": "第六周 学习任务",
+   "unlock_at": "2026-03-29T16:00:00Z"
+  },
+  {
+   "course": "3",
+   "module": "第六周 Unit 5 Travel",
+   "title": "Unit 5 课文讲解.pptx",
+   "unlock_at": "2026-03-29T16:00:00Z"
+  },
+  {
+   "course": "3",
+   "module": "第六周 Unit 5 Travel",
+   "title": "Unit 5 听力音频",
+   "unlock_at": "2026-03-29T16:00:00Z"
+  }
+ ],
+ "current_plan": ".coach/plans/2026-W13.json",
+ "daily_report": {}
+}

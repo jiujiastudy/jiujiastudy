@@ -1,0 +1,168 @@
+{
+ "queue": [
+  {
+   "id": "22010001",
+   "course": "MATH3B",
+   "module": "Integration by Substitution",
+   "title": "Integration by Substitution notes.pdf",
+   "url": "<CANVAS>/courses/2201/modules/items/22010001",
+   "content_id": 2201501,
+   "type": "File"
+  },
+  {
+   "id": "22010004",
+   "course": "MATH3B",
+   "module": "Integration by Parts",
+   "title": "Integration by Parts notes.pdf",
+   "url": "<CANVAS>/courses/2201/modules/items/22010004",
+   "content_id": 2201502,
+   "type": "File"
+  },
+  {
+   "id": "22010007",
+   "course": "MATH3B",
+   "module": "Trigonometric Integrals",
+   "title": "Trigonometric Integrals notes.pdf",
+   "url": "<CANVAS>/courses/2201/modules/items/22010007",
+   "content_id": 2201503,
+   "type": "File"
+  },
+  {
+   "id": "22010010",
+   "course": "MATH3B",
+   "module": "Partial Fractions",
+   "title": "Partial Fractions notes.pdf",
+   "url": "<CANVAS>/courses/2201/modules/items/22010010",
+   "content_id": 2201504,
+   "type": "File"
+  },
+  {
+   "id": "22010013",
+   "course": "MATH3B",
+   "module": "Improper Integrals",
+   "title": "Improper Integrals notes.pdf",
+   "url": "<CANVAS>/courses/2201/modules/items/22010013",
+   "content_id": 2201505,
+   "type": "File"
+  },
+  {
+   "id": "22010016",
+   "course": "MATH3B",
+   "module": "Sequences",
+   "title": "Sequences notes.pdf",
+   "url": "<CANVAS>/courses/2201/modules/items/22010016",
+   "content_id": 2201506,
+   "type": "File"
+  },
+  {
+   "id": "22010019",
+   "course": "MATH3B",
+   "module": "Applications of Integration",
+   "title": "Applications of Integration notes.pdf",
+   "url": "<CANVAS>/courses/2201/modules/items/22010019",
+   "content_id": 2201507,
+   "type": "File"
+  },
+  {
+   "id": "22020001",
+   "course": "CHEM1A",
+   "module": "Week 1: Measurement",
+   "title": "CHEM1A Week 1 slides.pdf",
+   "url": "<CANVAS>/courses/2202/modules/items/22020001",
+   "content_id": 2202501,
+   "type": "File"
+  },
+  {
+   "id": "22020003",
+   "course": "CHEM1A",
+   "module": "Week 2: Atoms and Molecules",
+   "title": "CHEM1A Week 2 slides.pdf",
+   "url": "<CANVAS>/courses/2202/modules/items/22020003",
+   "content_id": 2202502,
+   "type": "File"
+  },
+  {
+   "id": "22020005",
+   "course": "CHEM1A",
+   "module": "Week 3: Stoichiometry",
+   "title": "CHEM1A Week 3 slides.pdf",
+   "url": "<CANVAS>/courses/2202/modules/items/22020005",
+   "content_id": 2202503,
+   "type": "File"
+  },
+  {
+   "id": "22020007",
+   "course": "CHEM1A",
+   "module": "Week 4: Reactions in Solution",
+   "title": "CHEM1A Week 4 slides.pdf",
+   "url": "<CANVAS>/courses/2202/modules/items/22020007",
+   "content_id": 2202504,
+   "type": "File"
+  },
+  {
+   "id": "22020009",
+   "course": "CHEM1A",
+   "module": "Week 5: Gases",
+   "title": "CHEM1A Week 5 slides.pdf",
+   "url": "<CANVAS>/courses/2202/modules/items/22020009",
+   "content_id": 2202505,
+   "type": "File"
+  },
+  {
+   "id": "22020011",
+   "course": "CHEM1A",
+   "module": "Week 6: Midterm Week",
+   "title": "CHEM1A Week 6 slides.pdf",
+   "url": "<CANVAS>/courses/2202/modules/items/22020011",
+   "content_id": 2202506,
+   "type": "File"
+  },
+  {
+   "id": "22020013",
+   "course": "CHEM1A",
+   "module": "Week 7: Energy",
+   "title": "CHEM1A Week 7 slides.pdf",
+   "url": "<CANVAS>/courses/2202/modules/items/22020013",
+   "content_id": 2202507,
+   "type": "File"
+  },
+  {
+   "id": "22020016",
+   "course": "CHEM1A",
+   "module": "Week 8: Thermochemistry",
+   "title": "CHEM1A Week 8 slides.pdf",
+   "url": "<CANVAS>/courses/2202/modules/items/22020016",
+   "content_id": 2202508,
+   "type": "File"
+  },
+  {
+   "id": "22030002",
+   "course": "WRIT2",
+   "module": "Unit 1: Rhetorical Situations",
+   "title": "Rhetorical triangle.pdf",
+   "url": "<CANVAS>/courses/2203/modules/items/22030002",
+   "content_id": 2203501,
+   "type": "File"
+  },
+  {
+   "id": "22030004",
+   "course": "WRIT2",
+   "module": "Unit 1: Rhetorical Situations",
+   "title": "Essay 1 prompt.pdf",
+   "url": "<CANVAS>/courses/2203/modules/items/22030004",
+   "content_id": 2203502,
+   "type": "File"
+  },
+  {
+   "id": "22030007",
+   "course": "WRIT2",
+   "module": "Unit 2: Research and Sources",
+   "title": "Library database guide.pdf",
+   "url": "<CANVAS>/courses/2203/modules/items/22030007",
+   "content_id": 2203503,
+   "type": "File"
+  }
+ ],
+ "done": [],
+ "in_progress": []
+}

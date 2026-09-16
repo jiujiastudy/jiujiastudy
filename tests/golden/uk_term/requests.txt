@@ -1,0 +1,16 @@
+01_collect_touch GET /api/v1/courses/3301/assignments?per_page=100&include[]=submission -> 200
+01_collect_touch GET /api/v1/courses/3301/modules?per_page=50&include[]=items&include[]=content_details -> 200
+01_collect_touch GET /api/v1/courses/3302/assignments?per_page=100&include[]=submission -> 200
+01_collect_touch GET /api/v1/courses/3302/modules?per_page=50&include[]=items&include[]=content_details -> 200
+01_collect_touch GET /api/v1/courses/3303/assignments?per_page=100&include[]=submission -> 200
+01_collect_touch GET /api/v1/courses/3303/modules?per_page=50&include[]=items&include[]=content_details -> 200
+01_collect_touch GET /api/v1/announcements?context_codes[]=course_3301&context_codes[]=course_3302&context_codes[]=course_3303&start_date=2026-03-03&per_page=50 -> 200
+01_collect_touch GET /api/v1/conversations?scope=inbox&per_page=30 -> 200
+20_collect_touch_json GET /api/v1/courses/3301/assignments?per_page=100&include[]=submission -> 200
+20_collect_touch_json GET /api/v1/courses/3301/modules?per_page=50&include[]=items&include[]=content_details -> 200
+20_collect_touch_json GET /api/v1/courses/3302/assignments?per_page=100&include[]=submission -> 200
+20_collect_touch_json GET /api/v1/courses/3302/modules?per_page=50&include[]=items&include[]=content_details -> 200
+20_collect_touch_json GET /api/v1/courses/3303/assignments?per_page=100&include[]=submission -> 200
+20_collect_touch_json GET /api/v1/courses/3303/modules?per_page=50&include[]=items&include[]=content_details -> 200
+20_collect_touch_json GET /api/v1/announcements?context_codes[]=course_3301&context_codes[]=course_3302&context_codes[]=course_3303&start_date=2026-03-03&per_page=50 -> 200
+20_collect_touch_json GET /api/v1/conversations?scope=inbox&per_page=30 -> 200

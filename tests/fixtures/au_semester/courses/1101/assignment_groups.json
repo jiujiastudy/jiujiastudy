@@ -1,0 +1,23 @@
+[
+ {
+  "id": 11011,
+  "name": "Quizzes",
+  "position": 1,
+  "group_weight": 20,
+  "rules": {}
+ },
+ {
+  "id": 11012,
+  "name": "Case study",
+  "position": 2,
+  "group_weight": 30,
+  "rules": {}
+ },
+ {
+  "id": 11013,
+  "name": "Final exam",
+  "position": 3,
+  "group_weight": 50,
+  "rules": {}
+ }
+]

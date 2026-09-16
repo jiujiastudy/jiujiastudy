@@ -1,0 +1,68 @@
+STCanvas · 第 3 周
+第 3 周
+02-23 至 03-01 · 数据截至 02-25 周三 09:00 · 时间为美西时间，03-08 起美西进入夏令时 · 周次是推断的
+把 deadline 交给机器，把凌晨三点还给自己。
+状态：过载只留必做，按权重排。今天只做最急的一条的第一步：MATH3B Homework 7（02-26 周四 23:59，明天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。
+72 小时内有 3 条 deadline
+今天 · 02-25 周三 · 也是本周最要紧的一件
+MATH3B Homework 7（02-26 周四 23:59）
+第一步：打开作业页，看一眼提交要求。
+有空再做 2 件
+CHEM1A 看课件：CHEM1A Week 3 slides.pdf（40 分钟）
+CHEM1A 读：Week 3 reading guide（20 分钟）
+Deadline · 两周内
+明天MATH3B Homework 7 [<CANVAS>/courses/2201/assignments/2201007]02-26 周四 23:59
+还有 2 天CHEM1A Lab 7 Report [<CANVAS>/courses/2202/assignments/2202002]02-27 周五 17:00
+还有 2 天WRIT2 Peer Review 2 [<CANVAS>/courses/2203/assignments/2203002]02-27 周五 23:59
+还有 5 天CHEM1A Pre-lab Quiz 8 [<CANVAS>/courses/2202/assignments/2202003]03-02 周一 08:00
+还有 7 天MATH3B Midterm 2 [<CANVAS>/courses/2201/assignments/2201010]03-04 周三 14:00
+还有 8 天MATH3B Homework 8 [<CANVAS>/courses/2201/assignments/2201008]03-05 周四 23:59
+还有 9 天WRIT2 Essay 2: Argument (25%) [<CANVAS>/courses/2203/assignments/2203003]03-06 周五 23:59 · 25%
+撞车：02-26 周四 至 02-27 周五，MATH3B Homework 7（—）、CHEM1A Lab 7 Report（—）、WRIT2 Peer Review 2（—）。
+Canvas 没写日期的 1 条，以 Canvas 和老师为准
+MATH3B Participation (10%) [<CANVAS>/courses/2201/assignments/2201012]Canvas 没写日期 · 10%
+每天
+23周一
+整理这周的笔记，把没看完的补上
+24周二
+整理这周的笔记，把没看完的补上
+25周三
+MATH3B Homework 7（02-26 周四 23:59）
+有空再做：CHEM1A 看课件：CHEM1A Week 3 slides.pdf（40 分钟）；CHEM1A 读：Week 3 reading guide（20 分钟）
+26周四
+CHEM1A Lab 7 Report（02-27 周五 17:00）
+23:59 MATH3B Homework 7 截止
+有空再做：WRIT2 Peer Review 2（02-27 周五 23:59）
+27周五
+整理这周的笔记，把没看完的补上
+17:00 CHEM1A Lab 7 Report 截止
+23:59 WRIT2 Peer Review 2 截止
+28周六
+整理这周的笔记，把没看完的补上
+1周日
+CHEM1A Pre-lab Quiz 8（03-02 周一 08:00）
+有空再做：复习 MATH3B：过一周的课件（Midterm 2 还有 7 天）
+周日：回我「做完了」，我记进度、排下周。
+这周要学的
+MATH3B本周完成考试 03-04 · 还有 7 天
+MATH 3B: Calculus
+公告 1 条
+02-23 周一 10:00 Midterm 2 room assignments [<CANVAS>/courses/2201/discussion_topics/90002]
+MATH3B 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2201/modules [<CANVAS>/courses/2201/modules]
+CHEM1A本周完成考试 03-02 · 还有 5 天
+CHEM 1A: General Chemistry
+Week 3: Stoichiometry
+课前看
+看课件CHEM1A Week 3 slides.pdf [<CANVAS>/courses/2202/modules/items/22020005]40 分钟
+读Week 3 reading guide [<CANVAS>/courses/2202/modules/items/22020006]20 分钟
+公告 1 条
+02-20 周五 16:00 Lab safety reminder [<CANVAS>/courses/2202/discussion_topics/90003]
+WRIT2本周完成
+WRIT 2: Academic Writing
+WRIT2 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2203/modules [<CANVAS>/courses/2203/modules]
+资料来源
+Canvas 快照：raw/daily/snapshot.json
+模块列表：raw/daily/<日期>/modules_<课程id>.json
+手动 deadline 与待确认：state.json
+标了待确认的，以 Canvas、课表和老师的答复为准。
+复制

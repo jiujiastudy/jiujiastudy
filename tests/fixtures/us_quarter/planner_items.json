@@ -1,0 +1,586 @@
+[
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 90001,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-01-04T20:00:00Z",
+  "plannable": {
+   "id": 90001,
+   "title": "Welcome to MATH 3B"
+  },
+  "html_url": "{{BASE}}/courses/2201/discussion_topics/90001",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201001,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-01-16T07:59:00Z",
+  "plannable": {
+   "id": 2201001,
+   "title": "Homework 1",
+   "due_at": "2026-01-16T07:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201001",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201002,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-01-23T07:59:00Z",
+  "plannable": {
+   "id": 2201002,
+   "title": "Homework 2",
+   "due_at": "2026-01-23T07:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201002",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201003,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-01-30T07:59:00Z",
+  "plannable": {
+   "id": 2201003,
+   "title": "Homework 3",
+   "due_at": "2026-01-30T07:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201003",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201009,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-01-30T22:00:00Z",
+  "plannable": {
+   "id": 2201009,
+   "title": "Midterm 1",
+   "due_at": "2026-01-30T22:00:00Z",
+   "points_possible": 100
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201009",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2203,
+  "context_name": "WRIT 2: Academic Writing",
+  "plannable_id": 2203001,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-01-31T07:59:00Z",
+  "plannable": {
+   "id": 2203001,
+   "title": "Essay 1: Rhetorical Analysis (20%)",
+   "due_at": "2026-01-31T07:59:00Z",
+   "points_possible": 20
+  },
+  "html_url": "{{BASE}}/courses/2203/assignments/2203001",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201004,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-02-06T07:59:00Z",
+  "plannable": {
+   "id": 2201004,
+   "title": "Homework 4",
+   "due_at": "2026-02-06T07:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201004",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2203,
+  "context_name": "WRIT 2: Academic Writing",
+  "plannable_id": 90004,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-02-10T18:00:00Z",
+  "plannable": {
+   "id": 90004,
+   "title": "Office hours moved"
+  },
+  "html_url": "{{BASE}}/courses/2203/discussion_topics/90004",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2202,
+  "context_name": "CHEM 1A: General Chemistry",
+  "plannable_id": 2202005,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-02-12T02:00:00Z",
+  "plannable": {
+   "id": 2202005,
+   "title": "Midterm",
+   "due_at": "2026-02-12T02:00:00Z",
+   "points_possible": 100
+  },
+  "html_url": "{{BASE}}/courses/2202/assignments/2202005",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201005,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-02-13T07:59:00Z",
+  "plannable": {
+   "id": 2201005,
+   "title": "Homework 5",
+   "due_at": "2026-02-13T07:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201005",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201006,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-02-20T07:59:00Z",
+  "plannable": {
+   "id": 2201006,
+   "title": "Homework 6",
+   "due_at": "2026-02-20T07:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201006",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2202,
+  "context_name": "CHEM 1A: General Chemistry",
+  "plannable_id": 90003,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-02-21T00:00:00Z",
+  "plannable": {
+   "id": 90003,
+   "title": "Lab safety reminder"
+  },
+  "html_url": "{{BASE}}/courses/2202/discussion_topics/90003",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2202,
+  "context_name": "CHEM 1A: General Chemistry",
+  "plannable_id": 2202001,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-02-21T01:00:00Z",
+  "plannable": {
+   "id": 2202001,
+   "title": "Lab 6 Report",
+   "due_at": "2026-02-21T01:00:00Z",
+   "points_possible": 20
+  },
+  "html_url": "{{BASE}}/courses/2202/assignments/2202001",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": false,
+   "late": true,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 90002,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-02-23T18:00:00Z",
+  "plannable": {
+   "id": 90002,
+   "title": "Midterm 2 room assignments"
+  },
+  "html_url": "{{BASE}}/courses/2201/discussion_topics/90002",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2202,
+  "context_name": "CHEM 1A: General Chemistry",
+  "plannable_id": 2202004,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-02-25T07:59:00Z",
+  "plannable": {
+   "id": 2202004,
+   "title": "Problem Set 5",
+   "due_at": "2026-02-25T07:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/2202/assignments/2202004",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201007,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-02-27T07:59:00Z",
+  "plannable": {
+   "id": 2201007,
+   "title": "Homework 7",
+   "due_at": "2026-02-27T07:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201007",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2202,
+  "context_name": "CHEM 1A: General Chemistry",
+  "plannable_id": 2202002,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-02-28T01:00:00Z",
+  "plannable": {
+   "id": 2202002,
+   "title": "Lab 7 Report",
+   "due_at": "2026-02-28T01:00:00Z",
+   "points_possible": 20
+  },
+  "html_url": "{{BASE}}/courses/2202/assignments/2202002",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2203,
+  "context_name": "WRIT 2: Academic Writing",
+  "plannable_id": 2203002,
+  "plannable_type": "discussion_topic",
+  "plannable_date": "2026-02-28T07:59:00Z",
+  "plannable": {
+   "id": 2203002,
+   "title": "Peer Review 2",
+   "due_at": "2026-02-28T07:59:00Z",
+   "points_possible": 5
+  },
+  "html_url": "{{BASE}}/courses/2203/assignments/2203002",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2202,
+  "context_name": "CHEM 1A: General Chemistry",
+  "plannable_id": 2202003,
+  "plannable_type": "quiz",
+  "plannable_date": "2026-03-02T16:00:00Z",
+  "plannable": {
+   "id": 2202003,
+   "title": "Pre-lab Quiz 8",
+   "due_at": "2026-03-02T16:00:00Z",
+   "points_possible": 5
+  },
+  "html_url": "{{BASE}}/courses/2202/assignments/2202003",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201010,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-04T22:00:00Z",
+  "plannable": {
+   "id": 2201010,
+   "title": "Midterm 2",
+   "due_at": "2026-03-04T22:00:00Z",
+   "points_possible": 100
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201010",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201008,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-06T07:59:00Z",
+  "plannable": {
+   "id": 2201008,
+   "title": "Homework 8",
+   "due_at": "2026-03-06T07:59:00Z",
+   "points_possible": 10
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201008",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2203,
+  "context_name": "WRIT 2: Academic Writing",
+  "plannable_id": 2203003,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-07T07:59:00Z",
+  "plannable": {
+   "id": 2203003,
+   "title": "Essay 2: Argument (25%)",
+   "due_at": "2026-03-07T07:59:00Z",
+   "points_possible": 25
+  },
+  "html_url": "{{BASE}}/courses/2203/assignments/2203003",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2201,
+  "context_name": "MATH 3B: Calculus",
+  "plannable_id": 2201011,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-17T19:00:00Z",
+  "plannable": {
+   "id": 2201011,
+   "title": "Final Exam",
+   "due_at": "2026-03-17T19:00:00Z",
+   "points_possible": 100
+  },
+  "html_url": "{{BASE}}/courses/2201/assignments/2201011",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 2203,
+  "context_name": "WRIT 2: Academic Writing",
+  "plannable_id": 2203004,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-20T06:59:00Z",
+  "plannable": {
+   "id": 2203004,
+   "title": "Portfolio (40%)",
+   "due_at": "2026-03-20T06:59:00Z",
+   "points_possible": 40
+  },
+  "html_url": "{{BASE}}/courses/2203/assignments/2203004",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ }
+]

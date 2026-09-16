@@ -1,0 +1,213 @@
+{
+ "queue": [
+  {
+   "id": "11010002",
+   "course": "ACCT1101",
+   "module": "Week 1: Introduction to Accounting",
+   "title": "ACCT1101 W1 Lecture Slides.pdf",
+   "url": "<CANVAS>/courses/1101/modules/items/11010002",
+   "content_id": 1101501,
+   "type": "File"
+  },
+  {
+   "id": "11010007",
+   "course": "ACCT1101",
+   "module": "Week 2: The Accounting Equation",
+   "title": "ACCT1101 W2 Lecture Slides.pdf",
+   "url": "<CANVAS>/courses/1101/modules/items/11010007",
+   "content_id": 1101502,
+   "type": "File"
+  },
+  {
+   "id": "11010012",
+   "course": "ACCT1101",
+   "module": "Week 3: Recording Transactions",
+   "title": "ACCT1101 W3 Lecture Slides.pdf",
+   "url": "<CANVAS>/courses/1101/modules/items/11010012",
+   "content_id": 1101503,
+   "type": "File"
+  },
+  {
+   "id": "11010017",
+   "course": "ACCT1101",
+   "module": "Week 4: Adjusting Entries",
+   "title": "ACCT1101 W4 Lecture Slides.pdf",
+   "url": "<CANVAS>/courses/1101/modules/items/11010017",
+   "content_id": 1101504,
+   "type": "File"
+  },
+  {
+   "id": "11010022",
+   "course": "ACCT1101",
+   "module": "Week 5: Financial Statements",
+   "title": "ACCT1101 W5 Lecture Slides.pdf",
+   "url": "<CANVAS>/courses/1101/modules/items/11010022",
+   "content_id": 1101505,
+   "type": "File"
+  },
+  {
+   "id": "11020001",
+   "course": "PSYC2012",
+   "module": "Week 1: What is Cognition",
+   "title": "PSYC2012 Lecture 1 - What is Cognition.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020001",
+   "content_id": 1102501,
+   "type": "File"
+  },
+  {
+   "id": "11020004",
+   "course": "PSYC2012",
+   "module": "Week 2: Perception",
+   "title": "PSYC2012 Lecture 2 - Perception.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020004",
+   "content_id": 1102502,
+   "type": "File"
+  },
+  {
+   "id": "11020007",
+   "course": "PSYC2012",
+   "module": "Week 3: Attention",
+   "title": "PSYC2012 Lecture 3 - Attention.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020007",
+   "content_id": 1102503,
+   "type": "File"
+  },
+  {
+   "id": "11020010",
+   "course": "PSYC2012",
+   "module": "Week 4: Short-term Memory",
+   "title": "PSYC2012 Lecture 4 - Short-term Memory.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020010",
+   "content_id": 1102504,
+   "type": "File"
+  },
+  {
+   "id": "11020013",
+   "course": "PSYC2012",
+   "module": "Week 5: Working Memory",
+   "title": "PSYC2012 Lecture 5 - Working Memory.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020013",
+   "content_id": 1102505,
+   "type": "File"
+  },
+  {
+   "id": "11020017",
+   "course": "PSYC2012",
+   "module": "Week 6: Long-term Memory",
+   "title": "PSYC2012 Lecture 6 - Long-term Memory.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020017",
+   "content_id": 1102506,
+   "type": "File"
+  },
+  {
+   "id": "11020020",
+   "course": "PSYC2012",
+   "module": "Week 7: Forgetting",
+   "title": "PSYC2012 Lecture 7 - Forgetting.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020020",
+   "content_id": 1102507,
+   "type": "File"
+  },
+  {
+   "id": "11020023",
+   "course": "PSYC2012",
+   "module": "Week 8: Language",
+   "title": "PSYC2012 Lecture 8 - Language.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020023",
+   "content_id": 1102508,
+   "type": "File"
+  },
+  {
+   "id": "11020026",
+   "course": "PSYC2012",
+   "module": "Week 9: Reasoning",
+   "title": "PSYC2012 Lecture 9 - Reasoning.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020026",
+   "content_id": 1102509,
+   "type": "File"
+  },
+  {
+   "id": "11020029",
+   "course": "PSYC2012",
+   "module": "Week 10: Decision Making",
+   "title": "PSYC2012 Lecture 10 - Decision Making.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020029",
+   "content_id": 1102510,
+   "type": "File"
+  },
+  {
+   "id": "11020032",
+   "course": "PSYC2012",
+   "module": "Week 11: Expertise",
+   "title": "PSYC2012 Lecture 11 - Expertise.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020032",
+   "content_id": 1102511,
+   "type": "File"
+  },
+  {
+   "id": "11020035",
+   "course": "PSYC2012",
+   "module": "Week 12: Cognitive Ageing",
+   "title": "PSYC2012 Lecture 12 - Cognitive Ageing.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020035",
+   "content_id": 1102512,
+   "type": "File"
+  },
+  {
+   "id": "11020038",
+   "course": "PSYC2012",
+   "module": "Week 13: Review",
+   "title": "PSYC2012 Lecture 13 - Review.pptx",
+   "url": "<CANVAS>/courses/1102/modules/items/11020038",
+   "content_id": 1102513,
+   "type": "File"
+  },
+  {
+   "id": "11030003",
+   "course": "DSGN3402",
+   "module": "W1 Studio: Kick-off",
+   "title": "W1_Studio_Toolkit.pdf",
+   "url": "<CANVAS>/courses/1103/modules/items/11030003",
+   "content_id": 1103501,
+   "type": "File"
+  },
+  {
+   "id": "11030005",
+   "course": "DSGN3402",
+   "module": "W2 Studio: Research",
+   "title": "W2_Studio_Toolkit.pdf",
+   "url": "<CANVAS>/courses/1103/modules/items/11030005",
+   "content_id": 1103502,
+   "type": "File"
+  },
+  {
+   "id": "11030007",
+   "course": "DSGN3402",
+   "module": "W3 Studio: Personas",
+   "title": "W3_Studio_Toolkit.pdf",
+   "url": "<CANVAS>/courses/1103/modules/items/11030007",
+   "content_id": 1103503,
+   "type": "File"
+  },
+  {
+   "id": "11030009",
+   "course": "DSGN3402",
+   "module": "W4 Studio: Ideation",
+   "title": "W4_Studio_Toolkit.pdf",
+   "url": "<CANVAS>/courses/1103/modules/items/11030009",
+   "content_id": 1103504,
+   "type": "File"
+  },
+  {
+   "id": "11030011",
+   "course": "DSGN3402",
+   "module": "W5 Studio: Prototyping",
+   "title": "W5_Studio_Toolkit.pdf",
+   "url": "<CANVAS>/courses/1103/modules/items/11030011",
+   "content_id": 1103505,
+   "type": "File"
+  }
+ ],
+ "done": [],
+ "in_progress": []
+}

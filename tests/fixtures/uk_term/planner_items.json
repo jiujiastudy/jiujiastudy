@@ -1,0 +1,284 @@
+[
+ {
+  "context_type": "Course",
+  "course_id": 3301,
+  "context_name": "HIS2102 Modern Britain, 1800–1914",
+  "plannable_id": 3301001,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-02T12:00:00Z",
+  "plannable": {
+   "id": 3301001,
+   "title": "Formative essay plan",
+   "due_at": "2026-03-02T12:00:00Z",
+   "points_possible": 0
+  },
+  "html_url": "{{BASE}}/courses/3301/assignments/3301001",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3302,
+  "context_name": "PSY2031 Research Methods II",
+  "plannable_id": 3302001,
+  "plannable_type": "quiz",
+  "plannable_date": "2026-03-06T17:00:00Z",
+  "plannable": {
+   "id": 3302001,
+   "title": "Weekly practice quiz 7",
+   "due_at": "2026-03-06T17:00:00Z",
+   "points_possible": 1
+  },
+  "html_url": "{{BASE}}/courses/3302/assignments/3302001",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": true,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3302,
+  "context_name": "PSY2031 Research Methods II",
+  "plannable_id": 90002,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-03-12T14:00:00Z",
+  "plannable": {
+   "id": 90002,
+   "title": "R drop-in sessions"
+  },
+  "html_url": "{{BASE}}/courses/3302/discussion_topics/90002",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3302,
+  "context_name": "PSY2031 Research Methods II",
+  "plannable_id": 3302002,
+  "plannable_type": "quiz",
+  "plannable_date": "2026-03-13T17:00:00Z",
+  "plannable": {
+   "id": 3302002,
+   "title": "Weekly practice quiz 8",
+   "due_at": "2026-03-13T17:00:00Z",
+   "points_possible": 1
+  },
+  "html_url": "{{BASE}}/courses/3302/assignments/3302002",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3301,
+  "context_name": "HIS2102 Modern Britain, 1800–1914",
+  "plannable_id": 90001,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-03-16T09:00:00Z",
+  "plannable": {
+   "id": 90001,
+   "title": "Essay deadline reminder"
+  },
+  "html_url": "{{BASE}}/courses/3301/discussion_topics/90001",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3303,
+  "context_name": "LAW1113 Contract Law",
+  "plannable_id": 90003,
+  "plannable_type": "announcement",
+  "plannable_date": "2026-03-17T08:30:00Z",
+  "plannable": {
+   "id": 90003,
+   "title": "Seminar 9 room change"
+  },
+  "html_url": "{{BASE}}/courses/3303/discussion_topics/90003",
+  "new_activity": true,
+  "planner_override": null,
+  "submissions": false
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3301,
+  "context_name": "HIS2102 Modern Britain, 1800–1914",
+  "plannable_id": 3301002,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-19T12:00:00Z",
+  "plannable": {
+   "id": 3301002,
+   "title": "Source Analysis (40%)",
+   "due_at": "2026-03-19T12:00:00Z",
+   "points_possible": 40
+  },
+  "html_url": "{{BASE}}/courses/3301/assignments/3301002",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": true,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3303,
+  "context_name": "LAW1113 Contract Law",
+  "plannable_id": 3303001,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-19T23:59:00Z",
+  "plannable": {
+   "id": 3303001,
+   "title": "Problem question (30%)",
+   "due_at": "2026-03-19T23:59:00Z",
+   "points_possible": 30
+  },
+  "html_url": "{{BASE}}/courses/3303/assignments/3303001",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3302,
+  "context_name": "PSY2031 Research Methods II",
+  "plannable_id": 3302003,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-20T16:00:00Z",
+  "plannable": {
+   "id": 3302003,
+   "title": "Lab report (50%)",
+   "due_at": "2026-03-20T16:00:00Z",
+   "points_possible": 50
+  },
+  "html_url": "{{BASE}}/courses/3302/assignments/3302003",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3303,
+  "context_name": "LAW1113 Contract Law",
+  "plannable_id": 3303002,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-24T10:00:00Z",
+  "plannable": {
+   "id": 3303002,
+   "title": "Moot participation",
+   "due_at": "2026-03-24T10:00:00Z",
+   "points_possible": 0
+  },
+  "html_url": "{{BASE}}/courses/3303/assignments/3303002",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3301,
+  "context_name": "HIS2102 Modern Britain, 1800–1914",
+  "plannable_id": 3301003,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-03-26T12:00:00Z",
+  "plannable": {
+   "id": 3301003,
+   "title": "Summative Essay – 3,000 words (60%)",
+   "due_at": "2026-03-26T12:00:00Z",
+   "points_possible": 60
+  },
+  "html_url": "{{BASE}}/courses/3301/assignments/3301003",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ },
+ {
+  "context_type": "Course",
+  "course_id": 3302,
+  "context_name": "PSY2031 Research Methods II",
+  "plannable_id": 3302005,
+  "plannable_type": "assignment",
+  "plannable_date": "2026-05-12T08:30:00Z",
+  "plannable": {
+   "id": 3302005,
+   "title": "Exam (45%)",
+   "due_at": "2026-05-12T08:30:00Z",
+   "points_possible": 45
+  },
+  "html_url": "{{BASE}}/courses/3302/assignments/3302005",
+  "new_activity": false,
+  "planner_override": null,
+  "submissions": {
+   "submitted": false,
+   "graded": false,
+   "late": false,
+   "missing": false,
+   "excused": false,
+   "needs_grading": false,
+   "has_feedback": false
+  }
+ }
+]

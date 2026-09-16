@@ -1,0 +1,86 @@
+{
+ "name": "us_quarter",
+ "description": "10-week quarter in Week 8, no week number in config (inferred from CHEM 1A's 'Week N' modules); topic-named and 'Unit N' modules; modules with more than 6 items are not inlined (items_url only); assignments paged 10 per page; due times that fall on the next UTC day.",
+ "now": "2026-02-25T17:00:00Z",
+ "date": "2026-02-25",
+ "token": "dummy",
+ "mock": {
+  "max_per_page": 10,
+  "inline_items_max": 6
+ },
+ "config": {
+  "schema_version": 3,
+  "canvas_host": null,
+  "course_tz": "America/Los_Angeles",
+  "user_tz": "America/Los_Angeles",
+  "tz_labels": {},
+  "term": {
+   "name": "Winter 2026",
+   "start": "2026-01-05",
+   "end": "2026-03-20",
+   "week1_monday": null,
+   "break": null,
+   "week_source": null
+  },
+  "user": {
+   "id": 6001,
+   "name": "Test Student"
+  },
+  "courses": [
+   {
+    "id": 2201,
+    "code": "MATH3B",
+    "name": "MATH 3B: Calculus",
+    "section": null,
+    "weekday": null
+   },
+   {
+    "id": 2202,
+    "code": "CHEM1A",
+    "name": "CHEM 1A: General Chemistry",
+    "section": null,
+    "weekday": null
+   },
+   {
+    "id": 2203,
+    "code": "WRIT2",
+    "name": "WRIT 2: Academic Writing",
+    "section": null,
+    "weekday": null
+   }
+  ],
+  "extra_sites": [],
+  "exam_prep": null,
+  "api_notes": {},
+  "notes": [],
+  "root": null,
+  "materials": {
+   "auto_download": true,
+   "max_mb": 50,
+   "per_run": 30
+  },
+  "agent": {
+   "kind": null
+  }
+ },
+ "state": {
+  "schema_version": 3,
+  "last_check": null,
+  "last_fetch": null,
+  "last_record": null,
+  "last_seen": null,
+  "last_done": null,
+  "counters": {
+   "pending": 0
+  },
+  "courses": {},
+  "pending_confirmations": [],
+  "decisions": [],
+  "mood": [],
+  "manual_deadlines": [],
+  "deadline_notes": {},
+  "locked_materials": [],
+  "current_plan": null,
+  "daily_report": {}
+ }
+}

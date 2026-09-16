@@ -1,0 +1,55 @@
+{
+ "schema_version": 3,
+ "canvas_host": "<CANVAS>",
+ "course_tz": "Europe/London",
+ "user_tz": "Asia/Shanghai",
+ "tz_labels": {},
+ "term": {
+  "name": "Spring Term 2026",
+  "start": "2026-01-12",
+  "end": "2026-03-27",
+  "week1_monday": "2026-01-12",
+  "break": "2026-02-16..2026-02-20",
+  "week_source": "config"
+ },
+ "user": {
+  "id": 7001,
+  "name": "Test Student"
+ },
+ "courses": [
+  {
+   "id": 3301,
+   "code": "HIS2102",
+   "name": "HIS2102 Modern Britain, 1800–1914",
+   "section": null,
+   "weekday": null
+  },
+  {
+   "id": 3302,
+   "code": "PSY2031",
+   "name": "PSY2031 Research Methods II",
+   "section": null,
+   "weekday": 4
+  },
+  {
+   "id": 3303,
+   "code": "LAW1113",
+   "name": "LAW1113 Contract Law",
+   "section": null,
+   "weekday": null
+  }
+ ],
+ "extra_sites": [],
+ "exam_prep": null,
+ "api_notes": {},
+ "notes": [],
+ "root": null,
+ "materials": {
+  "auto_download": true,
+  "max_mb": 50,
+  "per_run": 30
+ },
+ "agent": {
+  "kind": null
+ }
+}

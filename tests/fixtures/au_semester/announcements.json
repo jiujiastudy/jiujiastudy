@@ -1,0 +1,82 @@
+[
+ {
+  "id": 90001,
+  "title": "Welcome to ACCT1101",
+  "message": "<p>Welcome! Lectures start in Week 1.</p>",
+  "posted_at": "2026-02-19T22:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/1101/discussion_topics/90001",
+  "context_code": "course_1101",
+  "author": {
+   "id": 7101,
+   "display_name": "Dr. Morgan Hale"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90002,
+  "title": "Case study report: submission guide",
+  "message": "<p>The case study report is due <strong>Thursday 2 April, 11:59 pm</strong>. Submit one PDF or Word file.</p><p>Use the template in Week 5.</p>",
+  "posted_at": "2026-03-22T22:15:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/1101/discussion_topics/90002",
+  "context_code": "course_1101",
+  "author": {
+   "id": 7101,
+   "display_name": "Dr. Morgan Hale"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90003,
+  "title": "Lab report extension policy",
+  "message": "<p>Extensions for the lab report need a Special Consideration application. Late submissions lose 5% per day.</p>",
+  "posted_at": "2026-03-24T03:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/1102/discussion_topics/90003",
+  "context_code": "course_1102",
+  "author": {
+   "id": 7201,
+   "display_name": "Prof. Lena Okafor"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90004,
+  "title": "Studio room change for Week 6",
+  "message": "<p>From Week 6 the studio moves to Room 2.14 in the Design Building.</p>",
+  "posted_at": "2026-03-20T00:30:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/1103/discussion_topics/90004",
+  "context_code": "course_1103",
+  "author": {
+   "id": 7301,
+   "display_name": "Sam Taylor"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ },
+ {
+  "id": 90005,
+  "title": "Library workshops this week",
+  "message": "<p>Referencing workshop on Thursday.</p>",
+  "posted_at": "2026-03-23T21:00:00Z",
+  "delayed_post_at": null,
+  "html_url": "{{BASE}}/courses/1190/discussion_topics/90005",
+  "context_code": "course_1190",
+  "author": {
+   "id": 7901,
+   "display_name": "Library Team"
+  },
+  "read_state": "unread",
+  "is_announcement": true,
+  "locked": true
+ }
+]

@@ -1,0 +1,57 @@
+{
+ "schema_version": 3,
+ "canvas_host": "<CANVAS>",
+ "course_tz": "Australia/Sydney",
+ "user_tz": "Asia/Shanghai",
+ "tz_labels": {},
+ "term": {
+  "name": "Semester 1 2026",
+  "start": "2026-02-23",
+  "end": "2026-06-26",
+  "week1_monday": "2026-02-23",
+  "break": "2026-04-06..2026-04-10",
+  "week_source": "config"
+ },
+ "user": {
+  "id": 5001,
+  "name": "Test Student"
+ },
+ "courses": [
+  {
+   "id": 1101,
+   "code": "ACCT1101",
+   "name": "ACCT1101 Accounting Foundations",
+   "section": null,
+   "weekday": null
+  },
+  {
+   "id": 1102,
+   "code": "PSYC2012",
+   "name": "PSYC2012 Cognition and Memory",
+   "section": null,
+   "weekday": 2
+  },
+  {
+   "id": 1103,
+   "code": "DSGN3402",
+   "name": "DSGN3402 Interaction Design Studio",
+   "section": null,
+   "weekday": null
+  }
+ ],
+ "extra_sites": [],
+ "exam_prep": null,
+ "api_notes": {},
+ "notes": [
+  "未当作课程的站点（要加就手动写进 courses）：2026_LIB_SKILLS（1190）"
+ ],
+ "root": null,
+ "materials": {
+  "auto_download": true,
+  "max_mb": 50,
+  "per_run": 30
+ },
+ "agent": {
+  "kind": null
+ }
+}

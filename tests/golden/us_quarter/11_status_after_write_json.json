@@ -1,0 +1,175 @@
+{
+ "home": "<ARCHIVE>",
+ "script": "<CODE>/tools/coach.py",
+ "today": "2026-02-25",
+ "term_week": "第 3 周（推断）",
+ "host": "<CANVAS>",
+ "last_check": "<NOW>",
+ "last_check_hours_ago": 0.0,
+ "last_fetch": "<NOW>",
+ "last_fetch_hours_ago": 0.0,
+ "plan": {
+  "file": "<ARCHIVE>/plans/2026-W09.json",
+  "must": "MATH3B Homework 7（02-26 周四 23:59）",
+  "first_step": "打开作业页，看一眼提交要求。",
+  "if_then": "如果今天做不完，明天第一件事继续，不排别的。",
+  "status": "📦",
+  "should": [
+   "CHEM1A 看课件：CHEM1A Week 3 slides.pdf（40 分钟）",
+   "CHEM1A 读：Week 3 reading guide（20 分钟）"
+  ],
+  "rows": 7,
+  "done": 0
+ },
+ "revision": null,
+ "next_per_course": [
+  {
+   "course": "MATH3B",
+   "item": "Homework 7",
+   "when": "02-26 周四 23:59",
+   "rel": "明天"
+  },
+  {
+   "course": "CHEM1A",
+   "item": "Lab 7 Report",
+   "when": "02-27 周五 17:00",
+   "rel": "还有 2 天"
+  },
+  {
+   "course": "WRIT2",
+   "item": "Peer Review 2",
+   "when": "02-27 周五 23:59",
+   "rel": "还有 2 天"
+  }
+ ],
+ "deadlines": [
+  {
+   "rel": "明天",
+   "when": "02-26 周四 23:59",
+   "course": "MATH3B",
+   "item": "Homework 7",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/2201/assignments/2201007",
+   "days_left": 1,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 2 天",
+   "when": "02-27 周五 17:00",
+   "course": "CHEM1A",
+   "item": "Lab 7 Report",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/2202/assignments/2202002",
+   "days_left": 2,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 2 天",
+   "when": "02-27 周五 23:59",
+   "course": "WRIT2",
+   "item": "Peer Review 2",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/2203/assignments/2203002",
+   "days_left": 2,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 5 天",
+   "when": "03-02 周一 08:00",
+   "course": "CHEM1A",
+   "item": "Pre-lab Quiz 8",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/2202/assignments/2202003",
+   "days_left": 5,
+   "kind": "exam",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 7 天",
+   "when": "03-04 周三 14:00",
+   "course": "MATH3B",
+   "item": "Midterm 2",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/2201/assignments/2201010",
+   "days_left": 7,
+   "kind": "exam",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 8 天",
+   "when": "03-05 周四 23:59",
+   "course": "MATH3B",
+   "item": "Homework 8",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/2201/assignments/2201008",
+   "days_left": 8,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 9 天",
+   "when": "03-06 周五 23:59",
+   "course": "WRIT2",
+   "item": "Essay 2: Argument (25%)",
+   "weight": "25%",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/2203/assignments/2203003",
+   "days_left": 9,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "",
+   "when": "Canvas 没写日期",
+   "course": "MATH3B",
+   "item": "Participation (10%)",
+   "weight": "10%",
+   "status": "未交",
+   "pending": true,
+   "url": "<CANVAS>/courses/2201/assignments/2201012",
+   "days_left": null,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": true
+  }
+ ],
+ "pending": [],
+ "decisions": 0,
+ "state_eval": {
+  "label": "过载",
+  "signals": [
+   "72 小时内有 3 条 deadline",
+   "连续 3 天有必做没打勾"
+  ],
+  "advice": "只留必做，按权重排。今天只做最急的一条的第一步：MATH3B Homework 7（02-26 周四 23:59，明天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
+  "exam": {
+   "course": "CHEM1A",
+   "item": "Pre-lab Quiz 8",
+   "when": "03-02 周一 08:00"
+  }
+ },
+ "warnings": []
+}

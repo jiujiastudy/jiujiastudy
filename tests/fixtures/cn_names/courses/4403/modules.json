@@ -1,0 +1,229 @@
+[
+ {
+  "id": 4403101,
+  "name": "第1讲 中国国防",
+  "position": 1,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44030001,
+    "module_id": 4403101,
+    "position": 1,
+    "title": "第1讲 课件.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030001",
+    "content_id": 4403501,
+    "url": "{{BASE}}/api/v1/courses/4403/files/4403501",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "第1讲 课件.pdf"
+    }
+   },
+   {
+    "id": 44030002,
+    "module_id": 4403101,
+    "position": 2,
+    "title": "第1讲 教学视频",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030002",
+    "external_url": "https://video.example/junli/1",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4403102,
+  "name": "第2讲 国家安全",
+  "position": 2,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44030003,
+    "module_id": 4403102,
+    "position": 1,
+    "title": "第2讲 课件.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030003",
+    "content_id": 4403502,
+    "url": "{{BASE}}/api/v1/courses/4403/files/4403502",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "第2讲 课件.pdf"
+    }
+   },
+   {
+    "id": 44030004,
+    "module_id": 4403102,
+    "position": 2,
+    "title": "第2讲 教学视频",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030004",
+    "external_url": "https://video.example/junli/2",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4403103,
+  "name": "第3讲 军事思想",
+  "position": 3,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44030005,
+    "module_id": 4403103,
+    "position": 1,
+    "title": "第3讲 课件.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030005",
+    "content_id": 4403503,
+    "url": "{{BASE}}/api/v1/courses/4403/files/4403503",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "第3讲 课件.pdf"
+    }
+   },
+   {
+    "id": 44030006,
+    "module_id": 4403103,
+    "position": 2,
+    "title": "第3讲 教学视频",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030006",
+    "external_url": "https://video.example/junli/3",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 44030007,
+    "module_id": 4403103,
+    "position": 3,
+    "title": "第3讲 课后测验",
+    "indent": 0,
+    "type": "Quiz",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030007",
+    "content_id": 4403001,
+    "url": "{{BASE}}/api/v1/courses/4403/assignments/4403001",
+    "content_details": {
+     "locked_for_user": false,
+     "points_possible": 10,
+     "due_at": "2026-03-24T15:59:00Z"
+    }
+   }
+  ]
+ },
+ {
+  "id": 4403104,
+  "name": "第4讲 现代战争",
+  "position": 4,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44030008,
+    "module_id": 4403104,
+    "position": 1,
+    "title": "第4讲 课件.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030008",
+    "content_id": 4403504,
+    "url": "{{BASE}}/api/v1/courses/4403/files/4403504",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "第4讲 课件.pdf"
+    }
+   },
+   {
+    "id": 44030009,
+    "module_id": 4403104,
+    "position": 2,
+    "title": "第4讲 教学视频",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030009",
+    "external_url": "https://video.example/junli/4",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 4403105,
+  "name": "第5讲 信息化装备",
+  "position": 5,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 44030010,
+    "module_id": 4403105,
+    "position": 1,
+    "title": "第5讲 课件.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030010",
+    "content_id": 4403505,
+    "url": "{{BASE}}/api/v1/courses/4403/files/4403505",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "第5讲 课件.pdf"
+    }
+   },
+   {
+    "id": 44030011,
+    "module_id": 4403105,
+    "position": 2,
+    "title": "第5讲 教学视频",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030011",
+    "external_url": "https://video.example/junli/5",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 44030012,
+    "module_id": 4403105,
+    "position": 3,
+    "title": "第5讲 课后测验",
+    "indent": 0,
+    "type": "Quiz",
+    "html_url": "{{BASE}}/courses/4403/modules/items/44030012",
+    "content_id": 4403002,
+    "url": "{{BASE}}/api/v1/courses/4403/assignments/4403002",
+    "content_details": {
+     "locked_for_user": false,
+     "points_possible": 10,
+     "due_at": "2026-03-31T15:59:00Z"
+    }
+   }
+  ]
+ }
+]

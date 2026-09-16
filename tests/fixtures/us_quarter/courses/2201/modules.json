@@ -1,0 +1,556 @@
+[
+ {
+  "id": 2201101,
+  "name": "Integration by Substitution",
+  "position": 1,
+  "unlock_at": "2026-01-05T08:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22010001,
+    "module_id": 2201101,
+    "position": 1,
+    "title": "Integration by Substitution notes.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010001",
+    "content_id": 2201501,
+    "url": "{{BASE}}/api/v1/courses/2201/files/2201501",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Integration by Substitution notes.pdf"
+    }
+   },
+   {
+    "id": 22010002,
+    "module_id": 2201101,
+    "position": 2,
+    "title": "Integration by Substitution practice problems",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010002",
+    "page_url": "integration-by-substitution-practice-problems",
+    "url": "{{BASE}}/api/v1/courses/2201/pages/integration-by-substitution-practice-problems",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010003,
+    "module_id": 2201101,
+    "position": 3,
+    "title": "Lecture video: Integration by Substitution",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010003",
+    "external_url": "https://video.example/math3b/1",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 2201102,
+  "name": "Integration by Parts",
+  "position": 2,
+  "unlock_at": "2026-01-12T08:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22010004,
+    "module_id": 2201102,
+    "position": 1,
+    "title": "Integration by Parts notes.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010004",
+    "content_id": 2201502,
+    "url": "{{BASE}}/api/v1/courses/2201/files/2201502",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Integration by Parts notes.pdf"
+    }
+   },
+   {
+    "id": 22010005,
+    "module_id": 2201102,
+    "position": 2,
+    "title": "Integration by Parts practice problems",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010005",
+    "page_url": "integration-by-parts-practice-problems",
+    "url": "{{BASE}}/api/v1/courses/2201/pages/integration-by-parts-practice-problems",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010006,
+    "module_id": 2201102,
+    "position": 3,
+    "title": "Lecture video: Integration by Parts",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010006",
+    "external_url": "https://video.example/math3b/2",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 2201103,
+  "name": "Trigonometric Integrals",
+  "position": 3,
+  "unlock_at": "2026-01-19T08:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22010007,
+    "module_id": 2201103,
+    "position": 1,
+    "title": "Trigonometric Integrals notes.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010007",
+    "content_id": 2201503,
+    "url": "{{BASE}}/api/v1/courses/2201/files/2201503",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Trigonometric Integrals notes.pdf"
+    }
+   },
+   {
+    "id": 22010008,
+    "module_id": 2201103,
+    "position": 2,
+    "title": "Trigonometric Integrals practice problems",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010008",
+    "page_url": "trigonometric-integrals-practice-problems",
+    "url": "{{BASE}}/api/v1/courses/2201/pages/trigonometric-integrals-practice-problems",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010009,
+    "module_id": 2201103,
+    "position": 3,
+    "title": "Lecture video: Trigonometric Integrals",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010009",
+    "external_url": "https://video.example/math3b/3",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 2201104,
+  "name": "Partial Fractions",
+  "position": 4,
+  "unlock_at": "2026-01-26T08:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22010010,
+    "module_id": 2201104,
+    "position": 1,
+    "title": "Partial Fractions notes.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010010",
+    "content_id": 2201504,
+    "url": "{{BASE}}/api/v1/courses/2201/files/2201504",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Partial Fractions notes.pdf"
+    }
+   },
+   {
+    "id": 22010011,
+    "module_id": 2201104,
+    "position": 2,
+    "title": "Partial Fractions practice problems",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010011",
+    "page_url": "partial-fractions-practice-problems",
+    "url": "{{BASE}}/api/v1/courses/2201/pages/partial-fractions-practice-problems",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010012,
+    "module_id": 2201104,
+    "position": 3,
+    "title": "Lecture video: Partial Fractions",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010012",
+    "external_url": "https://video.example/math3b/4",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 2201105,
+  "name": "Improper Integrals",
+  "position": 5,
+  "unlock_at": "2026-02-02T08:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22010013,
+    "module_id": 2201105,
+    "position": 1,
+    "title": "Improper Integrals notes.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010013",
+    "content_id": 2201505,
+    "url": "{{BASE}}/api/v1/courses/2201/files/2201505",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Improper Integrals notes.pdf"
+    }
+   },
+   {
+    "id": 22010014,
+    "module_id": 2201105,
+    "position": 2,
+    "title": "Improper Integrals practice problems",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010014",
+    "page_url": "improper-integrals-practice-problems",
+    "url": "{{BASE}}/api/v1/courses/2201/pages/improper-integrals-practice-problems",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010015,
+    "module_id": 2201105,
+    "position": 3,
+    "title": "Lecture video: Improper Integrals",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010015",
+    "external_url": "https://video.example/math3b/5",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 2201106,
+  "name": "Sequences",
+  "position": 6,
+  "unlock_at": "2026-02-09T08:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22010016,
+    "module_id": 2201106,
+    "position": 1,
+    "title": "Sequences notes.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010016",
+    "content_id": 2201506,
+    "url": "{{BASE}}/api/v1/courses/2201/files/2201506",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Sequences notes.pdf"
+    }
+   },
+   {
+    "id": 22010017,
+    "module_id": 2201106,
+    "position": 2,
+    "title": "Sequences practice problems",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010017",
+    "page_url": "sequences-practice-problems",
+    "url": "{{BASE}}/api/v1/courses/2201/pages/sequences-practice-problems",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010018,
+    "module_id": 2201106,
+    "position": 3,
+    "title": "Lecture video: Sequences",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010018",
+    "external_url": "https://video.example/math3b/6",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 2201107,
+  "name": "Applications of Integration",
+  "position": 7,
+  "unlock_at": "2026-02-16T08:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22010019,
+    "module_id": 2201107,
+    "position": 1,
+    "title": "Applications of Integration notes.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010019",
+    "content_id": 2201507,
+    "url": "{{BASE}}/api/v1/courses/2201/files/2201507",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Applications of Integration notes.pdf"
+    }
+   },
+   {
+    "id": 22010020,
+    "module_id": 2201107,
+    "position": 2,
+    "title": "Applications of Integration practice problems",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010020",
+    "page_url": "applications-of-integration-practice-problems",
+    "url": "{{BASE}}/api/v1/courses/2201/pages/applications-of-integration-practice-problems",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010021,
+    "module_id": 2201107,
+    "position": 3,
+    "title": "Lecture video: Applications of Integration",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010021",
+    "external_url": "https://video.example/math3b/7",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 2201108,
+  "name": "Series and Convergence",
+  "position": 8,
+  "unlock_at": "2026-02-23T08:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22010022,
+    "module_id": 2201108,
+    "position": 1,
+    "title": "Series and Convergence notes.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010022",
+    "content_id": 2201508,
+    "url": "{{BASE}}/api/v1/courses/2201/files/2201508",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Series and Convergence notes.pdf"
+    }
+   },
+   {
+    "id": 22010023,
+    "module_id": 2201108,
+    "position": 2,
+    "title": "Series and Convergence practice problems",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010023",
+    "page_url": "series-and-convergence-practice-problems",
+    "url": "{{BASE}}/api/v1/courses/2201/pages/series-and-convergence-practice-problems",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010024,
+    "module_id": 2201108,
+    "position": 3,
+    "title": "Lecture video: Series and Convergence",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010024",
+    "external_url": "https://video.example/math3b/8",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010025,
+    "module_id": 2201108,
+    "position": 4,
+    "title": "Series worksheet.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010025",
+    "content_id": 2201509,
+    "url": "{{BASE}}/api/v1/courses/2201/files/2201509",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Series worksheet.pdf"
+    }
+   },
+   {
+    "id": 22010026,
+    "module_id": 2201108,
+    "position": 5,
+    "title": "Lecture video: Series, part 2",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010026",
+    "external_url": "https://video.example/math3b/8b",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010027,
+    "module_id": 2201108,
+    "position": 6,
+    "title": "Convergence tests summary",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010027",
+    "page_url": "convergence-tests-summary",
+    "url": "{{BASE}}/api/v1/courses/2201/pages/convergence-tests-summary",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010028,
+    "module_id": 2201108,
+    "position": 7,
+    "title": "WebAssign: Homework 8",
+    "indent": 0,
+    "type": "ExternalTool",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010028",
+    "external_url": "https://webassign.example/hw8",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22010029,
+    "module_id": 2201108,
+    "position": 8,
+    "title": "Homework 8",
+    "indent": 0,
+    "type": "Assignment",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010029",
+    "content_id": 2201008,
+    "url": "{{BASE}}/api/v1/courses/2201/assignments/2201008",
+    "content_details": {
+     "locked_for_user": false,
+     "points_possible": 10,
+     "due_at": "2026-03-06T07:59:00Z"
+    }
+   }
+  ]
+ },
+ {
+  "id": 2201109,
+  "name": "Power Series",
+  "position": 9,
+  "unlock_at": "2026-03-02T08:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "locked",
+  "items": [
+   {
+    "id": 22010030,
+    "module_id": 2201109,
+    "position": 1,
+    "title": "Power Series notes.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010030",
+    "content_id": 2201510,
+    "url": "{{BASE}}/api/v1/courses/2201/files/2201510",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-02T08:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-02T08:00:00Z.",
+     "display_name": "Power Series notes.pdf"
+    }
+   },
+   {
+    "id": 22010031,
+    "module_id": 2201109,
+    "position": 2,
+    "title": "Power Series practice problems",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010031",
+    "page_url": "power-series-practice-problems",
+    "url": "{{BASE}}/api/v1/courses/2201/pages/power-series-practice-problems",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-02T08:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-02T08:00:00Z."
+    }
+   },
+   {
+    "id": 22010032,
+    "module_id": 2201109,
+    "position": 3,
+    "title": "Lecture video: Power Series",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2201/modules/items/22010032",
+    "external_url": "https://video.example/math3b/9",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-02T08:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-02T08:00:00Z."
+    }
+   }
+  ]
+ }
+]

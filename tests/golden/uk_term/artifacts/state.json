@@ -1,0 +1,99 @@
+{
+ "schema_version": 3,
+ "last_check": "<NOW>",
+ "last_fetch": "<NOW>",
+ "last_record": "<NOW>",
+ "last_seen": "<WALLCLOCK>",
+ "last_done": null,
+ "counters": {
+  "pending": 0
+ },
+ "courses": {
+  "HIS2102": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-03-16T09:00:00Z",
+   "counts": {
+    "assignments": 3
+   }
+  },
+  "PSY2031": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-03-12T14:00:00Z",
+   "counts": {
+    "assignments": 5
+   }
+  },
+  "LAW1113": {
+   "last_fetch": "<NOW>",
+   "latest_announcement_at": "2026-03-17T08:30:00Z",
+   "counts": {
+    "assignments": 3
+   }
+  }
+ },
+ "pending_confirmations": [],
+ "decisions": [
+  {
+   "text": "HIS2102 形成性作业不交，不再提起",
+   "course": "HIS2102",
+   "date": "2026-03-10",
+   "do_not_raise": true
+  }
+ ],
+ "mood": [
+  {
+   "date": "2026-03-17",
+   "word": "来不及",
+   "level": "过载",
+   "note": null
+  }
+ ],
+ "manual_deadlines": [],
+ "deadline_notes": {},
+ "locked_materials": [
+  {
+   "course": "HIS2102",
+   "module": "Week 10: Edwardian Britain",
+   "title": "Seminar 10 reading list",
+   "unlock_at": "2026-03-23T00:00:00Z"
+  },
+  {
+   "course": "HIS2102",
+   "module": "Week 10: Edwardian Britain",
+   "title": "HIS2102 Lecture 10.pdf",
+   "unlock_at": "2026-03-23T00:00:00Z"
+  },
+  {
+   "course": "HIS2102",
+   "module": "Week 10: Edwardian Britain",
+   "title": "Lecture 10 recording (Panopto)",
+   "unlock_at": "2026-03-23T00:00:00Z"
+  },
+  {
+   "course": "PSY2031",
+   "module": "Lecture 10: Regression",
+   "title": "PSY2031_Lecture10_Regression.pptx",
+   "unlock_at": "2026-03-23T00:00:00Z"
+  },
+  {
+   "course": "PSY2031",
+   "module": "Lecture 10: Regression",
+   "title": "Lab 10: R worksheet",
+   "unlock_at": "2026-03-23T00:00:00Z"
+  },
+  {
+   "course": "LAW1113",
+   "module": "Seminar 10: Remedies",
+   "title": "Seminar 10 reading",
+   "unlock_at": "2026-03-23T00:00:00Z"
+  },
+  {
+   "course": "LAW1113",
+   "module": "Seminar 10: Remedies",
+   "title": "LAW1113 Seminar 10 handout.pdf",
+   "unlock_at": "2026-03-23T00:00:00Z"
+  }
+ ],
+ "current_plan": ".coach/plans/2026-W12.json",
+ "daily_report": {}
+}

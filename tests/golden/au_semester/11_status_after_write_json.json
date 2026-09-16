@@ -1,0 +1,257 @@
+{
+ "home": "<ARCHIVE>",
+ "script": "<CODE>/tools/coach.py",
+ "today": "2026-03-25",
+ "term_week": "第 5 周",
+ "host": "<CANVAS>",
+ "last_check": "<NOW>",
+ "last_check_hours_ago": 0.0,
+ "last_fetch": "<NOW>",
+ "last_fetch_hours_ago": 0.0,
+ "plan": {
+  "file": "<ARCHIVE>/plans/2026-W13.json",
+  "must": "PSYC2012 Lab Report (25%)（03-26 周四 17:00（悉尼）= 14:00（北京））",
+  "first_step": "打开作业页，看文件格式和命名要求。",
+  "if_then": "如果今天做不完，明天第一件事继续，不排别的。",
+  "status": "📦",
+  "should": [
+   "ACCT1101 看课件：ACCT1101 W5 Lecture Slides.pdf（40 分钟）",
+   "PSYC2012 看课件：PSYC2012 Lecture 5 - Working Memory.pptx（40 分钟）"
+  ],
+  "rows": 7,
+  "done": 0
+ },
+ "revision": null,
+ "next_per_course": [
+  {
+   "course": "ACCT1101",
+   "item": "Weekly Quiz 5",
+   "when": "03-27 周五 23:59（悉尼）= 20:59（北京）",
+   "rel": "还有 2 天"
+  },
+  {
+   "course": "PSYC2012",
+   "item": "Lab Report (25%)",
+   "when": "03-26 周四 17:00（悉尼）= 14:00（北京）",
+   "rel": "明天"
+  },
+  {
+   "course": "DSGN3402",
+   "item": "Prototype critique (15%)",
+   "when": "03-30 周一 09:00（悉尼）= 06:00（北京）",
+   "rel": "还有 5 天"
+  }
+ ],
+ "deadlines": [
+  {
+   "rel": "已过 5 天",
+   "when": "03-20 周五 23:59（悉尼）= 20:59（北京）",
+   "course": "ACCT1101",
+   "item": "Weekly Quiz 4",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/1101/assignments/1101004",
+   "days_left": -5,
+   "kind": "exam",
+   "overdue": true,
+   "undated": false
+  },
+  {
+   "rel": "明天",
+   "when": "03-26 周四 17:00（悉尼）= 14:00（北京）",
+   "course": "PSYC2012",
+   "item": "Lab Report (25%)",
+   "weight": "25%",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/1102/assignments/1102002",
+   "days_left": 1,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 2 天",
+   "when": "03-27 周五 23:59（悉尼）= 20:59（北京）",
+   "course": "ACCT1101",
+   "item": "Weekly Quiz 5",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/1101/assignments/1101005",
+   "days_left": 2,
+   "kind": "exam",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 2 天",
+   "when": "03-27 周五 23:59（悉尼）= 20:59（北京）",
+   "course": "PSYC2012",
+   "item": "Week 5 discussion post",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/1102/assignments/1102003",
+   "days_left": 2,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 5 天",
+   "when": "03-30 周一 09:00（悉尼）= 06:00（北京）",
+   "course": "DSGN3402",
+   "item": "Prototype critique (15%)",
+   "weight": "15%",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/1103/assignments/1103002",
+   "days_left": 5,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 6 天",
+   "when": "03-31 周二 课上",
+   "course": "DSGN3402",
+   "item": "Studio pitch (in class)",
+   "weight": "10%",
+   "status": "未交",
+   "pending": false,
+   "url": null,
+   "days_left": 6,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 7 天",
+   "when": "04-01 周三 13:00（悉尼）= 10:00（北京）",
+   "course": "PSYC2012",
+   "item": "Mid-semester test (20%)",
+   "weight": "20%",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/1102/assignments/1102004",
+   "days_left": 7,
+   "kind": "exam",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 8 天",
+   "when": "04-02 周四 23:59（悉尼）= 20:59（北京）",
+   "course": "ACCT1101",
+   "item": "Case Study Report (30%)",
+   "weight": "30%",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/1101/assignments/1101009",
+   "days_left": 8,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 9 天",
+   "when": "04-03 周五 23:59（悉尼）= 20:59（北京）",
+   "course": "ACCT1101",
+   "item": "Weekly Quiz 6",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/1101/assignments/1101006",
+   "days_left": 9,
+   "kind": "exam",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "",
+   "when": "Canvas 没写日期",
+   "course": "ACCT1101",
+   "item": "Final Exam (50%)",
+   "weight": "50%",
+   "status": "未交",
+   "pending": true,
+   "url": "<CANVAS>/courses/1101/assignments/1101010",
+   "days_left": null,
+   "kind": "exam",
+   "overdue": false,
+   "undated": true
+  },
+  {
+   "rel": "",
+   "when": "Canvas 没写日期",
+   "course": "PSYC2012",
+   "item": "Research Participation (5%)",
+   "weight": "5%",
+   "status": "未交",
+   "pending": true,
+   "url": "<CANVAS>/courses/1102/assignments/1102005",
+   "days_left": null,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": true
+  },
+  {
+   "rel": "",
+   "when": "03-18 周三 23:59（悉尼）= 20:59（北京）（Canvas 日期只是占位）",
+   "course": "DSGN3402",
+   "item": "Reflection journal",
+   "weight": "—",
+   "status": "未交",
+   "pending": true,
+   "url": "<CANVAS>/courses/1103/assignments/1103001",
+   "days_left": null,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": true
+  },
+  {
+   "rel": "还有 14 天",
+   "when": "04-08 周三 23:59（悉尼）= 21:59（北京）（锁定时间当截止）",
+   "course": "DSGN3402",
+   "item": "Design Portfolio (40%)",
+   "weight": "40%",
+   "status": "未交",
+   "pending": true,
+   "url": "<CANVAS>/courses/1103/assignments/1103003",
+   "days_left": 14,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  }
+ ],
+ "pending": [
+  {
+   "id": "pc-0001",
+   "course": "PSYC2012",
+   "text": "Lab Report 是个人交还是小组交",
+   "times_asked": 1,
+   "first_asked": "2026-03-20",
+   "blocks": "2026-03-26",
+   "ask_en": "Is the lab report submitted individually or per group?"
+  }
+ ],
+ "decisions": 0,
+ "state_eval": {
+  "label": "过载",
+  "signals": [
+   "7 天内到期的作业合计 60% 还没交",
+   "72 小时内有 3 条 deadline",
+   "有 1 项已过期未交（ACCT1101 Weekly Quiz 4）",
+   "连续 3 天有必做没打勾"
+  ],
+  "advice": "只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 23:59（悉尼）= 20:59（北京），已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
+  "exam": {
+   "course": "ACCT1101",
+   "item": "Weekly Quiz 4",
+   "when": "03-20 周五 23:59（悉尼）= 20:59（北京）"
+  }
+ },
+ "warnings": []
+}

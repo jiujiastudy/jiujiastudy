@@ -1,0 +1,119 @@
+{
+ "name": "au_semester",
+ "description": "13-week semester in Week 5; overdue quiz, 48-hour clash, lock_at-only and undated items, a placeholder date with a note, a manual deadline and one pending question; modules paged 10 per page.",
+ "now": "2026-03-24T23:00:00Z",
+ "date": "2026-03-25",
+ "token": "dummy",
+ "mock": {
+  "max_per_page": 10
+ },
+ "config": {
+  "schema_version": 3,
+  "canvas_host": null,
+  "course_tz": "Australia/Sydney",
+  "user_tz": "Asia/Shanghai",
+  "tz_labels": {},
+  "term": {
+   "name": "Semester 1 2026",
+   "start": "2026-02-23",
+   "end": "2026-06-26",
+   "week1_monday": "2026-02-23",
+   "break": "2026-04-06..2026-04-10",
+   "week_source": "config"
+  },
+  "user": {
+   "id": 5001,
+   "name": "Test Student"
+  },
+  "courses": [
+   {
+    "id": 1101,
+    "code": "ACCT1101",
+    "name": "ACCT1101 Accounting Foundations",
+    "section": null,
+    "weekday": null
+   },
+   {
+    "id": 1102,
+    "code": "PSYC2012",
+    "name": "PSYC2012 Cognition and Memory",
+    "section": null,
+    "weekday": 2
+   },
+   {
+    "id": 1103,
+    "code": "DSGN3402",
+    "name": "DSGN3402 Interaction Design Studio",
+    "section": null,
+    "weekday": null
+   }
+  ],
+  "extra_sites": [],
+  "exam_prep": null,
+  "api_notes": {},
+  "notes": [
+   "未当作课程的站点（要加就手动写进 courses）：2026_LIB_SKILLS（1190）"
+  ],
+  "root": null,
+  "materials": {
+   "auto_download": true,
+   "max_mb": 50,
+   "per_run": 30
+  },
+  "agent": {
+   "kind": null
+  }
+ },
+ "state": {
+  "schema_version": 3,
+  "last_check": null,
+  "last_fetch": null,
+  "last_record": null,
+  "last_seen": null,
+  "last_done": null,
+  "counters": {
+   "pending": 1
+  },
+  "courses": {},
+  "pending_confirmations": [
+   {
+    "id": "pc-0001",
+    "course": "PSYC2012",
+    "text": "Lab Report 是个人交还是小组交",
+    "first_asked": "2026-03-20",
+    "last_asked": "2026-03-20",
+    "times_asked": 1,
+    "blocks": "2026-03-26",
+    "ask_en": "Is the lab report submitted individually or per group?",
+    "ask_zh": "实验报告是个人交还是小组交？",
+    "resolved": null,
+    "resolution": null
+   }
+  ],
+  "decisions": [],
+  "mood": [],
+  "manual_deadlines": [
+   {
+    "course": "DSGN3402",
+    "item": "Studio pitch (in class)",
+    "date": "2026-03-31",
+    "time": null,
+    "time_text": "课上",
+    "weight": "10%",
+    "status": "未交",
+    "note": "",
+    "source": "公告 03-20",
+    "url": null,
+    "pending": false,
+    "assignment_id": null,
+    "added": "2026-03-21"
+   }
+  ],
+  "deadline_notes": {
+   "1103001": "老师说 Canvas 日期只是占位，真正截止另行通知"
+  },
+  "locked_materials": [],
+  "current_plan": null,
+  "daily_report": {}
+ }
+}

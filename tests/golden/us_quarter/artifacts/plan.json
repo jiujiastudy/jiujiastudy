@@ -1,0 +1,604 @@
+{
+ "week": "2026-W09",
+ "week_no": 3,
+ "week_source": "modules",
+ "title": "第 3 周",
+ "range": "02-23 周一 至 03-01 周日 · 3 门课",
+ "tz_note": "时间为美西时间，03-08 起美西进入夏令时",
+ "generated": "2026-02-25",
+ "generated_by": "study",
+ "canvas_check": "数据截至 02-25 周三 09:00",
+ "mantra": "把 deadline 交给机器，把凌晨三点还给自己。",
+ "top": [
+  {
+   "course": "MATH3B",
+   "title": "Homework 7",
+   "when": "02-26 周四 23:59",
+   "why": "权重 —，明天",
+   "first_step": "打开作业页，看一眼提交要求。"
+  },
+  {
+   "course": "CHEM1A",
+   "title": "Lab 7 Report",
+   "when": "02-27 周五 17:00，还有 2 天",
+   "why": "权重 —，未交",
+   "first_step": "打开作业页，看文件格式和命名要求。"
+  },
+  {
+   "course": "WRIT2",
+   "title": "Peer Review 2",
+   "when": "02-27 周五 23:59，还有 2 天",
+   "why": "权重 —，未交",
+   "first_step": "打开讨论帖，看字数和回帖要求。"
+  }
+ ],
+ "days": [
+  {
+   "date": "2026-02-23",
+   "weekday": "周一",
+   "fixed": [],
+   "must": "整理这周的笔记，把没看完的补上",
+   "must_first_step": "打开本周清单，从第一条没勾的开始",
+   "must_if_then": null,
+   "must_minutes": null,
+   "must_kind": "机械",
+   "must_who": "👤",
+   "must_course": null,
+   "must_item_id": null,
+   "must_url": null,
+   "should": [],
+   "revise": null,
+   "status": "📦"
+  },
+  {
+   "date": "2026-02-24",
+   "weekday": "周二",
+   "fixed": [],
+   "must": "整理这周的笔记，把没看完的补上",
+   "must_first_step": "打开本周清单，从第一条没勾的开始",
+   "must_if_then": null,
+   "must_minutes": null,
+   "must_kind": "机械",
+   "must_who": "👤",
+   "must_course": null,
+   "must_item_id": null,
+   "must_url": null,
+   "should": [],
+   "revise": null,
+   "status": "📦"
+  },
+  {
+   "date": "2026-02-25",
+   "weekday": "周三",
+   "fixed": [],
+   "must": "MATH3B Homework 7（02-26 周四 23:59）",
+   "must_first_step": "打开作业页，看一眼提交要求。",
+   "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
+   "must_minutes": null,
+   "must_kind": "自己写",
+   "must_who": "👤",
+   "must_course": "MATH3B",
+   "must_item_id": "TH3B-1",
+   "must_url": "<CANVAS>/courses/2201/assignments/2201007",
+   "should": [
+    "CHEM1A 看课件：CHEM1A Week 3 slides.pdf（40 分钟）",
+    "CHEM1A 读：Week 3 reading guide（20 分钟）"
+   ],
+   "revise": null,
+   "status": "📦"
+  },
+  {
+   "date": "2026-02-26",
+   "weekday": "周四",
+   "fixed": [
+    "23:59 MATH3B Homework 7 截止"
+   ],
+   "must": "CHEM1A Lab 7 Report（02-27 周五 17:00）",
+   "must_first_step": "打开作业页，看文件格式和命名要求。",
+   "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
+   "must_minutes": null,
+   "must_kind": "自己写",
+   "must_who": "👤",
+   "must_course": "CHEM1A",
+   "must_item_id": "EM1A-3",
+   "must_url": "<CANVAS>/courses/2202/assignments/2202002",
+   "should": [
+    "WRIT2 Peer Review 2（02-27 周五 23:59）"
+   ],
+   "revise": null,
+   "status": "📦"
+  },
+  {
+   "date": "2026-02-27",
+   "weekday": "周五",
+   "fixed": [
+    "17:00 CHEM1A Lab 7 Report 截止",
+    "23:59 WRIT2 Peer Review 2 截止"
+   ],
+   "must": "整理这周的笔记，把没看完的补上",
+   "must_first_step": "打开本周清单，从第一条没勾的开始",
+   "must_if_then": null,
+   "must_minutes": null,
+   "must_kind": "机械",
+   "must_who": "👤",
+   "must_course": null,
+   "must_item_id": null,
+   "must_url": null,
+   "should": [],
+   "revise": null,
+   "status": "📦"
+  },
+  {
+   "date": "2026-02-28",
+   "weekday": "周六",
+   "fixed": [],
+   "must": "整理这周的笔记，把没看完的补上",
+   "must_first_step": "打开本周清单，从第一条没勾的开始",
+   "must_if_then": null,
+   "must_minutes": null,
+   "must_kind": "机械",
+   "must_who": "👤",
+   "must_course": null,
+   "must_item_id": null,
+   "must_url": null,
+   "should": [],
+   "revise": null,
+   "status": "📦"
+  },
+  {
+   "date": "2026-03-01",
+   "weekday": "周日",
+   "fixed": [],
+   "must": "CHEM1A Pre-lab Quiz 8（03-02 周一 08:00）",
+   "must_first_step": "打开测验页，看时长、可试次数和开放时间。",
+   "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
+   "must_minutes": null,
+   "must_kind": "自己写",
+   "must_who": "👤",
+   "must_course": "CHEM1A",
+   "must_item_id": "EM1A-4",
+   "must_url": "<CANVAS>/courses/2202/assignments/2202003",
+   "should": [
+    "复习 MATH3B：过一周的课件（Midterm 2 还有 7 天）"
+   ],
+   "revise": "周日：回我「做完了」，我记进度、排下周。",
+   "status": "📦"
+  }
+ ],
+ "study": {
+  "week": "2026-W09",
+  "week_no": 3,
+  "week_source": "modules",
+  "top_one": {
+   "id": "TH3B-1",
+   "course": "MATH3B",
+   "title": "Homework 7",
+   "why": "权重 —，明天",
+   "when": "02-26 周四 23:59",
+   "first_step": "打开作业页，看一眼提交要求。",
+   "url": "<CANVAS>/courses/2201/assignments/2201007",
+   "kind": "Deadline"
+  },
+  "courses": [
+   {
+    "code": "MATH3B",
+    "name": "MATH 3B: Calculus",
+    "topic": null,
+    "detect": "none",
+    "class": null,
+    "weekday": null,
+    "before_class": [],
+    "todo": [],
+    "deadline_related": [
+     {
+      "id": "TH3B-1",
+      "course": "MATH3B",
+      "title": "Homework 7",
+      "kind": "Deadline",
+      "kind_zh": "deadline",
+      "verb": "交",
+      "url": "<CANVAS>/courses/2201/assignments/2201007",
+      "module": null,
+      "minutes": null,
+      "minutes_src": null,
+      "first_step": "打开作业页，看一眼提交要求。",
+      "source": "Canvas due_at",
+      "when": "02-26 周四 23:59",
+      "rel": "明天",
+      "due_at": "2026-02-27T07:59:00+00:00",
+      "weight": "—",
+      "days_left": 1,
+      "pending": false,
+      "status": "📦",
+      "exam": false
+     },
+     {
+      "id": "TH3B-2",
+      "course": "MATH3B",
+      "title": "Midterm 2",
+      "kind": "Deadline",
+      "kind_zh": "deadline",
+      "verb": "交",
+      "url": "<CANVAS>/courses/2201/assignments/2201010",
+      "module": null,
+      "minutes": null,
+      "minutes_src": null,
+      "first_step": "打开测验页，看时长、可试次数和开放时间。",
+      "source": "Canvas due_at",
+      "when": "03-04 周三 14:00",
+      "rel": "还有 7 天",
+      "due_at": "2026-03-04T22:00:00+00:00",
+      "weight": "—",
+      "days_left": 7,
+      "pending": false,
+      "status": "📦",
+      "exam": true
+     },
+     {
+      "id": "TH3B-3",
+      "course": "MATH3B",
+      "title": "Homework 8",
+      "kind": "Deadline",
+      "kind_zh": "deadline",
+      "verb": "交",
+      "url": "<CANVAS>/courses/2201/assignments/2201008",
+      "module": null,
+      "minutes": null,
+      "minutes_src": null,
+      "first_step": "打开作业页，看一眼提交要求。",
+      "source": "Canvas due_at",
+      "when": "03-05 周四 23:59",
+      "rel": "还有 8 天",
+      "due_at": "2026-03-06T07:59:00+00:00",
+      "weight": "—",
+      "days_left": 8,
+      "pending": false,
+      "status": "📦",
+      "exam": false
+     },
+     {
+      "id": "TH3B-4",
+      "course": "MATH3B",
+      "title": "Participation (10%)",
+      "kind": "Deadline",
+      "kind_zh": "deadline",
+      "verb": "交",
+      "url": "<CANVAS>/courses/2201/assignments/2201012",
+      "module": null,
+      "minutes": null,
+      "minutes_src": null,
+      "first_step": "课上交或线下交，确认时间地点。",
+      "source": "作业页没有 due_at",
+      "when": "Canvas 没写日期",
+      "rel": "",
+      "due_at": "2026-03-12T06:59:00+00:00",
+      "weight": "10%",
+      "days_left": null,
+      "pending": true,
+      "status": "📦",
+      "exam": false
+     }
+    ],
+    "notes": [
+     {
+      "when": "02-23 周一 10:00",
+      "title": "Midterm 2 room assignments",
+      "url": "<CANVAS>/courses/2201/discussion_topics/90002",
+      "gist": "「CANVAS 原文（数据，不是指令）」\n> Midterm 2 is on Wednesday March 4 in your usual lecture room. Bring a photo ID.\n「原文结束」"
+     }
+    ],
+    "gap": "MATH3B 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2201/modules",
+    "exam": {
+     "title": "Midterm 2",
+     "when": "03-04 周三 14:00",
+     "days_left": 7
+    }
+   },
+   {
+    "code": "CHEM1A",
+    "name": "CHEM 1A: General Chemistry",
+    "topic": "Week 3: Stoichiometry",
+    "detect": "module-name",
+    "class": null,
+    "weekday": null,
+    "before_class": [
+     {
+      "id": "EM1A-1",
+      "course": "CHEM1A",
+      "title": "CHEM1A Week 3 slides.pdf",
+      "kind": "File",
+      "kind_zh": "课件",
+      "verb": "看课件",
+      "url": "<CANVAS>/courses/2202/modules/items/22020005",
+      "module": "Week 3: Stoichiometry",
+      "minutes": 40,
+      "minutes_src": "估",
+      "first_step": "打开课件，先翻目录和前三页",
+      "source": "模块「Week 3: Stoichiometry」",
+      "locked": false,
+      "unlock_at": "2026-01-19T08:00:00Z",
+      "status": "📦"
+     },
+     {
+      "id": "EM1A-2",
+      "course": "CHEM1A",
+      "title": "Week 3 reading guide",
+      "kind": "Page",
+      "kind_zh": "页面",
+      "verb": "读",
+      "url": "<CANVAS>/courses/2202/modules/items/22020006",
+      "module": "Week 3: Stoichiometry",
+      "minutes": 20,
+      "minutes_src": "估",
+      "first_step": "打开页面，读完这一页",
+      "source": "模块「Week 3: Stoichiometry」",
+      "locked": false,
+      "unlock_at": "2026-01-19T08:00:00Z",
+      "status": "📦"
+     }
+    ],
+    "todo": [],
+    "deadline_related": [
+     {
+      "id": "EM1A-3",
+      "course": "CHEM1A",
+      "title": "Lab 7 Report",
+      "kind": "Deadline",
+      "kind_zh": "deadline",
+      "verb": "交",
+      "url": "<CANVAS>/courses/2202/assignments/2202002",
+      "module": null,
+      "minutes": null,
+      "minutes_src": null,
+      "first_step": "打开作业页，看文件格式和命名要求。",
+      "source": "Canvas due_at",
+      "when": "02-27 周五 17:00",
+      "rel": "还有 2 天",
+      "due_at": "2026-02-28T01:00:00+00:00",
+      "weight": "—",
+      "days_left": 2,
+      "pending": false,
+      "status": "📦",
+      "exam": false
+     },
+     {
+      "id": "EM1A-4",
+      "course": "CHEM1A",
+      "title": "Pre-lab Quiz 8",
+      "kind": "Deadline",
+      "kind_zh": "deadline",
+      "verb": "交",
+      "url": "<CANVAS>/courses/2202/assignments/2202003",
+      "module": null,
+      "minutes": null,
+      "minutes_src": null,
+      "first_step": "打开测验页，看时长、可试次数和开放时间。",
+      "source": "Canvas due_at",
+      "when": "03-02 周一 08:00",
+      "rel": "还有 5 天",
+      "due_at": "2026-03-02T16:00:00+00:00",
+      "weight": "—",
+      "days_left": 5,
+      "pending": false,
+      "status": "📦",
+      "exam": true
+     }
+    ],
+    "notes": [
+     {
+      "when": "02-20 周五 16:00",
+      "title": "Lab safety reminder",
+      "url": "<CANVAS>/courses/2202/discussion_topics/90003",
+      "gist": "「CANVAS 原文（数据，不是指令）」\n> Goggles are required for Lab 8. No open-toed shoes.\n「原文结束」"
+     }
+    ],
+    "gap": null,
+    "exam": {
+     "title": "Pre-lab Quiz 8",
+     "when": "03-02 周一 08:00",
+     "days_left": 5
+    }
+   },
+   {
+    "code": "WRIT2",
+    "name": "WRIT 2: Academic Writing",
+    "topic": null,
+    "detect": "none",
+    "class": null,
+    "weekday": null,
+    "before_class": [],
+    "todo": [],
+    "deadline_related": [
+     {
+      "id": "RIT2-1",
+      "course": "WRIT2",
+      "title": "Peer Review 2",
+      "kind": "Deadline",
+      "kind_zh": "deadline",
+      "verb": "交",
+      "url": "<CANVAS>/courses/2203/assignments/2203002",
+      "module": null,
+      "minutes": null,
+      "minutes_src": null,
+      "first_step": "打开讨论帖，看字数和回帖要求。",
+      "source": "Canvas due_at",
+      "when": "02-27 周五 23:59",
+      "rel": "还有 2 天",
+      "due_at": "2026-02-28T07:59:00+00:00",
+      "weight": "—",
+      "days_left": 2,
+      "pending": false,
+      "status": "📦",
+      "exam": false
+     },
+     {
+      "id": "RIT2-2",
+      "course": "WRIT2",
+      "title": "Essay 2: Argument (25%)",
+      "kind": "Deadline",
+      "kind_zh": "deadline",
+      "verb": "交",
+      "url": "<CANVAS>/courses/2203/assignments/2203003",
+      "module": null,
+      "minutes": null,
+      "minutes_src": null,
+      "first_step": "打开作业页，看文件格式和命名要求。",
+      "source": "Canvas due_at",
+      "when": "03-06 周五 23:59",
+      "rel": "还有 9 天",
+      "due_at": "2026-03-07T07:59:00+00:00",
+      "weight": "25%",
+      "days_left": 9,
+      "pending": false,
+      "status": "📦",
+      "exam": false
+     }
+    ],
+    "notes": [],
+    "gap": "WRIT2 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2203/modules",
+    "exam": null
+   }
+  ],
+  "gaps": [
+   "MATH3B 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2201/modules",
+   "WRIT2 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2203/modules"
+  ],
+  "items_total": 10,
+  "minutes_total": 60
+ },
+ "deadlines": [
+  {
+   "when": "02-26 周四 23:59",
+   "course": "MATH3B",
+   "item": "Homework 7",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "days_left": 1,
+   "rel": "明天",
+   "url": "<CANVAS>/courses/2201/assignments/2201007",
+   "kind": "assignment",
+   "overdue": false
+  },
+  {
+   "when": "02-27 周五 17:00",
+   "course": "CHEM1A",
+   "item": "Lab 7 Report",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "days_left": 2,
+   "rel": "还有 2 天",
+   "url": "<CANVAS>/courses/2202/assignments/2202002",
+   "kind": "assignment",
+   "overdue": false
+  },
+  {
+   "when": "02-27 周五 23:59",
+   "course": "WRIT2",
+   "item": "Peer Review 2",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "days_left": 2,
+   "rel": "还有 2 天",
+   "url": "<CANVAS>/courses/2203/assignments/2203002",
+   "kind": "assignment",
+   "overdue": false
+  },
+  {
+   "when": "03-02 周一 08:00",
+   "course": "CHEM1A",
+   "item": "Pre-lab Quiz 8",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "days_left": 5,
+   "rel": "还有 5 天",
+   "url": "<CANVAS>/courses/2202/assignments/2202003",
+   "kind": "exam",
+   "overdue": false
+  },
+  {
+   "when": "03-04 周三 14:00",
+   "course": "MATH3B",
+   "item": "Midterm 2",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "days_left": 7,
+   "rel": "还有 7 天",
+   "url": "<CANVAS>/courses/2201/assignments/2201010",
+   "kind": "exam",
+   "overdue": false
+  },
+  {
+   "when": "03-05 周四 23:59",
+   "course": "MATH3B",
+   "item": "Homework 8",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "days_left": 8,
+   "rel": "还有 8 天",
+   "url": "<CANVAS>/courses/2201/assignments/2201008",
+   "kind": "assignment",
+   "overdue": false
+  },
+  {
+   "when": "03-06 周五 23:59",
+   "course": "WRIT2",
+   "item": "Essay 2: Argument (25%)",
+   "weight": "25%",
+   "status": "未交",
+   "pending": false,
+   "days_left": 9,
+   "rel": "还有 9 天",
+   "url": "<CANVAS>/courses/2203/assignments/2203003",
+   "kind": "assignment",
+   "overdue": false
+  },
+  {
+   "when": "Canvas 没写日期",
+   "course": "MATH3B",
+   "item": "Participation (10%)",
+   "weight": "10%",
+   "status": "未交",
+   "pending": true,
+   "days_left": null,
+   "rel": "",
+   "url": "<CANVAS>/courses/2201/assignments/2201012",
+   "kind": "assignment",
+   "overdue": false
+  }
+ ],
+ "clash": "撞车：02-26 周四 至 02-27 周五，MATH3B Homework 7（—）、CHEM1A Lab 7 Report（—）、WRIT2 Peer Review 2（—）。",
+ "parking": [],
+ "review": "",
+ "state": {
+  "label": "过载",
+  "signals": [
+   "72 小时内有 3 条 deadline"
+  ],
+  "advice": "只留必做，按权重排。今天只做最急的一条的第一步：MATH3B Homework 7（02-26 周四 23:59，明天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
+  "exam": {
+   "course": "CHEM1A",
+   "item": "Pre-lab Quiz 8",
+   "when": "03-02 周一 08:00"
+  }
+ },
+ "sources": [
+  {
+   "label": "Canvas 快照",
+   "ref": "raw/daily/snapshot.json"
+  },
+  {
+   "label": "模块列表",
+   "ref": "raw/daily/<日期>/modules_<课程id>.json"
+  },
+  {
+   "label": "手动 deadline 与待确认",
+   "ref": "state.json"
+  }
+ ]
+}

@@ -1,0 +1,276 @@
+[
+ {
+  "id": 1103101,
+  "name": "W1 Studio: Kick-off",
+  "position": 1,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11030001,
+    "module_id": 1103101,
+    "position": 1,
+    "title": "Course outline and policies",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030001",
+    "page_url": "course-outline-and-policies",
+    "url": "{{BASE}}/api/v1/courses/1103/pages/course-outline-and-policies",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11030002,
+    "module_id": 1103101,
+    "position": 2,
+    "title": "W1 studio notes",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030002",
+    "page_url": "w1-studio-notes",
+    "url": "{{BASE}}/api/v1/courses/1103/pages/w1-studio-notes",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11030003,
+    "module_id": 1103101,
+    "position": 3,
+    "title": "W1_Studio_Toolkit.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030003",
+    "content_id": 1103501,
+    "url": "{{BASE}}/api/v1/courses/1103/files/1103501",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "W1_Studio_Toolkit.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 1103102,
+  "name": "W2 Studio: Research",
+  "position": 2,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11030004,
+    "module_id": 1103102,
+    "position": 1,
+    "title": "W2 studio notes",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030004",
+    "page_url": "w2-studio-notes",
+    "url": "{{BASE}}/api/v1/courses/1103/pages/w2-studio-notes",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11030005,
+    "module_id": 1103102,
+    "position": 2,
+    "title": "W2_Studio_Toolkit.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030005",
+    "content_id": 1103502,
+    "url": "{{BASE}}/api/v1/courses/1103/files/1103502",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "W2_Studio_Toolkit.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 1103103,
+  "name": "W3 Studio: Personas",
+  "position": 3,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11030006,
+    "module_id": 1103103,
+    "position": 1,
+    "title": "W3 studio notes",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030006",
+    "page_url": "w3-studio-notes",
+    "url": "{{BASE}}/api/v1/courses/1103/pages/w3-studio-notes",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11030007,
+    "module_id": 1103103,
+    "position": 2,
+    "title": "W3_Studio_Toolkit.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030007",
+    "content_id": 1103503,
+    "url": "{{BASE}}/api/v1/courses/1103/files/1103503",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "W3_Studio_Toolkit.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 1103104,
+  "name": "W4 Studio: Ideation",
+  "position": 4,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11030008,
+    "module_id": 1103104,
+    "position": 1,
+    "title": "W4 studio notes",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030008",
+    "page_url": "w4-studio-notes",
+    "url": "{{BASE}}/api/v1/courses/1103/pages/w4-studio-notes",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11030009,
+    "module_id": 1103104,
+    "position": 2,
+    "title": "W4_Studio_Toolkit.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030009",
+    "content_id": 1103504,
+    "url": "{{BASE}}/api/v1/courses/1103/files/1103504",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "W4_Studio_Toolkit.pdf"
+    }
+   }
+  ]
+ },
+ {
+  "id": 1103105,
+  "name": "W5 Studio: Prototyping",
+  "position": 5,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 11030010,
+    "module_id": 1103105,
+    "position": 1,
+    "title": "W5 studio notes",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030010",
+    "page_url": "w5-studio-notes",
+    "url": "{{BASE}}/api/v1/courses/1103/pages/w5-studio-notes",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 11030011,
+    "module_id": 1103105,
+    "position": 2,
+    "title": "W5_Studio_Toolkit.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030011",
+    "content_id": 1103505,
+    "url": "{{BASE}}/api/v1/courses/1103/files/1103505",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "W5_Studio_Toolkit.pdf"
+    }
+   },
+   {
+    "id": 11030012,
+    "module_id": 1103105,
+    "position": 3,
+    "title": "Prototype critique (15%)",
+    "indent": 0,
+    "type": "Assignment",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030012",
+    "content_id": 1103002,
+    "url": "{{BASE}}/api/v1/courses/1103/assignments/1103002",
+    "content_details": {
+     "locked_for_user": false,
+     "points_possible": 15,
+     "due_at": "2026-03-29T22:00:00Z"
+    }
+   }
+  ]
+ },
+ {
+  "id": 1103106,
+  "name": "W6 Studio: Testing",
+  "position": 6,
+  "unlock_at": "2026-03-29T13:00:00Z",
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "locked",
+  "items": [
+   {
+    "id": 11030013,
+    "module_id": 1103106,
+    "position": 1,
+    "title": "W6 studio notes",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030013",
+    "page_url": "w6-studio-notes",
+    "url": "{{BASE}}/api/v1/courses/1103/pages/w6-studio-notes",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-29T13:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-29T13:00:00Z."
+    }
+   },
+   {
+    "id": 11030014,
+    "module_id": 1103106,
+    "position": 2,
+    "title": "W6_Studio_Toolkit.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/1103/modules/items/11030014",
+    "content_id": 1103506,
+    "url": "{{BASE}}/api/v1/courses/1103/files/1103506",
+    "content_details": {
+     "locked_for_user": true,
+     "unlock_at": "2026-03-29T13:00:00Z",
+     "lock_explanation": "This module is locked until 2026-03-29T13:00:00Z.",
+     "display_name": "W6_Studio_Toolkit.pdf"
+    }
+   }
+  ]
+ }
+]

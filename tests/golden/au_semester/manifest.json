@@ -1,0 +1,187 @@
+{
+ "scenario": "au_semester",
+ "python": "3.12.10",
+ "steps": [
+  {
+   "id": "00_status_before_collect",
+   "args": [
+    "status",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "00_status_before_collect.txt",
+   "stderr": ""
+  },
+  {
+   "id": "01_collect_touch",
+   "args": [
+    "collect",
+    "--touch",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "01_collect_touch.txt",
+   "stderr": ""
+  },
+  {
+   "id": "02_status",
+   "args": [
+    "status",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "02_status.txt",
+   "stderr": ""
+  },
+  {
+   "id": "03_status_json",
+   "args": [
+    "status",
+    "--json",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "03_status_json.json",
+   "stderr": ""
+  },
+  {
+   "id": "04_radar",
+   "args": [
+    "radar",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "04_radar.txt",
+   "stderr": ""
+  },
+  {
+   "id": "05_radar_json",
+   "args": [
+    "radar",
+    "--json",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "05_radar_json.json",
+   "stderr": ""
+  },
+  {
+   "id": "06_study",
+   "args": [
+    "study",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "06_study.txt",
+   "stderr": ""
+  },
+  {
+   "id": "07_study_json",
+   "args": [
+    "study",
+    "--json",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "07_study_json.json",
+   "stderr": ""
+  },
+  {
+   "id": "08_radar_write_json",
+   "args": [
+    "radar",
+    "--write",
+    "--json",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "08_radar_write_json.json",
+   "stderr": ""
+  },
+  {
+   "id": "09_study_write_json",
+   "args": [
+    "study",
+    "--write",
+    "--json",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "09_study_write_json.json",
+   "stderr": ""
+  },
+  {
+   "id": "10_status_after_write",
+   "args": [
+    "status",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "10_status_after_write.txt",
+   "stderr": ""
+  },
+  {
+   "id": "11_status_after_write_json",
+   "args": [
+    "status",
+    "--json",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "11_status_after_write_json.json",
+   "stderr": ""
+  },
+  {
+   "id": "12_collect_touch_again",
+   "args": [
+    "collect",
+    "--touch",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "12_collect_touch_again.txt",
+   "stderr": ""
+  },
+  {
+   "id": "20_collect_touch_json",
+   "args": [
+    "collect",
+    "--touch",
+    "--json",
+    "--date",
+    "2026-03-25"
+   ],
+   "exit": 0,
+   "stdout": "20_collect_touch_json.json",
+   "stderr": ""
+  }
+ ],
+ "artifacts": [
+  "config.json",
+  "ddl_radar.md",
+  "digest.json",
+  "downloads.json",
+  "index.md",
+  "log.md",
+  "plan.json",
+  "plan.md",
+  "radar_html.txt",
+  "snapshot.json",
+  "state.json",
+  "tree.txt",
+  "week_html.txt"
+ ]
+}

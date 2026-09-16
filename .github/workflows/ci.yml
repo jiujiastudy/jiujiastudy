@@ -1,0 +1,36 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unittest:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+        python: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          allow-prereleases: true
+      # Standard library only: nothing is installed. The tests talk to nothing
+      # but a mock Canvas on 127.0.0.1, and the runner refuses any other host.
+      - name: Offline tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PIP_NO_INDEX: "1"
+          NO_PROXY: "*"
+        run: python -B -m unittest discover -s tests -v

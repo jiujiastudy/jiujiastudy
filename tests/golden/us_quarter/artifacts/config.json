@@ -1,0 +1,55 @@
+{
+ "schema_version": 3,
+ "canvas_host": "<CANVAS>",
+ "course_tz": "America/Los_Angeles",
+ "user_tz": "America/Los_Angeles",
+ "tz_labels": {},
+ "term": {
+  "name": "Winter 2026",
+  "start": "2026-01-05",
+  "end": "2026-03-20",
+  "week1_monday": "2026-02-09",
+  "break": null,
+  "week_source": "modules"
+ },
+ "user": {
+  "id": 6001,
+  "name": "Test Student"
+ },
+ "courses": [
+  {
+   "id": 2201,
+   "code": "MATH3B",
+   "name": "MATH 3B: Calculus",
+   "section": null,
+   "weekday": null
+  },
+  {
+   "id": 2202,
+   "code": "CHEM1A",
+   "name": "CHEM 1A: General Chemistry",
+   "section": null,
+   "weekday": null
+  },
+  {
+   "id": 2203,
+   "code": "WRIT2",
+   "name": "WRIT 2: Academic Writing",
+   "section": null,
+   "weekday": null
+  }
+ ],
+ "extra_sites": [],
+ "exam_prep": null,
+ "api_notes": {},
+ "notes": [],
+ "root": null,
+ "materials": {
+  "auto_download": true,
+  "max_mb": 50,
+  "per_run": 30
+ },
+ "agent": {
+  "kind": null
+ }
+}

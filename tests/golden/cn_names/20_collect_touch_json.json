@@ -1,0 +1,22 @@
+{
+ "digest_path": "<ARCHIVE>/raw/daily/2026-03-25/digest.json",
+ "failure_path": null,
+ "complete": true,
+ "promoted": true,
+ "errors": [],
+ "quick": false,
+ "counts": {
+  "new_announcements": 3,
+  "staff_messages": 0,
+  "changed_assignments": 10,
+  "submission_changes": 0,
+  "new_items": 44,
+  "unlocked_items": 0,
+  "locked_items": 7,
+  "downloaded": 0,
+  "skipped_downloads": 14
+ },
+ "readiness": {},
+ "queued_downloads": 14,
+ "downloads": null
+}

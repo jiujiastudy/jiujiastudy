@@ -1,0 +1,179 @@
+[
+ {
+  "id": 70001,
+  "title": "Moot",
+  "start_at": "2026-03-24T10:00:00Z",
+  "end_at": "2026-03-24T12:00:00Z",
+  "all_day": false,
+  "location_name": "Moot Court Room",
+  "context_code": "course_3303",
+  "workflow_state": "active",
+  "html_url": "{{BASE}}/calendar?event_id=70001&include_contexts=course_3303",
+  "type": "event"
+ },
+ {
+  "id": 70002,
+  "title": "Lab 9",
+  "start_at": "2026-03-19T11:00:00Z",
+  "end_at": "2026-03-19T13:00:00Z",
+  "all_day": false,
+  "location_name": "Room B12",
+  "context_code": "course_3302",
+  "workflow_state": "active",
+  "html_url": "{{BASE}}/calendar?event_id=70002&include_contexts=course_3302",
+  "type": "event"
+ },
+ {
+  "id": "assignment_3301001",
+  "title": "Formative essay plan",
+  "start_at": "2026-03-02T12:00:00Z",
+  "end_at": "2026-03-02T12:00:00Z",
+  "all_day": false,
+  "context_code": "course_3301",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/3301/assignments/3301001",
+  "type": "assignment",
+  "assignment": {
+   "id": 3301001,
+   "name": "Formative essay plan",
+   "due_at": "2026-03-02T12:00:00Z",
+   "points_possible": 0
+  }
+ },
+ {
+  "id": "assignment_3301002",
+  "title": "Source Analysis (40%)",
+  "start_at": "2026-03-19T12:00:00Z",
+  "end_at": "2026-03-19T12:00:00Z",
+  "all_day": false,
+  "context_code": "course_3301",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/3301/assignments/3301002",
+  "type": "assignment",
+  "assignment": {
+   "id": 3301002,
+   "name": "Source Analysis (40%)",
+   "due_at": "2026-03-19T12:00:00Z",
+   "points_possible": 40
+  }
+ },
+ {
+  "id": "assignment_3301003",
+  "title": "Summative Essay – 3,000 words (60%)",
+  "start_at": "2026-03-26T12:00:00Z",
+  "end_at": "2026-03-26T12:00:00Z",
+  "all_day": false,
+  "context_code": "course_3301",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/3301/assignments/3301003",
+  "type": "assignment",
+  "assignment": {
+   "id": 3301003,
+   "name": "Summative Essay – 3,000 words (60%)",
+   "due_at": "2026-03-26T12:00:00Z",
+   "points_possible": 60
+  }
+ },
+ {
+  "id": "assignment_3302001",
+  "title": "Weekly practice quiz 7",
+  "start_at": "2026-03-06T17:00:00Z",
+  "end_at": "2026-03-06T17:00:00Z",
+  "all_day": false,
+  "context_code": "course_3302",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/3302/assignments/3302001",
+  "type": "assignment",
+  "assignment": {
+   "id": 3302001,
+   "name": "Weekly practice quiz 7",
+   "due_at": "2026-03-06T17:00:00Z",
+   "points_possible": 1
+  }
+ },
+ {
+  "id": "assignment_3302002",
+  "title": "Weekly practice quiz 8",
+  "start_at": "2026-03-13T17:00:00Z",
+  "end_at": "2026-03-13T17:00:00Z",
+  "all_day": false,
+  "context_code": "course_3302",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/3302/assignments/3302002",
+  "type": "assignment",
+  "assignment": {
+   "id": 3302002,
+   "name": "Weekly practice quiz 8",
+   "due_at": "2026-03-13T17:00:00Z",
+   "points_possible": 1
+  }
+ },
+ {
+  "id": "assignment_3302003",
+  "title": "Lab report (50%)",
+  "start_at": "2026-03-20T16:00:00Z",
+  "end_at": "2026-03-20T16:00:00Z",
+  "all_day": false,
+  "context_code": "course_3302",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/3302/assignments/3302003",
+  "type": "assignment",
+  "assignment": {
+   "id": 3302003,
+   "name": "Lab report (50%)",
+   "due_at": "2026-03-20T16:00:00Z",
+   "points_possible": 50
+  }
+ },
+ {
+  "id": "assignment_3302005",
+  "title": "Exam (45%)",
+  "start_at": "2026-05-12T08:30:00Z",
+  "end_at": "2026-05-12T08:30:00Z",
+  "all_day": false,
+  "context_code": "course_3302",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/3302/assignments/3302005",
+  "type": "assignment",
+  "assignment": {
+   "id": 3302005,
+   "name": "Exam (45%)",
+   "due_at": "2026-05-12T08:30:00Z",
+   "points_possible": 45
+  }
+ },
+ {
+  "id": "assignment_3303001",
+  "title": "Problem question (30%)",
+  "start_at": "2026-03-19T23:59:00Z",
+  "end_at": "2026-03-19T23:59:00Z",
+  "all_day": false,
+  "context_code": "course_3303",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/3303/assignments/3303001",
+  "type": "assignment",
+  "assignment": {
+   "id": 3303001,
+   "name": "Problem question (30%)",
+   "due_at": "2026-03-19T23:59:00Z",
+   "points_possible": 30
+  }
+ },
+ {
+  "id": "assignment_3303002",
+  "title": "Moot participation",
+  "start_at": "2026-03-24T10:00:00Z",
+  "end_at": "2026-03-24T10:00:00Z",
+  "all_day": false,
+  "context_code": "course_3303",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/3303/assignments/3303002",
+  "type": "assignment",
+  "assignment": {
+   "id": 3303002,
+   "name": "Moot participation",
+   "due_at": "2026-03-24T10:00:00Z",
+   "points_possible": 0
+  }
+ }
+]

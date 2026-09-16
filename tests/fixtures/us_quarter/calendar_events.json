@@ -1,0 +1,366 @@
+[
+ {
+  "id": 70001,
+  "title": "Midterm 2",
+  "start_at": "2026-03-04T22:00:00Z",
+  "end_at": "2026-03-04T23:15:00Z",
+  "all_day": false,
+  "location_name": "Lecture Hall 2",
+  "context_code": "course_2201",
+  "workflow_state": "active",
+  "html_url": "{{BASE}}/calendar?event_id=70001&include_contexts=course_2201",
+  "type": "event"
+ },
+ {
+  "id": 70002,
+  "title": "Lab Section 3",
+  "start_at": "2026-02-27T21:00:00Z",
+  "end_at": "2026-02-28T00:00:00Z",
+  "all_day": false,
+  "location_name": "Chem Lab 1105",
+  "context_code": "course_2202",
+  "workflow_state": "active",
+  "html_url": "{{BASE}}/calendar?event_id=70002&include_contexts=course_2202",
+  "type": "event"
+ },
+ {
+  "id": "assignment_2201001",
+  "title": "Homework 1",
+  "start_at": "2026-01-16T07:59:00Z",
+  "end_at": "2026-01-16T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201001",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201001,
+   "name": "Homework 1",
+   "due_at": "2026-01-16T07:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_2201002",
+  "title": "Homework 2",
+  "start_at": "2026-01-23T07:59:00Z",
+  "end_at": "2026-01-23T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201002",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201002,
+   "name": "Homework 2",
+   "due_at": "2026-01-23T07:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_2201003",
+  "title": "Homework 3",
+  "start_at": "2026-01-30T07:59:00Z",
+  "end_at": "2026-01-30T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201003",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201003,
+   "name": "Homework 3",
+   "due_at": "2026-01-30T07:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_2201004",
+  "title": "Homework 4",
+  "start_at": "2026-02-06T07:59:00Z",
+  "end_at": "2026-02-06T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201004",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201004,
+   "name": "Homework 4",
+   "due_at": "2026-02-06T07:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_2201005",
+  "title": "Homework 5",
+  "start_at": "2026-02-13T07:59:00Z",
+  "end_at": "2026-02-13T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201005",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201005,
+   "name": "Homework 5",
+   "due_at": "2026-02-13T07:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_2201006",
+  "title": "Homework 6",
+  "start_at": "2026-02-20T07:59:00Z",
+  "end_at": "2026-02-20T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201006",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201006,
+   "name": "Homework 6",
+   "due_at": "2026-02-20T07:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_2201007",
+  "title": "Homework 7",
+  "start_at": "2026-02-27T07:59:00Z",
+  "end_at": "2026-02-27T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201007",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201007,
+   "name": "Homework 7",
+   "due_at": "2026-02-27T07:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_2201008",
+  "title": "Homework 8",
+  "start_at": "2026-03-06T07:59:00Z",
+  "end_at": "2026-03-06T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201008",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201008,
+   "name": "Homework 8",
+   "due_at": "2026-03-06T07:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_2201009",
+  "title": "Midterm 1",
+  "start_at": "2026-01-30T22:00:00Z",
+  "end_at": "2026-01-30T22:00:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201009",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201009,
+   "name": "Midterm 1",
+   "due_at": "2026-01-30T22:00:00Z",
+   "points_possible": 100
+  }
+ },
+ {
+  "id": "assignment_2201010",
+  "title": "Midterm 2",
+  "start_at": "2026-03-04T22:00:00Z",
+  "end_at": "2026-03-04T22:00:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201010",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201010,
+   "name": "Midterm 2",
+   "due_at": "2026-03-04T22:00:00Z",
+   "points_possible": 100
+  }
+ },
+ {
+  "id": "assignment_2201011",
+  "title": "Final Exam",
+  "start_at": "2026-03-17T19:00:00Z",
+  "end_at": "2026-03-17T19:00:00Z",
+  "all_day": false,
+  "context_code": "course_2201",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2201/assignments/2201011",
+  "type": "assignment",
+  "assignment": {
+   "id": 2201011,
+   "name": "Final Exam",
+   "due_at": "2026-03-17T19:00:00Z",
+   "points_possible": 100
+  }
+ },
+ {
+  "id": "assignment_2202001",
+  "title": "Lab 6 Report",
+  "start_at": "2026-02-21T01:00:00Z",
+  "end_at": "2026-02-21T01:00:00Z",
+  "all_day": false,
+  "context_code": "course_2202",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2202/assignments/2202001",
+  "type": "assignment",
+  "assignment": {
+   "id": 2202001,
+   "name": "Lab 6 Report",
+   "due_at": "2026-02-21T01:00:00Z",
+   "points_possible": 20
+  }
+ },
+ {
+  "id": "assignment_2202002",
+  "title": "Lab 7 Report",
+  "start_at": "2026-02-28T01:00:00Z",
+  "end_at": "2026-02-28T01:00:00Z",
+  "all_day": false,
+  "context_code": "course_2202",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2202/assignments/2202002",
+  "type": "assignment",
+  "assignment": {
+   "id": 2202002,
+   "name": "Lab 7 Report",
+   "due_at": "2026-02-28T01:00:00Z",
+   "points_possible": 20
+  }
+ },
+ {
+  "id": "assignment_2202003",
+  "title": "Pre-lab Quiz 8",
+  "start_at": "2026-03-02T16:00:00Z",
+  "end_at": "2026-03-02T16:00:00Z",
+  "all_day": false,
+  "context_code": "course_2202",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2202/assignments/2202003",
+  "type": "assignment",
+  "assignment": {
+   "id": 2202003,
+   "name": "Pre-lab Quiz 8",
+   "due_at": "2026-03-02T16:00:00Z",
+   "points_possible": 5
+  }
+ },
+ {
+  "id": "assignment_2202004",
+  "title": "Problem Set 5",
+  "start_at": "2026-02-25T07:59:00Z",
+  "end_at": "2026-02-25T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2202",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2202/assignments/2202004",
+  "type": "assignment",
+  "assignment": {
+   "id": 2202004,
+   "name": "Problem Set 5",
+   "due_at": "2026-02-25T07:59:00Z",
+   "points_possible": 10
+  }
+ },
+ {
+  "id": "assignment_2202005",
+  "title": "Midterm",
+  "start_at": "2026-02-12T02:00:00Z",
+  "end_at": "2026-02-12T02:00:00Z",
+  "all_day": false,
+  "context_code": "course_2202",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2202/assignments/2202005",
+  "type": "assignment",
+  "assignment": {
+   "id": 2202005,
+   "name": "Midterm",
+   "due_at": "2026-02-12T02:00:00Z",
+   "points_possible": 100
+  }
+ },
+ {
+  "id": "assignment_2203001",
+  "title": "Essay 1: Rhetorical Analysis (20%)",
+  "start_at": "2026-01-31T07:59:00Z",
+  "end_at": "2026-01-31T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2203",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2203/assignments/2203001",
+  "type": "assignment",
+  "assignment": {
+   "id": 2203001,
+   "name": "Essay 1: Rhetorical Analysis (20%)",
+   "due_at": "2026-01-31T07:59:00Z",
+   "points_possible": 20
+  }
+ },
+ {
+  "id": "assignment_2203002",
+  "title": "Peer Review 2",
+  "start_at": "2026-02-28T07:59:00Z",
+  "end_at": "2026-02-28T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2203",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2203/assignments/2203002",
+  "type": "assignment",
+  "assignment": {
+   "id": 2203002,
+   "name": "Peer Review 2",
+   "due_at": "2026-02-28T07:59:00Z",
+   "points_possible": 5
+  }
+ },
+ {
+  "id": "assignment_2203003",
+  "title": "Essay 2: Argument (25%)",
+  "start_at": "2026-03-07T07:59:00Z",
+  "end_at": "2026-03-07T07:59:00Z",
+  "all_day": false,
+  "context_code": "course_2203",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2203/assignments/2203003",
+  "type": "assignment",
+  "assignment": {
+   "id": 2203003,
+   "name": "Essay 2: Argument (25%)",
+   "due_at": "2026-03-07T07:59:00Z",
+   "points_possible": 25
+  }
+ },
+ {
+  "id": "assignment_2203004",
+  "title": "Portfolio (40%)",
+  "start_at": "2026-03-20T06:59:00Z",
+  "end_at": "2026-03-20T06:59:00Z",
+  "all_day": false,
+  "context_code": "course_2203",
+  "workflow_state": "published",
+  "html_url": "{{BASE}}/courses/2203/assignments/2203004",
+  "type": "assignment",
+  "assignment": {
+   "id": 2203004,
+   "name": "Portfolio (40%)",
+   "due_at": "2026-03-20T06:59:00Z",
+   "points_possible": 40
+  }
+ }
+]

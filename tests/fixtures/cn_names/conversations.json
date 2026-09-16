@@ -1,0 +1,30 @@
+[
+ {
+  "id": 80001,
+  "subject": "作业5第3题疑问",
+  "workflow_state": "unread",
+  "last_message": "第3题的积分区间应为 [0, π]，已更正。",
+  "last_message_at": "2026-03-25T01:30:00Z",
+  "last_authored_message_at": null,
+  "message_count": 2,
+  "participants": [
+   {
+    "id": 8001,
+    "name": "测试同学",
+    "full_name": "测试同学"
+   },
+   {
+    "id": 9401,
+    "name": "李老师",
+    "full_name": "李老师"
+   }
+  ],
+  "audience": [
+   9401
+  ],
+  "context_name": "高等数学（二）",
+  "context_code": "course_4401",
+  "starred": false,
+  "private": true
+ }
+]

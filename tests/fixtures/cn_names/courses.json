@@ -1,0 +1,95 @@
+[
+ {
+  "id": 4401,
+  "name": "高等数学（二）",
+  "course_code": "（2025-2026-2）-MA1205-02",
+  "workflow_state": "available",
+  "account_id": 10,
+  "start_at": null,
+  "end_at": null,
+  "enrollment_term_id": 601,
+  "time_zone": "Asia/Shanghai",
+  "default_view": "modules",
+  "is_public": false,
+  "apply_assignment_group_weights": true,
+  "hide_final_grades": false,
+  "term": {
+   "id": 601,
+   "name": "2025-2026学年第二学期",
+   "start_at": "2026-02-22T16:00:00Z",
+   "end_at": "2026-06-28T15:59:00Z"
+  },
+  "enrollments": [
+   {
+    "type": "student",
+    "role": "StudentEnrollment",
+    "role_id": 3,
+    "user_id": 8001,
+    "enrollment_state": "active"
+   }
+  ],
+  "_active": true
+ },
+ {
+  "id": 4402,
+  "name": "大学英语（三）",
+  "course_code": "大学英语3",
+  "workflow_state": "available",
+  "account_id": 10,
+  "start_at": null,
+  "end_at": null,
+  "enrollment_term_id": 601,
+  "time_zone": "Asia/Shanghai",
+  "default_view": "modules",
+  "is_public": false,
+  "apply_assignment_group_weights": true,
+  "hide_final_grades": false,
+  "term": {
+   "id": 601,
+   "name": "2025-2026学年第二学期",
+   "start_at": "2026-02-22T16:00:00Z",
+   "end_at": "2026-06-28T15:59:00Z"
+  },
+  "enrollments": [
+   {
+    "type": "student",
+    "role": "StudentEnrollment",
+    "role_id": 3,
+    "user_id": 8001,
+    "enrollment_state": "active"
+   }
+  ],
+  "_active": true
+ },
+ {
+  "id": 4403,
+  "name": "军事理论",
+  "course_code": "军事理论",
+  "workflow_state": "available",
+  "account_id": 10,
+  "start_at": null,
+  "end_at": null,
+  "enrollment_term_id": 601,
+  "time_zone": "Asia/Shanghai",
+  "default_view": "modules",
+  "is_public": false,
+  "apply_assignment_group_weights": true,
+  "hide_final_grades": false,
+  "term": {
+   "id": 601,
+   "name": "2025-2026学年第二学期",
+   "start_at": "2026-02-22T16:00:00Z",
+   "end_at": "2026-06-28T15:59:00Z"
+  },
+  "enrollments": [
+   {
+    "type": "student",
+    "role": "StudentEnrollment",
+    "role_id": 3,
+    "user_id": 8001,
+    "enrollment_state": "active"
+   }
+  ],
+  "_active": true
+ }
+]

@@ -1,0 +1,9 @@
+{
+ "id": 8001,
+ "name": "测试同学",
+ "short_name": "测试",
+ "sortable_name": "测试同学",
+ "locale": "zh-Hans",
+ "effective_locale": "zh-Hans",
+ "time_zone": "Beijing"
+}

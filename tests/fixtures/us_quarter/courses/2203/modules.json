@@ -1,0 +1,318 @@
+[
+ {
+  "id": 2203101,
+  "name": "Unit 1: Rhetorical Situations",
+  "position": 1,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22030001,
+    "module_id": 2203101,
+    "position": 1,
+    "title": "Unit 1 overview",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030001",
+    "page_url": "unit-1-overview",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/unit-1-overview",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22030002,
+    "module_id": 2203101,
+    "position": 2,
+    "title": "Rhetorical triangle.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030002",
+    "content_id": 2203501,
+    "url": "{{BASE}}/api/v1/courses/2203/files/2203501",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Rhetorical triangle.pdf"
+    }
+   },
+   {
+    "id": 22030003,
+    "module_id": 2203101,
+    "position": 3,
+    "title": "Sample analysis",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030003",
+    "page_url": "sample-analysis",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/sample-analysis",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22030004,
+    "module_id": 2203101,
+    "position": 4,
+    "title": "Essay 1 prompt.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030004",
+    "content_id": 2203502,
+    "url": "{{BASE}}/api/v1/courses/2203/files/2203502",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Essay 1 prompt.pdf"
+    }
+   },
+   {
+    "id": 22030005,
+    "module_id": 2203101,
+    "position": 5,
+    "title": "Essay 1 rubric",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030005",
+    "page_url": "essay-1-rubric",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/essay-1-rubric",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 2203102,
+  "name": "Unit 2: Research and Sources",
+  "position": 2,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22030006,
+    "module_id": 2203102,
+    "position": 1,
+    "title": "Unit 2 overview",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030006",
+    "page_url": "unit-2-overview",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/unit-2-overview",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22030007,
+    "module_id": 2203102,
+    "position": 2,
+    "title": "Library database guide.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030007",
+    "content_id": 2203503,
+    "url": "{{BASE}}/api/v1/courses/2203/files/2203503",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Library database guide.pdf"
+    }
+   },
+   {
+    "id": 22030008,
+    "module_id": 2203102,
+    "position": 3,
+    "title": "Evaluating sources",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030008",
+    "page_url": "evaluating-sources",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/evaluating-sources",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22030009,
+    "module_id": 2203102,
+    "position": 4,
+    "title": "Annotated bibliography",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030009",
+    "page_url": "annotated-bibliography",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/annotated-bibliography",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 2203103,
+  "name": "Unit 3: Argument",
+  "position": 3,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22030010,
+    "module_id": 2203103,
+    "position": 1,
+    "title": "Unit 3 overview",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030010",
+    "page_url": "unit-3-overview",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/unit-3-overview",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22030011,
+    "module_id": 2203103,
+    "position": 2,
+    "title": "Toulmin model.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030011",
+    "content_id": 2203504,
+    "url": "{{BASE}}/api/v1/courses/2203/files/2203504",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Toulmin model.pdf"
+    }
+   },
+   {
+    "id": 22030012,
+    "module_id": 2203103,
+    "position": 3,
+    "title": "Counterarguments",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030012",
+    "page_url": "counterarguments",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/counterarguments",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22030013,
+    "module_id": 2203103,
+    "position": 4,
+    "title": "Essay 2 prompt.pdf",
+    "indent": 0,
+    "type": "File",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030013",
+    "content_id": 2203505,
+    "url": "{{BASE}}/api/v1/courses/2203/files/2203505",
+    "content_details": {
+     "locked_for_user": false,
+     "display_name": "Essay 2 prompt.pdf"
+    }
+   },
+   {
+    "id": 22030014,
+    "module_id": 2203103,
+    "position": 5,
+    "title": "Essay 2 rubric",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030014",
+    "page_url": "essay-2-rubric",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/essay-2-rubric",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22030015,
+    "module_id": 2203103,
+    "position": 6,
+    "title": "Peer Review 2",
+    "indent": 0,
+    "type": "Discussion",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030015",
+    "content_id": 2203701,
+    "url": "{{BASE}}/api/v1/courses/2203/assignments/2203002",
+    "content_details": {
+     "locked_for_user": false,
+     "points_possible": 5,
+     "due_at": "2026-02-28T07:59:00Z"
+    }
+   },
+   {
+    "id": 22030016,
+    "module_id": 2203103,
+    "position": 7,
+    "title": "Recorded workshop",
+    "indent": 0,
+    "type": "ExternalUrl",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030016",
+    "external_url": "https://video.example/writ2/argument",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22030017,
+    "module_id": 2203103,
+    "position": 8,
+    "title": "Drafting checklist",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030017",
+    "page_url": "drafting-checklist",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/drafting-checklist",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 2203104,
+  "name": "Course Policies",
+  "position": 4,
+  "unlock_at": null,
+  "require_sequential_progress": false,
+  "published": true,
+  "state": "unlocked",
+  "items": [
+   {
+    "id": 22030018,
+    "module_id": 2203104,
+    "position": 1,
+    "title": "Syllabus",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030018",
+    "page_url": "syllabus",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/syllabus",
+    "content_details": {
+     "locked_for_user": false
+    }
+   },
+   {
+    "id": 22030019,
+    "module_id": 2203104,
+    "position": 2,
+    "title": "Late work policy",
+    "indent": 0,
+    "type": "Page",
+    "html_url": "{{BASE}}/courses/2203/modules/items/22030019",
+    "page_url": "late-work-policy",
+    "url": "{{BASE}}/api/v1/courses/2203/pages/late-work-policy",
+    "content_details": {
+     "locked_for_user": false
+    }
+   }
+  ]
+ }
+]

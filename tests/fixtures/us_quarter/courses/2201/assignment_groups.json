@@ -1,0 +1,30 @@
+[
+ {
+  "id": 22011,
+  "name": "Homework",
+  "position": 1,
+  "group_weight": 20,
+  "rules": {}
+ },
+ {
+  "id": 22012,
+  "name": "Midterms",
+  "position": 2,
+  "group_weight": 40,
+  "rules": {}
+ },
+ {
+  "id": 22013,
+  "name": "Final",
+  "position": 3,
+  "group_weight": 30,
+  "rules": {}
+ },
+ {
+  "id": 22014,
+  "name": "Participation",
+  "position": 4,
+  "group_weight": 10,
+  "rules": {}
+ }
+]

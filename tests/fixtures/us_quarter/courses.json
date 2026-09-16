@@ -1,0 +1,95 @@
+[
+ {
+  "id": 2201,
+  "name": "MATH 3B: Calculus",
+  "course_code": "MATH 3B",
+  "workflow_state": "available",
+  "account_id": 10,
+  "start_at": null,
+  "end_at": null,
+  "enrollment_term_id": 401,
+  "time_zone": "America/Los_Angeles",
+  "default_view": "modules",
+  "is_public": false,
+  "apply_assignment_group_weights": true,
+  "hide_final_grades": false,
+  "term": {
+   "id": 401,
+   "name": "Winter 2026",
+   "start_at": "2026-01-05T08:00:00Z",
+   "end_at": "2026-03-21T07:59:00Z"
+  },
+  "enrollments": [
+   {
+    "type": "student",
+    "role": "StudentEnrollment",
+    "role_id": 3,
+    "user_id": 6001,
+    "enrollment_state": "active"
+   }
+  ],
+  "_active": true
+ },
+ {
+  "id": 2202,
+  "name": "CHEM 1A: General Chemistry",
+  "course_code": "CHEM 1A",
+  "workflow_state": "available",
+  "account_id": 10,
+  "start_at": null,
+  "end_at": null,
+  "enrollment_term_id": 401,
+  "time_zone": "America/Los_Angeles",
+  "default_view": "modules",
+  "is_public": false,
+  "apply_assignment_group_weights": true,
+  "hide_final_grades": false,
+  "term": {
+   "id": 401,
+   "name": "Winter 2026",
+   "start_at": "2026-01-05T08:00:00Z",
+   "end_at": "2026-03-21T07:59:00Z"
+  },
+  "enrollments": [
+   {
+    "type": "student",
+    "role": "StudentEnrollment",
+    "role_id": 3,
+    "user_id": 6001,
+    "enrollment_state": "active"
+   }
+  ],
+  "_active": true
+ },
+ {
+  "id": 2203,
+  "name": "WRIT 2: Academic Writing",
+  "course_code": "WRIT 2",
+  "workflow_state": "available",
+  "account_id": 10,
+  "start_at": null,
+  "end_at": null,
+  "enrollment_term_id": 401,
+  "time_zone": "America/Los_Angeles",
+  "default_view": "modules",
+  "is_public": false,
+  "apply_assignment_group_weights": true,
+  "hide_final_grades": false,
+  "term": {
+   "id": 401,
+   "name": "Winter 2026",
+   "start_at": "2026-01-05T08:00:00Z",
+   "end_at": "2026-03-21T07:59:00Z"
+  },
+  "enrollments": [
+   {
+    "type": "student",
+    "role": "StudentEnrollment",
+    "role_id": 3,
+    "user_id": 6001,
+    "enrollment_state": "active"
+   }
+  ],
+  "_active": true
+ }
+]

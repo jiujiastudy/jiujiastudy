@@ -1,0 +1,151 @@
+{
+ "home": "<ARCHIVE>",
+ "script": "<CODE>/tools/coach.py",
+ "today": "2026-03-25",
+ "term_week": "周次待定",
+ "host": "<CANVAS>",
+ "last_check": "<NOW>",
+ "last_check_hours_ago": 0.0,
+ "last_fetch": "<NOW>",
+ "last_fetch_hours_ago": 0.0,
+ "plan": null,
+ "revision": null,
+ "next_per_course": [
+  {
+   "course": "MA1205",
+   "item": "小测2",
+   "when": "03-26 周四 19:00",
+   "rel": "明天"
+  },
+  {
+   "course": "3",
+   "item": "Unit 4 写作任务",
+   "when": "03-29 周日 23:59",
+   "rel": "还有 4 天"
+  },
+  {
+   "course": "C4403",
+   "item": "第5讲 课后测验",
+   "when": "03-31 周二 23:59",
+   "rel": "还有 6 天"
+  }
+ ],
+ "deadlines": [
+  {
+   "rel": "已过 3 天",
+   "when": "03-22 周日 23:59",
+   "course": "3",
+   "item": "口语打卡 第4周",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/4402/assignments/4402001",
+   "days_left": -3,
+   "kind": "assignment",
+   "overdue": true,
+   "undated": false
+  },
+  {
+   "rel": "明天",
+   "when": "03-26 周四 19:00",
+   "course": "MA1205",
+   "item": "小测2",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/4401/assignments/4401003",
+   "days_left": 1,
+   "kind": "exam",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 2 天",
+   "when": "03-27 周五 23:59",
+   "course": "MA1205",
+   "item": "作业5（10％）",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/4401/assignments/4401002",
+   "days_left": 2,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 4 天",
+   "when": "03-29 周日 23:59",
+   "course": "3",
+   "item": "Unit 4 写作任务",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/4402/assignments/4402002",
+   "days_left": 4,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "还有 6 天",
+   "when": "03-31 周二 23:59",
+   "course": "C4403",
+   "item": "第5讲 课后测验",
+   "weight": "—",
+   "status": "未交",
+   "pending": false,
+   "url": "<CANVAS>/courses/4403/assignments/4403002",
+   "days_left": 6,
+   "kind": "exam",
+   "overdue": false,
+   "undated": false
+  },
+  {
+   "rel": "",
+   "when": "Canvas 没写日期",
+   "course": "MA1205",
+   "item": "期中考试",
+   "weight": "—",
+   "status": "未交",
+   "pending": true,
+   "url": "<CANVAS>/courses/4401/assignments/4401004",
+   "days_left": null,
+   "kind": "exam",
+   "overdue": false,
+   "undated": true
+  },
+  {
+   "rel": "",
+   "when": "Canvas 没写日期",
+   "course": "3",
+   "item": "期末口试（30%）",
+   "weight": "30%",
+   "status": "未交",
+   "pending": true,
+   "url": "<CANVAS>/courses/4402/assignments/4402003",
+   "days_left": null,
+   "kind": "assignment",
+   "overdue": false,
+   "undated": true
+  }
+ ],
+ "pending": [],
+ "decisions": 0,
+ "state_eval": {
+  "label": "卡住",
+  "signals": [
+   "有 1 项已过期未交（3 口语打卡 第4周）",
+   "你 2026-03-24 说过「累」"
+  ],
+  "advice": "现在把任务缩到一个动作：打开作业页，把要求抄成三行。是不会做就告诉我卡在哪一页课件，我指给你看；是没开始就用五分钟规则。",
+  "exam": {
+   "course": "MA1205",
+   "item": "小测2",
+   "when": "03-26 周四 19:00"
+  }
+ },
+ "warnings": [
+  "本周没有计划：说「这周学什么」"
+ ]
+}
