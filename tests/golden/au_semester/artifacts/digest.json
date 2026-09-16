@@ -6,6 +6,8 @@
  "promoted": true,
  "errors": [],
  "readiness": {},
+ "stale": {},
+ "course_changes": [],
  "new_announcements": [
   {
    "id": 90006,

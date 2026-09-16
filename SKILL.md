@@ -7,7 +7,7 @@ description: STCanvas 是留学生的 Canvas 学习手帐：盯 deadline、排�
 
 脚本在本文件同目录的 `tools/coach.py`。宿主给了本文件路径就直接用；没给就依次找 `~/.claude/skills/stcanvas`、`~/.codex/skills/stcanvas`、`~/.agents/skills/stcanvas`。解释器优先用宿主已经提供的 Python；Codex 桌面版先调用 `load_workspace_dependencies` 取得 Python executable，再试 `python3` / `python` / Windows `py -3`。已有任何可用解释器就不安装；全部不可用才征得用户同意安装。下文只写命令名。用用户说话的语言回答，默认中文。
 
-两个地方。**资料夹**给人看：默认桌面的「STCanvas」，`paths` 打印具体路径；根目录是「STCanvas.html」和「Deadline雷达.html」，每门课一个文件夹，里面只有两个子文件夹，「课件」放 Canvas 原件，「产出」放 AI 做的一切。**机器档案**给 AI 用：config.json（学校、时区、课程）、state.json（进度、待确认、心情、手动 deadline）、raw/、plans/、reports/、text/（课件文字稿），在资料夹里的 .coach（老版档案仍兼容 ~/CourseCoach），用户不用管。显示的时间和「今天」跟着用户电脑的时钟走。
+两个地方。**资料夹**给人看：默认桌面的「STCanvas」，`paths` 打印具体路径；根目录是「STCanvas.html」和「Deadline雷达.html」，每门课一个文件夹，里面只有两个子文件夹，「课件」放 Canvas 原件，「产出」放 AI 做的一切。**机器档案**给 AI 用：config.json（学校、时区、课程）、state.json（进度、待确认、心情、手动 deadline）、raw/、plans/、reports/、text/（课件文字稿，默认不提取），在资料夹里的 .coach（老版档案仍兼容 ~/CourseCoach），用户不用管。显示的时间跟着用户电脑的时钟走；deadline 的「今天 / 明天 / 还有 N 天」按课程所在时区数，过没过期按真实时刻算。
 
 ## 主次
 第一优先永远是准确的 deadline 和这周的清单。课件只排队、后台补，任何时候都不让用户等下载。
@@ -34,10 +34,10 @@ description: STCanvas 是留学生的 Canvas 学习手帐：盯 deadline、排�
 | 「这周学什么」「这周干什么」「周报」 | `collect --force --touch` → `study --write --zh plans/<周>.zh.json`（覆盖层在就必须带上，不带等于把上课时间、tutor、最要紧那几件、停车场、复盘全丢掉）；覆盖层没有就先写一个再跑：脚本查不到的东西（上课时间和教室、tutor、为什么这件最要紧、要定的事、复盘）写进覆盖层，条目和日期交给脚本 | study.md |
 | 「做完了」「做完了 2001-2」「✓ 09-16」「2001 看完了」 | `record done <目标>`，回它打印的「✅ …，明天：…」和状态一句 | study.md |
 | 「没状态」「累」「来不及」「病了」 | `record mood <词>`，按它返回的建议说，别追问 | state.md |
-| 「这个日期只是占位」「老师说 X 号交」「公告说考试在 X」 | `record note <作业id> "…"`（Canvas 日期不算数，不再算过期）/ `record deadline "事项" --course 课 --due 日期 --time 时刻 --weight 权重 --url 作业链接`（进雷达） | radar.md |
+| 「这个日期只是占位」「老师说 X 号交」「公告说考试在 X」 | `record note <作业id> "…"`（Canvas 日期不算数，不再算过期）/ `record deadline "事项" --course 课 --due 日期 --time 时刻 --weight 权重 --url 作业链接`（进雷达；`--due` 认 2026-09-20 / 09-20，`--time` 认 23:59 / 4pm，认不出当场退回；`--list` 看、`--remove 序号` 删） | radar.md |
 | 「这周是第 N 周」「X 不是课」「这门课周二上」「时间按 X 显示」 | `config set term.week1_monday …` / 改 courses / `config set user_tz Asia/Shanghai`（`auto` = 跟着电脑） | setup.md |
 | 「资料放哪」「换个文件夹」 | `paths` 报路径；换地方：`config set root <路径>` 再 `doctor`，它会把旧文件搬过去 | setup.md |
-| 导读课件、复习包、逐页精讲、做图、问老师、写东西、发帖、交作业、任何想法 | 直接做：先 `paths 课` 拿路径；课件原件在「课件」，文字稿在机器档案 text/<课>/；某周课件还没下就 `collect --materials 课 周`；产物一律写进「产出」；做页面先读 references/style.md；发帖交作业按规矩 5 | toolbox.md |
+| 导读课件、复习包、逐页精讲、做图、问老师、写东西、发帖、交作业、任何想法 | 直接做：先 `paths 课` 拿路径；课件原件在「课件」；课件文字默认不提取给 AI，要读某门课的文字稿先经用户同意开：`config course <课程代码> --materials-ai on`，开了才有 text/<课>/；某周课件还没下就 `collect --materials 课 周`；产物一律写进「产出」；做页面先读 references/style.md；发帖交作业按规矩 5 | toolbox.md |
 
 ## 自愈（先修，修不了才说一句）
 脚本出错时会连「该怎么办」一起打印：照它那句做，做得了就做掉，别复述。下面几种它给不出办法：

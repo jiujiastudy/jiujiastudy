@@ -1,5 +1,8 @@
 """时间与时区：全部经 zoneinfo。课程时区 = Canvas 显示的时区；用户时区 = 用户人在哪。相同只显示一个。
 
+「现在」只有一个来源：Clock.now_utc()，--date 会把它钉在指定的那一刻。过没过期看这个时刻，
+今天 / 明天 / 还有几天按课程时区的日历天算（显示的日期也是课程时区的，两边才对得上）。
+
 没有任何城市的默认值：config 没写就用电脑时钟的时区，再没有才 UTC。
 这台电脑的 Python 读不到任何时区数据（Windows 上没装 tzdata）时不装、不崩：按电脑时钟算并提示一句，装 tzdata 交给 doctor。
 """
@@ -58,8 +61,11 @@ RAILS_TO_IANA = {
 
 
 IANA_NAME = re.compile(r"^[A-Za-z]+(?:/[A-Za-z0-9_+\-]+){1,2}$")
+HAS_CLOCK = re.compile(r"\d[T ]\s*\d{1,2}:\d{2}")  # --date 里写没写到时分
+FULLWIDTH = str.maketrans("０１２３４５６７８９：．／－　", "0123456789:./- ")
 _zone_data = None  # None = 还没查过
 _noted = False
+_pinned = None  # --date 给的值；之后建的 Clock 把「现在」钉在它上面
 
 
 def zone_data_available(refresh=False):
@@ -207,6 +213,52 @@ def monday_of(d):
     return d - dt.timedelta(days=d.weekday())
 
 
+# ---- 用户手写的日期和时刻（--date、record deadline 的 --due / --time）----
+def moment_ok(s):
+    """--date 的值写得对不对：YYYY-MM-DD，或写到时分的时刻（2026-09-25T23:59+10:00）。"""
+    return bool(parse_date(s)) and (parse_ts(s) is not None if HAS_CLOCK.search(str(s)) else True)
+
+
+def pin_now(s):
+    """把「现在」钉在 --date 给的那一刻：之后建的每个 Clock 都用它，日期、剩余天数、过没过期全从它算。"""
+    global _pinned
+    _pinned = str(s).strip() if s else None
+
+
+def norm_hhmm(s):
+    """时刻 → "HH:MM"：认 23:59、16.00、16：00、4pm、11:59pm、24:00（= 当天最后一刻）；认不出返回 None。"""
+    s = str(s or "").translate(FULLWIDTH).strip().lower().replace(" ", "")
+    m = re.fullmatch(r"(\d{1,2})(?:[:.](\d{1,2}))?(a\.?m\.?|p\.?m\.?)?", s)
+    if not m:
+        return None
+    h, mi, ap = int(m.group(1)), int(m.group(2) or 0), (m.group(3) or "")[:1]
+    if ap:
+        if not 1 <= h <= 12 or mi > 59:
+            return None
+        h = h % 12 + (12 if ap == "p" else 0)
+    elif (h, mi) == (24, 0):
+        h, mi = 23, 59
+    elif h > 23 or mi > 59:
+        return None
+    return f"{h:02d}:{mi:02d}"
+
+
+def norm_date(s, today):
+    """日期 → date：认 2026-09-20、2026/9/20、09-20、9.20；不写年份就补今年，补出来太久以前的算明年。认不出返回 None。"""
+    m = re.fullmatch(r"(?:(\d{4})[-/.])?(\d{1,2})[-/.](\d{1,2})", str(s or "").translate(FULLWIDTH).strip())
+    if not m:
+        return None
+    year, mo, day = m.group(1), int(m.group(2)), int(m.group(3))
+    for y in ([int(year)] if year else [today.year, today.year + 1]):
+        try:
+            d = dt.date(y, mo, day)
+        except ValueError:
+            return None
+        if year or (d - today).days >= -30:
+            return d
+    return None
+
+
 class Clock:
     def __init__(self, cfg):
         cfg = cfg or {}
@@ -228,10 +280,26 @@ class Clock:
         if not isinstance(term, dict):
             term = {"start": cfg.get("term_start"), "end": cfg.get("term_end"), "week1_monday": cfg.get("term_start"), "break": None}
         self.term = term
+        if _pinned:
+            t = self._moment(_pinned)
+            if t:
+                self.now_utc = lambda: t  # 钉在这个 Clock 上（不改类）：之后「现在」只有这一个来源
 
     # ---- now
     def now_utc(self):
         return dt.datetime.now(UTC).replace(microsecond=0)
+
+    def _moment(self, s):
+        """--date 的值 → UTC 时刻：写到时分就按写的算（没写时区按用户时区），只写日期就是那天的此时此刻。"""
+        if HAS_CLOCK.search(s):
+            try:
+                t = dt.datetime.fromisoformat(s.strip().replace("Z", "+00:00"))
+            except ValueError:
+                return None
+            t = t.replace(tzinfo=self.user_tz) if t.tzinfo is None else t
+            return t.astimezone(UTC).replace(microsecond=0)
+        d = parse_date(s)
+        return dt.datetime.combine(d, self.now_utc().astimezone(self.user_tz).timetz()).astimezone(UTC) if d else None
 
     def now_user(self):
         return self.now_utc().astimezone(self.user_tz)
@@ -259,22 +327,23 @@ class Clock:
         t = (t or self.now_utc()).astimezone(self.user_tz)
         return f"{t:%Y-%m-%d %H:%M}（{self.user_label}）"
 
-    @staticmethod
-    def rel(d, today, cap=60):
-        if d is None:
-            return ""
-        n = (d - today).days
-        if n == 0:
-            return "今天"
-        if n == 1:
-            return "明天"
-        if n < 0:
-            return f"已过 {-n} 天"
-        return f"还有 {n} 天" if n <= cap else ""
+    def days_ahead(self, t, now=None):
+        """课程时区里，t 落在此刻之后的第几个日历天（0 = 今天，负数 = 已经过去的天数）。显示的日期也是课程时区的，两边才对得上。"""
+        return (self.course_date(t) - self.course_date(now or self.now_utc())).days
 
-    def when_rel(self, t, today):
+    def rel(self, t, now=None, cap=60):
+        """剩余：过没过看真实时刻（差一小时也算过了），今天 / 明天 / 还有几天按课程时区的日历天数。"""
+        if t is None:
+            return ""
+        now = now or self.now_utc()
+        n = self.days_ahead(t, now)
+        if t <= now:
+            return f"已过 {-n} 天" if n < 0 else "已过期"
+        return "今天" if n == 0 else "明天" if n == 1 else (f"还有 {n} 天" if n <= cap else "")
+
+    def when_rel(self, t, now=None):
         s = self.fmt(t)
-        r = self.rel(self.course_date(t), today) if t else ""
+        r = self.rel(t, now) if t else ""
         return f"{s}，{r}" if r else s
 
     # ---- conversions
@@ -285,7 +354,8 @@ class Clock:
         return t.astimezone(self.user_tz).date() if t else None
 
     def course_local_to_utc(self, d, hhmm="00:00"):
-        h, m = (int(x) for x in (hhmm or "00:00").split(":")[:2])
+        """课程时区的某天某时刻 → UTC。时刻写错了当 00:00，绝不抛异常（写错的那行由调用方标出来）。"""
+        h, m = (int(x) for x in (norm_hhmm(hhmm) or "00:00").split(":"))
         return dt.datetime.combine(d, dt.time(h, m), tzinfo=self.course_tz).astimezone(UTC)
 
     # ---- term

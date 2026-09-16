@@ -1,3 +1,4 @@
+01_collect_touch GET /api/v1/courses?enrollment_state=active&include[]=term&per_page=100 -> 200
 01_collect_touch GET /api/v1/courses/2201/assignments?per_page=100&include[]=submission -> 200
 01_collect_touch GET /api/v1/courses/2201/assignments?include[]=submission&page=2&per_page=10 -> 200
 01_collect_touch GET /api/v1/courses/2201/modules?per_page=50&include[]=items&include[]=content_details -> 200
@@ -7,6 +8,7 @@
 01_collect_touch GET /api/v1/courses/2203/modules?per_page=50&include[]=items&include[]=content_details -> 200
 01_collect_touch GET /api/v1/announcements?context_codes[]=course_2201&context_codes[]=course_2202&context_codes[]=course_2203&start_date=2025-12-27&end_date=2026-02-26&per_page=50 -> 200
 01_collect_touch GET /api/v1/conversations?scope=inbox&per_page=30 -> 200
+20_collect_touch_json GET /api/v1/courses?enrollment_state=active&include[]=term&per_page=100 -> 200
 20_collect_touch_json GET /api/v1/courses/2201/assignments?per_page=100&include[]=submission -> 200
 20_collect_touch_json GET /api/v1/courses/2201/assignments?include[]=submission&page=2&per_page=10 -> 200
 20_collect_touch_json GET /api/v1/courses/2201/modules?per_page=50&include[]=items&include[]=content_details -> 200

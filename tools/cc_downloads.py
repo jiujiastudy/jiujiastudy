@@ -1,19 +1,57 @@
 """课件：下载队列（排队、后台 worker、崩溃回收）、单个文件的下载和文字提取、按课按周补下。
 
 课件永远不挡 deadline 和周报：采集只把新课件排进队列，由这里下。
+Canvas 给的显示名只当文件名用（safe_dest）：不当路径、不越出这门课的「课件」文件夹。
+课件文字要不要提取给 AI 读，按课开关（config.courses[].materials_ai，默认关）。
 """
 import json
 import os
 import re
+import sys
 import time
 import urllib.error
 import uuid
 import zipfile
 
+from cc_config import materials_ai
+from cc_paths import coach_cmd, safe_name
 from cc_store import FileLock, jload, jsave
 from deps import optional
 
 DOC_EXT = (".pdf", ".pptx", ".docx", ".doc")
+NAME_LIMIT = 80  # 文件名上限：Windows 整条路径只有 260
+RESERVED_NAMES = ({"CON", "PRN", "AUX", "NUL"} | {f"COM{i}" for i in range(1, 10)} | {f"LPT{i}" for i in range(1, 10)})
+AI_WORDS = re.compile(r"(?i)\bAI\b|artificial intelligence|generative|生成式|人工智能")
+POLICY_WORDS = re.compile(r"(?i)polic|guideline|integrity|declaration|规定|政策|规范|诚信|声明")
+
+
+def safe_filename(name, limit=NAME_LIMIT):
+    """Canvas 的显示名 → 一个文件名：去掉目录、非法字符和结尾的点，避开设备名，留住扩展名，长名截短。"""
+    base = os.path.basename(str(name or "").replace("\\", "/").rstrip("/"))
+    stem, ext = os.path.splitext(base)
+    ext = safe_name(ext, 16) if ext.strip(". ") else ""
+    if ext and not ext.startswith("."):
+        ext = "." + ext
+    stem = safe_name(stem, max(1, limit - len(ext))).rstrip(". ") or "未命名"  # 截短之后可能又落在点上
+    if stem.split(".")[0].upper() in RESERVED_NAMES:  # CON.pdf 在 Windows 上仍是设备名
+        stem = "_" + stem
+    return stem + ext
+
+
+def safe_dest(dirpath, name, unique=True):
+    """dirpath 里的落盘路径：名字只当名字用，重名加「 (2)」，越出 dirpath 就不写。"""
+    d = os.path.realpath(dirpath)
+    fn = safe_filename(name)
+    if unique:
+        stem, ext = os.path.splitext(fn)
+        n = 2
+        while os.path.exists(os.path.join(d, fn)):
+            fn = f"{stem} ({n}){ext}"
+            n += 1
+    dest = os.path.realpath(os.path.join(d, fn))
+    if os.path.dirname(dest) != d:
+        raise ValueError(f"文件名越出了目标文件夹：{fn}")
+    return dest
 
 
 def downloads_path(ctx):
@@ -45,20 +83,61 @@ def load_downloads(ctx):
 
 
 def queue_downloads(ctx, items):
-    """把新出的课件排进队列（按 id 去重），不下载。返回 (新加, 队列总数)。"""
+    """把新出的课件排进队列（按 id 去重），不下载。返回 (新加, 队列总数)。
+
+    `config set materials.auto_download false` 是真的关：文档一直这么写，之前代码没读它。
+    关了就一个都不排，用户要哪一周自己 `collect --materials 课 周`。
+    """
+    if (ctx.cfg.get("materials") or {}).get("auto_download") is False:
+        return 0, len(_load_downloads_unlocked(ctx)["queue"])
     with FileLock(_queue_lock_path(ctx)):
         d = _load_downloads_unlocked(ctx)
         seen = ({q.get("id") for q in d["queue"]} | {x.get("id") for x in d["done"]} |
                 {x.get("id") for x in d["in_progress"]})
-        added = 0
+        added, fresh = 0, []
         for it in items:
             if it.get("id") not in seen:
                 d["queue"].append({k: it.get(k) for k in ("id", "course", "module", "title", "url", "content_id", "type")})
                 seen.add(it.get("id"))
+                fresh.append(it)
                 added += 1
+        note = None if d.get("ai_note") or not added else _materials_ai_note(ctx, fresh)
+        if note:
+            d["ai_note"] = True
         if added or not os.path.exists(downloads_path(ctx)):
             jsave(downloads_path(ctx), d)
-        return added, len(d["queue"])
+        total = len(d["queue"])
+    if note:  # 第一次排课件时说一句；stdout 留给 --json
+        print(note, file=sys.stderr)
+    return added, total
+
+
+def _materials_ai_note(ctx, queued):
+    """第一次排课件时的一句话：原件照下，课件文字默认不交给 AI，某门课要开怎么开。"""
+    codes = [c for c in dict.fromkeys(it.get("course") for it in queued if it.get("course"))
+             if not materials_ai(ctx.cfg, c)]
+    if not codes:
+        return None
+    note = (f"课件照常下到「课件」文件夹；课件文字默认不交给 AI 读，"
+            f"要给某门课打开：{coach_cmd()} config course {codes[0]} --materials-ai on")
+    page = _ai_policy_page(ctx, codes)
+    return note + (f"。{page}" if page else "")
+
+
+def _ai_policy_page(ctx, codes):
+    """课程自己的模块里有没有一页在讲 AI 规定：有就点名，没有就不多说。"""
+    import cc_study
+    try:
+        mods = cc_study.load_modules(ctx)
+    except Exception:  # noqa: BLE001  提示而已，读不到就不提
+        return None
+    for code in codes:
+        for m in mods.get(code) or []:
+            for it in m.get("items") or []:
+                title = " ".join(str(it.get("title") or "").split())[:60]
+                if it.get("type") == "Page" and AI_WORDS.search(title) and POLICY_WORDS.search(title):
+                    return f"{code} 的模块里有「{title}」一页"
+    return None
 
 
 def run_downloads(ctx, cap=10, lock_token=None):
@@ -270,7 +349,8 @@ def extract_text(path):
                     txt.append(" ".join(re.findall(r"<(?:a|w):t[^>]*>([^<]*)</(?:a|w):t>", xml)))
                 return "\n".join(txt), None
         if ext == ".doc":
-            raw = open(path, "rb").read()
+            with open(path, "rb") as f:
+                raw = f.read()
             best = ""
             for enc in ("utf-16le", "cp1252"):
                 s = raw.decode(enc, "ignore")
@@ -305,7 +385,7 @@ def download_new(ctx, item, code, errors):
         return {"name": name, "skipped": f"{(meta.get('size') or 0) / 1e6:.0f}MB > {max_mb}MB"}
     dest_dir = ctx.materials_dir(code)
     os.makedirs(dest_dir, exist_ok=True)
-    dest = os.path.join(dest_dir, name)
+    dest = safe_dest(dest_dir, name)  # Canvas 的显示名只当名字用，且必须落在这门课的「课件」里
     try:
         _, body = ctx.api.fetch(meta["url"], accept="*/*")
     except Exception as e:  # noqa: BLE001
@@ -313,11 +393,13 @@ def download_new(ctx, item, code, errors):
         return None
     with open(dest, "wb") as f:
         f.write(body)
-    txt, err = extract_text(dest)
+    txt, err = ("", None)
+    if materials_ai(ctx.cfg, code):  # 默认不提取：原件下到本机，文字不交给 AI
+        txt, err = extract_text(dest)
     if txt.strip():  # 文字稿放机器档案里，课件文件夹只留原件
         tdir = ctx.P("text", code)
         os.makedirs(tdir, exist_ok=True)
-        with open(os.path.join(tdir, os.path.splitext(name)[0] + ".txt"), "w", encoding="utf-8") as f:
+        with open(safe_dest(tdir, os.path.splitext(os.path.basename(dest))[0] + ".txt", unique=False), "w", encoding="utf-8") as f:
             f.write(txt)
     r = {"name": name, "saved": dest, "bytes": len(body), "text": ("crude" if err == "crude" else bool(txt.strip()))}
     if err and err != "crude":
@@ -350,7 +432,7 @@ def collect_materials(ctx, code, week):
             if cd.get("locked_for_user"):
                 out.append({"name": it.get("title"), "skipped": "locked", "unlock_at": cd.get("unlock_at") or m.get("unlock_at")})
                 continue
-            if (it.get("title") or "").strip() in have:
+            if safe_filename(it.get("title")) in have:  # 盘上是清理过的名字，比对也用它
                 out.append({"name": it.get("title"), "skipped": "already"})
                 continue
             r = download_new(ctx, {"content_id": it.get("content_id")}, code, errors)

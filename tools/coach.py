@@ -9,12 +9,14 @@
   study   [--week N] [--write] [--zh FILE|-] [--out HTML] [--force]
           本周该学什么：脚本按模块和 deadline 排三桶和每天必做；--zh 传中文润色；--write 落盘并渲染
   record  done [目标] | mood 词 [--note] | product --file --status [--course --log] | pending 文本 --course [--blocks 日期 --ask-en --ask-zh]
-          | asked ID | resolve ID --resolution 文本 | decision 文本 [--course]
+          | asked ID | resolve ID --resolution 文本 | decision 文本 [--course] | note 作业id 文本
+          | deadline 事项 --course 课 --due 日期 [--time 时刻 --weight --url --pending] | deadline --list | deadline --remove 序号或事项
   week <plans/X.json> [--out HTML] [--md] [--record]   渲染一份现成的周计划 JSON
   guide <导读.json> [--out] [--record] · unit {unit|plan|vocab|mock|all} <src> [dst] · lecture <精讲.json> [--out]   工具箱渲染器
-  config show | get KEY | set KEY VALUE      看 / 改 config.json（KEY 用点号，如 term.week1_monday）
+  config show | get KEY | set KEY VALUE | course CODE [--materials-ai on|off]
+          看 / 改 config.json（KEY 用点号，如 term.week1_monday）；course 管这门课的课件文字交不交给 AI（默认 off，原件照下）
   migrate [--dry-run] · share [--out DIR] [--zip] · api get|download|post|upload …
-每个命令都接受 --home DIR、--date YYYY-MM-DD、--json（stdout 只有一个 JSON 对象，出错时是 {"error", "exit"}，命令写错也是）。--version 打印版本。
+每个命令都接受 --home DIR、--date（YYYY-MM-DD 或写到时分的时刻，把「现在」钉住）、--json（stdout 只有一个 JSON 对象，出错时是 {"error", "exit"}，命令写错也是）。--version 打印版本。
 退出码：0 成功（status 有提醒、还没建档也是 0；doctor 连上了 Canvas、档案齐了也是 0，列出的事照做）；
 1 有提醒或部分没完成（采集有错、doctor 还没连上 Canvas、发送被取消），不是失败；2 阻塞或出错（只打印一句中文）；3 档案版本太老。
 """
@@ -29,7 +31,7 @@ import urllib.error
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import brand  # noqa: E402
 import canvas_api  # noqa: E402
-from cc_config import CoachError, Ctx, missing_config_message, parse_value  # noqa: E402
+from cc_config import CoachError, Ctx, course_option, missing_config_message, parse_value  # noqa: E402
 from cc_paths import WEEK_PAGE, coach_cmd, home_dir  # noqa: E402
 from cc_store import get_key, load_json_arg, set_key  # noqa: E402
 
@@ -39,12 +41,11 @@ def out_json(obj):
 
 
 def date_of(ctx, args):
-    return args.date or ctx.clock.today_user().isoformat()
+    return today_of(ctx, args).isoformat()
 
 
 def today_of(ctx, args):
-    from cc_time import parse_date
-    return parse_date(args.date) if args.date else ctx.clock.today_user()
+    return ctx.clock.today_user()  # --date 已经把「现在」钉住了（check_date），今天从它算
 
 
 def _record_product_if(ctx, args, html_path, status, course=None):
@@ -225,10 +226,12 @@ def cmd_record(args):
     import cc_radar
     import cc_record
     import cc_state
-    ctx = Ctx(args.home, quiet=args.json)
     op = args.op
+    if op == "deadline" and not args.list and args.remove is None and not (args.item and args.course and args.due):
+        raise CoachError('要写事项、--course 和 --due，例：record deadline "Essay" --course ACCT1101 --due 09-20 --time 23:59', 2)
+    ctx = Ctx(args.home, quiet=args.json)
     if op == "product":
-        r = cc_record.record_product(ctx, args.file, args.status, course=args.course, log=args.log, date=args.date)
+        r = cc_record.record_product(ctx, args.file, args.status, course=args.course, log=args.log, date=date_of(ctx, args))
         msg = f"INDEX={r['index']} LOG=appended"
     elif op == "done":
         r = cc_record.mark_done(ctx, args.target, today_of(ctx, args))
@@ -241,11 +244,19 @@ def cmd_record(args):
     elif op == "note":
         r = cc_record.add_note(ctx, args.assignment_id, args.text)
         msg = f"记下了 [{r['assignment_id']}]：{r['note'] or '（已清除）'}。雷达里这条不再算过期。"
+    elif op == "deadline" and args.list:
+        r = {"deadlines": cc_record.list_deadlines(ctx)}
+        msg = "\n".join(f"{x['n']}. {x['course']} {x['item']} · {x['when']}" + ("（待确认）" if x["pending"] else "")
+                        for x in r["deadlines"]) or "还没记过手动 deadline。"
+    elif op == "deadline" and args.remove is not None:
+        r = cc_record.remove_deadline(ctx, args.remove)
+        msg = f"删掉了：{r.get('course')} {r.get('item')} {cc_record.deadline_text(ctx.clock, r)}"
     elif op == "deadline":
         r = cc_record.add_deadline(ctx, args.item, args.course, args.due, time=args.time, time_text=args.time_text, weight=args.weight,
                                    url=args.url, note=args.note, source=args.source, status=args.status, pending=args.pending,
                                    assignment_id=args.assignment_id)
-        msg = f"手动 deadline +1：{r['course']} {r['item']} {r['date']} {r.get('time') or r.get('time_text') or ''}".rstrip() + ("（待确认）" if r["pending"] else "")
+        msg = (f"手动 deadline {'更新' if r['action'] == 'updated' else '+1'}：{r['course']} {r['item']} "
+               f"{cc_record.deadline_text(ctx.clock, r)}").rstrip() + ("（待确认）" if r["pending"] else "")
     elif op == "mood":
         r = cc_state.add_mood(ctx, args.word, note=args.note)
         today = today_of(ctx, args)
@@ -354,6 +365,11 @@ def cmd_config(args):
         if not args.json:
             print(json.dumps(v, ensure_ascii=False))
         return 0, {"key": args.key, "value": v}
+    if args.op == "course":
+        res = course_option(ctx, args.code, args.materials_ai)
+        if not args.json:
+            print(res["message"])
+        return 0, res
     set_key(ctx.raw_cfg, args.key, parse_value(args.value))
     ctx.save_config()
     if not args.json:
@@ -479,7 +495,7 @@ class ArgParser(argparse.ArgumentParser):
 def build_parser():
     common = ArgParser(add_help=False)
     common.add_argument("--home", default=None, help=f"档案目录（默认 {brand.env_name('HOME')} 或桌面 {brand.NAME}/.coach）")
-    common.add_argument("--date", default=None, help="YYYY-MM-DD，默认用户时区的今天")
+    common.add_argument("--date", default=None, help="把「现在」钉在某一刻：YYYY-MM-DD（那天此刻）或 2026-09-25T23:59+10:00，默认真实时钟")
     common.add_argument("--json", action="store_true", help="stdout 只输出一个 JSON 对象")
     desc = __doc__.replace("<NAME>", brand.NAME).replace("<HOME_ENV>", brand.env_name("HOME"))
     ap = ArgParser(prog="coach.py", description=desc, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -540,8 +556,10 @@ def build_parser():
     q = rs.add_parser("decision", parents=[common]); q.add_argument("text"); q.add_argument("--course")
     q = rs.add_parser("note", parents=[common], help="作业说明：Canvas 日期只是占位等"); q.add_argument("assignment_id"); q.add_argument("text")
     q = rs.add_parser("deadline", parents=[common], help="手动 deadline（公告 / 大纲 / 老师说的）")
-    q.add_argument("item"); q.add_argument("--course", required=True); q.add_argument("--due", required=True, help="YYYY-MM-DD（课程时区）")
-    q.add_argument("--time", help="HH:MM"); q.add_argument("--time-text", dest="time_text", help="写不出具体时刻时的文字，如「课上」")
+    q.add_argument("item", nargs="?"); q.add_argument("--course"); q.add_argument("--due", help="课程时区的日期：2026-09-20 或 09-20")
+    q.add_argument("--time", help="HH:MM，也认 4pm / 11:59pm"); q.add_argument("--time-text", dest="time_text", help="写不出具体时刻时的文字，如「课上」")
+    q.add_argument("--list", action="store_true", help="列出记过的手动 deadline（带序号）")
+    q.add_argument("--remove", help="删掉一条：序号或事项名")
     q.add_argument("--weight"); q.add_argument("--url"); q.add_argument("--note"); q.add_argument("--source"); q.add_argument("--status")
     q.add_argument("--pending", action="store_true", help="还没确认：进区块二"); q.add_argument("--assignment-id", dest="assignment_id", help="替换 Canvas 上的这条作业")
     p.set_defaults(fn=cmd_record)
@@ -564,6 +582,8 @@ def build_parser():
     cs.add_parser("show", parents=[common])
     q = cs.add_parser("get", parents=[common]); q.add_argument("key")
     q = cs.add_parser("set", parents=[common]); q.add_argument("key"); q.add_argument("value")
+    q = cs.add_parser("course", parents=[common]); q.add_argument("code")
+    q.add_argument("--materials-ai", dest="materials_ai", choices=["on", "off"], help="这门课的课件要不要提取文字给 AI 读（默认 off）")
     p.set_defaults(fn=cmd_config)
 
     p = sub.add_parser("migrate", parents=[common]); p.add_argument("--dry-run", dest="dry_run", action="store_true"); p.set_defaults(fn=cmd_migrate)
@@ -603,10 +623,13 @@ def _reorder_globals(argv):
 
 
 def check_date(args):
-    """--date 进命令之前先查：写错了只报一句。"""
-    from cc_time import parse_date
-    if getattr(args, "date", None) and parse_date(args.date) is None:
-        raise CoachError(f"日期要写成 YYYY-MM-DD：{args.date}", 2)
+    """--date 进命令之前先查，再把「现在」钉在它上面：写错了只报一句。"""
+    import cc_time
+    if not getattr(args, "date", None):
+        return
+    if not cc_time.moment_ok(args.date):
+        raise CoachError(f"日期要写成 YYYY-MM-DD，或写到时分的时刻 2026-09-25T23:59+10:00：{args.date}", 2)
+    cc_time.pin_now(args.date)
 
 
 def describe_error(e):

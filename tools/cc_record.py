@@ -5,7 +5,7 @@ import re
 
 from cc_config import CoachError
 from cc_store import jload, jsave
-from cc_time import parse_date
+from cc_time import norm_date, norm_hhmm, parse_date
 
 INDEX_HEADER = ["# 产物索引", "", "| 文件 | 日期 | 课程 | 状态 |", "|---|---|---|---|"]
 INDEX_LEGEND = "> 📦 = 已交付；✅ = 你确认读过/做过。只有你说了才改成 ✅。"
@@ -139,16 +139,71 @@ def add_note(ctx, assignment_id, text):
     return {"assignment_id": str(assignment_id), "note": text}
 
 
-def add_deadline(ctx, item, course, date, time=None, time_text=None, weight=None, url=None, note=None, source=None,
-                 status=None, pending=False, assignment_id=None):
-    """手动 deadline（公告 / 大纲 / 老师说的）：进雷达区块一；pending=True 进区块二。url 或 assignment_id 指向某个 Canvas 作业时替换那一行。"""
-    row = {"course": course, "item": (item or "").strip(), "date": date, "time": time, "time_text": time_text, "weight": weight or "—",
-           "status": status or "未交", "note": note or "", "source": source or "用户 / 公告", "url": url, "pending": bool(pending),
-           "assignment_id": str(assignment_id) if assignment_id else None, "added": ctx.clock.today_user().isoformat()}
-    ctx.state.setdefault("manual_deadlines", []).append(row)
-    append_log(ctx, f"手动 deadline +1 {course} {row['item']} {date} {time or time_text or ''}".rstrip())
+def deadline_text(clock, row):
+    """一条手动 deadline 的时间，给人看：09-20 周日 23:59 / 09-20 周日 课上 / 时间写错了。"""
+    d = parse_date(row.get("date"))
+    t = row.get("time")
+    if not d or (t and not norm_hhmm(t)):
+        return "时间写错了"
+    return " ".join(x for x in (clock.fmt_date(d), norm_hhmm(t) if t else (row.get("time_text") or "")) if x)
+
+
+def list_deadlines(ctx):
+    """记过的手动 deadline，序号从 1 起（--remove 用得上）。"""
+    return [{"n": i, "course": m.get("course"), "item": m.get("item"), "date": m.get("date"), "time": m.get("time"),
+             "time_text": m.get("time_text"), "when": deadline_text(ctx.clock, m), "pending": bool(m.get("pending")),
+             "weight": m.get("weight"), "source": m.get("source")}
+            for i, m in enumerate(ctx.state.get("manual_deadlines") or [], 1)]
+
+
+def remove_deadline(ctx, which):
+    """删掉一条手动 deadline：--list 里的序号，或事项名（写全了，或只对上一条的一段）。"""
+    rows = ctx.state.get("manual_deadlines") or []
+    key = str(which or "").strip()
+    if key.isdigit() and 1 <= int(key) <= len(rows):
+        hit = int(key) - 1
+    else:
+        same = [i for i, m in enumerate(rows) if (m.get("item") or "").strip().lower() == key.lower()]
+        part = same or ([i for i, m in enumerate(rows) if key and key.lower() in (m.get("item") or "").lower()])
+        if len(part) > 1:
+            raise CoachError(f"「{key}」对上了 {len(part)} 条，用 record deadline --list 看序号再删", 2)
+        if not part:
+            raise CoachError(f"没有这条手动 deadline：{key}（用 record deadline --list 看序号）", 2)
+        hit = part[0]
+    row = rows.pop(hit)
+    append_log(ctx, f"手动 deadline 删掉 {row.get('course')} {row.get('item')} {deadline_text(ctx.clock, row)}")
     touch(ctx)
     return row
+
+
+def add_deadline(ctx, item, course, date, time=None, time_text=None, weight=None, url=None, note=None, source=None,
+                 status=None, pending=False, assignment_id=None):
+    """手动 deadline（公告 / 大纲 / 老师说的）：进雷达区块一；pending=True 进区块二。url 或 assignment_id 指向某个 Canvas 作业时替换那一行。
+
+    日期和时刻当场规整：09-20、9/20、4pm、11:59pm、16：00 都认，认不出来就退回（退出码 2），不留到雷达那边才出事。
+    同一门课同一件事再记一次是更新，不是多一条。"""
+    clock = ctx.clock
+    d = norm_date(date, clock.course_date(clock.now_utc()))
+    if not d:
+        raise CoachError(f"--due 写成 2026-09-20 或 09-20，「{date}」认不出来", 2)
+    hhmm = norm_hhmm(time) if time else None
+    if time and not hhmm:
+        raise CoachError(f"--time 写成 23:59 或 11:59pm，「{time}」认不出来", 2)
+    row = {"course": course, "item": (item or "").strip(), "date": d.isoformat(), "time": hhmm, "time_text": time_text,
+           "weight": weight or "—", "status": status or "未交", "note": note or "", "source": source or "用户 / 公告", "url": url,
+           "pending": bool(pending), "assignment_id": str(assignment_id) if assignment_id else None,
+           "added": ctx.clock.today_user().isoformat()}
+    rows = ctx.state.setdefault("manual_deadlines", [])
+    old = next((x for x in rows if (x.get("item") or "").strip().lower() == row["item"].lower()
+                and (x.get("course") or "").upper() == (course or "").upper()), None)
+    if old:
+        row["added"] = old.get("added") or row["added"]
+        rows[rows.index(old)] = row
+    else:
+        rows.append(row)
+    append_log(ctx, f"手动 deadline {'更新' if old else '+1'} {course} {row['item']} {deadline_text(clock, row)}".rstrip())
+    touch(ctx)
+    return dict(row, action="updated" if old else "added")
 
 
 # ---------------------------------------------------------------- weekly plan ticks

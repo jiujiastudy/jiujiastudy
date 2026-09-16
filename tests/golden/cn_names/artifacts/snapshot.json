@@ -747,7 +747,9 @@
  "conversations": {
   "80001": "2026-03-25T01:30:00Z"
  },
+ "inactive": {},
  "raw_dir": ".coach/raw/daily/2026-03-25",
  "collected_at": "<NOW>",
+ "stale": {},
  "complete": true
 }

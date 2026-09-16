@@ -138,9 +138,10 @@ class Canvas:
                     "lock_explanation": meta.get("lock_explanation")}
         if max_bytes and (meta.get("size") or 0) > max_bytes:
             return {"skipped": f"{(meta.get('size') or 0) / 1e6:.0f}MB", "name": name}
+        import cc_downloads  # 显示名只当文件名用，且必须落在 dest_dir 里
         _, body = self.fetch(meta["url"], accept="*/*")
         os.makedirs(dest_dir, exist_ok=True)
-        dest = os.path.join(dest_dir, name)
+        dest = cc_downloads.safe_dest(dest_dir, name)
         with open(dest, "wb") as f:
             f.write(body)
         return {"saved": dest, "name": name, "bytes": len(body), "updated_at": meta.get("updated_at")}

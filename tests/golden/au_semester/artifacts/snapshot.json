@@ -1603,7 +1603,9 @@
   "80001": "2026-03-23T02:10:00Z",
   "80002": "2026-03-11T23:00:00Z"
  },
+ "inactive": {},
  "raw_dir": ".coach/raw/daily/2026-03-25",
  "collected_at": "<NOW>",
+ "stale": {},
  "complete": true
 }

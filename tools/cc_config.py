@@ -12,6 +12,7 @@ import re
 import sys
 
 import brand
+from cc_courses import course_by_code
 from cc_paths import coach_cmd, fwd, home_dir, rel_home, root_dir, safe_name
 from cc_store import jload, jsave
 
@@ -88,6 +89,24 @@ def parse_value(s):
         return json.loads(s)
     except (TypeError, ValueError):
         return s
+
+
+def materials_ai(cfg, code):
+    """这门课的课件要不要提取文字给 AI 读：默认不提取，按课打开。原件照下，不受这个开关影响。"""
+    return bool((course_by_code(cfg or {}, code) or {}).get("materials_ai"))
+
+
+def course_option(ctx, code, materials_ai_value=None):
+    """config course <CODE> [--materials-ai on|off]：看 / 改这门课的开关。只管课件文字交不交给 AI。"""
+    course = course_by_code(ctx.raw_cfg, code)
+    if course is None:
+        raise CoachError(f"config.json 里没有课程 {code}：先看 {coach_cmd()} config get courses", 2)
+    if materials_ai_value is not None:
+        course["materials_ai"] = materials_ai_value == "on"
+        ctx.save_config()
+    on = bool(course.get("materials_ai"))
+    state = "交给 AI 读（提取到 text/）" if on else "不交给 AI（只下原件，不提取文字）"
+    return {"course": course.get("code"), "materials_ai": on, "message": f"{course.get('code')}：课件文字{state}"}
 
 
 def detect_exam_prep(home):

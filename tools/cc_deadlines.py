@@ -8,7 +8,7 @@ import os
 import re
 
 from cc_store import jload
-from cc_time import parse_date, parse_ts, text_datetimes
+from cc_time import norm_hhmm, parse_date, parse_ts, text_datetimes
 
 EXAM_RE = re.compile(r"(?i)\b(exam|test|quiz|midterm|final)\b|考试|测验|小测")
 def _ann_texts(ctx, days=120):
@@ -158,12 +158,44 @@ def status_text(a, clock):
     return "未交"
 
 
+def manual_row(clock, m, now, start, end):
+    """一条手动 deadline → 雷达行（不在窗口里返回 None）。日期或时刻是自己记的，可能写错：
+    写错的那行不丢也不崩，标「时间写错了」进待确认，等 record deadline --list / --remove 收拾。"""
+    d = parse_date(m.get("date"))
+    hhmm = norm_hhmm(m.get("time")) if m.get("time") else None
+    bad = bool(m.get("time")) and not hhmm
+    row = {"id": None, "course": m.get("course", ""), "item": m.get("item", ""), "url": m.get("url"),
+           "weight": m.get("weight", "—"), "status": m.get("status", ""), "note": m.get("note", ""),
+           "src": m.get("source", ""), "pending": bool(m.get("pending")), "origin": "manual",
+           "kind": "exam" if EXAM_RE.search(m.get("item") or "") else "assignment", "submission_types": [],
+           "overdue": False, "undated": False}
+    if not d:
+        row.update({"t": clock.course_local_to_utc(end, "23:59"), "date": None, "when": "时间写错了",
+                    "rel": "", "days_left": None, "pending": True, "undated": True})
+        return row
+    if not start <= d <= end:
+        return None
+    t = clock.course_local_to_utc(d, hhmm or "00:00")     # 排序用：没写时刻的排在那天最前
+    due = clock.course_local_to_utc(d, hhmm or "23:59")   # 比较用：没写时刻的算到那天结束
+    when = f"{clock.fmt_date(d)} 时间写错了" if bad else (
+        clock.fmt(t) if hhmm else f"{clock.fmt_date(d)} {m.get('time_text', '')}".strip())
+    row.update({"t": t, "date": d, "when": when, "rel": clock.rel(due, now), "days_left": (d - start).days,
+                "pending": row["pending"] or bad})
+    return row
+
+
 def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undated=True):
     """未来 days 天的 deadline：Canvas due_at（没有就用 lock_at）+ 手动 deadline + 没写日期的计分作业 / 考试（待确认）+ 已过期未交。纯数据。
     state.deadline_notes[作业id] 说明过的（如「Canvas 日期只是占位」）：不算过期，进区块二带着说明；
-    手动 deadline 的 url 或 assignment_id 指向同一作业时，Canvas 那行不再出现（以手动的为准）。"""
+    手动 deadline 的 url 或 assignment_id 指向同一作业时，Canvas 那行不再出现（以手动的为准）。
+
+    比较只用两样东西：真实时刻（now，--date 可以钉住）决定过没过期，课程时区的日历天决定今天 / 明天 / 还有几天和 14 天窗口。
+    手动 deadline 也先按课程时区换算成时刻再比；参数 today 是用户时区的今天，只留给调用方对齐报告日期。"""
     clock, state = ctx.clock, ctx.state
-    end = today + dt.timedelta(days=days)
+    now = clock.now_utc()
+    start = clock.course_date(now)
+    end = start + dt.timedelta(days=days)
+    oldest = now - dt.timedelta(days=21)  # 已过期未交只回看 21 天
     notes = {str(k): v for k, v in (state.get("deadline_notes") or {}).items() if v}
     manual = state.get("manual_deadlines") or []
     _idx = {}
@@ -209,52 +241,39 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
         noted = notes.get(str(aid))
         if due:
             d = clock.course_date(due)
-            if noted and unsub and d < today:
+            if noted and unsub and due <= now:
                 if include_undated:
                     r = base(a, aid)
                     r.update({"t": clock.course_local_to_utc(end, "23:59"), "date": None, "when": f"{clock.fmt(due)}（Canvas 日期只是占位）",
                               "rel": "", "days_left": None, "pending": True, "undated": True, "src": f"你说明过：{noted}"})
                     rows.append(r)
-            elif today <= d <= end:
+            elif now < due and d <= end:
                 r = base(a, aid)
-                r.update({"t": due, "date": d, "when": clock.fmt(due) + ("（锁定时间当截止）" if via_lock else ""), "rel": clock.rel(d, today),
-                          "days_left": (d - today).days, "pending": via_lock, "src": "Canvas lock_at" if via_lock else "Canvas due_at"})
+                r.update({"t": due, "date": d, "when": clock.fmt(due) + ("（锁定时间当截止）" if via_lock else ""), "rel": clock.rel(due, now),
+                          "days_left": (d - start).days, "pending": via_lock, "src": "Canvas lock_at" if via_lock else "Canvas due_at"})
                 rows.append(r)
-            elif include_overdue and counts and unsub and not noted and today - dt.timedelta(days=21) <= d < today:
+            elif include_overdue and counts and unsub and not noted and oldest <= due <= now:
                 r = base(a, aid)
-                r.update({"t": due, "date": d, "when": clock.fmt(due), "rel": clock.rel(d, today), "days_left": (d - today).days,
+                r.update({"t": due, "date": d, "when": clock.fmt(due), "rel": clock.rel(due, now), "days_left": (d - start).days,
                           "pending": False, "overdue": True, "src": "Canvas due_at"})
                 rows.append(r)
         elif include_undated and counts and unsub:
             ua = parse_ts(a.get("unlock_at"))
             r = base(a, aid)
-            hit = announced_date(ctx, a, today, end, ann_index(), only_exam.get(a.get("course"), 0) == 1)
+            hit = announced_date(ctx, a, start, end, ann_index(), only_exam.get(a.get("course"), 0) == 1)
             if hit:  # 作业页没写，但公告里写明了：填上日期，仍然留在「待确认」区
                 d, hhmm, title = hit
                 t = clock.course_local_to_utc(d, hhmm or "23:59")
                 r.update({"t": t, "date": d, "when": clock.fmt(t) + ("" if hhmm else "（公告只写了日期）"),
-                          "rel": clock.rel(d, today), "days_left": (d - today).days,
+                          "rel": clock.rel(t, now), "days_left": (d - start).days,
                           "pending": True, "undated": False, "src": f"公告《{title}》"})
             else:
-                when = (f"{clock.fmt_date(clock.course_date(ua))} 解锁，截止未写" if ua and clock.course_date(ua) > today else "Canvas 没写日期")
+                when = (f"{clock.fmt_date(clock.course_date(ua))} 解锁，截止未写" if ua and clock.course_date(ua) > start else "Canvas 没写日期")
                 r.update({"t": clock.course_local_to_utc(end, "23:59"), "date": None, "when": when, "rel": "", "days_left": None,
                           "pending": True, "undated": True, "src": "作业页没有 due_at"})
             rows.append(r)
     for m in manual:
-        d = parse_date(m.get("date"))
-        if not d or not (today <= d <= end):
-            continue
-        if m.get("time"):
-            t = clock.course_local_to_utc(d, m["time"])
-            when = clock.fmt(t)
-        else:
-            t = clock.course_local_to_utc(d, "00:00")
-            when = f"{clock.fmt_date(d)} {m.get('time_text', '')}".strip()
-        rows.append({"id": None, "t": t, "date": d, "when": when, "rel": clock.rel(d, today), "days_left": (d - today).days,
-                     "course": m.get("course", ""), "item": m.get("item", ""), "url": m.get("url"),
-                     "weight": m.get("weight", "—"), "status": m.get("status", ""), "note": m.get("note", ""),
-                     "src": m.get("source", ""), "pending": bool(m.get("pending")), "origin": "manual",
-                     "kind": "exam" if EXAM_RE.search(m.get("item") or "") else "assignment", "submission_types": [],
-                     "overdue": False, "undated": False})
+        rows.append(manual_row(clock, m, now, start, end))
+    rows = [r for r in rows if r]
     rows.sort(key=lambda r: r["t"])
     return rows

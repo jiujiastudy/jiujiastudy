@@ -9,7 +9,7 @@
 
 ## 拿课件
 - 采集只排队不下载；后台补：`collect --download --background`（只消费已有队列；同一档案最多一个 worker，立刻返回）。要某门课某一周现在就下：`collect --materials 课程代码 周`（前台，下完再继续）。锁定的会标「未解锁」和解锁时间。
-- 一次前台下载：`collect --download`（本周的先，最多 10 个）。想关掉自动排队：`config set materials.auto_download false`。
+- 一次前台下载：`collect --download`（本周的先，最多 10 个）。想关掉自动排队：`config set materials.auto_download false`（关了就一个都不排，要哪周自己 `collect --materials 课 周`）。
 
 ## 页面（先读 references/style.md）
 - 一次性页面（导读、讲义、对比图、讲稿、排练表）：按这次的内容自己设计，`from design import head, foot`，只用 style.md 里的组件，存进「产出」；交之前用当前已选定的 Python 跑 `tools/style_check.py 文件`，再在 390 宽和 1280 宽各看一眼。

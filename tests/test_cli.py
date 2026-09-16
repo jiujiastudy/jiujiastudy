@@ -93,10 +93,12 @@ class CommandLineTest(unittest.TestCase):
         self.assertEqual(os.path.normcase(other), os.path.normcase(r.json()["home"]))
 
     def test_unexpected_error_is_one_chinese_line_and_exit_2(self):
-        # A hand-edited manual deadline with a 12-hour time used to end in a Python traceback.
-        def bad_time(state):
-            state["manual_deadlines"] = [{"course": "ACCT1101", "item": "Essay", "date": "2026-03-27", "time": "9pm"}]
-        sc = self.seed(state_patch=bad_time)
+        # A hand-edited archive with the wrong shape (deadline_notes is an object, not a list) still ends in
+        # one Chinese line. S10 moved the old vehicle out of this test: a 12-hour --time is now refused when
+        # it is recorded, and a stored bad time renders as 「时间写错了」 (tests/test_time_and_manual.py).
+        def bad_shape(state):
+            state["deadline_notes"] = ["老师说 Canvas 日期只是占位"]
+        sc = self.seed(state_patch=bad_shape)
         r = self.run_cli("status", "--date", sc.meta["date"])
         self.assertEqual(2, r.code, r.stderr)
         self.assertEqual("", r.stdout)

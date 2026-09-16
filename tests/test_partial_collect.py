@@ -93,6 +93,18 @@ class PartialCollect(unittest.TestCase):
         self.assertFalse(d["promoted"], "一门都没采到还提升，等于拿旧数据冒充新的")
         self.assertFalse(d["complete"])
 
+    def test_可选接口挂了_照样落盘(self):
+        """公告、站内信、考试站点探针都是可选的：它们挂了不该把采到的作业一起扔掉。
+
+        真机实测：考试站点回 403「未开放」是常态，旧代码因此整批不落盘。
+        """
+        self.collect()
+        self.mock.force_status(r"/announcements", 503)
+        self.mock.force_status(r"/conversations", 500)
+        _, d = self.collect("--force")
+        self.assertTrue(d["promoted"], f"可选接口挂了不该整批失败：{d['errors']}")
+        self.assertTrue(self.snapshot()["assignments"], "作业照样要落盘")
+
     def test_只有模块挂了_deadline照样更新(self):
         self.collect()
         self.mock.force_status(r"/courses/1101/modules", 503)
@@ -147,6 +159,32 @@ class CourseListRefresh(unittest.TestCase):
         paths = [q["path"] for q in self.mock.requests()]
         self.assertFalse(any(p.endswith("/courses/1101/assignments") for p in paths[-6:]),
                          "已经看不到的课不该继续去拉")
+
+    def test_两年前的旧课不进清单(self):
+        """悉大真机实测：enrollment_state=active 把 2022/2023 的课一起带回来了。"""
+        self.collect()
+        self.sc.courses.append({"id": 1050, "name": "ARIN1001 The Past and Futures of Digital Cultures",
+                                "course_code": "2023_ARIN1001_S1C", "_active": True,
+                                "term": {"id": 280, "name": "Semester 1 2023",
+                                         "start_at": "2023-02-20T13:00:00Z", "end_at": "2023-06-26T13:59:00Z"}})
+        self.sc.course[1050] = blank_course()
+
+        _, d = self.collect("--force")
+
+        self.assertNotIn(1050, [c["id"] for c in self.config()["courses"]], "两三年前的课不该当成新课加进来")
+        self.assertEqual([], d["course_changes"])
+
+    def test_挂在Default_Term上的老站点不进清单(self):
+        """真机实测：LIBR1000（2021 年开的通识站点）的学期是没有日期的 Default Term，靠课程自己的起止日筛掉。"""
+        self.collect()
+        self.sc.courses.append({"id": 1060, "name": "COMM1000 Digital Literacy", "course_code": "2021_UNIV_COMM1000",
+                                "_active": True, "start_at": "2021-08-09T14:00:00Z", "end_at": None,
+                                "term": {"id": 1, "name": "Default Term", "start_at": None, "end_at": None}})
+        self.sc.course[1060] = blank_course()
+
+        _, d = self.collect("--force")
+
+        self.assertNotIn(1060, [c["id"] for c in self.config()["courses"]])
 
     def test_图书馆之类的站点不进课程清单(self):
         self.sc.courses.append({"id": 1901, "name": "Library Skills Hub", "course_code": "2026_LIB", "_active": True})

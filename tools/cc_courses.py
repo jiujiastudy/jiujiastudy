@@ -15,12 +15,17 @@ def course_code_of(course):
     """从 Canvas 课程对象或 course_code 字符串得到短代码。宽容：任何学校的写法都不丢课。"""
     cc = course.get("course_code") if isinstance(course, dict) else course
     cc = (cc or "").strip()
-    lead = re.match(r"^(\d{4,8})(?:[_\- ]|$)", cc)  # 31251_AUT2026 这种：取开头的数字，别把学期当代码（S38）
+    m = re.search(r"([A-Za-z]{2,6})[ -]?(\d{2,5}[A-Za-z]?)", cc)
+    if m and not TERM_RE.match(m.group(1) + m.group(2)):
+        return (m.group(1) + m.group(2)).upper()
+    # 「2023_ARIN1001_S1C」里的正规代码在课名里；「31251_AUT2026」这种才真的只有数字（S38）
+    name = course.get("name") if isinstance(course, dict) else None
+    m2 = re.search(r"([A-Za-z]{2,6})[ -]?(\d{2,5}[A-Za-z]?)", name or "")
+    if m2 and not TERM_RE.match(m2.group(1) + m2.group(2)):
+        return (m2.group(1) + m2.group(2)).upper()
+    lead = re.match(r"^(\d{4,8})(?:[_\- ]|$)", cc)
     if lead:
         return lead.group(1)
-    m = re.search(r"([A-Za-z]{2,6})[ -]?(\d{2,5}[A-Za-z]?)", cc)
-    if m and not TERM_RE.match((m.group(1) + m.group(2))):
-        return (m.group(1) + m.group(2)).upper()
     if m:
         return (m.group(1) + m.group(2)).upper()
     slug = re.sub(r"[^A-Za-z0-9]", "", cc).upper()
@@ -50,6 +55,26 @@ def looks_like_non_course(name, code=None):
     if SOFT_NON_COURSE_RE.search(s) and not has_course_code(s):
         return True
     return bool(re.match(r"^\d{4}_", s))
+
+
+def in_current_term(course, today, before=14, after=7):
+    """这门课的学期是不是当前的：开学前 14 天到结课后 7 天算在读。
+
+    Canvas 的 enrollment_state=active 并不代表「这学期在上」——悉大的旧选课记录一直是 active，
+    两三年前的课照样回来（真机实测：ARIN1001 2023、ECON1001 2022）。只能靠学期日期筛。
+    """
+    import datetime as _dt
+
+    from cc_time import parse_date
+    term = (course.get("term") or {}) if isinstance(course, dict) else {}
+    s, e = parse_date(term.get("start_at")), parse_date(term.get("end_at"))
+    if s is None and e is None:  # 「Default Term」没有日期：退回课程自己的起止（真机实测：LIBR1000 挂在 Default Term）
+        s, e = parse_date(course.get("start_at")), parse_date(course.get("end_at"))
+        if s is None and e is None:
+            return True  # 一个日期都查不到：判断不了，就当在读（宁可多一门，不漏报）
+        if e is None:
+            return s is not None and today - _dt.timedelta(days=300) <= s <= today + _dt.timedelta(days=before)
+    return (s is None or s <= today + _dt.timedelta(days=before)) and (e is None or e >= today - _dt.timedelta(days=after))
 
 
 def course_pairs(cfg, include_inactive=True):

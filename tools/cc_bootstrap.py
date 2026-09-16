@@ -2,7 +2,7 @@
 import datetime as dt
 
 from cc_config import SCHEMA_VERSION
-from cc_courses import course_code_of, looks_like_non_course
+from cc_courses import course_code_of, in_current_term, looks_like_non_course
 from cc_time import machine_zone, normalize_zone, parse_date
 
 
@@ -31,8 +31,7 @@ def bootstrap_config(home, host, api, me, all_courses=False, tz_override=None):
     for c in raw or []:
         term = c.get("term") or {}
         s, e = parse_date(term.get("start_at")), parse_date(term.get("end_at"))
-        active = (s is None or s <= today + dt.timedelta(days=14)) and (e is None or e >= today - dt.timedelta(days=7))
-        if not (all_courses or active):
+        if not (all_courses or in_current_term(c, today)):
             continue
         if looks_like_non_course(c.get("name"), c.get("course_code")) or looks_like_non_course(c.get("course_code"), c.get("course_code")):
             skipped.append(f"{c.get('course_code') or c.get('name')}（{c.get('id')}）")

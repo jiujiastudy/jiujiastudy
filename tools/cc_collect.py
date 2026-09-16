@@ -139,9 +139,9 @@ def refresh_courses(ctx, api, errors):
     课程清单原来只在第一次建档时拉一次，于是下学期的课、后加的课永远不出现，
     学生看不到任何提示。这里只动 config，不动已经采到的数据。
     """
-    from cc_courses import course_code_of, looks_like_non_course
+    from cc_courses import course_code_of, in_current_term, looks_like_non_course
     try:
-        live = api.get("/api/v1/courses?enrollment_state=active&per_page=100")
+        live = api.get("/api/v1/courses?enrollment_state=active&include[]=term&per_page=100")
     except Exception as e:  # noqa: BLE001  课程清单拉不到不该挡住采集
         errors.append(f"课程清单没刷新（{type(e).__name__}）")
         return []
@@ -164,10 +164,12 @@ def refresh_courses(ctx, api, errors):
         name, code_raw = c.get("name"), c.get("course_code")
         if looks_like_non_course(name, code_raw) or looks_like_non_course(code_raw, code_raw):
             continue
+        if not in_current_term(c, ctx.clock.today_user()):
+            continue  # 旧学期的课还挂在 active 里，不往清单里加
         code = course_code_of(c)
         raw["courses"].append({"id": c.get("id"), "code": code, "name": name})
         changes.append(f"新课程：{code} {name}")
-    for cid, c in known.items():
+    for cid, c in known.items():  # 整个清单里都没有了才算看不到；学期过了不算（学期结束照样要能查旧数据）
         if cid not in seen and not c.get("inactive"):
             c["inactive"] = True
             changes.append(f"{c.get('code')} 在 Canvas 上看不到了（结课或退课），数据保留")
@@ -229,8 +231,10 @@ def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
     # Canvas 不给 end_date 时只回 start_date 起 28 天。
     end_q = (clock.now_utc() + dt.timedelta(days=1)).date().isoformat()
     ctxq = "&".join(f"context_codes[]=course_{cid}" for cid, _ in courses)
-    anns = get(f"/api/v1/announcements?{ctxq}&start_date={start}&end_date={end_q}&per_page=50", "announcements.json") or []
-    convs = [] if quick else (get("/api/v1/conversations?scope=inbox&per_page=30", "conversations.json") or [])
+    anns = get(f"/api/v1/announcements?{ctxq}&start_date={start}&end_date={end_q}&per_page=50", "announcements.json",
+               kind="announcements") or []
+    convs = [] if quick else (get("/api/v1/conversations?scope=inbox&per_page=30", "conversations.json",
+                                  kind="conversations") or [])
 
     readiness = {}
     if not quick:
@@ -240,7 +244,7 @@ def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
             label = site.get("label") or f"{site.get('kind')} {site.get('course_id')}"
             n0 = len(errors)
             if site.get("kind") == "exam_site":
-                r = get(f"/api/v1/courses/{site['course_id']}", f"site_{site['course_id']}.json")
+                r = get(f"/api/v1/courses/{site['course_id']}", f"site_{site['course_id']}.json", kind="readiness")
                 if r is None:
                     e = errors[n0] if len(errors) > n0 else "未知"
                     del errors[n0:]  # readiness probes are optional; never freeze core deadlines
@@ -252,7 +256,7 @@ def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
                     readiness[label] = f"已开放：{r.get('name')}（{r.get('workflow_state')}）"
             elif site.get("kind") == "byod_quiz" and site.get("assignment_id"):
                 r = get(f"/api/v1/courses/{site['course_id']}/assignments/{site['assignment_id']}/submissions/self",
-                        f"quiz_{site['assignment_id']}.json")
+                        f"quiz_{site['assignment_id']}.json", kind="readiness")
                 if isinstance(r, dict):
                     readiness[label] = f"{r.get('workflow_state')}" + (f"，提交于 {clock.fmt(parse_ts(r.get('submitted_at')))}" if r.get("submitted_at") else "")
                 elif r is None and len(errors) > n0:
@@ -270,7 +274,9 @@ def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
         hard = [f for f in failures if f.get("kind") != "assignments"]
     if courses and len(stale) == len(courses):  # 一门都没采到：算整体失败，别拿整份旧数据冒充新的
         hard, stale = list(failures), {}
-    hard = [f for f in hard if f.get("kind") != "modules"]  # 模块拉不到不影响 deadline，沿用上次的条目
+    # 只有作业（deadline 的真源）拉不到才算硬失败：模块、公告、站内信、考试站点探针都是可选的，
+    # 它们失败只记一行，上次的值照用——考试站点回 403「未开放」是常态，不该把整批数据挡在门外。
+    hard = [f for f in hard if f.get("kind") not in ("modules", "announcements", "conversations", "readiness")]
     if hard:
         # Never turn partial/empty responses into the canonical truth. In
         # particular, do not advance last_fetch/last_check: the next collect
