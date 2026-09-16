@@ -184,6 +184,15 @@ def render(r, week_no=None, n_courses=None):
                  + (f'<p class="sub">第一步：{rich(hero["first_step"])}</p>' if hero.get("first_step") else "")
                  + "</section>")
 
+    rest = [x for x in tops if not (hero and _norm(x.get("title")) == _norm(hero.get("title")))]
+    if rest:  # 本周最要紧不止一件时，其余的排在下面（只有第一件进 hero 卡）
+        o.append(f'<section><h2>本周还有 {len(rest)} 件要紧的</h2><div class="card flush"><ul class="rows nobox">'
+                 + "".join(f'<li><span class="t"><span class="code">{esc(x.get("course"))}</span> {link(x.get("url"), x.get("title"))}'
+                           + (f'<span class="src">{rich(x["why"])}</span>' if x.get("why") else "")
+                           + (f'<span class="src">第一步：{rich(x["first_step"])}</span>' if x.get("first_step") else "")
+                           + f'</span><span class="m num">{esc(x.get("when") or "")}</span></li>' for x in rest)
+                 + "</ul></div></section>")
+
     # ---- deadline：两周内按时间排；Canvas 没写日期的折起来
     dls = [dict(it, course=c.get("code")) for c in courses for it in (c.get("deadline_related") or [])]
     if not dls:
