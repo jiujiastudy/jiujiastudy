@@ -24,12 +24,16 @@ import subprocess
 import sys
 import tempfile
 import time
+import zoneinfo
 
 TESTS = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(TESTS)
 FIXTURES = os.path.join(TESTS, "fixtures")
 GOLDEN = os.path.join(TESTS, "golden")
 TZDATA = os.path.join(TESTS, "tzdata")
+# 进程内的测试（直接 import cc_time 的那些）也只认随测试带的时区库，
+# 不看这台电脑有没有装 tzdata——GitHub 的 Windows 机器就没装，日期会差一天。
+zoneinfo.reset_tzpath(to=[TZDATA])
 RUNNER = os.path.join(TESTS, "_coach_runner.py")
 SCENARIOS = ("au_semester", "us_quarter", "uk_term", "cn_names")
 TOKEN = "dummy"  # never a real token
@@ -190,6 +194,8 @@ class Masker:
 
     def text(self, s):
         s = self._rx.sub(lambda m: self._tags[m.lastgroup], s.replace("\r\n", "\n"))
+        # 提示里的 python 命令：Windows PowerShell 写 & "<PY>"，Mac / Linux 写 <PY>，golden 里只留一种
+        s = s.replace('& "<PY>"', "<PY>").replace('"<PY>"', "<PY>")
         s = "\n".join(l.replace("\\", "/") if _PLACEHOLDER.search(l) else l for l in s.split("\n"))
         return _TIME.sub(self._time, s)
 

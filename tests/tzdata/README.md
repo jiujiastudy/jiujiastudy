@@ -1,6 +1,6 @@
 # Time zone files for the offline tests
 
-TZif files for the five zones the fixtures use, copied from the `tzdata`
+TZif files for the six zones the fixtures and time tests use, copied from the `tzdata`
 Python package 2026.3 (IANA tz 2026c). The IANA tz data is in the public
 domain.
 

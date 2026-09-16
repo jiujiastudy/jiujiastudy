@@ -23,7 +23,7 @@
    ],
    "exit": 0,
    "stdout": "01_collect_touch.txt",
-   "stderr": "课件照常下到「课件」文件夹；课件文字默认不交给 AI 读，要给某门课打开：& \"<PY>\" \"<CODE>/tools/coach.py\" config course HIS2102 --materials-ai on\n"
+   "stderr": "课件照常下到「课件」文件夹；课件文字默认不交给 AI 读，要给某门课打开：<PY> \"<CODE>/tools/coach.py\" config course HIS2102 --materials-ai on\n"
   },
   {
    "id": "02_status",
@@ -166,7 +166,7 @@
    ],
    "exit": 0,
    "stdout": "20_collect_touch_json.json",
-   "stderr": "课件照常下到「课件」文件夹；课件文字默认不交给 AI 读，要给某门课打开：& \"<PY>\" \"<CODE>/tools/coach.py\" config course HIS2102 --materials-ai on\n"
+   "stderr": "课件照常下到「课件」文件夹；课件文字默认不交给 AI 读，要给某门课打开：<PY> \"<CODE>/tools/coach.py\" config course HIS2102 --materials-ai on\n"
   }
  ],
  "artifacts": [
