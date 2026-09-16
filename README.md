@@ -6,7 +6,7 @@
 
 跟你的 AI 说一句（把网址换成本仓库的地址）：
 
-> 帮我安装 救驾：https://github.com/&lt;账号&gt;/jiujiastudy
+> 帮我安装 救驾：https://github.com/sydney-sultan/jiujiastudy
 
 只说名字不带网址不可靠：模型不认识新仓库，同名仓库也可能是别人的，而这个技能会拿到你的 Canvas token。请只从上面这个地址安装。
 
