@@ -26,7 +26,7 @@ from cc_paths import WEEK_PAGE, agent_kind, coach_cmd, fwd, home_dir, python_cmd
 from cc_perms import check_perms, claude_settings_path, codex_snippet, fix_perms
 from cc_store import jload, jsave
 from cc_time import Clock, ensure_zone, machine_zone, normalize_zone, parse_date, zone_data_available, zone_label
-from cc_token import TOKEN_FILE_SHOWN, open_token_prompt, token
+from cc_token import ASK, HOW_TO_PASS, token
 
 NARRATIVE_LABELS = {"confirmed_by_user": "用户已确认", "first_step_hints": "下一步提示", "class_meeting": "上课信息", "deck_location": "文件位置"}
 
@@ -151,23 +151,13 @@ def doctor(args):
             if not any(name == "学校" for _, name, _ in checks):
                 warn("学校", "还不知道学校的 Canvas 地址", ask_host_action)
     except canvas_api.CanvasAuthError:
-        opened = open_token_prompt() if getattr(args, "env_dialog", False) else None
-        gen = f"去 Canvas → Account → Settings → Approved Integrations → New Access Token（Purpose 填 {brand.NAME}，Expires 设学期最后一天）整段复制；"
-        if sys.platform == "win32":
-            warn("token", "CANVAS_TOKEN 未设置" + ("；已弹出「环境变量」窗口" if opened else ""),
-                 gen + ("在刚弹出的窗口里" if opened else "让我弹出窗口（doctor --env-dialog），在窗口里")
-                 + "上半部分「用户变量」点「新建」，变量名 CANVAS_TOKEN，变量值粘贴 token，确定两次。不用重启，粘完再说一次「体检」")
-        elif sys.platform == "darwin":
-            warn("token", "CANVAS_TOKEN 未设置" + ("；已打开「终端」等你粘 token" if opened else ""),
-                 gen + ("在刚打开的终端里" if opened else "让我打开终端（doctor --env-dialog），在终端里")
-                 + "粘贴 token 回车（输入时不显示字符，会要你粘两次），它存进钥匙串。不用重启，存完再说一次「体检」")
-        else:
-            warn("token", "CANVAS_TOKEN 未设置", gen + "在 shell 配置里加 export CANVAS_TOKEN=\"…\" 后重开对话，或把 token 写进 " + TOKEN_FILE_SHOWN + "（chmod 600）")
+        # token 由用户直接发到对话里，AI 用 token set 存；不让用户去弄环境变量、终端或别的窗口
+        warn("token", "还没有 token", f"{ASK}（{HOW_TO_PASS}），再跑 doctor")
     except urllib.error.HTTPError as e:
         api = None
         if e.code == 401:
             warn("token", f"token 在 {host} 上登不上（401）：多半是复制不全",
-                 "在同一个 Canvas 站点重新生成一个 token，再完整粘进 token 窗口；不要重问学校")
+                 "让用户在同一个 Canvas 站点重新生成一个 token，整段发到对话里，token set 存好再跑 doctor；不要重问学校")
         else:
             warn("Canvas", f"{host} 返回 HTTP {e.code}", "让用户把学校 Canvas 登录页的网址发过来，跑 doctor --host 网址")
     except urllib.error.URLError as e:

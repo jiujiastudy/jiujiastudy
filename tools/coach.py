@@ -1,7 +1,8 @@
 """<NAME> 命令行入口。数据在 <HOME_ENV>（默认桌面 <NAME>/.coach），程序在本目录。
 
-  doctor  [--detect-site] [--env-dialog] [--host URL] [--school NAME] [--tz ZONE] [--fix-perms] [--agent auto|claude|codex|other] [--dry-run]
-          体检：装库、认学校（浏览器记录）、收 token、建档、按宿主写权限。缺什么就说什么，能修的自己修。
+  doctor  [--detect-site] [--host URL] [--school NAME] [--tz ZONE] [--fix-perms] [--agent auto|claude|codex|other] [--dry-run]
+          体检：装库、认学校（浏览器记录）、验 token、建档、按宿主写权限。缺什么就说什么，能修的自己修。
+  token   set | forget                     用户发到对话里的 token：set 从标准输入读进来存好（有学校地址就先验一次）；forget 删掉
   status                                     一屏现状 + 状态评估，零副作用
   collect [--quick] [--touch] [--download] | --materials CODE WEEK
           只读采集（默认只元数据，不下载课件）
@@ -61,6 +62,40 @@ def cmd_doctor(args):
     if not args.json:
         print(res["text"])
     return code, res
+
+
+def cmd_token(args):
+    """用户在对话里发来 token → 从标准输入读进来，存进本机文件。token 不打印、不进命令参数、不进 JSON。
+    知道学校地址（config / site.json / CANVAS_HOST）就先只对这一个地址验一次：401 不存，免得把复制不全的存下来。"""
+    import cc_token
+    from cc_store import jload
+    if args.op == "forget":
+        gone = cc_token.forget_token()
+        msg = "本机存的 token 删掉了。" if gone else "本机没有存 token。"
+        if not args.json:
+            print(msg)
+        return 0, {"forgotten": gone, "message": msg}
+    tok = cc_token.pick_token(cc_token.read_stdin())
+    if not tok:
+        raise CoachError(f"没收到能用的 token：{cc_token.HOW_TO_PASS}；用户那段话里有好几串像 token 的，就只传他要用的那一串", 2)
+    home = home_dir(args.home)
+    cfg = jload(os.path.join(home, "config.json")) or {}
+    site = jload(os.path.join(home, "site.json"), {}) or {}
+    host = cfg.get("canvas_host") or os.environ.get("CANVAS_HOST") or site.get("host")
+    who = None
+    if host:
+        try:
+            who = (canvas_api.Canvas(host, tok, timeout=20, retries=0).get("/api/v1/users/self") or {}).get("name") or "你的账号"
+        except urllib.error.HTTPError as e:
+            if e.code == 401:
+                raise CoachError(f"这个 token 在 {host} 上登不上，没有存：多半没复制全。让用户在 Canvas 重新生成一个，整段发过来", 2)
+        except (urllib.error.URLError, OSError, canvas_api.CanvasError):
+            pass  # 连不上就先存下，doctor 再验
+    cc_token.save_token(tok)
+    msg = f"token 存好了（{cc_token.TOKEN_FILE_SHOWN}，只有这台电脑的本人账户能读）" + (f"，在 {host} 上验过：{who}" if who else "") + "。下一步：doctor"
+    if not args.json:
+        print(msg)
+    return 0, {"saved": True, "verified": bool(who), "host": host, "message": msg}
 
 
 def cmd_status(args):
@@ -509,12 +544,16 @@ def build_parser():
     p.add_argument("--detect-site", dest="detect_site", action="store_true", help="在浏览器记录里认 Canvas 域名（只取域名和访问次数）")
     p.add_argument("--no-detect", dest="no_detect", action="store_true", help="不读浏览器记录")
     p.add_argument("--dry-run", dest="dry_run", action="store_true", help="只列出会读哪些浏览器文件")
-    p.add_argument("--env-dialog", dest="env_dialog", action="store_true", help="缺 token 时弹出让用户粘 token 的窗口")
+    p.add_argument("--env-dialog", dest="env_dialog", action="store_true", help=argparse.SUPPRESS)  # 旧参数：不再弹环境变量窗口，留着免得老说明报错
     p.add_argument("--fix-perms", dest="fix_perms", action="store_true", help="宿主是 Claude Code 时把权限规则写进全局 settings.json")
     p.add_argument("--agent", default="auto", choices=["auto", "claude", "codex", "other"])
     p.add_argument("--all-courses", dest="all_courses", action="store_true")
     p.add_argument("--install", action="store_true", help="skill 不在 skills 目录时复制进去（换对话也能用）")
     p.set_defaults(fn=cmd_doctor)
+
+    p = sub.add_parser("token", parents=[common], help="用户发到对话里的 token：set 从标准输入读进来存好；forget 删掉")
+    p.add_argument("op", choices=["set", "forget"])
+    p.set_defaults(fn=cmd_token)
 
     sub.add_parser("status", parents=[common]).set_defaults(fn=cmd_status)
     p = sub.add_parser("paths", parents=[common], help="资料夹和每门课的 课件 / 产出 目录"); p.add_argument("code", nargs="?"); p.set_defaults(fn=cmd_paths)
@@ -662,7 +701,7 @@ def main(argv=None):
         out_json({"error": str(e), "exit": 2}) if args.json else print(str(e), file=sys.stderr)
         return 2
     except urllib.error.HTTPError as e:
-        msg = f"Canvas 返回 HTTP {e.code}：{e.url.split('?')[0] if e.url else ''}" + ("（token 失效？重新生成后粘进窗口）" if e.code == 401 else "")
+        msg = f"Canvas 返回 HTTP {e.code}：{e.url.split('?')[0] if e.url else ''}" + ("（token 失效？让用户在 Canvas 重新生成一个发到对话里，token set 存好）" if e.code == 401 else "")
         out_json({"error": msg, "exit": 2}) if args.json else print(msg, file=sys.stderr)
         return 2
     except urllib.error.URLError as e:

@@ -31,9 +31,9 @@
 
 ## 第一次使用
 
-跟 AI 说「最近要交什么」。它会：用你电脑上已有的 Python → 从浏览器记录里认出你学校的 Canvas 网址（**不会带 token 去试**）→ 你确认是哪个学校 → 弹一个系统窗口让你粘贴 `CANVAS_TOKEN` → 采集 → 生成桌面文件夹、本周清单和 Deadline 雷达。
+跟 AI 说「最近要交什么」。它会：用你电脑上已有的 Python → 从浏览器记录里认出你学校的 Canvas 网址（**不会带 token 去试**）→ 你确认是哪个学校 → 你去 Canvas 生成一个 token，直接发给 AI，它替你存好 → 采集 → 生成桌面文件夹、本周清单和 Deadline 雷达。
 
-Token 只发给你确认过的那一个学校地址。它不会出现在对话里，也不会写进任何文件；要换的时候再弹一次窗口。
+token 只要给一次：它存在你电脑上的 `~/.config/jiujiastudy/token`（只有你本人的账户能读），以后每次直接用，只发给你确认过的那一个学校地址。要换就再发一个新的给 AI。token 也会留在你和 AI 的聊天记录里；介意的话，用完去 Canvas 撤销、重新生成。
 
 ## 它会读什么
 
@@ -58,12 +58,12 @@ Token 只发给你确认过的那一个学校地址。它不会出现在对话�
 
 - 给人看的：桌面「救驾」文件夹——本周清单、Deadline 雷达，每门课一个文件夹（课件放 Canvas 原件，产出放 AI 做的东西）。
 - 给程序用的：同一个文件夹里的隐藏目录 `.coach`（配置、进度、采集到的原始数据）。
-- token：Windows 存在凭据管理器 / 环境变量，macOS 存在钥匙串，Linux 存在 `~/.config/jiujiastudy/token`。
+- token：存在 `~/.config/jiujiastudy/token`（只有你本人的账户能读）。老版本存在环境变量或钥匙串里的照样认。
 - 一切都在你自己的电脑上。这个项目没有服务器，不上传任何东西。你让 AI 读的内容会经过你使用的那家 AI 服务。
 
 ## 卸载
 
-删掉技能文件夹和桌面的 救驾 文件夹，再去 Canvas → Account → Settings → Approved Integrations 撤销那个 token。
+删掉技能文件夹、桌面的 救驾 文件夹和 `~/.config/jiujiastudy`，再去 Canvas → Account → Settings → Approved Integrations 撤销那个 token。
 
 ## 依赖
 

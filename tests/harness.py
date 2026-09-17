@@ -128,9 +128,10 @@ class Result:
         return json.loads(self.stdout)
 
 
-def run_coach(home, args, tools, now=None, ports=(), timeout=180, extra_env=None, script=None):
+def run_coach(home, args, tools, now=None, ports=(), timeout=180, extra_env=None, script=None, stdin_text=None):
     """Run tools/coach.py (or another tools/ script, e.g. script="canvas_api.py") in the fake home.
-    An extra_env value of None removes that variable (e.g. {"CANVAS_TOKEN": None})."""
+    An extra_env value of None removes that variable (e.g. {"CANVAS_TOKEN": None}).
+    stdin_text is written to the command's standard input (otherwise stdin is empty)."""
     t0 = time.monotonic()
     env = home.env(tools, now, ports)
     for k, v in (extra_env or {}).items():
@@ -140,8 +141,9 @@ def run_coach(home, args, tools, now=None, ports=(), timeout=180, extra_env=None
             env[k] = v
     if script:
         env["STC_SCRIPT"] = script
+    feed = {"input": stdin_text.encode("utf-8")} if stdin_text is not None else {"stdin": subprocess.DEVNULL}
     p = subprocess.run([sys.executable, "-B", RUNNER] + list(args), env=env, cwd=home.dir,
-                       stdin=subprocess.DEVNULL, capture_output=True, timeout=timeout)
+                       capture_output=True, timeout=timeout, **feed)
     dec = lambda b: b.decode("utf-8", "replace").replace("\r\n", "\n")  # noqa: E731
     return Result(list(args), p.returncode, dec(p.stdout), dec(p.stderr), time.monotonic() - t0)
 

@@ -21,7 +21,7 @@ description: 救驾（jiujiastudy）是留学生的 Canvas 学习手帐：盯 de
 6. 出 deadline 清单、周报、雷达之前一律 `collect --force` 重新核对 Canvas（不吃 10 分钟缓存），哪怕几分钟前刚采过。脚本打印了采集错误或「没采到」的课，就照它的原话点名说哪门课、数据是几点的，再给清单；不许默默拿旧快照当最新的。每份清单末尾写一句数据截至时间。给别人看的清单同样照这条做。
 
 ## 第一次（用户不用说任何口令）
-`status` 报「还没有档案」→ 按 references/setup.md 走：确认有可用 Python（宿主内置优先，不重复安装）→ `doctor --detect-site --env-dialog`（浏览器记录里认 Canvas 域名；缺 token 才弹窗口）→ 看它的输出：打印了「config.json：已新建」就直接往下；否则一句话说清两样东西，用户粘完再搭话，再跑一次 `doctor` → `collect --touch`（只记元数据，十几秒；失败不进入缓存）→ `radar --write` → `study --write` → `collect --download --background`（课件后台补；同一档案最多一个 worker，命令立刻返回）→ 一条消息：连上了哪个站、最急的一条和第一步、本周最要紧的一件、资料夹在哪、状态一句。doctor 列的「你需要做的事」：自己能做的（`--fix-perms`）做掉，其余最多一句带给用户。网络和权限已就绪时通常一分钟内出首份雷达和清单；首次权限审批或装依赖的时间另算。
+`status` 报「还没有档案」→ 按 references/setup.md 走：确认有可用 Python（宿主内置优先，不重复安装）→ `doctor --detect-site`（浏览器记录里认 Canvas 域名）→ 打印了「config.json：已新建」就直接往下；否则一条消息说清学校对不对、token 怎么生成（生成后直接发到对话里），用户发来就 `token set` 存好，再跑 `doctor` → `collect --touch`（只记元数据，十几秒；失败不进入缓存）→ `radar --write` → `study --write` → `collect --download --background`（课件后台补；同一档案最多一个 worker，命令立刻返回）→ 一条消息：连上了哪个站、最急的一条和第一步、本周最要紧的一件、资料夹在哪、状态一句。doctor 列的「你需要做的事」：自己能做的（`--fix-perms`）做掉，其余最多一句带给用户。网络和权限已就绪时通常一分钟内出首份雷达和清单；首次权限审批或装依赖的时间另算。
 
 脚本退出码：0 成功；退出码 1 = 有提醒，不是失败，照输出里列的事做；2 = 卡住了，输出只有一句原因；3 = 档案版本太老，先跑 `migrate`。
 
@@ -44,7 +44,7 @@ description: 救驾（jiujiastudy）是留学生的 Canvas 学习手帐：盯 de
 | 情况 | 做 |
 |---|---|
 | 没有可调用的 Python | 先用宿主公开的 Python（Codex：`load_workspace_dependencies`）并查 `python3` / `python` / Windows `py -3`；确认全不可用，再征得用户同意按平台安装。不要把 `xcode-select --install` 当 Python 安装器 |
-| token 贴进了对话 | 不写进任何命令或文件；`doctor --env-dialog` 弹窗口让用户粘，只说「粘进刚弹出的窗口就行」 |
+| 用户在对话里发来 token | `token set` 存好，token 从标准输入传（Bash `<<'EOF'`，PowerShell 管道），不进命令参数；回复里不重复 token，说「存好了」 |
 | 认不出学校 / 有几个候选 | 让用户发登录页网址或选一个，`doctor --host 网址`。探测不发 token |
 | 浏览器记录读不了 / 被沙盒隐藏 | 按宿主机制申请一次只读权限；仍读不了就直接要网址 |
 | 连不上 / 5xx | 脚本已重试；用上次快照回答，并写明「数据截至 X」，哪门课没采到点名说 |
