@@ -1,12 +1,11 @@
 ---
 name: jiujiastudy
-description: 救驾（jiujiastudy）是留学生的 Canvas 学习手帐：盯 deadline、排本周该学什么、按状态给建议。用户提到课程、作业、deadline、考试、Canvas、老师，或说「现在什么情况」「最近要交什么」「这周学什么」「做完了」「没状态 / 累 / 来不及」时使用；第一次用时自己完成设置，只让用户在弹出的小窗口里填学校、粘 token。
-allowed-tools: Bash(python "${CLAUDE_SKILL_DIR}/tools/coach.py" *) Bash(python3 "${CLAUDE_SKILL_DIR}/tools/coach.py" *) Bash(py -3 "${CLAUDE_SKILL_DIR}/tools/coach.py" *) PowerShell(python "${CLAUDE_SKILL_DIR}/tools/coach.py" *) PowerShell(python3 "${CLAUDE_SKILL_DIR}/tools/coach.py" *) PowerShell(py -3 "${CLAUDE_SKILL_DIR}/tools/coach.py" *)
+description: 救驾（jiujiastudy）是留学生的 Canvas 学习手帐：盯 deadline、排本周该学什么、按状态给建议。用户提到课程、作业、deadline、考试、Canvas、老师，或说「现在什么情况」「最近要交什么」「这周学什么」「做完了」「没状态 / 累 / 来不及」时使用；第一次用时自己完成设置，只向用户要 Canvas 网址和 token。
 ---
 
 # 救驾
 
-脚本是本文件同目录的 `tools/coach.py`。每次调用都写成 `python "${CLAUDE_SKILL_DIR}/tools/coach.py" 命令 参数`：Mac / Linux 把 `python` 换成 `python3`，只有 `py` 就用 `py -3`；一条命令只跑这一个脚本，不加 `cd`、不用 `&&` 或管道接别的命令。写法和这里一字不差，用户才不用一次次点允许；脚本输出里写的命令只看命令名和参数。不是 Claude Code 的宿主把 `${CLAUDE_SKILL_DIR}` 换成本文件所在目录（依次找 `~/.claude/skills/jiujiastudy`、`~/.codex/skills/jiujiastudy`、`~/.agents/skills/jiujiastudy`）；Codex 桌面版先调用 `load_workspace_dependencies`，用它返回的 Python。已有任何可用解释器就不安装；全部不可用才征得用户同意安装。下文只写命令名。用用户说话的语言回答，默认中文。
+脚本在本文件同目录的 `tools/coach.py`。宿主给了本文件路径就直接用；没给就依次找 `~/.claude/skills/jiujiastudy`、`~/.codex/skills/jiujiastudy`、`~/.agents/skills/jiujiastudy`。解释器优先用宿主已经提供的 Python；Codex 桌面版先调用 `load_workspace_dependencies` 取得 Python executable，再试 `python3` / `python` / Windows `py -3`。已有任何可用解释器就不安装；全部不可用才征得用户同意安装。下文只写命令名。用用户说话的语言回答，默认中文。
 
 两个地方。**资料夹**给人看：默认桌面的「救驾」，`paths` 打印具体路径；根目录是「本周清单.html」和「Deadline雷达.html」，每门课一个文件夹，里面只有两个子文件夹，「课件」放 Canvas 原件，「产出」放 AI 做的一切。**机器档案**给 AI 用：config.json（学校、时区、课程）、state.json（进度、待确认、心情、手动 deadline）、raw/、plans/、reports/、text/（课件文字稿，默认不提取），在资料夹里的 .coach（老版档案仍兼容 ~/CourseCoach），用户不用管。显示的时间跟着用户电脑的时钟走；deadline 的「今天 / 明天 / 还有 N 天」按课程所在时区数，过没过期按真实时刻算。
 
@@ -22,7 +21,7 @@ allowed-tools: Bash(python "${CLAUDE_SKILL_DIR}/tools/coach.py" *) Bash(python3 
 6. 出 deadline 清单、周报、雷达之前一律 `collect --force` 重新核对 Canvas（不吃 10 分钟缓存），哪怕几分钟前刚采过。脚本打印了采集错误或「没采到」的课，就照它的原话点名说哪门课、数据是几点的，再给清单；不许默默拿旧快照当最新的。每份清单末尾写一句数据截至时间。给别人看的清单同样照这条做。
 
 ## 第一次（用户不用说任何口令）
-`status` 报「还没有档案」→ 按 references/setup.md 走：确认有可用 Python（宿主内置优先，不重复安装）→ `doctor --token-window`（缺 token 就弹出填学校和 token 的小窗口，命令立刻返回；不读浏览器记录，不改任何权限设置）→ 打印了「config.json：已新建」就直接往下；否则把「你需要做的事」里那段话原样发给用户，一条消息说完，用户回「好了」再跑 `doctor`（用户是在对话里说的学校：`doctor --school 校名`，发的网址用 `--host`）→ `collect --touch`（只记元数据，十几秒；失败不进入缓存）→ `radar --write` → `study --write` → `collect --download --background`（课件后台补；同一档案最多一个 worker，命令立刻返回）→ 一条消息：连上了哪个站、最急的一条和第一步、本周最要紧的一件、资料夹在哪、状态一句。doctor 列的其余「你需要做的事」：自己能做的做掉，其余最多一句带给用户。网络和权限已就绪时通常一分钟内出首份雷达和清单；首次权限审批或装依赖的时间另算。
+`status` 报「还没有档案」→ 按 references/setup.md 走：确认有可用 Python（宿主内置优先，不重复安装）→ `doctor --detect-site --env-dialog`（浏览器记录里认 Canvas 域名；缺 token 才弹窗口）→ 看它的输出：打印了「config.json：已新建」就直接往下；否则一句话说清两样东西，用户粘完再搭话，再跑一次 `doctor` → `collect --touch`（只记元数据，十几秒；失败不进入缓存）→ `radar --write` → `study --write` → `collect --download --background`（课件后台补；同一档案最多一个 worker，命令立刻返回）→ 一条消息：连上了哪个站、最急的一条和第一步、本周最要紧的一件、资料夹在哪、状态一句。doctor 列的「你需要做的事」：自己能做的（`--fix-perms`）做掉，其余最多一句带给用户。网络和权限已就绪时通常一分钟内出首份雷达和清单；首次权限审批或装依赖的时间另算。
 
 脚本退出码：0 成功；退出码 1 = 有提醒，不是失败，照输出里列的事做；2 = 卡住了，输出只有一句原因；3 = 档案版本太老，先跑 `migrate`。
 
@@ -45,7 +44,7 @@ allowed-tools: Bash(python "${CLAUDE_SKILL_DIR}/tools/coach.py" *) Bash(python3 
 | 情况 | 做 |
 |---|---|
 | 没有可调用的 Python | 先用宿主公开的 Python（Codex：`load_workspace_dependencies`）并查 `python3` / `python` / Windows `py -3`；确认全不可用，再征得用户同意按平台安装。不要把 `xcode-select --install` 当 Python 安装器 |
-| token 贴进了对话 | 不写进任何命令或文件；`doctor --token-window` 弹小窗口让用户粘，只说「粘进刚弹出的小窗口就行」 |
-| 认不出学校 / 对得上几所 | 照 doctor 那句问用户；发来网址就 `doctor --host 网址`。token 只发给查表查准的或用户给的那一个地址 |
-| 命令被宿主拦下（比如自动模式说是网上下载的代码） | 不绕开、不改设置；告诉用户：把输入框旁的权限模式换成每次询问，弹框时点允许（有「总是允许」就选它），再说「继续」 |
+| token 贴进了对话 | 不写进任何命令或文件；`doctor --env-dialog` 弹窗口让用户粘，只说「粘进刚弹出的窗口就行」 |
+| 认不出学校 / 有几个候选 | 让用户发登录页网址或选一个，`doctor --host 网址`。探测不发 token |
+| 浏览器记录读不了 / 被沙盒隐藏 | 按宿主机制申请一次只读权限；仍读不了就直接要网址 |
 | 连不上 / 5xx | 脚本已重试；用上次快照回答，并写明「数据截至 X」，哪门课没采到点名说 |

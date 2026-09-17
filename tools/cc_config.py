@@ -50,8 +50,8 @@ def version_of(obj):
 
 def missing_config_message(home):
     return (f"还没有档案：{os.path.join(home, 'config.json')} 不存在。\n"
-            f"先跑：{coach_cmd()} doctor --token-window   （弹出填学校和 token 的小窗口）\n"
-            f"已经有 token：{coach_cmd()} doctor --school <用户说的校名或 Canvas 网址>\n"
+            f"先跑：{coach_cmd()} doctor --detect-site   （在浏览器记录里认学校的 Canvas 域名）\n"
+            f"或：  {coach_cmd()} doctor --host <学校 Canvas 登录页网址>\n"
             f"档案在别的文件夹就先设环境变量 {brand.env_name('HOME')}。")
 
 
@@ -304,7 +304,7 @@ class Ctx:
             import cc_token
             host = self.cfg.get("canvas_host")
             if not host:
-                raise CoachError("config.json 里还没有 canvas_host：跑 doctor --school 校名，或 doctor --host 网址", 2)
+                raise CoachError("config.json 里还没有 canvas_host：跑 doctor --detect-site 或 doctor --host 网址", 2)
             self._api = canvas_api.Canvas(host, cc_token.token())
         return self._api
 

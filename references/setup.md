@@ -1,26 +1,31 @@
-# 入门：一个小窗口，其余自己来
+# 入门：两样东西，其余自己来
 
 ## 顺序
 1. Python：先用宿主已经提供的解释器。Codex 桌面版调用 `load_workspace_dependencies`，直接使用返回的 Python executable；否则依次试 `python3 --version`、`python --version`、Windows `py -3 --version`，再查已安装路径。任何一个能运行就不安装；全部不可用才征得用户同意安装。不要用 `xcode-select --install` 代替 Python 安装。
-2. `doctor --token-window`：缺 token 就弹出「填学校 + 粘 token」的小窗口，命令立刻返回。窗口里写着去 Canvas 生成 token 的步骤；用户点保存时，窗口先认学校（查表或网址）、不带 token 探一下是不是 Canvas，再只对这一个地址验 token，复制不全、学校写错当场在窗口里说。验过的 token 存进 `~/.config/jiujiastudy/token`，学校地址存进机器档案的 site.json。
+2. `doctor --detect-site --env-dialog`：不需要 token 就能在浏览器记录里认 Canvas 域名；缺 token 时才弹出粘 token 的窗口（Windows 环境变量窗口 / Mac 终端存钥匙串）。它会打印认出的域名和要用户做的事。
 3. 看输出决定：
-   - 打印了「config.json：已新建」（token 和学校早就有）→ 不用问任何事，直接第 5 步。
-   - 否则把「你需要做的事」里那段话原样发给用户，一条消息说完，别拆成两条。弹出了小窗口时它是：「弹出了一个「救驾」小窗口：填上你的学校，再按窗口里写的步骤去 Canvas 生成 token，粘进去点保存。窗口里显示「连上了」以后，回我一句「好了」。token 别发到聊天里。」
-   - 窗口弹不出来（没有桌面、沙盒拦了），它会给另一段话：一条消息里同时问学校、教怎么生成和存 token，照发。
-   - token 早就有、只差学校：只问「你是哪个学校的？说校名就行，或者发 Canvas 网址」。
-4. 用户回来 → `doctor`；用户是在对话里说的学校，用 `doctor --school 他说的校名`（发的是网址就 `--host 网址`）：验证 token、建档（课程、时区、学期）。「对得上不止一所」「表里没有」就照 doctor 那句问一次，不猜。401 → 跑 `doctor --token-window` 让用户重新粘一个新生成的 token，不重新问学校。
-5. `collect --touch`（只记元数据；失败尝试不进入十分钟缓存）→ `radar --write` → `study --write` → `collect --download --background`（只消费已有队列；同一档案最多一个后台 worker，命令立刻返回），然后一条消息（状态一句放最后）：「连上了：学校（域名），N 门课。最急的一条：…（还有 N 天），第一步：…。这周最要紧的一件：…。课件和我做的东西都在桌面的「救驾」文件夹里，一门课一个文件夹，课件正在后台下。以后随时说「最近要交什么」「这周学什么」。状态：…。建议：…。」
+   - 打印了「config.json：已新建」（token 早就在，站点也认出来了）→ 不用问任何事，直接第 5 步。
+   - 否则只发一条消息，四种情况选一种（原文）：
+     - 认出一个：「你学校的 Canvas 是不是 canvas.xxx.edu？是就回我一句（探测只是线索，token 只发给你确认过的那一个地址）。现在只差 token：Canvas → Account → Settings → Approved Integrations → New Access Token，Purpose 填 救驾，Expires 设学期最后一天，整段复制，粘进刚弹出的窗口（Windows：用户变量 → 新建，变量名 CANVAS_TOKEN，值粘 token，确定两次；Mac：终端里粘贴回车两次）。粘完随便回我一句。」
+     - 有几个：「浏览器记录里有两个像 Canvas 的站点：A（常去）和 B，你学校用的是哪个？回一个就行。」+ token 那段。
+     - 已读到记录但没找到：「把你平时登录 Canvas 的网址整个发我（地址栏 https:// 开头那一串）。」+ token 那段。
+     - 记录读不了或可能被沙盒隐藏：先按宿主机制申请一次只读浏览器记录权限并重跑；仍不行才要网址。
+     - 已找到候选但网络 / 沙盒无法验证：先批准访问候选 Canvas（需要时检查校园网 / VPN）并重跑；候选不对才要网址。
+     - token 已经在、只差站点：只说站点那句。
+4. 用户回来 → `doctor`（有网址就 `doctor --host 网址`）：验证 token、建档（课程、时区、学期）。401 → 「token 多半复制不全，重新生成再粘一次」，不重新问学校。
+5. `collect --touch`（只记元数据；失败尝试不进入十分钟缓存）→ `radar --write` → `study --write` → `collect --download --background`（只消费已有队列；同一档案最多一个后台 worker，命令立刻返回），然后一条消息（状态一句放最后）：「连上了：域名（浏览器记录里认出来的，不对就告诉我），N 门课。最急的一条：…（还有 N 天），第一步：…。这周最要紧的一件：…。课件和我做的东西都在桌面的「救驾」文件夹里，一门课一个文件夹，课件正在后台下。以后随时说「最近要交什么」「这周学什么」。状态：…。建议：…。」
    主次：deadline 和本周清单先出来，其它一切（下载、导读）都排在后面。
-6. doctor 打印的其余「你需要做的事」：自己能做的做掉；电脑时区和课程时区不同这类，只在用户人就在学校城市时提一句「把电脑时区改成 X」，否则不提。
+6. doctor 打印的「你需要做的事」：`--fix-perms` 这类自己能做的做掉；电脑时区和课程时区不同这类，只在用户人就在学校城市时提一句「把电脑时区改成 X」，否则不提。
 
-## 认学校（doctor --school / 小窗口）
-`tools/cc_host.py` 里有一张校名 → Canvas 地址的表（澳洲、新西兰、英国、美国、加拿大、香港、新加坡、欧洲的常见学校，中英文名和常用简称），每个地址都不带 token 探过是 Canvas。只按整个校名或简称对，不做「包含」：「西悉尼大学」不会被认成悉尼大学。对得上两所（比如「纽卡斯尔大学」澳洲和英国各一所）就问是哪一所；表里没有就要 Canvas 网址（登录 Canvas 后浏览器地址栏那一串）。**token 只发给查表查准的或用户给的那一个地址**，发之前先不带 token 探一下是不是 Canvas。不读浏览器记录。
+## 站点探测（doctor --detect-site）
+读 Chrome / Edge / Brave / Firefox / Safari 的历史和书签：先复制到临时目录再只读打开，SQL 只取网址和访问次数；匹配 `*.instructure.com`、域名含 canvas 整词、路径 /login/canvas、/courses/数字；候选按访问次数排序，全程不带 token（Canvas 对 /api/v1/users/self 回 401，用这个判断像不像）；**token 只发给用户确认过的那一个地址**，确认后跑 `doctor --host 网址` 才写 HOME/site.json，临时副本删除。**不读网页标题，不保留任何网址。** Safari 的记录要系统的「完全磁盘访问」，读不了就直接要网址，不去申请权限。`--dry-run` 只列会读哪些文件。
 
 ## token 放哪（都不用重启）
-读取顺序：环境变量 CANVAS_TOKEN → `~/.config/jiujiastudy/token`（小窗口存的；Mac / Linux 权限 600）→ Windows 用户级注册表 → Mac 钥匙串（jiujiastudy-canvas）。文件排在注册表和钥匙串前面，所以在小窗口里重新粘一次就能换掉旧的。
-- 小窗口弹不出时的老办法：Windows 弹「环境变量」窗口（用户变量 → 新建 → CANVAS_TOKEN → 值粘 token → 确定两次）；Mac 打开终端存钥匙串（粘贴回车两次）；Linux 让用户把 token 一行写进 `~/.config/jiujiastudy/token`。
+读取顺序：环境变量 CANVAS_TOKEN → Windows 用户级注册表 → Mac 钥匙串（jiujiastudy-canvas）→ ~/.config/jiujiastudy/token。
+- Windows：`doctor --env-dialog` 弹「环境变量」窗口，用户变量 → 新建 → CANVAS_TOKEN → 值粘 token → 确定两次。
+- Mac：`doctor --env-dialog` 打开终端，已在等输入（security add-generic-password），粘贴回车两次。
 - 别在 Claude 的终端里 setx：写进的是隔离副本，用户电脑读不到，还留在历史里。
-- 用户把 token 贴进对话：不写进任何命令或文件，跑 `doctor --token-window`，只说「收到，粘进刚弹出的小窗口就行」。不讲安全课；用户问了再说「聊天记录会存在本机，介意就之后重新生成一个」。
+- 用户把 token 贴进对话：不写进任何命令或文件，立刻弹窗口，只说「收到，粘进刚弹出的窗口就行」。不讲安全课；用户问了再说「聊天记录会存在本机，介意就之后重新生成一个」。
 
 ## 建档时自动推的（用户不用回答）
 - 课程：本学期 active 的课，代码从 course_code 里取（`CS101-F26` → CS101，`2026FA-BIO-101-01` → BIO101），图书馆、迎新、BYOD 测试站跳过并写进 config.notes。
@@ -30,10 +35,9 @@
 - 资料夹：默认桌面的「救驾」（Windows 从系统读真正的桌面路径，可能在 OneDrive 里），每门课一个文件夹，「课件」放 Canvas 原件，「产出」放 AI 做的一切；机器档案在里面的 .coach（隐藏），老版档案仍兼容 ~/CourseCoach。用户要换：`config set root <路径>` 再 `doctor`，旧文件会搬过去。`paths` 随时打印路径。
 - skill 位置：doctor 发现自己不在 skills 目录（用户把文件拖进了聊天）会提示，`doctor --install` 复制进 ~/.claude/skills（Codex 就 ~/.codex/skills），以后新对话直接可用。
 
-## 权限（详见 agents.md）
-- 不改任何宿主的权限设置。Claude Code：SKILL.md 开头的 `allowed-tools` 只放行 `python "${CLAUDE_SKILL_DIR}/tools/coach.py" …` 这一种写法，所以调用写法要和 SKILL.md 一字不差。
-- 宿主还是拦（比如自动模式说「从网上下载的代码」）：不绕开。告诉用户把权限模式换成每次询问，弹框时点允许（有「总是允许」就选），再说「继续」。
-- Codex 桌面版：先用 `load_workspace_dependencies` 返回的 Python。第一次联网访问 Canvas 时可能要批准；只批准准确的 `coach.py` 命令前缀，合适时选「始终允许」。`doctor` 会打印可合并进 config.toml 的项目片段。
+## 宿主差异（详见 agents.md）
+- Claude Code：`doctor --fix-perms` 把权限规则写进 ~/.claude/settings.json（备份 .bak）；被拦就把打印的块给用户。
+- Codex 桌面版：先用 `load_workspace_dependencies` 返回的 Python。第一次读取浏览器记录或联网访问 Canvas 时可能要批准；只批准准确的 `coach.py` 命令前缀，合适时选「始终允许」。`doctor` 仍会打印可合并进 config.toml 的项目片段。
 - 其它读 AGENTS.md 的代理：按它自己的方式批准 python 命令。
 
 ## 数据坏了
