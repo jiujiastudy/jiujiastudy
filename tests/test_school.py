@@ -196,8 +196,8 @@ class DoctorFirstRun(unittest.TestCase):
 
     @staticmethod
     def todo(res):
-        """「你需要做的事」里和设置有关的那几条（测试是从仓库里跑的，「skill 位置」那条不算）。"""
-        return [a for a in res["must_fix"] if "--install" not in a]
+        """「你需要做的事」里和学校、token 有关的那几条（「skill 位置」、缺可选依赖这些和环境有关的提醒不算）。"""
+        return [a for a in res["must_fix"] if "token" in a or "学校" in a]
 
     def test_缺_token_时一条消息问完学校和_token(self):
         r, res = self.doctor("--token-window", CANVAS_TOKEN=None)  # 测试里不弹窗（NO_DIALOG），走「弹不出」那段话
