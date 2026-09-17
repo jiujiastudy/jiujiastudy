@@ -1,4 +1,4 @@
-"""作者脚注：一句话 + 两个二维码，和「问题反馈」入口。
+"""作者脚注：一句话 + 账号名 + 隐藏按钮；二维码只放在「问题反馈」里，一页不摆两遍。
 
 只出现在学生自己看的周报页底部，不进作业文件、不进交给老师的任何东西。
 没有统计、没有跳转追踪；二维码是本地图片，页面不连外网。
@@ -40,7 +40,7 @@ def accounts():
 
 
 def css(accs=None):
-    """二维码用 background-image，这样同一张图在脚注和反馈里只存一份 base64。"""
+    """二维码用 background-image：图只在 CSS 里存一份 base64，页面里只引用类名。"""
     accs = accs if accs is not None else accounts()
     rules = [
         ".sig{text-align:left}",
@@ -76,13 +76,21 @@ def _figure(a, with_id=False):
     return f"<figure>{body}</figure>"
 
 
+def _handles(accs):
+    """同一个名字的平台并成一句：「小红书、抖音 · @悉尼苏丹（控制canvas版）」。"""
+    by = {}
+    for a in accs:
+        by.setdefault(a["handle"], []).append(a["platform"])
+    return "　".join(f'{"、".join(ps)} · @{h}' for h, ps in by.items())
+
+
 def footer_html(accs=None):
-    """周报最底下那一块。没有任何一张二维码时仍然出（文字就够找到人）。"""
+    """周报最底下那一块：一句话 + 账号名。二维码已经在上面的「问题反馈」里，这里不再摆一遍。"""
     accs = accs if accs is not None else accounts()
     if not accs:
         return ""
     return ('<footer class="sig" data-author><p class="word">' + esc(LINE) + "</p>"
-            + '<div class="qrs">' + "".join(_figure(a) for a in accs) + "</div>"
+            + f'<p class="word">{esc(_handles(accs))}</p>'
             + '<button type="button" class="linkish" data-hide-author>隐藏作者信息</button></footer>')
 
 

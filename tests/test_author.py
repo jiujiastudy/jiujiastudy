@@ -1,4 +1,4 @@
-"""作者脚注：一句话 + 两个二维码 + 隐藏按钮，和「问题反馈」入口。
+"""作者脚注：一句话 + 账号名 + 隐藏按钮；二维码只在「问题反馈」里。
 
 红线：不连外网（二维码是内嵌的本地图）、没有统计、没给链接就不编链接、
 同一张图在一页里只存一份、脚注藏起来之后反馈入口照样能用。
@@ -36,7 +36,7 @@ class Assets(unittest.TestCase):
         try:
             accs = cc_author.accounts()
             self.assertTrue(all(a["uri"] is None for a in accs))
-            html = cc_author.footer_html(accs)
+            html = cc_author.feedback_html(accs)
             self.assertIn("小红书 · @", html)
             self.assertNotIn("data:image", html)
             self.assertNotIn("<span class=\"qr", html)
@@ -58,6 +58,13 @@ class Footer(unittest.TestCase):
     def test_两个平台标注都在(self):
         for a in cc_author.ACCOUNTS:
             self.assertIn(f'{a["platform"]} · @{a["handle"]}', self.html)
+
+    def test_底部不再摆二维码_只留账号名(self):
+        seg = self.html[self.html.index("data-author"):]
+        self.assertNotIn('class="qr', seg, "二维码已经在「问题反馈」里，底部不该再摆一遍")
+        for a in cc_author.ACCOUNTS:
+            self.assertIn(a["platform"], seg)
+            self.assertIn("@" + a["handle"], seg)
 
     def test_没给链接就不编链接(self):
         seg = self.html[self.html.index("data-author"):]
@@ -83,8 +90,10 @@ class Footer(unittest.TestCase):
     def test_反馈入口独立于脚注(self):
         fb = self.html[self.html.index("问题反馈"):self.html.index("data-author")]
         self.assertIn("使用问题或建议，可以通过小红书或抖音私信我。", fb)
-        for a in cc_author.ACCOUNTS:  # 藏了脚注也要能找到人，所以这里带上号
+        for a in cc_author.accounts():  # 藏了脚注也要能找到人，所以这里带上号和二维码
             self.assertIn(a["id"], fb)
+            if a["uri"]:
+                self.assertIn(f'class="qr qr-{a["key"]}"', fb)
 
     def test_二维码尺寸够大(self):
         self.assertIn("width:132px;height:132px", cc_author.css())
