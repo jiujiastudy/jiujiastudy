@@ -6,9 +6,9 @@
 
 跟你的 AI 说一句（两种说法都行）：
 
-> 帮我安装 救驾：https://github.com/sydney-sultan/jiujiastudy
+> 帮我安装 救驾：https://github.com/jiujiastudy/jiujiastudy
 
-> 帮我安装 GitHub 上的 sydney-sultan/jiujiastudy
+> 帮我安装 GitHub 上的 jiujiastudy/jiujiastudy
 
 只说名字不带网址不可靠：模型不认识新仓库，同名仓库也可能是别人的（光搜 jiujia 会搜到一堆抢疫苗的脚本），而这个技能会拿到你的 Canvas token。请只从上面这个地址安装。
 
@@ -20,10 +20,10 @@
 
 | 宿主 | macOS / Linux / Git Bash | Windows PowerShell |
 |---|---|---|
-| Claude Code | `git clone https://github.com/sydney-sultan/jiujiastudy ~/.claude/skills/jiujiastudy` | `git clone https://github.com/sydney-sultan/jiujiastudy "$HOME\.claude\skills\jiujiastudy"` |
-| Codex 及其它读 Agent Skills 的工具 | `git clone https://github.com/sydney-sultan/jiujiastudy ~/.agents/skills/jiujiastudy` | `git clone https://github.com/sydney-sultan/jiujiastudy "$HOME\.agents\skills\jiujiastudy"` |
+| Claude Code | `git clone https://github.com/jiujiastudy/jiujiastudy ~/.claude/skills/jiujiastudy` | `git clone https://github.com/jiujiastudy/jiujiastudy "$HOME\.claude\skills\jiujiastudy"` |
+| Codex 及其它读 Agent Skills 的工具 | `git clone https://github.com/jiujiastudy/jiujiastudy ~/.agents/skills/jiujiastudy` | `git clone https://github.com/jiujiastudy/jiujiastudy "$HOME\.agents\skills\jiujiastudy"` |
 
-没有 git：下载 https://github.com/sydney-sultan/jiujiastudy/archive/refs/heads/main.zip ，解压出来的文件夹叫 `jiujiastudy-main`，把它改名成 `jiujiastudy` 再放到上面的位置。
+没有 git：下载 https://github.com/jiujiastudy/jiujiastudy/archive/refs/heads/main.zip ，解压出来的文件夹叫 `jiujiastudy-main`，把它改名成 `jiujiastudy` 再放到上面的位置。
 
 已经装过、要更新：在 `skills/jiujiastudy` 里 `git pull`。
 
