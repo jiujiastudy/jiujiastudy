@@ -38,7 +38,7 @@ class DoctorExitCodeTest(unittest.TestCase):
 
     def doctor(self, **env):
         # --all-courses: every fixture course counts, whatever today's real date is.
-        args = ["doctor", "--no-detect", "--host", self.mock.base_url, "--tz", "Australia/Sydney", "--agent", "other",
+        args = ["doctor", "--host", self.mock.base_url, "--tz", "Australia/Sydney", "--agent", "other",
                 "--all-courses", "--json"]
         r = harness.run_coach(self.home, args, TOOLS, ports=(self.mock.port,), extra_env=env)
         try:

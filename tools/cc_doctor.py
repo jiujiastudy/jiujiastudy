@@ -1,6 +1,7 @@
 """体检（doctor）和迁移（migrate）。没有任何学校或用户的默认值。
 
-建档在 cc_bootstrap.py，token 在 cc_token.py，宿主权限在 cc_perms.py，装依赖、装 skill 和分享版在 cc_install.py。
+建档在 cc_bootstrap.py，认学校在 cc_host.py，token 和小窗口在 cc_token.py / token_window.py，装依赖、装 skill 和分享版在 cc_install.py。
+不读浏览器记录，不改任何宿主的权限设置（Claude Code 靠 SKILL.md 的 allowed-tools 放行 coach.py）。
 """
 import datetime as dt
 import glob
@@ -23,12 +24,35 @@ from cc_bootstrap import align_week1, bootstrap_config
 from cc_config import SCHEMA_VERSION, CoachError, Ctx, adapt_v1, minimal_state, upgrade_v2, version_of
 from cc_install import check_skill_location, pip_install
 from cc_paths import WEEK_PAGE, agent_kind, coach_cmd, fwd, home_dir, python_cmd, root_dir
-from cc_perms import check_perms, claude_settings_path, codex_snippet, fix_perms
 from cc_store import jload, jsave
 from cc_time import Clock, ensure_zone, machine_zone, normalize_zone, parse_date, zone_data_available, zone_label
-from cc_token import TOKEN_FILE_SHOWN, open_token_prompt, token
+from cc_token import TOKEN_FILE_SHOWN, open_token_window, token
 
 NARRATIVE_LABELS = {"confirmed_by_user": "用户已确认", "first_step_hints": "下一步提示", "class_meeting": "上课信息", "deck_location": "文件位置"}
+
+
+GEN_TOKEN = (f"去 Canvas → Account → Settings → Approved Integrations → + New Access Token（Purpose 填 {brand.NAME}，"
+             "Expires 选学期结束），把生成的一长串整段复制")
+
+
+def token_action(opened, asked, knows_school):
+    """缺 token 时「你需要做的事」：一条消息说完，学校和 token 一起问。opened = open_token_window 的返回。"""
+    ask_school = "" if knows_school else "你是哪个学校的？另外，"
+    reply = "「粘好了」" if knows_school else "，比如「悉尼大学，粘好了」"
+    then = "用户回来就跑 doctor" if knows_school else "用户回来跑 doctor --school 他说的校名（发的是网址就用 --host）"
+    if opened == "window":
+        return ("原样告诉用户，一条消息说完：「弹出了一个「" + brand.NAME + "」小窗口：填上你的学校，再按窗口里写的步骤去 Canvas 生成 token，"
+                "粘进去点保存。窗口里显示「连上了」以后，回我一句「好了」。token 别发到聊天里。」用户说好了就跑 doctor")
+    if opened == "env":
+        return (f"原样告诉用户，一条消息说完：「{ask_school}{GEN_TOKEN}；在刚弹出的「环境变量」窗口上半部分点「新建」，"
+                f"变量名填 CANVAS_TOKEN，变量值粘 token，确定两次。弄好回我一句{reply}。token 别发到聊天里。」{then}")
+    if opened == "keychain":
+        return (f"原样告诉用户，一条消息说完：「{ask_school}{GEN_TOKEN}；在刚打开的「终端」里粘贴、回车（输入时不显示字符，要粘两次）。"
+                f"弄好回我一句{reply}。token 别发到聊天里。」{then}")
+    if not asked:
+        return "跑 doctor --token-window：弹出填学校和 token 的小窗口"
+    return (f"这台电脑弹不出窗口。原样告诉用户，一条消息说完：「{ask_school}{GEN_TOKEN}，存进 {TOKEN_FILE_SHOWN} 这个文件"
+            f"（只放 token 这一行）。弄好回我一句{reply}。token 别发到聊天里。」{then}")
 
 
 def doctor(args):
@@ -36,11 +60,8 @@ def doctor(args):
     checks, must_fix = [], []
     blocking = False
     extra_blocks = []
-    ask_host_action = "让用户把 Canvas 登录页网址整个发过来（地址栏 https:// 开头那一串），然后跑 doctor --host 网址"
-    retry_browser_action = ("按宿主机制批准一次只读浏览器记录权限后重跑 doctor --detect-site；"
-                            "仍读不了，再让用户发 Canvas 登录页网址并跑 doctor --host 网址")
-    retry_canvas_action = ("按宿主机制批准访问候选 Canvas（需要时检查校园网 / VPN）后重跑 doctor --detect-site；"
-                           "候选不对，再让用户发登录页网址并跑 doctor --host 网址")
+    ask_url_action = "让用户把 Canvas 的网址发过来（登录 Canvas 后浏览器地址栏里那一串），再跑 doctor --host 网址"
+    ask_school_action = "问用户是哪个学校的（说校名就行，或者发 Canvas 网址），再跑 doctor --school 他说的校名或网址"
 
     def ok(name, detail=""):
         checks.append(("OK", name, detail))
@@ -88,88 +109,69 @@ def doctor(args):
         err("档案目录", f"{home} 不可写：{e}", f"检查 {brand.env_name('HOME')} 指向的文件夹是否存在且可写：{home}")
         blocking = True
 
-    # 3 site detection (no token needed) when asked or when no host is known
-    site = jload(os.path.join(home, "site.json"), {}) or {}
-    host = cc_host.normalize_host(getattr(args, "host", None)) or (cfg or {}).get("canvas_host") or cc_host.normalize_host(os.environ.get("CANVAS_HOST")) or site.get("host")
-    detect_res = None
-    if getattr(args, "detect_site", False) or (not host and not getattr(args, "school", None) and not getattr(args, "no_detect", False)):
-        import cc_detect
-        detect_res = cc_detect.detect(dry_run=getattr(args, "dry_run", False))  # 探测不带 token（S09）
-        if detect_res.get("dry_run"):
-            checks.append(("信息", "站点探测（预演）", "；".join(detect_res["files"]) or "当前没有枚举到浏览器记录文件；预演未读取内容"))
-        elif detect_res.get("found"):
-            found_host = cc_host.normalize_host(detect_res["found"])
-            if not host:
-                found_candidate = next((c for c in detect_res["candidates"]
-                                        if cc_host.normalize_host(c.get("url")) == found_host), None)
-                browsers = ", ".join((found_candidate or {}).get("browsers") or [])
-                # 浏览器记录只是线索，不是答案：token 只发给用户确认过的地址，所以这里不自动采用（S09）
-                warn("学校", f"浏览器记录里最像的是 {found_host}" + (f"（{browsers}）" if browsers else ""),
-                     f"问用户一句「你学校的 Canvas 是不是 {found_host}？」；是就跑 doctor --host {found_host}，不是就让他发登录页网址")
-            elif cc_host.normalize_host(host) == found_host:
-                ok("学校", f"浏览器记录与已指定地址一致：{host}")
-            else:
-                checks.append(("信息", "学校", f"浏览器候选 {found_host} 与已指定地址 {host} 不同；继续验证已指定地址"))
-        elif detect_res.get("ambiguous"):
-            hs = "、".join(c["host"] for c in detect_res["candidates"] if c.get("is_canvas"))
-            warn("学校", f"浏览器记录里有不止一个像 Canvas 的站点：{hs}", f"问用户「你学校用的是哪个：{hs}？」然后跑 doctor --host 那个")
-        elif detect_res.get("validation_unavailable"):
-            hs = "、".join(c["host"] for c in detect_res["candidates"])
-            warn("学校", f"浏览器记录里找到候选 {hs}，但当前网络或沙盒无法验证", retry_canvas_action)
+    # 3 学校：--host / --school（先查表，查不准就问，不猜）/ config / 环境变量 / 小窗口存的 site.json。
+    #   token 发出去之前先不带 token 探一下是不是 Canvas（S09）。
+    site_path = os.path.join(home, "site.json")
+    site = jload(site_path, {}) or {}
+    school = (getattr(args, "school", None) or "").strip()
+    given = cc_host.normalize_host(getattr(args, "host", None))
+    if school and not given and cc_host.looks_like_url(school):
+        given, school = cc_host.normalize_host(school), ""
+    host = (cfg or {}).get("canvas_host") or cc_host.normalize_host(os.environ.get("CANVAS_HOST")) or site.get("host")
+    candidate, label = given, None
+    if school and not given:
+        if (cfg or {}).get("canvas_host"):
+            checks.append(("信息", "学校", f"已经建档，用的是 {cfg['canvas_host']}；这次的 --school 不用"))
         else:
-            status = detect_res.get("read_status")
-            why = ("浏览器记录存在但读不了（可能被系统权限或宿主沙盒拦住）" if status == "unreadable" else
-                   "没有发现可读取的浏览器记录（可能没有记录，也可能被宿主沙盒隐藏）" if status == "unavailable_or_absent" else
-                   "已读取浏览器记录，但没找到 Canvas")
-            warn("学校", why, retry_browser_action if status in ("unreadable", "unavailable_or_absent") else ask_host_action)
+            got = cc_host.resolve_school(school)
+            if got.get("ambiguous"):
+                names = "、".join(n for _, n in got["ambiguous"])
+                warn("学校", f"「{school}」对得上不止一所：{names}", f"问用户是哪一所（{names}），再跑 doctor --school 那一所的全名")
+            elif not got.get("host"):
+                warn("学校", f"学校表里没有「{school}」", ask_url_action)
+            else:
+                candidate, label = got["host"], got["name"]
+    if candidate:
+        looks = cc_host.is_canvas(candidate)
+        shown = f"{label} → {candidate}" if label else candidate
+        if looks is False:
+            warn("学校", f"{shown} 不像 Canvas", ask_url_action)
+        else:
+            host = candidate
+            if looks is None:
+                checks.append(("信息", "学校", f"{shown}：现在探不到，先按它试"))
+            else:
+                ok("学校", shown)
+            if cfg is None:
+                jsave(site_path, {"host": candidate, "school": school or candidate})
 
-    # 4 token + host verification
-    detected_found = cc_host.normalize_host((detect_res or {}).get("found"))
-    me = ((detect_res or {}).get("me") if detected_found and detected_found == cc_host.normalize_host(host) else None)
-    api = None
+    # 4 token：有就只对这一个地址验证；没有就弹「填学校 + 粘 token」的小窗口（--token-window）
+    me, api = None, None
     tok, token_available, verified = None, False, False
-    school = getattr(args, "school", None)
     try:
         tok = token()
         token_available = True
-        if not host and school:
-            found, me, tried = cc_host.find_host(tok, cc_host.candidate_hosts(school))
-            if found:
-                host = found
-                ok("学校", f"按「{school}」认出 {host}")
-            else:
-                warn("学校", "按「" + school + "」猜的地址都不对：" + "；".join(f"{h} {r}" for h, r in tried),
-                     "让用户把 Canvas 登录页的网址整个发过来，跑 doctor --host 网址")
         if host:
             candidate_api = canvas_api.Canvas(host, tok)
-            if me is None:
-                me = candidate_api.get("/api/v1/users/self")
+            me = candidate_api.get("/api/v1/users/self")
             api, verified = candidate_api, True
             ok("token", f"已设置；/users/self 200 {me.get('name')}（{me.get('id')}）@ {host}")
         else:
-            ok("token", "已设置；有学校地址后再验证")
-            if not any(name == "学校" for _, name, _ in checks):
-                warn("学校", "还不知道学校的 Canvas 地址", ask_host_action)
+            ok("token", "已设置；知道学校后再验证")
     except canvas_api.CanvasAuthError:
-        opened = open_token_prompt() if getattr(args, "env_dialog", False) else None
-        gen = f"去 Canvas → Account → Settings → Approved Integrations → New Access Token（Purpose 填 {brand.NAME}，Expires 设学期最后一天）整段复制；"
-        if sys.platform == "win32":
-            warn("token", "CANVAS_TOKEN 未设置" + ("；已弹出「环境变量」窗口" if opened else ""),
-                 gen + ("在刚弹出的窗口里" if opened else "让我弹出窗口（doctor --env-dialog），在窗口里")
-                 + "上半部分「用户变量」点「新建」，变量名 CANVAS_TOKEN，变量值粘贴 token，确定两次。不用重启，粘完再说一次「体检」")
-        elif sys.platform == "darwin":
-            warn("token", "CANVAS_TOKEN 未设置" + ("；已打开「终端」等你粘 token" if opened else ""),
-                 gen + ("在刚打开的终端里" if opened else "让我打开终端（doctor --env-dialog），在终端里")
-                 + "粘贴 token 回车（输入时不显示字符，会要你粘两次），它存进钥匙串。不用重启，存完再说一次「体检」")
-        else:
-            warn("token", "CANVAS_TOKEN 未设置", gen + "在 shell 配置里加 export CANVAS_TOKEN=\"…\" 后重开对话，或把 token 写进 " + TOKEN_FILE_SHOWN + "（chmod 600）")
+        asked = getattr(args, "token_window", False)
+        opened = open_token_window(home) if asked else None
+        warn("token", "还没有 token" + {"window": "；已弹出填学校和 token 的小窗口",
+                                         "env": "；小窗口弹不出，已打开系统「环境变量」窗口",
+                                         "keychain": "；小窗口弹不出，已打开「终端」"}.get(opened, ""),
+             token_action(opened, asked, bool(host)))
     except urllib.error.HTTPError as e:
         api = None
         if e.code == 401:
             warn("token", f"token 在 {host} 上登不上（401）：多半是复制不全",
-                 "在同一个 Canvas 站点重新生成一个 token，再完整粘进 token 窗口；不要重问学校")
+                 "跑 doctor --token-window，让用户在小窗口里粘一个新生成的 token；不要重问学校")
         else:
-            warn("Canvas", f"{host} 返回 HTTP {e.code}", "让用户把学校 Canvas 登录页的网址发过来，跑 doctor --host 网址")
+            warn("Canvas", f"{host} 返回 HTTP {e.code}", ask_url_action)
     except urllib.error.URLError as e:
         api = None
         warn("Canvas", f"连不上 {host}：{e.reason}", "检查网络（校园网 / VPN）后重跑体检")
@@ -177,8 +179,9 @@ def doctor(args):
         api = None
         warn("Canvas", str(e))
 
-    if not host and not any(name == "学校" for _, name, _ in checks):
-        warn("学校", "还不知道学校的 Canvas 地址", ask_host_action)
+    # 缺 token 时学校在小窗口里一起填，这里不另外问，免得拆成两条消息
+    if not host and token_available and not any(name == "学校" for _, name, _ in checks):
+        warn("学校", "还不知道是哪个学校", ask_school_action)
 
     # 5 config
     if cfg is None:
@@ -361,26 +364,11 @@ def doctor(args):
     else:
         ok("依赖", " / ".join(deps.DEP_NAMES[m] for m in deps.DEP_NAMES if m != "tzdata") + " 已装")
 
-    # 11 permissions per host agent
-    if agent == "claude":
-        missing_allow, missing_dirs, block = check_perms(home, root_dir(cfg or {}))
-        if (missing_allow or missing_dirs) and getattr(args, "fix_perms", False):
-            try:
-                p = fix_perms(home, root_dir(cfg or {}))
-                ok("权限", f"已写入 {p}（原文件已备份 .bak）")
-                missing_allow, missing_dirs = [], []
-            except Exception as e:  # noqa: BLE001
-                warn("权限", f"自动写入失败：{type(e).__name__}: {e}")
-        if missing_allow or missing_dirs:
-            warn("权限", f"Claude Code 的 {claude_settings_path()} 缺 {len(missing_allow)} 条 allow" + ("，缺 additionalDirectories" if missing_dirs else ""),
-                 "跑 doctor --fix-perms 自动合并；被拦就把下面的 permissions 块粘进那个文件，保存后重开对话")
-            extra_blocks.append(("要合并进 settings.json 的 permissions 块：", json.dumps(block, ensure_ascii=False, indent=2)))
-        else:
-            ok("权限", "Claude Code 全局 settings.json 已含全部规则")
-    elif agent == "codex":
-        checks.append(("信息", "权限", "Codex 第一次读取浏览器记录或访问 Canvas 时可能要求批准；只放行准确的 coach.py 命令前缀，合适时选「始终允许」。下面的项目片段可合并进 config.toml"))
-        extra_blocks.append(("Codex config.toml 片段：", codex_snippet(home)))
-    else:
+    # 11 权限：不改任何宿主的设置。Claude Code 靠 SKILL.md 的 allowed-tools；别的宿主第一次运行时由用户批准
+    if agent == "codex":
+        checks.append(("信息", "权限", "Codex 第一次访问 Canvas 时可能要求批准：只放行准确的 coach.py 命令前缀，合适时选「始终允许」。下面的项目片段可合并进 config.toml"))
+        extra_blocks.append(("Codex config.toml 片段：", f"# 合并进 ~/.codex/config.toml（Codex 桌面版 → Settings → Config）\n[projects.'{fwd(home)}']\ntrust_level = \"trusted\"\n"))
+    elif agent != "claude":
         checks.append(("信息", "权限", f"宿主 {agent}：按它自己的方式批准 python 命令即可"))
 
     # 12 old tools
@@ -389,9 +377,6 @@ def doctor(args):
         checks.append(("信息", "旧脚本", f"{old} 仍在；可移到 _backup/"))
 
     lines = [f"{lvl:<3} {name}：{detail}" if detail else f"{lvl:<3} {name}" for lvl, name, detail in checks]
-    if detect_res and not detect_res.get("dry_run"):
-        import cc_detect
-        lines += ["", cc_detect.to_text(detect_res)]
     if must_fix:
         lines += ["", "你需要做的事："] + [f"{i}. {a}" for i, a in enumerate(must_fix, 1)]
     for title, block in extra_blocks:
@@ -402,7 +387,7 @@ def doctor(args):
                  and version_of(jload(os.path.join(home, "state.json"))) >= 2)
     code = 2 if blocking else (0 if ready or not must_fix else 1)
     return code, {"checks": [{"level": l, "name": n, "detail": d} for l, n, d in checks], "must_fix": must_fix, "agent": agent,
-                  "host": host, "home": home, "detect": detect_res, "ready": ready, "exit": code, "text": "\n".join(lines)}
+                  "host": host, "home": home, "ready": ready, "exit": code, "text": "\n".join(lines)}
 
 
 def md_of(v, depth=0):

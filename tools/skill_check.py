@@ -9,7 +9,7 @@ import os
 import re
 import sys
 
-MAX_SKILL_BYTES = 8192      # SKILL.md 全文
+MAX_SKILL_BYTES = 10240     # SKILL.md 全文（09-17 发起人放宽到 10KB，给 allowed-tools 和统一的调用写法）
 MAX_RULES = 6               # 「规矩」里的编号条
 MAX_TABLE_ROWS = 28         # 「用户说什么，做什么」表的行数（不含表头和分隔行）
 MAX_REFS_BYTES = 26624      # references/ 合计 26KB

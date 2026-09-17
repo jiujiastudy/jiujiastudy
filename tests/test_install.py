@@ -75,7 +75,7 @@ class InstallRehearsal(unittest.TestCase):
         self.assertNotIn("Traceback", r.stderr)
 
     def doctor(self):
-        r = self.run_it("doctor", "--no-detect", "--host", self.mock.base_url, "--tz", "Australia/Sydney",
+        r = self.run_it("doctor", "--host", self.mock.base_url, "--tz", "Australia/Sydney",
                         "--agent", "claude", "--all-courses", "--json")
         try:
             return r, r.json()

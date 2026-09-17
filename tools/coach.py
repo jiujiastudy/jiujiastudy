@@ -1,7 +1,7 @@
 """<NAME> 命令行入口。数据在 <HOME_ENV>（默认桌面 <NAME>/.coach），程序在本目录。
 
-  doctor  [--detect-site] [--env-dialog] [--host URL] [--school NAME] [--tz ZONE] [--fix-perms] [--agent auto|claude|codex|other] [--dry-run]
-          体检：装库、认学校（浏览器记录）、收 token、建档、按宿主写权限。缺什么就说什么，能修的自己修。
+  doctor  [--token-window] [--school 校名或网址] [--host URL] [--tz ZONE] [--agent auto|claude|codex|other]
+          体检：装库、认学校（查表或网址）、收 token（小窗口）、建档。缺什么就说什么，能修的自己修；不读浏览器记录，不改宿主权限。
   status                                     一屏现状 + 状态评估，零副作用
   collect [--quick] [--touch] [--download] | --materials CODE WEEK
           只读采集（默认只元数据，不下载课件）
@@ -504,13 +504,10 @@ def build_parser():
 
     p = sub.add_parser("doctor", parents=[common])
     p.add_argument("--host", help="学校 Canvas 网址（登录页网址也行）")
-    p.add_argument("--school", help="校名或域名（中英文都行），用来猜 Canvas 地址")
+    p.add_argument("--school", help="用户说的校名（中英文、简称都行），或 Canvas 网址；查表，查不准就让问用户，不猜")
     p.add_argument("--tz", help="课程时区（IANA，如 Australia/Sydney）；不给就从 Canvas 推")
-    p.add_argument("--detect-site", dest="detect_site", action="store_true", help="在浏览器记录里认 Canvas 域名（只取域名和访问次数）")
-    p.add_argument("--no-detect", dest="no_detect", action="store_true", help="不读浏览器记录")
-    p.add_argument("--dry-run", dest="dry_run", action="store_true", help="只列出会读哪些浏览器文件")
-    p.add_argument("--env-dialog", dest="env_dialog", action="store_true", help="缺 token 时弹出让用户粘 token 的窗口")
-    p.add_argument("--fix-perms", dest="fix_perms", action="store_true", help="宿主是 Claude Code 时把权限规则写进全局 settings.json")
+    p.add_argument("--token-window", dest="token_window", action="store_true", help="缺 token 时弹出填学校和 token 的小窗口（命令立刻返回）")
+    p.add_argument("--env-dialog", dest="token_window", action="store_true", help=argparse.SUPPRESS)  # 旧名字
     p.add_argument("--agent", default="auto", choices=["auto", "claude", "codex", "other"])
     p.add_argument("--all-courses", dest="all_courses", action="store_true")
     p.add_argument("--install", action="store_true", help="skill 不在 skills 目录时复制进去（换对话也能用）")
