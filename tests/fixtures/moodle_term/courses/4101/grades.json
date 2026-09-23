@@ -1,0 +1,10 @@
+{
+ "showweight": true,
+ "category": {"id": 60, "name": "Media & Research Methods"},
+ "items": [
+  {"id": 611, "cmid": 7003, "weight": "90.91 %", "grade": "72.50", "range": "0–100", "percentage": "72.50 %", "contribution": "65.91 %"},
+  {"id": 612, "cmid": 7004, "weight": "9.09 %", "grade": "8.00", "range": "0–10", "percentage": "80.00 %", "contribution": "7.27 %"},
+  {"id": 613, "cmid": 7005, "weight": "0.00 %<br>( Empty )", "grade": "-", "range": "0–100", "percentage": "-", "contribution": "0.00 %"},
+  {"id": 600, "type": "courseitem", "name": "Course total", "weight": "-", "grade": "80.50", "range": "0–110", "percentage": "73.18 %", "contribution": "-"}
+ ]
+}

@@ -1,0 +1,30 @@
+[
+ {"id": 9001, "course": 4101, "cmid": 7003, "eventtype": "due", "timestart": "2026-08-28T13:59:00Z"},
+ {"id": 9002, "course": 4101, "cmid": 7004, "eventtype": "open", "timestart": "2026-09-13T23:00:00Z"},
+ {"id": 9003, "course": 4101, "cmid": 7004, "eventtype": "close", "timestart": "2026-09-27T13:59:00Z"},
+ {"id": 9004, "course": 4101, "cmid": 7005, "eventtype": "due", "timestart": "2026-10-09T12:59:00Z"},
+ {"id": 9005, "course": 4101, "cmid": 7005, "eventtype": "extension", "timestart": "2026-10-16T12:59:00Z", "user": true},
+
+ {"id": 9101, "course": 4102, "cmid": 7103, "eventtype": "due", "timestart": "2026-09-18T13:59:00Z"},
+ {"id": 9102, "course": 4102, "cmid": 7102, "eventtype": "due", "timestart": "2026-09-25T07:00:00Z"},
+ {"id": 9103, "course": 4102, "cmid": 7105, "eventtype": "open", "timestart": "2026-09-20T23:00:00Z"},
+ {"id": 9104, "course": 4102, "cmid": 7105, "eventtype": "close", "timestart": "2026-09-28T13:59:00Z"},
+ {"id": 9105, "course": 4102, "cmid": 7104, "eventtype": "due", "timestart": "2026-10-14T07:00:00Z"},
+
+ {"id": 9201, "course": 4103, "cmid": 7204, "eventtype": "open", "timestart": "2026-08-09T23:00:00Z"},
+ {"id": 9202, "course": 4103, "cmid": 7204, "eventtype": "close", "timestart": "2026-09-20T13:59:00Z"},
+ {"id": 9203, "course": 4103, "cmid": 7203, "eventtype": "due", "timestart": "2026-10-30T12:59:00Z"},
+ {"id": 8301, "course": 4103, "cmid": null, "eventtype": "course", "name": "Mid-semester exam (in class)",
+  "description": "<p>Closed-book written exam in the Week 12 lecture slot. Bring student card.</p>",
+  "location": "Lecture Theatre 2", "timestart": "2026-10-12T23:00:00Z", "timeduration": 7200},
+
+ {"id": 9301, "course": 4104, "cmid": 7302, "eventtype": "due", "timestart": "2026-10-02T13:59:00Z"},
+ {"id": 9302, "course": 4104, "cmid": 7303, "eventtype": "open", "timestart": "2026-09-20T23:00:00Z"},
+ {"id": 9303, "course": 4104, "cmid": 7303, "eventtype": "close", "timestart": "2026-10-05T12:59:00Z"},
+
+ {"id": 8001, "course": null, "cmid": null, "eventtype": "site", "name": "Formal examination period",
+  "description": "<p>End-of-semester exams run across the whole university. Check your personal exam timetable.</p>",
+  "timestart": "2026-10-30T21:00:00Z", "timeduration": 1296000},
+ {"id": 8401, "course": null, "cmid": null, "eventtype": "user", "name": "Study group", "user": true,
+  "description": "<p>Library room 3.</p>", "timestart": "2026-09-24T08:00:00Z", "timeduration": 3600}
+]

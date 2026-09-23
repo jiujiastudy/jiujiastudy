@@ -5,7 +5,7 @@ import os
 
 import brand
 from cc_collect import DESC_UNCHANGED, load_snapshot, strip_html
-from cc_courses import course_pairs
+from cc_courses import course_pairs, lms_label, lms_of
 from cc_deadlines import deadline_rows, exam_today, plan_today, unresolved_pending
 from cc_store import jload
 from cc_time import parse_date, parse_ts
@@ -26,7 +26,7 @@ def recent_announcements(ctx, today, days=7):
         if not code or not posted or posted < since:
             continue
         out.append({"course": code, "when": ctx.clock.fmt(posted), "posted_at": a.get("posted_at"), "title": a.get("title"),
-                    "url": a.get("html_url"), "gist": canvas_text(strip_html(a.get("message"), 300))})
+                    "url": a.get("html_url"), "gist": canvas_text(strip_html(a.get("message"), 300), lms=lms_label(ctx.cfg))})
     out.sort(key=lambda x: x["posted_at"] or "", reverse=True)
     return out
 
@@ -68,7 +68,8 @@ def print_context(ctx, date):
         print(f" - {m.get('date')} {m.get('time') or m.get('time_text', '')} {m.get('course')} {m.get('item')}{'（待确认）' if m.get('pending') else ''}")
 
 
-def print_digest(d):
+def print_digest(d, lms="Canvas"):
+    """collect 的终端输出；lms 是平台名，只用来换原文圈的标签。"""
     print(f"# digest {d['date']}（采集 {d['collected_at']}{'，快速模式：只看作业和公告' if d.get('quick') else ''}）")
     if d.get("course_changes"):
         print("## 课程清单有变")
@@ -89,11 +90,11 @@ def print_digest(d):
     print(f"## 新公告 {len(d['new_announcements'])}")
     for a in d["new_announcements"]:
         print(f" - [{a['course']}] {a['when']} 《{a['title']}》 {a['author']} {a['url']}")
-        print(canvas_text(a["text"][:1200], indent="   "))
+        print(canvas_text(a["text"][:1200], indent="   ", lms=lms))
     print(f"## 站内信（有变化）{len(d['staff_messages'])}")
     for m in d["staff_messages"]:
         print(f" - [{m['course']}] {m['when']} 《{m['subject']}》 from {m['from']}")
-        print(canvas_text(m["text"][:600], indent="   "))
+        print(canvas_text(m["text"][:600], indent="   ", lms=lms))
     print(f"## 作业改动 {len(d['changed_assignments'])}")
     for a in d["changed_assignments"]:
         print(f" - [{a['course']}] {a['name']} {a.get('url')} {a.get('change', '')} {a.get('fields', '')}")
@@ -101,7 +102,7 @@ def print_digest(d):
         if diff == [DESC_UNCHANGED]:  # 这句是本工具写的，不是 Canvas 原文
             print("      " + diff[0])
         elif diff:
-            print(canvas_text("\n".join(diff), indent="      "))
+            print(canvas_text("\n".join(diff), indent="      ", lms=lms))
     print(f"## 提交/成绩变化 {len(d['submission_changes'])}")
     for s in d["submission_changes"]:
         print(f" - [{s['course']}] {s['name']} {s['changes']} 附件={s.get('attachments')} 已发布分数={s['posted']}")
@@ -180,13 +181,14 @@ def render(ctx, date, zh=None, out=None, record=True):
     import cc_record
     zh = zh or {}
     cfg, state, clock = ctx.cfg, ctx.state, ctx.clock
+    lbl, moodle = lms_label(cfg), lms_of(cfg) == "moodle"  # Canvas 档案下文案逐字不变
     courses = course_pairs(cfg)
     today = parse_date(date)
     digest = jload(ctx.P("raw", "daily", date, "digest.json"))
     offline = digest is None
     errors = list((digest or {}).get("errors") or [])
     if offline:
-        errors.insert(0, "本次没有采集到 Canvas 数据（digest.json 不存在），下面的内容来自档案和上次快照")
+        errors.insert(0, f"本次没有采集到 {lbl} 数据（digest.json 不存在），下面的内容来自档案和上次快照")
         digest = {"snapshot": load_snapshot(ctx) or {}, "errors": errors}
     last_check = parse_ts(state.get("last_check"))
     snap = digest.get("snapshot") or {}
@@ -207,7 +209,7 @@ def render(ctx, date, zh=None, out=None, record=True):
     o = [head(f"日报 {date}", f"daily-{date}", app="coach", wide=True),
          f'<p class="eyebrow">{brand.NAME} · 日报</p>',
          f"<h1>{clock.fmt_date(today)} 日报</h1>",
-         f'<p class="meta">{clock.stamp()} 生成 ｜ 学期{clock.term_week(today)} ｜ 上次检查 {clock.fmt(last_check) if last_check else "无记录"} ｜ 数据：Canvas API（只读）+ 本地档案</p>']
+         f'<p class="meta">{clock.stamp()} 生成 ｜ 学期{clock.term_week(today)} ｜ 上次检查 {clock.fmt(last_check) if last_check else "无记录"} ｜ 数据：{"Moodle（只读，用你的登录）" if moodle else "Canvas API（只读）"}+ 本地档案</p>']
     if zh.get("top_note"):
         o.append(f'<div class="card key"><p>{rich(zh["top_note"])}</p></div>')
     if errors:
@@ -246,7 +248,7 @@ def render(ctx, date, zh=None, out=None, record=True):
         o.append(f'<p class="sub">{rich(readiness)}</p>')
 
     o.append(f'<h2>未来 14 天 deadline<span class="tag" style="margin-left:10px">{clock.fmt_date(today)} 至 {clock.fmt_date(today + dt.timedelta(days=14))}</span></h2>')
-    o.append(f'<p class="meta">{esc(clock.tz_note(today))}标「待确认」的日期来自公告、作业说明或公开大纲，不是 Canvas 的 due_at。</p>')
+    o.append(f'<p class="meta">{esc(clock.tz_note(today))}标「待确认」的日期来自公告、作业说明或公开大纲，不是 {"Moodle 日历或作业页上的截止时间" if moodle else "Canvas 的 due_at"}。</p>')
     if rows:
         o.append('<div class="scroll"><table class="grid"><tr><th>剩余</th><th>时间</th><th>课</th><th>事项</th><th>权重</th><th>状态</th><th>说明 / 出处</th></tr>')
         for r in rows:
@@ -285,9 +287,10 @@ def render(ctx, date, zh=None, out=None, record=True):
 
     ep = cfg.get("exam_prep") or {}
     o.append("<footer><p>依据与出处</p><ul>")
-    o.append(f"<li>Canvas API（只读）：/courses/{{id}}/assignments?include[]=submission、/courses/{{id}}/modules?include[]=items、/announcements、/conversations?scope=inbox；原始响应存 <code>raw/daily/{date}/</code></li>")
+    o.append(f"<li>Moodle（只读，用你的登录）：日历 core_calendar_get_calendar_monthly_view、课程结构 core_courseformat_get_state、作业 / 测验 / 成绩 / 公告页面；原始响应存 <code>raw/daily/{date}/</code></li>" if moodle else
+             f"<li>Canvas API（只读）：/courses/{{id}}/assignments?include[]=submission、/courses/{{id}}/modules?include[]=items、/announcements、/conversations?scope=inbox；原始响应存 <code>raw/daily/{date}/</code></li>")
     o.append("<li>本地档案：state.json、DDL雷达.md、courses/&lt;课程&gt;/档案.md、plans/" + (f"、{esc(ep['dir'])}/plan.json" if ep.get("dir") else "") + "</li>")
-    o.append(f"</ul><p>{brand.NAME} · 只整理课程材料；计分的文字由你自己写。标「待确认」「推断」的地方请以 Canvas 和课表为准。</p></footer>")
+    o.append(f"</ul><p>{brand.NAME} · 只整理课程材料；计分的文字由你自己写。标「待确认」「推断」的地方请以 {lbl} 和课表为准。</p></footer>")
     html = "\n".join(o) + foot()
 
     out = out or ctx.P("reports", f"日报_{date}.html")

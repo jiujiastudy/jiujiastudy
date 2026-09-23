@@ -1,0 +1,58 @@
+[
+ {
+  "id": 4101,
+  "fullname": "Media & Research Methods",
+  "shortname": "MDL1001_S2_2026",
+  "idnumber": "MDL1001-2026-S2",
+  "summary": "<p>Qualitative and quantitative methods for media research.</p>",
+  "startdate": "2026-07-26T14:00:00Z",
+  "enddate": "2026-11-14T13:00:00Z",
+  "category": "Media and Communication",
+  "format": "weeks",
+  "isfavourite": true
+ },
+ {
+  "id": 4102,
+  "fullname": "Digital Media Production",
+  "shortname": "MDL2002_S2_2026",
+  "idnumber": "",
+  "summary": "",
+  "startdate": "2026-07-26T14:00:00Z",
+  "enddate": "2026-11-14T13:00:00Z",
+  "category": "Media and Communication",
+  "format": "topics"
+ },
+ {
+  "id": 4103,
+  "fullname": "Screen Cultures",
+  "shortname": "MDL3003_S2_2026",
+  "idnumber": "MDL3003-2026-S2",
+  "summary": "<p>Film, television and online screen forms.</p>",
+  "startdate": "2026-07-26T14:00:00Z",
+  "enddate": "2026-11-14T13:00:00Z",
+  "category": "Film Studies",
+  "format": "weeks"
+ },
+ {
+  "id": 4104,
+  "fullname": "Data Storytelling",
+  "shortname": "MDL4004_S2_2026",
+  "idnumber": "",
+  "summary": "",
+  "startdate": "2026-07-26T14:00:00Z",
+  "enddate": null,
+  "category": "Data Science",
+  "format": "topics"
+ },
+ {
+  "id": 4090,
+  "fullname": "Introduction to Media Studies",
+  "shortname": "MDL0900_S1_2026",
+  "idnumber": "",
+  "summary": "",
+  "startdate": "2026-02-22T13:00:00Z",
+  "enddate": "2026-06-27T14:00:00Z",
+  "category": "Media and Communication",
+  "format": "topics"
+ }
+]

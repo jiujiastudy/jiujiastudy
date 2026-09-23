@@ -1,11 +1,11 @@
 ---
 name: jiujiastudy
-description: 救驾（jiujiastudy）是留学生的 Canvas 学习手帐：盯 deadline、排本周该学什么、按状态给建议。用户提到课程、作业、deadline、考试、Canvas、老师，或说「现在什么情况」「最近要交什么」「这周学什么」「做完了」「没状态 / 累 / 来不及」时使用；第一次用时自己完成设置，只向用户要 Canvas 网址和 token。
+description: 救驾（jiujiastudy）是留学生的 Canvas / Moodle 学习手帐：盯 deadline、排本周该学什么、按状态给建议。用户提到课程、作业、deadline、考试、Canvas、Moodle、老师，或说「现在什么情况」「最近要交什么」「这周学什么」「做完了」「没状态 / 累 / 来不及」时使用；第一次用时自己完成设置，只向用户要学校网址（Canvas 另要 token）。
 ---
 
 # 救驾
 
-脚本在本文件同目录的 `tools/coach.py`。宿主给了本文件路径就直接用；没给就依次找 `~/.claude/skills/jiujiastudy`、`~/.codex/skills/jiujiastudy`、`~/.agents/skills/jiujiastudy`。解释器优先用宿主已经提供的 Python；Codex 桌面版先调用 `load_workspace_dependencies` 取得 Python executable，再试 `python3` / `python` / Windows `py -3`。已有任何可用解释器就不安装；全部不可用才征得用户同意安装。下文只写命令名。用用户说话的语言回答，默认中文。
+脚本在本文件同目录的 `tools/coach.py`。宿主给了本文件路径就直接用；没给就依次找 `~/.claude/skills/jiujiastudy`、`~/.codex/skills/jiujiastudy`、`~/.agents/skills/jiujiastudy`。Python 怎么找见「自愈」第一行，有能用的就不装。下文只写命令名。用用户说话的语言回答，默认中文。
 
 两个地方。**资料夹**给人看：默认桌面的「救驾」，`paths` 打印具体路径；根目录是「本周清单.html」和「Deadline雷达.html」，每门课一个文件夹，里面只有两个子文件夹，「课件」放 Canvas 原件，「产出」放 AI 做的一切。**机器档案**给 AI 用：config.json（学校、时区、课程）、state.json（进度、待确认、心情、手动 deadline）、raw/、plans/、reports/、text/（课件文字稿，默认不提取），在资料夹里的 .coach（老版档案仍兼容 ~/CourseCoach），用户不用管。显示的时间跟着用户电脑的时钟走；deadline 的「今天 / 明天 / 还有 N 天」按课程所在时区数，过没过期按真实时刻算。
 
@@ -18,12 +18,12 @@ description: 救驾（jiujiastudy）是留学生的 Canvas 学习手帐：盯 de
 3. 每次交付末尾一句状态评估加建议：直接用 `status` / `radar` / `study` / `record done` / `record mood` 打印的那句，可以换成用户的口吻，不加新判断（细则 references/state.md）。
 4. 待确认的事只问一次，之后进先搁着；用户定过的事（state.decisions）不再提。
 5. 往 Canvas 发帖、发站内信、交作业：先不带 `--confirmed` 跑 `api post` / `api upload` 拿预览，原样给用户看；用户说「发」再加 `--confirmed`，脚本会弹系统确认窗口，用户本人点「确定」才真的发。窗口弹不出就不发，把链接给用户自己交。
-6. 出 deadline 清单、周报、雷达之前一律 `collect --force` 重新核对 Canvas（不吃 10 分钟缓存），哪怕几分钟前刚采过。脚本打印了采集错误或「没采到」的课，就照它的原话点名说哪门课、数据是几点的，再给清单；不许默默拿旧快照当最新的。每份清单末尾写一句数据截至时间。给别人看的清单同样照这条做。
+6. 出 deadline 清单、周报、雷达之前一律 `collect --force` 重新核对 Canvas（不吃 10 分钟缓存）。脚本打印了采集错误或「没采到」的课，就照它的原话点名说哪门课、数据是几点的，再给清单；不许默默拿旧快照当最新的。每份清单末尾写一句数据截至时间。给别人看的清单同样照这条做。
 
 ## 第一次（用户不用说任何口令）
-`status` 报「还没有档案」→ 按 references/setup.md 走：确认有可用 Python（宿主内置优先，不重复安装）→ `doctor --detect-site`（浏览器记录里认 Canvas 域名）→ 打印了「config.json：已新建」就直接往下；否则一条消息说清学校对不对、token 怎么生成（生成后直接发到对话里），用户发来就 `token set` 存好，再跑 `doctor` → `collect --touch`（只记元数据，十几秒；失败不进入缓存）→ `radar --write` → `study --write` → `collect --download --background`（课件后台补；同一档案最多一个 worker，命令立刻返回）→ 一条消息：连上了哪个站、最急的一条和第一步、本周最要紧的一件、资料夹在哪、状态一句。doctor 列的「你需要做的事」：自己能做的（`--fix-perms`）做掉，其余最多一句带给用户。网络和权限已就绪时通常一分钟内出首份雷达和清单；首次权限审批或装依赖的时间另算。
+`status` 报「还没有档案」→ 按 references/setup.md 走：确认有可用 Python（宿主内置优先，不重复安装）→ `doctor --detect-site`（浏览器记录里认 Canvas 域名）→ 打印了「config.json：已新建」就直接往下；否则一条消息说清学校对不对、token 怎么生成（生成后直接发到对话里；Moodle 不要 token，跑 `login`），用户发来就 `token set` 存好，再跑 `doctor` → `collect --touch`（只记元数据，十几秒；失败不进入缓存）→ `radar --write` → `study --write` → `collect --download --background`（课件后台补；同一档案最多一个 worker，命令立刻返回）→ 一条消息：连上了哪个站、最急的一条和第一步、本周最要紧的一件、资料夹在哪、状态一句。doctor 列的「你需要做的事」：自己能做的（`--fix-perms`）做掉，其余最多一句带给用户。网络和权限已就绪时通常一分钟内出首份雷达和清单；首次权限审批或装依赖的时间另算。
 
-脚本退出码：0 成功；退出码 1 = 有提醒，不是失败，照输出里列的事做；2 = 卡住了，输出只有一句原因；3 = 档案版本太老，先跑 `migrate`。
+脚本退出码：0 成功；1 = 有提醒，不是失败，照输出里列的事做；2 = 卡住了，输出只有一句原因；3 = 档案版本太老，先跑 `migrate`。
 
 ## 用户说什么，做什么
 | 用户说 | 做 | 读 |
@@ -45,6 +45,7 @@ description: 救驾（jiujiastudy）是留学生的 Canvas 学习手帐：盯 de
 |---|---|
 | 没有可调用的 Python | 先用宿主公开的 Python（Codex：`load_workspace_dependencies`）并查 `python3` / `python` / Windows `py -3`；确认全不可用，再征得用户同意按平台安装。不要把 `xcode-select --install` 当 Python 安装器 |
 | 用户在对话里发来 token | `token set` 存好，token 从标准输入传（Bash `<<'EOF'`，PowerShell 管道），不进命令参数；回复里不重复 token，说「存好了」 |
+| 学校不让生成 token，或学校用的是 Moodle | `login`（Moodle 不要 token），用户在弹出的窗口里自己登录；照它打印的往下做 |
 | 认不出学校 / 有几个候选 | 让用户发登录页网址或选一个，`doctor --host 网址`。探测不发 token |
 | 浏览器记录读不了 / 被沙盒隐藏 | 按宿主机制申请一次只读权限；仍读不了就直接要网址 |
 | 连不上 / 5xx | 脚本已重试；用上次快照回答，并写明「数据截至 X」，哪门课没采到点名说 |

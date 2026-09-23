@@ -66,7 +66,7 @@ git pull
 
 1. 用你电脑上已有的 Python。
 2. 从浏览器记录里认出你学校的 Canvas 网址（**不会带 token 去试**），让你确认是哪个学校。
-3. 你去 Canvas → Account → Settings → Approved Integrations → New Access Token 生成一个 token，直接发给 AI，它替你存好。
+3. 你去 Canvas → Account → Settings → Approved Integrations → New Access Token 生成一个 token，直接发给 AI，它替你存好。学校不让学生生成 token 的话，告诉 AI 一声，它会弹出一个浏览器窗口让你自己登录 Canvas（账号密码只在那个窗口里输，AI 看不到），之后就用这份登录读数据；这种方式只读，发帖、交作业要你自己在 Canvas 上点。学校用的是 Moodle 的话不用 token：把 Moodle 网址发给 AI，它同样弹出窗口让你自己登录，之后只读。
 4. 采集，生成桌面文件夹、本周清单和 Deadline 雷达。
 
 token 只要给一次：它存在你电脑上的 `~/.config/jiujiastudy/token`（Windows 是 `C:\Users\你的用户名\.config\jiujiastudy\token`，只有你本人的账户能读），以后每次直接用，只发给你确认过的那一个学校地址。要换就再发一个新的给 AI。token 也会留在你和 AI 的聊天记录里；介意的话，用完去 Canvas 撤销、重新生成。

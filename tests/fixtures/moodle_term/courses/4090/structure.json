@@ -1,0 +1,10 @@
+{
+ "ids_as": "string",
+ "indent_as": "int",
+ "sections": [
+  {"id": 5900, "number": 0, "name": null, "summary": "<p>This unit finished in June.</p>", "cms": [7901]}
+ ],
+ "cms": [
+  {"id": 7901, "module": "forum", "name": "Announcements", "forum": {"id": 391, "type": "news"}}
+ ]
+}

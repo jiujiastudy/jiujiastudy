@@ -6,6 +6,7 @@ import re
 import brand
 import cc_state
 from cc_collect import latest_digest, load_snapshot
+from cc_courses import lms_label, lms_of
 from cc_deadlines import deadline_rows, exam_today, plan_today, unresolved_pending
 from cc_downloads import load_downloads
 from cc_store import save_text
@@ -48,7 +49,7 @@ def clashes(rs, hours=48):
     return out
 
 
-def first_step_for(r):
+def first_step_for(r, lms="Canvas"):
     st = r.get("submission_types") or []
     if r.get("origin") == "manual":
         return "打开作业页或课程公告，确认时间、地点和要交什么。"
@@ -62,7 +63,7 @@ def first_step_for(r):
         return "打开作业页，看字数和格式要求。"
     if "none" in st or "on_paper" in st:
         return "课上交或线下交，确认时间地点。"
-    return "打开作业页，看一眼提交要求。" if r.get("url") else "先去 Canvas 确认这条的具体要求。"
+    return "打开作业页，看一眼提交要求。" if r.get("url") else f"先去 {lms} 确认这条的具体要求。"
 
 
 def next_per_course(ctx, rs):
@@ -86,6 +87,7 @@ def changes_since(ctx, limit=8):
 
 def to_markdown(ctx, rs, today, ev=None):
     clock = ctx.clock
+    lbl = lms_label(ctx.cfg)
     normal, undated, overdue = split(rs)
     L = [MARK_START, f"_更新 {clock.fmt(clock.now_utc())} · {clock.tz_note(today)}_", ""]
     L.append("## 每门课下一条")
@@ -96,7 +98,7 @@ def to_markdown(ctx, rs, today, ev=None):
         r0 = (normal or undated)[0]
         L += ["## 🔴 最急的一条", "",
               f"**{r0['course']} · {r0['item']}** — {r0['when']}{'，' + r0['rel'] if r0.get('rel') else ''}（{r0['weight']}）{'（待确认）' if r0.get('pending') else ''}",
-              f"第一步：{first_step_for(r0)}", ""]
+              f"第一步：{first_step_for(r0, lbl)}", ""]
     cl = clashes(rs)
     if cl:
         L += ["## ⚠️ 撞车预警", ""]
@@ -117,7 +119,7 @@ def to_markdown(ctx, rs, today, ev=None):
             L.append(f"| {r['rel']} | {r['when']} | {r['course']} | {item} | {r['weight']} | {r['status']} | {note} |")
     else:
         L.append("（无）")
-    L += ["", "## 区块二 · 待确认（Canvas 没给正式截止时间、从公告或说明里推的、或你还没确认的，以 Canvas 和老师为准）", ""]
+    L += ["", f"## 区块二 · 待确认（{lbl} 没给正式截止时间、从公告或说明里推的、或你还没确认的，以 {lbl} 和老师为准）", ""]
     if b:
         L += ["| 剩余 | 时间 | 课 | 事项 | 权重 | 状态 | 出处 |", "|---|---|---|---|---|---|---|"]
         for r in b:
@@ -126,7 +128,7 @@ def to_markdown(ctx, rs, today, ev=None):
     else:
         L.append("（无）")
     if overdue:
-        L += ["", "## 已过期未交（可能是课堂活动或已线下交，以 Canvas 为准）", ""]
+        L += ["", f"## 已过期未交（可能是课堂活动或已线下交，以 {lbl} 为准）", ""]
         L += ["| 过了 | 时间 | 课 | 事项 | 权重 |", "|---|---|---|---|---|"]
         for r in overdue[:5]:
             item = f"[{r['item']}]({r['url']})" if r.get("url") else r["item"]
@@ -140,7 +142,7 @@ def to_markdown(ctx, rs, today, ev=None):
     return "\n".join(L)
 
 
-GENERIC_SRC = ("作业页没有 due_at", "Canvas due_at", "Canvas lock_at")
+GENERIC_SRC = ("作业页没有 due_at", "Canvas due_at", "Canvas lock_at", "Moodle due_at", "Moodle lock_at")
 
 
 def _radar_row(r):
@@ -159,6 +161,7 @@ def _radar_row(r):
 def to_html(ctx, rs, today, ev=None):
     """Deadline 雷达页面。样式全部来自 design.py，规范见 references/style.md。"""
     clock = ctx.clock
+    lbl = lms_label(ctx.cfg)
     normal, undated, overdue = split(rs)
     confirmed = [r for r in normal if not r["pending"]]
     pending = [r for r in normal if r["pending"]] + undated
@@ -171,7 +174,7 @@ def to_html(ctx, rs, today, ev=None):
         bits = " · ".join(x for x in (first.get("when"), first.get("rel"), w) if x)
         o.append('<section class="card hero"><p class="kicker">最急的一条</p>'
                  f'<h3><span class="code">{esc(first["course"])}</span> {link(first.get("url"), first["item"])}{tag("待确认", "warn") if first.get("pending") else ""}</h3>'
-                 f'<p class="meta num">{esc(bits)}</p><p class="sub">第一步：{rich(first_step_for(first))}</p></section>')
+                 f'<p class="meta num">{esc(bits)}</p><p class="sub">第一步：{rich(first_step_for(first, lbl))}</p></section>')
     cl = clashes(rs)
     o.append('<section><h2>已确认</h2>')
     for g in cl:
@@ -183,7 +186,7 @@ def to_html(ctx, rs, today, ev=None):
              if confirmed else '<p class="meta">两周内没有已确认的 deadline。</p>')
     o.append("</section>")
     if pending:
-        o.append('<section><h2>待确认 · 以 Canvas 和老师为准</h2><div class="card flush"><ul class="rows nobox">'
+        o.append(f'<section><h2>待确认 · 以 {lbl} 和老师为准</h2><div class="card flush"><ul class="rows nobox">'
                  + "".join(_radar_row(r) for r in pending) + "</ul></div></section>")
     if overdue:
         o.append('<section><h2>已过期未交 · 可能是课堂活动或已线下交</h2><div class="card flush"><ul class="rows nobox">'
@@ -250,7 +253,7 @@ def status(ctx, today):
         warnings.append("档案还是 v1：跑一次 migrate")
     h_fetch = hours_ago(snap.get("collected_at") or state.get("last_fetch"), clock)
     if h_fetch is None or h_fetch > 36:
-        warnings.append("Canvas 快照超过 36 小时（或没有）：先 collect --touch")
+        warnings.append(f"{lms_label(ctx.cfg)} 快照超过 36 小时（或没有）：先 collect --touch")
     if not plan:
         warnings.append("本周没有计划：说「这周学什么」")
     h_check = hours_ago(state.get("last_check"), clock)
@@ -263,7 +266,8 @@ def status(ctx, today):
          "deadlines": [{k: r.get(k) for k in ("rel", "when", "course", "item", "weight", "status", "pending", "url", "days_left", "kind", "overdue", "undated")} for r in rs],
          "pending": [{k: p.get(k) for k in ("id", "course", "text", "times_asked", "first_asked", "blocks", "ask_en")} for p in pend],
          "decisions": len(state.get("decisions") or []), "state_eval": ev, "warnings": warnings}
-    T = [f"{brand.NAME} · {clock.fmt_date(today)} · 学期{d['term_week']}", f"资料夹：{ctx.root} ｜ 站点：{d['host'] or '未设'}",
+    site = (d["host"] or "未设") + ("（Moodle）" if lms_of(ctx.cfg) == "moodle" else "")  # Canvas 档案下这一行不变
+    T = [f"{brand.NAME} · {clock.fmt_date(today)} · 学期{d['term_week']}", f"资料夹：{ctx.root} ｜ 站点：{site}",
          f"上次检查：{'无' if h_check is None else f'{h_check:g} 小时前'} ｜ 上次采集：{'无' if h_fetch is None else f'{h_fetch:g} 小时前'}"]
     dq = len(load_downloads(ctx).get("queue") or [])
     if dq:

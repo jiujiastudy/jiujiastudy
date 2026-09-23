@@ -19,6 +19,7 @@ import os
 import re
 import sys
 import threading
+import uuid
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qsl, urlencode, urlsplit
 
@@ -104,6 +105,8 @@ class _Handler(BaseHTTPRequestHandler):
     def _send(self, status, payload, headers=None, raw=None, ctype="application/json; charset=utf-8"):
         mock = self.server.mock
         body = raw if raw is not None else json.dumps(payload, ensure_ascii=False).replace(BASE_MARK, mock.base_url).encode("utf-8")
+        if raw is None and getattr(self, "_session_auth", False) and "application/json" not in (self.headers.get("Accept") or ""):
+            body = b"while(1);" + body  # Canvas 给登录（不是 token）拿的 JSON 加这个前缀，除非请求说了要 JSON
         self.send_response(status)
         self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(body)))
@@ -112,6 +115,10 @@ class _Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
         mock._log(self.command, self._path, self._query, status, self._matched)
+
+    def _cookie_ok(self):
+        mock = self.server.mock
+        return bool(mock.session_cookie) and f"canvas_session={mock.session_cookie}" in (self.headers.get("Cookie") or "")
 
     def _error(self, status, message, headers=None):
         self._send(status, {"errors": [{"message": message}]}, headers)
@@ -151,8 +158,21 @@ class _Handler(BaseHTTPRequestHandler):
         mock = self.server.mock
         parts = urlsplit(self.path)
         self._path, self._query, self._matched = parts.path, parse_qsl(parts.query, keep_blank_values=True), True
+        self._session_auth = False
+        if mock.session:
+            if self._path == "/login/canvas":  # 登录页：直接发会话 cookie（不带过期时间，浏览器一关就丢）
+                mock.logins += 1
+                return self._send(302, None, {"Location": "/?login_success=1",
+                                              "Set-Cookie": f"canvas_session={mock.session_cookie}; Path=/; HttpOnly"},
+                                  raw=b"", ctype="text/html")
+            if self._path == "/":
+                if not self._cookie_ok():
+                    return self._send(302, None, {"Location": "/login/canvas"}, raw=b"", ctype="text/html")
+                return self._send(200, None, raw=b"<!doctype html><title>Dashboard</title><h1>Dashboard</h1>", ctype="text/html")
         m = re.fullmatch(r"/files/(\d+)/download", self._path)
         if m:
+            if mock.session and not self.headers.get("Authorization") and not self._cookie_ok():
+                return self._send(302, None, {"Location": "/login/canvas"}, raw=b"", ctype="text/html")
             return self._download(int(m.group(1)))
         if not self._path.startswith("/api/v1/"):
             self._matched = False
@@ -161,10 +181,12 @@ class _Handler(BaseHTTPRequestHandler):
         if forced:
             return self._error(forced, f"forced {forced} by the test")
         auth = self.headers.get("Authorization") or ""
-        if not auth:
+        if not auth and mock.session and self._cookie_ok():
+            self._session_auth = True  # 用浏览器登录（没有 token）访问 API
+        elif not auth:
             return self._send(401, {"status": "unauthenticated", "errors": [{"message": "user authorization required"}]},
                               {"WWW-Authenticate": 'Bearer realm="canvas-lms"'})
-        if auth != f"Bearer {mock.scenario.token}":
+        elif auth != f"Bearer {mock.scenario.token}":
             return self._error(401, "Invalid access token.", {"WWW-Authenticate": 'Bearer realm="canvas-lms"'})
         for rx, name in _ROUTES:
             m = re.fullmatch(rx, self._path)
@@ -390,9 +412,12 @@ _ROUTES = [
 class MockCanvas:
     """with MockCanvas("au_semester") as mock: ... mock.base_url ... mock.requests()"""
 
-    def __init__(self, scenario, host="127.0.0.1", port=0):
+    def __init__(self, scenario, host="127.0.0.1", port=0, session=False):
         if host not in LOOPBACK:
             raise ValueError("mockcanvas only binds to loopback")
+        self.session = session  # True：另外接受浏览器登录（/login/canvas 发 cookie），测登录模式用
+        self.session_cookie = uuid.uuid4().hex if session else None
+        self.logins = 0
         self.scenario = scenario if isinstance(scenario, Scenario) else Scenario(scenario)
         self.host, self.port = host, port
         self._lock = threading.Lock()
@@ -426,6 +451,10 @@ class MockCanvas:
 
     def __exit__(self, *exc):
         self.stop()
+
+    def expire_session(self):
+        """登录过期：之前发的 cookie 全都不认了。"""
+        self.session_cookie = uuid.uuid4().hex
 
     def force_status(self, path_regex, status):
         """Make matching API paths answer with an HTTP error (for failure tests)."""

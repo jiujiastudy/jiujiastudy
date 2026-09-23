@@ -34,6 +34,10 @@ def run_api(args):
         print(json.dumps(r, ensure_ascii=False))
         return 0, r
     if args.op in ("post", "upload"):
+        mode = getattr(api, "mode", "token")
+        if mode in ("session", "moodle"):  # 登录模式和 Moodle 都只读
+            import cc_session
+            raise CoachError(cc_session.READ_ONLY.replace("Canvas", "Moodle") if mode == "moodle" else cc_session.READ_ONLY, 2)
         return _api_write(ctx, api, args)
     raise CoachError("api 子命令：get / download / post / upload", 2)
 

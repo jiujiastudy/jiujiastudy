@@ -7,6 +7,7 @@ import html as html_mod
 import os
 import re
 
+from cc_courses import lms_label
 from cc_store import jload
 from cc_time import norm_hhmm, parse_date, parse_ts, text_datetimes
 
@@ -21,7 +22,9 @@ def _ann_texts(ctx, days=120):
     pairs = [(c.get("id"), c.get("code")) for c in (ctx.cfg.get("courses") or []) if c.get("code")]
     by_id = {str(cid): code for cid, code in pairs if cid}
     out, seen = {}, set()
-    files = sorted(glob.glob(os.path.join(ctx.P("raw", "daily"), "*", "announcements.json")), reverse=True)
+    daily = ctx.P("raw", "daily")  # Moodle 另有课程页文字 moodle_texts.json（同公告形状）；Canvas 档案没有这个文件
+    files = sorted(glob.glob(os.path.join(daily, "*", "announcements.json")) + glob.glob(os.path.join(daily, "*", "moodle_texts.json")),
+                   reverse=True)
     files += sorted(glob.glob(os.path.join(ctx.P("raw"), "bundle_*.json")))
     for path in files:
         data = jload(path, None)
@@ -193,6 +196,7 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
     比较只用两样东西：真实时刻（now，--date 可以钉住）决定过没过期，课程时区的日历天决定今天 / 明天 / 还有几天和 14 天窗口。
     手动 deadline 也先按课程时区换算成时刻再比；参数 today 是用户时区的今天，只留给调用方对齐报告日期。"""
     clock, state = ctx.clock, ctx.state
+    lbl = lms_label(getattr(ctx, "cfg", None))  # 给人看的平台名：Canvas 档案下逐字不变
     now = clock.now_utc()
     start = clock.course_date(now)
     end = start + dt.timedelta(days=days)
@@ -212,9 +216,9 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
             only_exam[_a.get("course")] = only_exam.get(_a.get("course"), 0) + 1
     manual_aids = set()
     for m in manual:
-        mm = re.search(r"/assignments/(\d+)", m.get("url") or "")
+        mm = re.search(r"/assignments/(\d+)|/mod/\w+/view\.php\?(?:[^#]*&)?id=(\d+)", m.get("url") or "")  # Canvas / Moodle 的作业链接
         if mm:
-            manual_aids.add(mm.group(1))
+            manual_aids.add(mm.group(1) or mm.group(2))
         if m.get("assignment_id"):
             manual_aids.add(str(m["assignment_id"]))
     rows = []
@@ -246,18 +250,18 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
             if noted and unsub and due <= now:
                 if include_undated:
                     r = base(a, aid)
-                    r.update({"t": clock.course_local_to_utc(end, "23:59"), "date": None, "when": f"{clock.fmt(due)}（Canvas 日期只是占位）",
+                    r.update({"t": clock.course_local_to_utc(end, "23:59"), "date": None, "when": f"{clock.fmt(due)}（{lbl} 日期只是占位）",
                               "rel": "", "days_left": None, "pending": True, "undated": True, "src": f"你说明过：{noted}"})
                     rows.append(r)
             elif now < due and d <= end:
                 r = base(a, aid)
                 r.update({"t": due, "date": d, "when": clock.fmt(due) + ("（锁定时间当截止）" if via_lock else ""), "rel": clock.rel(due, now),
-                          "days_left": (d - start).days, "pending": via_lock, "src": "Canvas lock_at" if via_lock else "Canvas due_at"})
+                          "days_left": (d - start).days, "pending": via_lock, "src": f"{lbl} lock_at" if via_lock else f"{lbl} due_at"})
                 rows.append(r)
             elif include_overdue and counts and unsub and not noted and oldest <= due <= now:
                 r = base(a, aid)
                 r.update({"t": due, "date": d, "when": clock.fmt(due), "rel": clock.rel(due, now), "days_left": (d - start).days,
-                          "pending": False, "overdue": True, "src": "Canvas due_at"})
+                          "pending": False, "overdue": True, "src": f"{lbl} due_at"})
                 rows.append(r)
         elif include_undated and counts and unsub:
             ua = parse_ts(a.get("unlock_at"))
@@ -270,12 +274,28 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
                           "rel": clock.rel(t, now), "days_left": (d - start).days,
                           "pending": True, "undated": False, "src": f"公告《{title}》"})
             else:
-                when = (f"{clock.fmt_date(clock.course_date(ua))} 解锁，截止未写" if ua and clock.course_date(ua) > start else "Canvas 没写日期")
+                when = (f"{clock.fmt_date(clock.course_date(ua))} 解锁，截止未写" if ua and clock.course_date(ua) > start else f"{lbl} 没写日期")
                 r.update({"t": clock.course_local_to_utc(end, "23:59"), "date": None, "when": when, "rel": "", "days_left": None,
                           "pending": True, "undated": True, "src": "作业页没有 due_at"})
             rows.append(r)
+    _moodle_hints(rows, (snap or {}).get("assignments") or {}, lbl)
     for m in manual:
         rows.append(manual_row(clock, m, now, start, end))
     rows = [r for r in rows if r]
     rows.sort(key=lambda r: r["t"])
     return rows
+
+
+def _moodle_hints(rows, assignments, lbl):
+    """Moodle 的行：推断出的「可能已交」、只有「预期完成日期」、日历被过滤的，都标待确认并说清楚。
+    只看快照里 Moodle 作业才有的 moodle 键，Canvas 的行不动。"""
+    for r in rows:
+        m = (assignments.get(str(r.get("id"))) or {}).get("moodle")
+        if not m:
+            continue
+        if m.get("status_confidence") == "maybe" and not r.get("submitted"):
+            r.update(status="可能已交，待确认", pending=True)
+        if m.get("date_from") == "expected" and r.get("date"):
+            r.update(pending=True, src=f"{lbl} 预期完成日期（不是硬性截止）")
+        if m.get("calendar_empty") and r.get("undated") and r.get("when") == f"{lbl} 没写日期":
+            r["when"] = "日历里没看到日期（可能被过滤）"

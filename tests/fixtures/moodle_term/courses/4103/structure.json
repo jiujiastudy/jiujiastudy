@@ -1,0 +1,32 @@
+{
+ "ids_as": "string",
+ "indent_as": "int",
+ "sections": [
+  {"id": 5300, "number": 0, "name": null, "summary": "<p>Screenings are on Mondays at 2pm.</p>", "cms": [7201, 7205]},
+  {"id": 5301, "number": 1, "name": null, "summary": "", "cms": []},
+  {"id": 5302, "number": 2, "name": null, "summary": "", "cms": []},
+  {"id": 5303, "number": 3, "name": null, "summary": "", "cms": [7204]},
+  {"id": 5304, "number": 4, "name": null, "summary": "", "cms": []},
+  {"id": 5305, "number": 5, "name": "Week 5 – Documentary", "summary": "", "cms": []},
+  {"id": 5306, "number": 6, "name": "Week 6 – Animation", "summary": "", "cms": []},
+  {"id": 5307, "number": 7, "name": null, "summary": "", "cms": []},
+  {"id": 5308, "number": 8, "name": "Week 8", "summary": "", "cms": []},
+  {"id": 5309, "number": 9, "name": null, "summary": "", "cms": [7206]},
+  {"id": 5312, "number": 12, "name": "Week 12: Essay writing", "summary": "<p>The mid-semester exam is in the Week 12 lecture slot.</p>", "cms": [7203]},
+  {"id": 5316, "number": 16, "name": null, "summary": "<p>Final exam details will be announced.</p>", "cms": [7202]}
+ ],
+ "cms": [
+  {"id": 7201, "module": "forum", "name": "Announcements", "forum": {"id": 321, "type": "news"}},
+  {"id": 7205, "module": "resource", "name": "第三周阅读材料",
+   "resource": {"filename": "第三周阅读材料.pdf", "mimetype": "application/pdf", "body": "Synthetic course file: week 3 reading (Chinese title)."}},
+  {"id": 7204, "module": "quiz", "name": "Practice quiz", "completion": 1,
+   "quiz": {"attempts_allowed": 1, "grademax": "10.00", "grading": "Highest grade", "review": "popup",
+            "attempts": [{"id": 890, "started": "2026-08-12T01:00:00Z", "finished": "2026-08-12T01:25:30Z", "grade": "7.00", "percent": "70"}]}},
+  {"id": 7203, "module": "assign", "name": "Essay",
+   "assign": {"allow_from": "2026-09-20T23:00:00Z", "status": "new", "timelimit": 10800,
+              "intro": "<p>Timed essay: once you begin you have 3 hours.</p>"}},
+  {"id": 7202, "module": "lti", "name": "Final exam (external tool)"},
+  {"id": 7206, "module": "resource", "name": "Week 9 screening notes", "uservisible": false, "hascmrestrictions": true, "accessvisible": false,
+   "resource": {"filename": "Week9_Screening_Notes.pdf", "mimetype": "application/pdf", "body": "Synthetic course file: locked notes."}}
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "showweight": true,
+ "category": {"id": 61, "name": "MDL2002 production marks"},
+ "items": [
+  {"id": 621, "cmid": 7103, "weight": "-", "grade": "-", "range": "0–20", "percentage": "-", "contribution": "-"},
+  {"id": 622, "cmid": 7102, "weight": "0.00 %<br>( Empty )", "grade": "-", "range": "0–30", "percentage": "-", "contribution": "0.00 %"},
+  {"id": 623, "cmid": 7105, "weight": "-", "grade": "-", "range": "0–10", "percentage": "-", "contribution": "-"},
+  {"id": 624, "cmid": 7104, "weight": "-", "grade": "-", "range": "0–20", "percentage": "-", "contribution": "-"},
+  {"id": 625, "name": "Tutorial participation", "weight": "0.00 %<br>( Empty )", "grade": "-", "range": "0–10", "percentage": "-", "contribution": "0.00 %"},
+  {"id": 627, "name": "Peer feedback", "weight": "100.00 %", "grade": "8.00", "range": "0–10", "percentage": "80.00 %", "contribution": "100.00 %"},
+  {"id": 626, "hidden": true},
+  {"id": 620, "type": "courseitem", "name": "Course total", "weight": "-", "grade": "8.00", "range": "0–10", "percentage": "80.00 %", "contribution": "-"}
+ ]
+}

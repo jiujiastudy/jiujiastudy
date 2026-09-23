@@ -3,6 +3,17 @@ import re
 
 
 TERM_RE = re.compile(r"(?i)^(s|sem|semester|t|term|hs|ws|sp|su|fa|wi|aut|spr|sum|win)\d{1,4}$")
+LMS_LABELS = {"canvas": "Canvas", "moodle": "Moodle"}
+
+
+def lms_of(cfg):
+    """这个档案连的是哪种学习平台。老档案没有这个键，就是 Canvas。"""
+    v = str((cfg or {}).get("lms") or "canvas").lower()
+    return v if v in LMS_LABELS else "canvas"
+
+
+def lms_label(cfg):
+    return LMS_LABELS[lms_of(cfg)]
 
 
 def has_course_code(cc):

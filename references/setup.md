@@ -29,6 +29,9 @@
 - 读取顺序：这个文件 → 环境变量 CANVAS_TOKEN → Windows 用户级注册表 → Mac 钥匙串（后三个是老版本存的，照样认）。
 - 不讲安全课；用户问了再说「token 存在你电脑上，只有你本人的账户能读；聊天记录里也有一份，介意就用完去 Canvas 撤销重新生成」。
 
+## 学校不让生成 token，或学校用 Moodle
+Moodle 学校不要 token：拿到网址就 `login --host 网址`（先不带凭据认出是 Moodle）。其余同下：确认学校地址后 `login`，照它打印的话请用户在弹出的窗口里自己登录（AI 不代输密码），用户说登好了 → `login --check` → `doctor`。之后自动用这份登录，只读；报「登录过期」就再 `login`。
+
 ## 建档时自动推的（用户不用回答）
 - 课程：本学期 active 的课，代码从 course_code 里取（`CS101-F26` → CS101，`2026FA-BIO-101-01` → BIO101），图书馆、迎新、BYOD 测试站跳过并写进 config.notes。
 - 时区：课程时区来自 Canvas（课程的 time_zone → 用户设置 → 电脑时钟 → UTC），deadline 按它算。显示的时间和「今天」跟着用户电脑的时钟走（config 里 `user_tz: auto`）：人在哪里，看到的就是哪里的时间；两地此刻时间不同时，deadline 并列写两个（先课程时区，再电脑时区）。用户要固定：「时间按上海显示」→ `config set user_tz Asia/Shanghai`；`config set user_tz auto` 恢复跟着电脑。
