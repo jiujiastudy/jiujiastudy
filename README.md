@@ -1,6 +1,6 @@
 # 救驾
 
-给用第二语言上课的留学生的 Canvas 学习手帐：盯 deadline、排本周该学什么、按完成情况给下一步。它是一个 Agent Skill，装在你自己的电脑上，数据存在你自己的文件夹里。
+给用第二语言上课的留学生的 Canvas / Moodle 学习手帐：盯 deadline、排本周该学什么、按完成情况给下一步。它是一个 Agent Skill，装在你自己的电脑上，数据存在你自己的文件夹里。
 
 [![tests](https://github.com/jiujiastudy/jiujiastudy/actions/workflows/ci.yml/badge.svg)](https://github.com/jiujiastudy/jiujiastudy/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -32,7 +32,9 @@
 
 安装和第一次运行时 AI 会请你点「允许」。用 Claude Code 自动模式（Auto）被拦下「刚下载的代码」的话，把输入框旁的权限模式换成每次询问，再说「继续」。救驾不改任何权限设置。
 
-**装好不用重启**，直接跟 AI 说「最近要交什么」。
+**装好不用重启，AI 会接着带你往下走**：认出你的学校 → 请你给 token，或在弹出的窗口里自己登录 → 采集 → 把第一份本周清单交给你（一个网页，双击就能打开）。每一步做完，它都会告诉你这一步做好了什么、接下来你能说什么。
+
+> **给帮忙安装的 AI**：装好（`SKILL.md` 直接在 `skills/jiujiastudy/` 下）之后不要停，读 `SKILL.md`，按其中「第一次」一节在同一个对话里接着做，直到把资料夹根目录的「本周清单.html」交到用户手上。每一步做完，告诉用户这一步完成了什么，以及接下来他可以直接说的两三句话。周报只交脚本生成的这个网页，不要自己另写一份。
 
 ### 手动安装
 

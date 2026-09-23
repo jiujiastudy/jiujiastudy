@@ -160,6 +160,7 @@ def week_items(ctx, code, mods, W, monday):
 
 def build(ctx, today, week=None, days=14):
     cfg, clock, state = ctx.cfg, ctx.clock, ctx.state
+    moodle = lms_of(cfg) == "moodle"
     monday = monday_of(today)
     sunday = monday + dt.timedelta(days=6)
     mods = load_modules(ctx)
@@ -213,7 +214,13 @@ def build(ctx, today, week=None, days=14):
                     "exam": r.get("kind") == "exam",
                     "submission_types": r.get("submission_types") or [], "submitted": bool(r.get("submitted"))}
             if url_key := (r.get("url") or r["item"]):
-                if url_key in seen_urls and r.get("url"):
+                if url_key in seen_urls and r.get("url") and moodle:
+                    # Moodle 的课程条目和作业用同一个链接（view.php?id=）：留 deadline 这条（有截止时间，排必做和「最要紧」都靠它），
+                    # 去掉课程条目那条；同一个活动的两个截止（互评的提交 / 互评）也共用链接，两条都要留
+                    before[:] = [x for x in before if x.get("url") != r["url"]]
+                    todo[:] = [x for x in todo if x.get("url") != r["url"]]
+                    all_items[:] = [x for x in all_items if x.get("url") != r["url"] or x["kind"] in ("Deadline", "Overdue")]
+                elif url_key in seen_urls and r.get("url"):
                     for x in todo:
                         if x.get("url") == r.get("url"):
                             x.update({"when": r["when"], "rel": r["rel"], "weight": r.get("weight"), "days_left": r.get("days_left")})
