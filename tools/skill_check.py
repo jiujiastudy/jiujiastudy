@@ -1,6 +1,7 @@
-"""防臃肿闸：SKILL.md 和 references/ 的体量上限。
+"""防臃肿闸：SKILL.md 的规矩条数和「用户说什么，做什么」表的行数。
 
-技能越厚，弱一点的模型越不照做；这几条上限是发起人定的红线，不是建议。
+规矩越多，弱一点的模型越不照做，所以条数和行数有上限。字节数不设上限（发起人 2026-09-23 取消）：
+为了凑字节删掉有用的话，比多几百字节更伤。
 用法：python tools/skill_check.py [技能目录]（默认脚本所在目录的上一级）。
 退出码：0 都在上限内，1 有超的，2 参数不对。
 """
@@ -9,10 +10,8 @@ import os
 import re
 import sys
 
-MAX_SKILL_BYTES = 8192      # SKILL.md 全文
 MAX_RULES = 6               # 「规矩」里的编号条
 MAX_TABLE_ROWS = 28         # 「用户说什么，做什么」表的行数（不含表头和分隔行）
-MAX_REFS_BYTES = 26624      # references/ 合计 26KB
 
 
 def _read(path):
@@ -27,9 +26,6 @@ def check(skill_dir):
     if not os.path.isfile(p):
         return [f"找不到 {p}"]
     text = _read(p)
-    size = len(text.encode("utf-8"))
-    if size > MAX_SKILL_BYTES:
-        out.append(f"SKILL.md {size} 字节，超过上限 {MAX_SKILL_BYTES}（多了 {size - MAX_SKILL_BYTES}）")
 
     rules = re.findall(r"^\d+\.\s", _section(text, "规矩"), re.M)
     if len(rules) > MAX_RULES:
@@ -40,16 +36,6 @@ def check(skill_dir):
     rows = [l for l in rows if not re.match(r"^\|\s*(用户说|说什么|情况)", l)]
     if len(rows) > MAX_TABLE_ROWS:
         out.append(f"「用户说什么，做什么」{len(rows)} 行，超过上限 {MAX_TABLE_ROWS}")
-
-    refs = os.path.join(skill_dir, "references")
-    total = 0
-    if os.path.isdir(refs):
-        for name in sorted(os.listdir(refs)):
-            f = os.path.join(refs, name)
-            if os.path.isfile(f):
-                total += os.path.getsize(f)
-    if total > MAX_REFS_BYTES:
-        out.append(f"references/ 合计 {total} 字节，超过上限 {MAX_REFS_BYTES}")
     return out
 
 

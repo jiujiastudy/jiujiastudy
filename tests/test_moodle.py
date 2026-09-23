@@ -170,6 +170,21 @@ class MoodleChainTest(unittest.TestCase):
         self.assertNotIn("Canvas", self.radar_text.stdout)
         self.assertIn("Moodle 没写日期", self.radar_text.stdout)
 
+    def test_周报_作业和课程条目同一链接_照样排必做和最要紧(self):
+        """Moodle 的课程条目和作业都是 view.php?id=：以前 deadline 被并进课程条目、丢了截止时间，
+        后天要交的 Project pitch 只进了「有空再做」，「本周最要紧」挑成了更晚的测验。"""
+        plan = as_json(self, self.study)["plan"]
+        self.assertEqual("Project pitch", plan["top"][0]["title"], "2 天后要交的作业才是本周最要紧")
+        musts = {d["date"]: d["must"] or "" for d in plan["days"]}
+        self.assertIn("Project pitch", musts["2026-09-24"], "截止前一天排成必做")
+        for c in plan["study"]["courses"]:
+            dls = c.get("deadline_related") or []
+            titles = [x["title"] for x in dls]
+            self.assertEqual(len(titles), len(set(titles)), f"{c['code']}：同一个截止不重复出现 {titles}")
+            dl_urls = {x.get("url") for x in dls if x.get("url")}
+            self.assertFalse([x["title"] for x in c.get("todo") or [] if x.get("url") in dl_urls],
+                             f"{c['code']}：已经列成 deadline 的，不再在「要做」里重复")
+
     # ---- 时间都是 ISO 字符串
     def test_时间字段全是_ISO_字符串(self):
         seen = 0

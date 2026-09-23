@@ -5,30 +5,32 @@ description: 救驾（jiujiastudy）是留学生的 Canvas / Moodle 学习手帐
 
 # 救驾
 
-脚本在本文件同目录的 `tools/coach.py`。宿主给了本文件路径就直接用；没给就依次找 `~/.claude/skills/jiujiastudy`、`~/.codex/skills/jiujiastudy`、`~/.agents/skills/jiujiastudy`。Python 怎么找见「自愈」第一行，有能用的就不装。下文只写命令名。用用户说话的语言回答，默认中文。
+脚本在本文件同目录的 `tools/coach.py`。宿主给了本文件路径就直接用；没给就依次找 `~/.claude/skills/jiujiastudy`、`~/.codex/skills/jiujiastudy`、`~/.agents/skills/jiujiastudy`。解释器优先用宿主已经提供的 Python；Codex 桌面版先调用 `load_workspace_dependencies` 取得 Python executable，再试 `python3` / `python` / Windows `py -3`。已有任何可用解释器就不安装；全部不可用才征得用户同意安装。下文只写命令名。用用户说话的语言回答，默认中文。
 
-两个地方。**资料夹**给人看：默认桌面的「救驾」，`paths` 打印具体路径；根目录是「本周清单.html」和「Deadline雷达.html」，每门课一个文件夹，里面只有两个子文件夹，「课件」放 Canvas 原件，「产出」放 AI 做的一切。**机器档案**给 AI 用：config.json（学校、时区、课程）、state.json（进度、待确认、心情、手动 deadline）、raw/、plans/、reports/、text/（课件文字稿，默认不提取），在资料夹里的 .coach（老版档案仍兼容 ~/CourseCoach），用户不用管。显示的时间跟着用户电脑的时钟走；deadline 的「今天 / 明天 / 还有 N 天」按课程所在时区数，过没过期按真实时刻算。
+两个地方。**资料夹**给人看：默认桌面的「救驾」，`paths` 打印具体路径；根目录是「本周清单.html」和「Deadline雷达.html」，每门课一个文件夹，里面只有两个子文件夹，「课件」放原件，「产出」放 AI 做的一切。**机器档案**给 AI 用：config.json（学校、时区、课程）、state.json（进度、待确认、心情、手动 deadline）、raw/、plans/、reports/、text/（课件文字稿，默认不提取），在资料夹里的 .coach（老版档案仍兼容 ~/CourseCoach），用户不用管。显示的时间跟着用户电脑的时钟走；deadline 的「今天 / 明天 / 还有 N 天」按课程所在时区数，过没过期按真实时刻算。
 
 ## 主次
 第一优先永远是准确的 deadline 和这周的清单。课件只排队、后台补，任何时候都不让用户等下载。
 
 ## 规矩（AI 默认不会做的，才写在这）
 1. 每句结论带出处（作业页、公告、模块、用户说过的话）；推断加 ⚠️。判断说「大概率」，不说「一定」。
-2. 只在两种时候开口：用户来问；现在不说就来不及。答完最多续一句下一步。
+2. 只在两种时候开口：用户来问；现在不说就来不及。每一步做完都告诉用户两件事：这一步做成了什么；接下来他可以做什么——给 2–3 句他能直接说的原话（如「这周学什么」「做完了」「帮我做个复习包」），要他本人动手的就只说那一件。
 3. 每次交付末尾一句状态评估加建议：直接用 `status` / `radar` / `study` / `record done` / `record mood` 打印的那句，可以换成用户的口吻，不加新判断（细则 references/state.md）。
 4. 待确认的事只问一次，之后进先搁着；用户定过的事（state.decisions）不再提。
 5. 往 Canvas 发帖、发站内信、交作业：先不带 `--confirmed` 跑 `api post` / `api upload` 拿预览，原样给用户看；用户说「发」再加 `--confirmed`，脚本会弹系统确认窗口，用户本人点「确定」才真的发。窗口弹不出就不发，把链接给用户自己交。
-6. 出 deadline 清单、周报、雷达之前一律 `collect --force` 重新核对 Canvas（不吃 10 分钟缓存）。脚本打印了采集错误或「没采到」的课，就照它的原话点名说哪门课、数据是几点的，再给清单；不许默默拿旧快照当最新的。每份清单末尾写一句数据截至时间。给别人看的清单同样照这条做。
+6. 出 deadline 清单、周报、雷达之前一律 `collect --force` 重新核对（不吃 10 分钟缓存），哪怕几分钟前刚采过。脚本打印了采集错误或「没采到」的课，就照它的原话点名说哪门课、数据是几点的，再给清单；不许默默拿旧快照当最新的。每份清单末尾写一句数据截至时间。给别人看的清单同样照这条做。周报和雷达只交脚本生成的页面（资料夹根目录的「本周清单.html」「Deadline雷达.html」），不自己另写一份；脚本跑不起来就照实说卡在哪一步。
 
 ## 第一次（用户不用说任何口令）
-`status` 报「还没有档案」→ 按 references/setup.md 走：确认有可用 Python（宿主内置优先，不重复安装）→ `doctor --detect-site`（浏览器记录里认 Canvas 域名）→ 打印了「config.json：已新建」就直接往下；否则一条消息说清学校对不对、token 怎么生成（生成后直接发到对话里；Moodle 不要 token，跑 `login`），用户发来就 `token set` 存好，再跑 `doctor` → `collect --touch`（只记元数据，十几秒；失败不进入缓存）→ `radar --write` → `study --write` → `collect --download --background`（课件后台补；同一档案最多一个 worker，命令立刻返回）→ 一条消息：连上了哪个站、最急的一条和第一步、本周最要紧的一件、资料夹在哪、状态一句。doctor 列的「你需要做的事」：自己能做的（`--fix-perms`）做掉，其余最多一句带给用户。网络和权限已就绪时通常一分钟内出首份雷达和清单；首次权限审批或装依赖的时间另算。
+用户说「帮我从 GitHub 安装 jiujiastudy」这类话：装好（`SKILL.md` 直接在 `skills/jiujiastudy/` 下）不要停，也不用重启，在同一个对话里接着走下面的流程，一直做到把本周清单交到用户手上。
+
+`status` 报「还没有档案」→ 按 references/setup.md 走：确认有可用 Python（宿主内置优先，不重复安装）→ `doctor --detect-site`（浏览器记录里认 Canvas 域名）→ 打印了「config.json：已新建」就直接往下；否则一条消息说清学校对不对、token 怎么生成（生成后直接发到对话里；Moodle 不要 token，跑 `login`），用户发来就 `token set` 存好，再跑 `doctor` → `collect --touch`（只记元数据，十几秒；失败不进入缓存）→ `radar --write` → `study --write` → `collect --download --background`（课件后台补；同一档案最多一个 worker，命令立刻返回）→ 一条消息：连上了哪个站、最急的一条和第一步、本周最要紧的一件、本周清单和 Deadline 雷达在哪（资料夹根目录，双击打开）、状态一句，最后给用户接下来能说的话（「这周学什么」「最近要交什么」「做完了」「帮我导读这周的课件」）。doctor 列的「你需要做的事」：自己能做的（`--fix-perms`）做掉，其余最多一句带给用户。网络和权限已就绪时通常一分钟内出首份雷达和清单；首次权限审批或装依赖的时间另算。
 
 脚本退出码：0 成功；1 = 有提醒，不是失败，照输出里列的事做；2 = 卡住了，输出只有一句原因；3 = 档案版本太老，先跑 `migrate`。
 
 ## 用户说什么，做什么
 | 用户说 | 做 | 读 |
 |---|---|---|
-| 任何话（会话开始） | `status`；要看 Canvas 数据先 `collect --touch`（10 分钟内采过它会直接用上次的）；status 说有课件待下载就 `collect --download --background`，不等它 | — |
+| 任何话（会话开始） | `status`；要看新数据先 `collect --touch`（10 分钟内采过它会直接用上次的）；status 说有课件待下载就 `collect --download --background`，不等它 | — |
 | 「现在什么情况」 | `status` 一屏：今天必做、每门课下一条、状态一句 | — |
 | 「最近要交什么」 | `collect --touch` → `radar --write`；复述每门课下一条、最急一条和第一步、撞车、待确认里今天要定的；不整表贴 | radar.md |
 | 「这周学什么」「这周干什么」「周报」 | `collect --force --touch` → `study --write --zh plans/<周>.zh.json`（覆盖层在就必须带上，不带等于把上课时间、tutor、最要紧那几件、先搁着、复盘全丢掉）；覆盖层没有就先写一个再跑：脚本查不到的东西（上课时间和教室、tutor、为什么这件最要紧、要定的事、复盘）写进覆盖层，条目和日期交给脚本 | study.md |

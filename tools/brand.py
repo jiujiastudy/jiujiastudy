@@ -8,7 +8,7 @@ NAME = "救驾"                  # 给人看的名字：桌面资料夹、页面
 SLUG = "jiujiastudy"          # 小写：skills 下的文件夹名、~/.config 子目录、User-Agent、页面存储键
 ENV_PREFIX = "JIUJIASTUDY"    # 环境变量前缀：JIUJIASTUDY_HOME、JIUJIASTUDY_ROOT、JIUJIASTUDY_NO_DIALOG …
 KEYCHAIN_SERVICE = SLUG + "-canvas"  # macOS 钥匙串里存 token 的服务名
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 
 LEGACY_ENV_PREFIXES = ("JIUJIA", "STCANVAS", "COURSECOACH")  # 旧版环境变量前缀：仍然读
 LEGACY_HOME_DIRNAME = "CourseCoach"     # 旧版机器档案 ~/CourseCoach：仍然认
