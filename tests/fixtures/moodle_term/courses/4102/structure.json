@@ -1,0 +1,36 @@
+{
+ "ids_as": "string",
+ "indent_as": "string",
+ "sections": [
+  {"id": 5200, "number": 0, "name": null, "summary": "", "cms": [7101, 7108, 7109]},
+  {"id": 5201, "number": 1, "name": "Week 1", "summary": "<p>Introduction to production workflows.</p>", "cms": [7106]},
+  {"id": 5202, "number": 2, "name": "Week 2", "summary": "", "cms": []},
+  {"id": 5205, "number": 5, "name": "Week 5: Readings", "summary": "", "cms": [7107]},
+  {"id": 5208, "number": 8, "name": "Week 8", "summary": "", "cms": [7103]},
+  {"id": 5209, "number": 9, "name": "Week 9: Pitching", "summary": "<p>Pitches are presented in the Week 9 tutorial.</p>", "cms": [7102, 7105]},
+  {"id": 5212, "number": 12, "name": "Week 12", "summary": "", "cms": [7104]}
+ ],
+ "cms": [
+  {"id": 7101, "module": "forum", "name": "Announcements", "forum": {"id": 311, "type": "news"}},
+  {"id": 7108, "module": "forum", "name": "Tutor announcements", "forum": {"id": 312, "type": "news"}},
+  {"id": 7109, "module": "forum", "name": "Q&A forum", "forum": {"id": 313, "type": "general"}},
+  {"id": 7106, "module": "resource", "name": "Lecture 1 slides.pdf",
+   "resource": {"filename": "Lecture 1 slides.pdf", "mimetype": "application/pdf", "body": "Synthetic course file: lecture 1 slides."}},
+  {"id": 7107, "module": "folder", "name": "Week 5 readings",
+   "folder": {"files": [
+    {"filename": "Smith 2019 - Media production.pdf", "mimetype": "application/pdf", "body": "Synthetic course file: Smith 2019."},
+    {"filename": "第五周阅读笔记.docx", "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "body": "Synthetic course file: week 5 notes."},
+    {"filename": "shot-list-template.xlsx", "mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "body": "Synthetic course file: shot list."}
+   ]}},
+  {"id": 7103, "module": "assign", "name": "Production log",
+   "assign": {"allow_from": "2026-09-06T23:00:00Z", "status": "new", "intro": "<p>Upload your production log for weeks 1-7.</p>"}},
+  {"id": 7102, "module": "assign", "name": "Project pitch",
+   "assign": {"allow_from": "2026-09-13T23:00:00Z", "status": "draft", "last_modified": "2026-09-22T11:40:00Z",
+              "intro": "<p>Upload your pitch deck (max 10 slides).</p>"}},
+  {"id": 7105, "module": "quiz", "name": "Weekly quiz 9",
+   "quiz": {"attempts_allowed": 1, "grademax": "10.00", "grading": "Highest grade", "review": "link", "attempts": []}},
+  {"id": 7104, "module": "assign", "name": "In-class presentation",
+   "assign": {"status": "new", "submissionsenabled": false,
+              "intro": "<p>Present your rough cut in the Week 12 tutorial. Nothing to upload.</p>"}}
+ ]
+}

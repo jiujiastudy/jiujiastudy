@@ -1,0 +1,85 @@
+{
+ "name": "moodle_term",
+ "lms": "moodle",
+ "description": "Synthetic Moodle 4.5 site, Sydney semester 27 Jul - 15 Nov 2026, now = Wed of Week 9. Four in-progress courses plus one past course. Submitted/draft/new/overdue/offline/graded assignments, a quiz with one finished attempt that can be re-attempted, a grade-book-only item, calendar-only course and site exam events, an undated external-tool exam whose date is only in an announcement, a personal extension, files named with and without an extension, a folder, news forums (two in one course, one empty), Week N and date-range section names, and one course whose events the calendar filters out.",
+ "now": "2026-09-23T03:00:00Z",
+ "date": "2026-09-23",
+ "timezone": "Australia/Sydney",
+ "usertimezone": "Australia/Sydney",
+ "language": "en",
+ "site": {
+  "sitename": "Example Moodle (synthetic)",
+  "siteid": 1,
+  "guest_id": 1,
+  "site_context": 2,
+  "release": "4.5"
+ },
+ "user": {
+  "id": 1234,
+  "fullname": "Test Student"
+ },
+ "term": {
+  "start": "2026-07-27",
+  "end": "2026-11-15"
+ },
+ "calendar": {
+  "hidden_courses": [4104]
+ },
+ "config": {
+  "schema_version": 3,
+  "lms": "moodle",
+  "canvas_host": null,
+  "course_tz": "Australia/Sydney",
+  "user_tz": "auto",
+  "tz_labels": {},
+  "term": {
+   "name": "Semester 2 2026",
+   "start": "2026-07-27",
+   "end": "2026-11-15",
+   "week1_monday": "2026-07-27",
+   "break": null,
+   "week_source": "moodle"
+  },
+  "user": {
+   "id": 1234,
+   "name": "Test Student"
+  },
+  "courses": [
+   {"id": 4101, "code": "MDL1001", "name": "Media & Research Methods", "section": null, "weekday": null},
+   {"id": 4102, "code": "MDL2002", "name": "Digital Media Production", "section": null, "weekday": null},
+   {"id": 4103, "code": "MDL3003", "name": "Screen Cultures", "section": null, "weekday": null},
+   {"id": 4104, "code": "MDL4004", "name": "Data Storytelling", "section": null, "weekday": null}
+  ],
+  "extra_sites": [],
+  "exam_prep": null,
+  "api_notes": {},
+  "notes": [],
+  "root": null,
+  "materials": {
+   "auto_download": true,
+   "max_mb": 50,
+   "per_run": 30
+  },
+  "agent": {
+   "kind": null
+  }
+ },
+ "state": {
+  "schema_version": 3,
+  "last_check": null,
+  "last_fetch": null,
+  "last_record": null,
+  "last_seen": null,
+  "last_done": null,
+  "counters": {},
+  "courses": {},
+  "pending_confirmations": [],
+  "decisions": [],
+  "mood": [],
+  "manual_deadlines": [],
+  "deadline_notes": {},
+  "locked_materials": [],
+  "current_plan": null,
+  "daily_report": {}
+ }
+}

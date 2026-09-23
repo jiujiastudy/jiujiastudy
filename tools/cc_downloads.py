@@ -13,12 +13,20 @@ import urllib.error
 import uuid
 import zipfile
 
+from canvas_api import CanvasAuthError
 from cc_config import materials_ai
+from cc_courses import lms_of
 from cc_paths import coach_cmd, safe_name
 from cc_store import FileLock, jload, jsave
 from deps import optional
 
 DOC_EXT = (".pdf", ".pptx", ".docx", ".doc")
+
+
+def doc_name(it):
+    """判断是不是课件用的名字：有真实文件名（Moodle）就用它，否则用标题（Canvas 的标题就是文件名）。"""
+    return it.get("filename") or it.get("title") or ""
+
 NAME_LIMIT = 80  # 文件名上限：Windows 整条路径只有 260
 RESERVED_NAMES = ({"CON", "PRN", "AUX", "NUL"} | {f"COM{i}" for i in range(1, 10)} | {f"LPT{i}" for i in range(1, 10)})
 AI_WORDS = re.compile(r"(?i)\bAI\b|artificial intelligence|generative|生成式|人工智能")
@@ -172,10 +180,15 @@ def run_downloads(ctx, cap=10, lock_token=None):
             return {"downloaded": [], "left": len(d["queue"]) + len(d["in_progress"]), "errors": []}
 
         errors, out, retry, completed = [], [], [], []
-        for it in batch:
+        moodle = lms_of(ctx.cfg) == "moodle"
+        for n, it in enumerate(batch):
             try:
                 r = download_new(ctx, it, it["course"], errors)
             except Exception as e:  # noqa: BLE001
+                if moodle and isinstance(e, CanvasAuthError):  # 登录过期：这一批原样放回队列，不算失败次数
+                    errors.append(str(e))
+                    retry.extend(batch[n:])
+                    break
                 errors.append(f"下载失败 {it.get('title')}: {type(e).__name__}")
                 r = None
             if r:
@@ -375,13 +388,16 @@ def download_new(ctx, item, code, errors):
     fid = item.get("content_id")
     if not fid:
         return None
+    moodle = lms_of(ctx.cfg) == "moodle"  # Moodle：登录过期往外抛（别说成「没有课件」），错误写中文原因
     try:
         meta = ctx.api.file_meta(fid)
     except urllib.error.HTTPError as e:
-        errors.append(f"HTTP {e.code}: /api/v1/files/{fid}")
+        errors.append(f"HTTP {e.code}: " + (f"课件 {fid}" if moodle else f"/api/v1/files/{fid}"))
         return None
     except Exception as e:  # noqa: BLE001
-        errors.append(f"{type(e).__name__}: /api/v1/files/{fid}")
+        if moodle and isinstance(e, CanvasAuthError):
+            raise
+        errors.append(f"课件 {fid} 没读到：{str(e) or type(e).__name__}" if moodle else f"{type(e).__name__}: /api/v1/files/{fid}")
         return None
     name = meta.get("display_name") or meta.get("filename") or str(fid)
     if meta.get("locked_for_user") or not meta.get("url"):
@@ -395,7 +411,9 @@ def download_new(ctx, item, code, errors):
     try:
         _, body = ctx.api.fetch(meta["url"], accept="*/*")
     except Exception as e:  # noqa: BLE001
-        errors.append(f"下载失败 {name}: {type(e).__name__}")
+        if moodle and isinstance(e, CanvasAuthError):
+            raise
+        errors.append(f"下载失败 {name}: {(str(e) or type(e).__name__) if moodle else type(e).__name__}")
         return None
     with open(dest, "wb") as f:
         f.write(body)
@@ -425,20 +443,24 @@ def collect_materials(ctx, code, week):
     if not course:
         return {"error": f"config.json 里没有课程 {code}", "downloaded": []}
     errors, out = [], []
-    modules = ctx.api.get(f"/api/v1/courses/{course['id']}/modules?per_page=50&include[]=items&include[]=content_details")
+    if lms_of(ctx.cfg) == "moodle":  # Moodle 没有模块接口：用上次采集整理好的模块（同 Canvas 形状）
+        import cc_study
+        modules = cc_study.load_modules(ctx).get(code)
+    else:
+        modules = ctx.api.get(f"/api/v1/courses/{course['id']}/modules?per_page=50&include[]=items&include[]=content_details")
     mats = ctx.materials_dir(code)
     have = set(os.listdir(mats)) if os.path.isdir(mats) else set()
     for m in modules or []:
         if not week_matches(m.get("name"), week):
             continue
         for it in m.get("items") or []:
-            if it.get("type") != "File" or not (it.get("title") or "").lower().endswith(DOC_EXT):
+            if it.get("type") != "File" or not doc_name(it).lower().endswith(DOC_EXT):
                 continue
             cd = it.get("content_details") or {}
             if cd.get("locked_for_user"):
                 out.append({"name": it.get("title"), "skipped": "locked", "unlock_at": cd.get("unlock_at") or m.get("unlock_at")})
                 continue
-            if safe_filename(it.get("title")) in have:  # 盘上是清理过的名字，比对也用它
+            if safe_filename(doc_name(it)) in have:  # 盘上是清理过的名字，比对也用它
                 out.append({"name": it.get("title"), "skipped": "already"})
                 continue
             r = download_new(ctx, {"content_id": it.get("content_id")}, code, errors)

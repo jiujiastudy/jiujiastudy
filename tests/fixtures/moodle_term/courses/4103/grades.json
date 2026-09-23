@@ -1,0 +1,10 @@
+{
+ "showweight": true,
+ "category": {"id": 62, "name": "Screen Cultures"},
+ "items": [
+  {"id": 631, "cmid": 7204, "weight": "100.00 %", "grade": "7.00", "range": "0–10", "percentage": "70.00 %", "contribution": "100.00 %"},
+  {"id": 632, "cmid": 7203, "weight": "0.00 %<br>( Empty )", "grade": "-", "range": "0–100", "percentage": "-", "contribution": "0.00 %"},
+  {"id": 633, "cmid": 7202, "weight": "-", "grade": "-", "range": "0–100", "percentage": "-", "contribution": "-"},
+  {"id": 630, "type": "courseitem", "name": "Course total", "weight": "-", "grade": "7.00", "range": "0–10", "percentage": "70.00 %", "contribution": "-"}
+ ]
+}

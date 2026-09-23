@@ -1,0 +1,14 @@
+{
+ "7201": [
+  {"id": 521, "subject": "Final exam arrangements", "author": "Dr Priya Nair",
+   "posts": [
+    {"id": 9521, "created": "2026-09-22T05:00:00Z",
+     "message": "<p>The final exam runs in the external exam tool (<em>Final exam (external tool)</em> on the unit page) on <strong>Monday 9 November 2026, 9:00 am</strong> Sydney time. It runs for 2 hours and is worth 40%.</p>"}
+   ]},
+  {"id": 522, "subject": "No lecture in Week 10", "author": "Dr Priya Nair",
+   "posts": [
+    {"id": 9522, "created": "2026-09-15T03:00:00Z",
+     "message": "<p>There is no lecture in Week 10. Use the time to start your essay.</p>"}
+   ]}
+ ]
+}

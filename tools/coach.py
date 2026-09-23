@@ -3,6 +3,8 @@
   doctor  [--detect-site] [--host URL] [--school NAME] [--tz ZONE] [--fix-perms] [--agent auto|claude|codex|other] [--dry-run]
           体检：装库、认学校（浏览器记录）、验 token、建档、按宿主写权限。缺什么就说什么，能修的自己修。
   token   set | forget                     用户发到对话里的 token：set 从标准输入读进来存好（有学校地址就先验一次）；forget 删掉
+  login   [--host URL] [--wait 90] | --check | --forget
+          学校不让生成 token 或用 Moodle 时用：弹出浏览器窗口，用户自己登录 Canvas / Moodle，之后读数据用这份登录（只读）；--check 看还有没有效；--forget 删掉
   status                                     一屏现状 + 状态评估，零副作用
   collect [--quick] [--touch] [--download] | --materials CODE WEEK
           只读采集（默认只元数据，不下载课件）
@@ -33,6 +35,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import brand  # noqa: E402
 import canvas_api  # noqa: E402
 from cc_config import CoachError, Ctx, course_option, missing_config_message, parse_value  # noqa: E402
+from cc_courses import lms_label  # noqa: E402
 from cc_paths import WEEK_PAGE, coach_cmd, home_dir  # noqa: E402
 from cc_store import get_key, load_json_arg, set_key  # noqa: E402
 
@@ -98,6 +101,71 @@ def cmd_token(args):
     return 0, {"saved": True, "verified": bool(who), "host": host, "message": msg}
 
 
+def cmd_login(args):
+    """学校不让生成 token（或学校用 Moodle）时：弹出浏览器窗口，用户自己登录；之后读数据都用这份登录。"""
+    import importlib
+    import cc_host
+    import cc_session
+    import deps
+    from cc_courses import lms_of
+    from cc_store import jload
+    home = home_dir(args.home)
+    if args.worker:
+        if args.lms == "moodle":  # Moodle 的站点根可能带子目录，不能只留域名
+            return cc_session.worker(home, (args.host or "").rstrip("/"), lms="moodle"), {}
+        return cc_session.worker(home, cc_host.normalize_host(args.host)), {}
+    if args.forget:
+        info = cc_session.read_login(home)
+        moodle = (cc_session.login_lms(info) if info else lms_of(jload(os.path.join(home, "config.json")))) == "moodle"
+        gone = cc_session.forget(home)
+        back = "Moodle 没有 token 方式，要再读数据就重新跑 login。" if moodle else "回到 token 方式。"
+        msg = f"登录删掉了，{back}" if gone else "本来就没有登录。"
+        if not args.json:
+            print(msg)
+        return 0, {"forgotten": gone, "message": msg}
+    cfg = jload(os.path.join(home, "config.json")) or {}
+    site = jload(os.path.join(home, "site.json"), {}) or {}
+    host = (cc_host.normalize_host(args.host) or cfg.get("canvas_host") or cc_host.normalize_host(os.environ.get("CANVAS_HOST"))
+            or site.get("host") or (cc_session.read_login(home) or {}).get("host"))
+    if args.check:
+        r = cc_session.check(home, host)
+    else:
+        if not host:
+            raise CoachError("还不知道学校的 Canvas 地址：先问用户确认（doctor 会从浏览器记录里猜），再跑 login --host 网址", 2)
+        lms, host = _login_target(home, cfg, args.host, host)
+        if deps.optional("playwright") is None:
+            from cc_install import pip_install
+            if not args.json:
+                print("第一次用登录模式，先装 playwright（只装一次）…")
+            if not pip_install("playwright"):
+                raise CoachError(f"playwright 没装上：{cc_session.NEED_PLAYWRIGHT}", 2)
+            importlib.invalidate_caches()
+        r = cc_session.start_login(home, host, wait=max(0, args.wait), lms=lms)
+        if lms == "moodle":
+            r["lms"] = "moodle"
+        if r["state"] == "done":
+            r["message"] += "。下一步：doctor" if not cfg or lms_of(cfg) != lms else "。下一步：collect"
+    if not args.json:
+        print(r["message"])
+    return {"done": 0, "ok": 0, "waiting": 1}.get(r["state"], 2 if r["state"] == "failed" else 1), r
+
+
+def _login_target(home, cfg, raw, host):
+    """开登录窗口前先认平台（不带任何凭据）：Moodle 用站点自己报的根（可能带子目录）。
+    认不出（连不上）就沿用档案或上次登录记的；都没有就按 Canvas。"""
+    import cc_host
+    import cc_session
+    from cc_courses import lms_of
+    kind, base = cc_host.detect_lms(raw or host)
+    if kind:
+        return kind, base
+    known = cc_session.read_login(home) or {}
+    for h, lms in ((cfg.get("canvas_host"), lms_of(cfg)), (known.get("host"), cc_session.login_lms(known))):
+        if lms == "moodle" and h and cc_host.normalize_host(h) == cc_host.normalize_host(host):
+            return "moodle", h.rstrip("/")
+    return "canvas", host
+
+
 def cmd_status(args):
     import cc_radar
     home = home_dir(args.home)
@@ -152,7 +220,7 @@ def cmd_collect(args):
         return 0, res
     d = cc_collect.collect(ctx, date, quick=args.quick, touch=args.touch, download=(True if args.download else None))
     if not args.json:
-        cc_digest.print_digest(d)
+        cc_digest.print_digest(d, lms_label(ctx.cfg))
         cc_digest.print_context(ctx, date)
     promoted = bool(d.get("promoted", not d.get("errors")))
     res = {"digest_path": ctx.P("raw", "daily", date, "digest.json") if promoted else None,
@@ -464,7 +532,7 @@ def cmd_run(args):
     try:
         d = cc_collect.collect(ctx, date, quick=args.quick, touch=False)
         if not args.json:
-            cc_digest.print_digest(d)
+            cc_digest.print_digest(d, lms_label(ctx.cfg))
     except (canvas_api.CanvasError, urllib.error.URLError) as e:
         print(f"采集失败：{e}", file=sys.stderr)
     return cmd_render(args)
@@ -538,7 +606,7 @@ def build_parser():
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("doctor", parents=[common])
-    p.add_argument("--host", help="学校 Canvas 网址（登录页网址也行）")
+    p.add_argument("--host", help="学校 Canvas 网址（登录页网址也行）；Moodle 学校给 Moodle 网址")
     p.add_argument("--school", help="校名或域名（中英文都行），用来猜 Canvas 地址")
     p.add_argument("--tz", help="课程时区（IANA，如 Australia/Sydney）；不给就从 Canvas 推")
     p.add_argument("--detect-site", dest="detect_site", action="store_true", help="在浏览器记录里认 Canvas 域名（只取域名和访问次数）")
@@ -554,6 +622,15 @@ def build_parser():
     p = sub.add_parser("token", parents=[common], help="用户发到对话里的 token：set 从标准输入读进来存好；forget 删掉")
     p.add_argument("op", choices=["set", "forget"])
     p.set_defaults(fn=cmd_token)
+
+    p = sub.add_parser("login", parents=[common], help="学校不让生成 token 或用 Moodle 时：弹出浏览器窗口让用户自己登录，之后用这份登录只读")
+    p.add_argument("--host", help="学校 Canvas / Moodle 网址（不给就用 config / doctor 认出的）；先不带凭据认出是哪种")
+    p.add_argument("--wait", type=int, default=90, help="最多等几秒就先返回（窗口留着继续等用户，最长 10 分钟）")
+    p.add_argument("--check", action="store_true", help="不开窗口，只看登录还有没有效")
+    p.add_argument("--forget", action="store_true", help="删掉这份登录，回到 token")
+    p.add_argument("--worker", action="store_true", help=argparse.SUPPRESS)
+    p.add_argument("--lms", choices=["canvas", "moodle"], default="canvas", help=argparse.SUPPRESS)  # 窗口进程用：哪种平台
+    p.set_defaults(fn=cmd_login)
 
     sub.add_parser("status", parents=[common]).set_defaults(fn=cmd_status)
     p = sub.add_parser("paths", parents=[common], help="资料夹和每门课的 课件 / 产出 目录"); p.add_argument("code", nargs="?"); p.set_defaults(fn=cmd_paths)
@@ -715,6 +792,9 @@ def main(argv=None):
         msg = describe_error(e)
         out_json({"error": msg, "exit": 2}) if args.json else print(msg, file=sys.stderr)
         return 2
+    finally:
+        if "cc_session" in sys.modules:  # 登录模式在后台起过浏览器：关掉，存下续期后的登录
+            sys.modules["cc_session"].close_all()
 
 
 if __name__ == "__main__":

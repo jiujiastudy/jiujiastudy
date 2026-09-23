@@ -1,0 +1,21 @@
+{
+ "7001": [
+  {"id": 501, "subject": "Welcome to Media & Research Methods", "pinned": true, "author": "Dr Alex Chen",
+   "posts": [
+    {"id": 9501, "created": "2026-07-26T23:00:00Z",
+     "message": "<p>Welcome, everyone. The unit outline is on the unit page; please read it before the first lecture.</p>"}
+   ]},
+  {"id": 502, "subject": "Assignment 2 brief released", "author": "Dr Alex Chen",
+   "posts": [
+    {"id": 9502, "created": "2026-09-14T01:00:00Z",
+     "message": "<p>The brief for Assignment 2 is now on the unit page. It is due <strong>Friday 9 October at 11:59 pm</strong>.</p>"}
+   ]},
+  {"id": 503, "subject": "Week 9 lecture moved to Thursday", "author": "Dr Alex Chen",
+   "posts": [
+    {"id": 9503, "created": "2026-09-21T22:30:00Z",
+     "message": "<p>Dear all,</p><p>The Week 9 lecture will be held on <strong>Thursday 24 September, 2pm</strong> instead of Tuesday.</p><p><img src=\"{{BASE}}/pluginfile.php/17001/mod_forum/post/9503/room-map.png\" alt=\"Room map\"></p>"},
+    {"id": 9504, "parent": 9503, "created": "2026-09-22T00:10:00Z", "author": "Dr Alex Chen",
+     "message": "<p>Update: the room is now Room 1.10.</p>"}
+   ]}
+ ]
+}

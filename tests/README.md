@@ -9,6 +9,10 @@ Canvas data on 127.0.0.1, and `_coach_runner.py` refuses every other connection,
 DNS lookup and child process. When a test unsets `CANVAS_TOKEN`, the runner also
 hides the Windows registry, so a token saved on the computer is never read.
 
+The real-browser login test in `test_login_mode.py` is skipped unless Playwright is
+installed and `JIUJIASTUDY_BROWSER_TESTS=1` is set. It opens a browser window for a few
+seconds against a local mock Canvas that hands out a session cookie.
+
 ## What runs
 
 `test_golden.py` runs `tools/coach.py` for four synthetic schools and compares the
@@ -57,6 +61,16 @@ setup and on the next run, 1 once set up but not connected, 2 when nothing can b
 set up; and the skill-location check (SKILL.md directly under a skills folder a
 host reads: `.claude/skills`, `.codex/skills`, `.agents/skills`, `$CODEX_HOME/skills`
 or a plugin's `skills/`).
+
+`test_moodle.py` runs the Moodle side against `mockmoodle.py` (scenario
+`fixtures/moodle_term`, see its README) with the urllib transport
+(`JIUJIASTUDY_MOODLE_TRANSPORT=urllib`); "logged in" is a `login.json` with
+`lms: moodle` plus the mock's session cookie. It walks doctor → collect → radar →
+study → downloads in one archive, checks every coverage point of the scenario
+README, that times stay ISO strings, that an expired login stops collect with
+"log in again", and that nothing writes: non-whitelisted ajax, `api post` /
+`api upload` are refused and the mock sees no write request. Its real-browser test
+is gated like the Canvas one. `test_mdl_pages.py` unit-tests the page parsers.
 
 ## Changing behaviour on purpose
 

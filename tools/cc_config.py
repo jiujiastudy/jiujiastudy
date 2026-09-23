@@ -12,7 +12,7 @@ import re
 import sys
 
 import brand
-from cc_courses import course_by_code
+from cc_courses import course_by_code, lms_of
 from cc_paths import coach_cmd, fwd, home_dir, rel_home, root_dir, safe_name
 from cc_store import jload, jsave
 
@@ -301,11 +301,20 @@ class Ctx:
     def api(self):
         if self._api is None:
             import canvas_api
+            import cc_session
             import cc_token
             host = self.cfg.get("canvas_host")
             if not host:
                 raise CoachError("config.json 里还没有 canvas_host：跑 doctor --detect-site 或 doctor --host 网址", 2)
-            self._api = canvas_api.Canvas(host, cc_token.token())
+            if lms_of(self.cfg) == "moodle":  # Moodle 只有登录这一种方式，没有 token
+                import moodle_api
+                if not cc_session.has_login(self.home):
+                    raise canvas_api.CanvasAuthError(cc_session.RELOGIN)
+                self._api = moodle_api.MoodleClient(host, self.home)
+            elif cc_session.has_login(self.home):  # 用户跑过 login：用他在浏览器里的登录，不用 token
+                self._api = cc_session.SessionCanvas(host, self.home)
+            else:
+                self._api = canvas_api.Canvas(host, cc_token.token())
         return self._api
 
     def save_state(self):

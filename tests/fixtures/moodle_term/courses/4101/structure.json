@@ -1,0 +1,40 @@
+{
+ "ids_as": "string",
+ "indent_as": "int",
+ "sections": [
+  {"id": 5100, "number": 0, "name": null, "summary": "<p>Welcome to the unit. Lectures run on Tuesdays at 10am; tutorials start in Week 2.</p>", "cms": [7001, 7002, 7010]},
+  {"id": 5101, "number": 1, "name": null, "summary": "", "cms": []},
+  {"id": 5102, "number": 2, "name": null, "summary": "", "cms": [7006]},
+  {"id": 5103, "number": 3, "name": null, "summary": "", "cms": [7011]},
+  {"id": 5104, "number": 4, "name": null, "summary": "", "cms": []},
+  {"id": 5105, "number": 5, "name": null, "summary": "<p>Assignment 1 is due at the end of this week.</p>", "cms": [7003]},
+  {"id": 5106, "number": 6, "name": null, "summary": "", "cms": []},
+  {"id": 5107, "number": 7, "name": null, "summary": "", "cms": []},
+  {"id": 5108, "number": 8, "name": null, "summary": "", "cms": [7004]},
+  {"id": 5109, "number": 9, "name": null, "summary": "<p>Start reading for the literature review.</p>", "cms": [7005, 7007]},
+  {"id": 5110, "number": 10, "name": null, "summary": "", "cms": []},
+  {"id": 5111, "number": 11, "name": null, "summary": "", "cms": []},
+  {"id": 5112, "number": 12, "name": null, "summary": "", "cms": []}
+ ],
+ "cms": [
+  {"id": 7001, "module": "forum", "name": "Announcements", "forum": {"id": 301, "type": "news"}},
+  {"id": 7002, "module": "resource", "name": "Unit outline", "completion": 1,
+   "resource": {"filename": "MDL1001_Unit_Outline.pdf", "mimetype": "application/pdf", "body": "Synthetic course file: MDL1001 unit outline."}},
+  {"id": 7010, "module": "label", "name": "The mid-semester test is on Tuesday 20 October 2026 in the tutorial.",
+   "text": "<p>The <strong>mid-semester test</strong> is on Tuesday 20 October 2026 in your Week 13 tutorial (worth 20%).</p>"},
+  {"id": 7006, "module": "resource", "name": "Week 2 lecture slides", "completion": 0,
+   "resource": {"filename": "W2_Lecture_Slides.pptx", "mimetype": "application/vnd.openxmlformats-officedocument.presentationml.presentation", "body": "Synthetic course file: week 2 slides."}},
+  {"id": 7011, "module": "page", "name": "Week 3 extra reading", "uservisible": false, "hascmrestrictions": true, "accessvisible": false},
+  {"id": 7003, "module": "assign", "name": "Assignment 1: Research proposal", "completion": 1,
+   "assign": {"allow_from": "2026-08-02T23:00:00Z", "status": "submitted", "submitted_at": "2026-08-27T09:15:00Z",
+              "graded": true, "grade": "72.50 / 100.00", "intro": "<p>Write a 1000-word research proposal.</p>"}},
+  {"id": 7004, "module": "quiz", "name": "Week 8 reading quiz", "completion": 0,
+   "quiz": {"attempts_allowed": 3, "grademax": "10.00", "grading": "Highest grade", "review": "link",
+            "attempts": [{"id": 880, "started": "2026-09-15T00:02:00Z", "finished": "2026-09-15T00:21:04Z", "grade": "8.00", "percent": "80"}]}},
+  {"id": 7005, "module": "assign", "name": "Assignment 2: Literature review", "completion": 0,
+   "assign": {"allow_from": "2026-09-13T23:00:00Z", "status": "new", "extension": "2026-10-16T12:59:00Z",
+              "intro": "<p>Review at least eight sources (2000 words).</p>"}},
+  {"id": 7007, "module": "resource", "name": "Reading list (2026).pdf",
+   "resource": {"filename": "Reading list (2026).pdf", "mimetype": "application/pdf", "body": "Synthetic course file: reading list."}}
+ ]
+}

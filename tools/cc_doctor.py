@@ -18,9 +18,11 @@ import urllib.error
 import brand
 import canvas_api
 import cc_host
+import cc_session
 import deps
 from cc_bootstrap import align_week1, bootstrap_config
 from cc_config import SCHEMA_VERSION, CoachError, Ctx, adapt_v1, minimal_state, upgrade_v2, version_of
+from cc_courses import lms_label, lms_of
 from cc_install import check_skill_location, pip_install
 from cc_paths import WEEK_PAGE, agent_kind, coach_cmd, fwd, home_dir, python_cmd, root_dir
 from cc_perms import check_perms, claude_settings_path, codex_snippet, fix_perms
@@ -90,7 +92,7 @@ def doctor(args):
 
     # 3 site detection (no token needed) when asked or when no host is known
     site = jload(os.path.join(home, "site.json"), {}) or {}
-    host = cc_host.normalize_host(getattr(args, "host", None)) or (cfg or {}).get("canvas_host") or cc_host.normalize_host(os.environ.get("CANVAS_HOST")) or site.get("host")
+    host = cc_host.normalize_host(getattr(args, "host", None)) or (cfg or {}).get("canvas_host") or cc_host.normalize_host(os.environ.get("CANVAS_HOST")) or site.get("host") or (cc_session.read_login(home) or {}).get("host")
     detect_res = None
     if getattr(args, "detect_site", False) or (not host and not getattr(args, "school", None) and not getattr(args, "no_detect", False)):
         import cc_detect
@@ -129,43 +131,64 @@ def doctor(args):
     api = None
     tok, token_available, verified = None, False, False
     school = getattr(args, "school", None)
-    try:
-        tok = token()
-        token_available = True
-        if not host and school:
-            found, me, tried = cc_host.find_host(tok, cc_host.candidate_hosts(school))
-            if found:
-                host = found
-                ok("学校", f"按「{school}」认出 {host}")
+    login = cc_session.read_login(home)
+    moodle_host = _moodle_site(args, cfg, login, host)
+    if moodle_host:  # Moodle：只有登录模式，不要 token
+        host = moodle_host
+        api, me, verified, token_available = _moodle_verify(home, host, login, ok, warn)
+    else:
+        try:
+            if login:  # 登录模式：用户跑过 login，不用 token
+                token_available = True
+                if not host:
+                    raise canvas_api.CanvasError("登录模式还不知道学校地址")
+                candidate_api = cc_session.SessionCanvas(host, home, timeout=30, retries=0)
+                if me is None:
+                    me = candidate_api.get("/api/v1/users/self")
+                api, verified = candidate_api, True
+                ok("登录", f"登录模式（用浏览器里的登录，没有 token）；/users/self 200 {me.get('name')}（{me.get('id')}）@ {host}")
             else:
-                warn("学校", "按「" + school + "」猜的地址都不对：" + "；".join(f"{h} {r}" for h, r in tried),
-                     "让用户把 Canvas 登录页的网址整个发过来，跑 doctor --host 网址")
-        if host:
-            candidate_api = canvas_api.Canvas(host, tok)
-            if me is None:
-                me = candidate_api.get("/api/v1/users/self")
-            api, verified = candidate_api, True
-            ok("token", f"已设置；/users/self 200 {me.get('name')}（{me.get('id')}）@ {host}")
-        else:
-            ok("token", "已设置；有学校地址后再验证")
-            if not any(name == "学校" for _, name, _ in checks):
-                warn("学校", "还不知道学校的 Canvas 地址", ask_host_action)
-    except canvas_api.CanvasAuthError:
-        # token 由用户直接发到对话里，AI 用 token set 存；不让用户去弄环境变量、终端或别的窗口
-        warn("token", "还没有 token", f"{ASK}（{HOW_TO_PASS}），再跑 doctor")
-    except urllib.error.HTTPError as e:
-        api = None
-        if e.code == 401:
-            warn("token", f"token 在 {host} 上登不上（401）：多半是复制不全",
-                 "让用户在同一个 Canvas 站点重新生成一个 token，整段发到对话里，token set 存好再跑 doctor；不要重问学校")
-        else:
-            warn("Canvas", f"{host} 返回 HTTP {e.code}", "让用户把学校 Canvas 登录页的网址发过来，跑 doctor --host 网址")
-    except urllib.error.URLError as e:
-        api = None
-        warn("Canvas", f"连不上 {host}：{e.reason}", "检查网络（校园网 / VPN）后重跑体检")
-    except canvas_api.CanvasError as e:
-        api = None
-        warn("Canvas", str(e))
+                tok = token()
+                token_available = True
+                if not host and school:
+                    found, me, tried = cc_host.find_host(tok, cc_host.candidate_hosts(school))
+                    if found:
+                        host = found
+                        ok("学校", f"按「{school}」认出 {host}")
+                    else:
+                        warn("学校", "按「" + school + "」猜的地址都不对：" + "；".join(f"{h} {r}" for h, r in tried),
+                             "让用户把 Canvas 登录页的网址整个发过来，跑 doctor --host 网址")
+                if host:
+                    candidate_api = canvas_api.Canvas(host, tok)
+                    if me is None:
+                        me = candidate_api.get("/api/v1/users/self")
+                    api, verified = candidate_api, True
+                    ok("token", f"已设置；/users/self 200 {me.get('name')}（{me.get('id')}）@ {host}")
+                else:
+                    ok("token", "已设置；有学校地址后再验证")
+                    if not any(name == "学校" for _, name, _ in checks):
+                        warn("学校", "还不知道学校的 Canvas 地址", ask_host_action)
+        except canvas_api.CanvasAuthError as e:
+            if login:
+                token_available = False
+                warn("登录", str(e), "跑 login，让用户在弹出的窗口里重新登录，再跑 doctor")
+            else:
+                # token 由用户直接发到对话里，AI 用 token set 存；不让用户去弄环境变量、终端或别的窗口
+                warn("token", "还没有 token", f"{ASK}（{HOW_TO_PASS}），再跑 doctor")
+                checks.append(("信息", "没有 token 时", cc_session.ALT))
+        except urllib.error.HTTPError as e:
+            api = None
+            if e.code == 401:
+                warn("token", f"token 在 {host} 上登不上（401）：多半是复制不全",
+                     "让用户在同一个 Canvas 站点重新生成一个 token，整段发到对话里，token set 存好再跑 doctor；不要重问学校")
+            else:
+                warn("Canvas", f"{host} 返回 HTTP {e.code}", "让用户把学校 Canvas 登录页的网址发过来，跑 doctor --host 网址")
+        except urllib.error.URLError as e:
+            api = None
+            warn("Canvas", f"连不上 {host}：{e.reason}", "检查网络（校园网 / VPN）后重跑体检")
+        except canvas_api.CanvasError as e:
+            api = None
+            warn("Canvas", str(e))
 
     if not host and not any(name == "学校" for _, name, _ in checks):
         warn("学校", "还不知道学校的 Canvas 地址", ask_host_action)
@@ -175,20 +198,27 @@ def doctor(args):
         if not verified:
             if token_available and not host:
                 missing = "只差学校地址"
+            elif host and not token_available and moodle_host:
+                missing = "登录过期" if login else "还没登录（Moodle 用 login，不用 token）"
             elif host and not token_available:
-                missing = "只差 token"
+                missing = "登录过期" if login else "只差 token"
             elif not host and not token_available:
                 missing = "还缺 token 和学校地址"
             else:
-                missing = "Canvas 身份或网络验证未通过"
+                missing = f"{'Moodle' if moodle_host else 'Canvas'} 身份或网络验证未通过"
             err("config.json", f"还没建档：{missing}")
             blocking = True
         else:
             try:
-                cfg, info = bootstrap_config(home, host, api, me, getattr(args, "all_courses", False), getattr(args, "tz", None))
+                if moodle_host:
+                    import mdl_collect
+                    cfg, info = mdl_collect.bootstrap(home, host, api, me, getattr(args, "all_courses", False), getattr(args, "tz", None))
+                else:
+                    cfg, info = bootstrap_config(home, host, api, me, getattr(args, "all_courses", False), getattr(args, "tz", None))
                 jsave(os.path.join(home, "config.json"), cfg)
                 ok("config.json", f"已新建：{len(cfg['courses'])} 门课（{', '.join(c['code'] for c in cfg['courses'])}），学期 {cfg['term'].get('name') or '未知'}，"
-                   f"时区 {cfg['course_tz']}（来自{info['tz_src']}）" + (f"；跳过非课程站点 {len(info['skipped'])} 个" if info["skipped"] else ""))
+                   f"时区 {cfg['course_tz']}（来自{info.get('tz_src', '电脑时区')}）" + (f"；跳过非课程站点 {len(info['skipped'])} 个" if info.get("skipped") else "")
+                   + (f"；{info['note']}" if info.get("note") else ""))
                 try:
                     os.remove(os.path.join(home, "site.json"))
                 except OSError:
@@ -213,13 +243,19 @@ def doctor(args):
             cfg["user"] = {"id": me.get("id"), "name": me.get("name")}
             jsave(os.path.join(home, "config.json"), cfg)
 
+    if moodle_host and api is not None:  # Moodle 的后台浏览器建档用完就关，存下续期后的登录
+        try:
+            api.close()
+        except Exception:  # noqa: BLE001
+            pass
+
     # 一门课都没有就什么都做不了：这是错误，不是提示（S02）
     if cfg is not None:
         live = [c for c in (cfg.get("courses") or []) if not c.get("inactive")]
         if not live:
             had = len(cfg.get("courses") or [])
             err("课程", "config.json 里一门在读的课都没有" + (f"（{had} 门都已结课或退课）" if had else ""),
-                f"新学期开学后跑：{display_coach} collect --force；还是空的就是这个账号在 Canvas 上没有在读课程")
+                f"新学期开学后跑：{display_coach} collect --force；还是空的就是这个账号在 {lms_label(cfg)} 上没有在读课程")
             blocking = True
 
     # 6 state
@@ -368,7 +404,7 @@ def doctor(args):
         else:
             ok("权限", "Claude Code 全局 settings.json 已含全部规则")
     elif agent == "codex":
-        checks.append(("信息", "权限", "Codex 第一次读取浏览器记录或访问 Canvas 时可能要求批准；只放行准确的 coach.py 命令前缀，合适时选「始终允许」。下面的项目片段可合并进 config.toml"))
+        checks.append(("信息", "权限", f"Codex 第一次读取浏览器记录或访问 {lms_label(cfg)} 时可能要求批准；只放行准确的 coach.py 命令前缀，合适时选「始终允许」。下面的项目片段可合并进 config.toml"))
         extra_blocks.append(("Codex config.toml 片段：", codex_snippet(home)))
     else:
         checks.append(("信息", "权限", f"宿主 {agent}：按它自己的方式批准 python 命令即可"))
@@ -393,6 +429,54 @@ def doctor(args):
     code = 2 if blocking else (0 if ready or not must_fix else 1)
     return code, {"checks": [{"level": l, "name": n, "detail": d} for l, n, d in checks], "must_fix": must_fix, "agent": agent,
                   "host": host, "home": home, "detect": detect_res, "ready": ready, "exit": code, "text": "\n".join(lines)}
+
+
+def _moodle_site(args, cfg, login, host):
+    """这次体检连的是不是 Moodle，是就返回站点根（可能带子目录），不是返回 None。
+    依据：login.json 记的平台；没登录过就看档案；档案里没有这个地址时，--host 不带凭据探测一次。"""
+    if login:
+        return login["host"].rstrip("/") if cc_session.login_lms(login) == "moodle" else None
+    if cfg and lms_of(cfg) == "moodle":
+        return (cfg.get("canvas_host") or host or "").rstrip("/") or None
+    raw = getattr(args, "host", None)
+    if not raw or (cfg and cfg.get("canvas_host") and cfg["canvas_host"] == cc_host.normalize_host(raw)):
+        return None  # 没给 --host，或者就是档案里那个 Canvas：不探测
+    kind, base = cc_host.detect_lms(raw)
+    return base if kind == "moodle" else None
+
+
+def _moodle_verify(home, host, login, ok, warn):
+    """Moodle 只有登录模式：有登录就用 whoami 验一次。返回 (api, me, 验过了, 登录还在)。"""
+    if not login:
+        warn("登录", f"{host} 是 Moodle：不用 token，用本人在浏览器里的登录（只读）",
+             "跑 login，用户在弹出的窗口里自己登录（账号密码、验证码都是他自己输），再跑 doctor")
+        return None, None, False, False
+    try:
+        import moodle_api
+    except ImportError:
+        warn("Moodle", "这份程序缺 Moodle 模块（moodle_api.py）", "重新安装或更新本 skill，再跑 doctor")
+        return None, None, False, True
+    alive = True
+    api = moodle_api.MoodleClient(host, home, timeout=30, retries=0)
+    try:
+        me = api.whoami() or {}
+    except canvas_api.CanvasAuthError as e:
+        alive = False
+        warn("登录", str(e), "跑 login，让用户在弹出的窗口里重新登录，再跑 doctor")
+    except urllib.error.HTTPError as e:
+        warn("Moodle", f"{host} 返回 HTTP {e.code}", "让用户把学校 Moodle 的网址发过来，跑 doctor --host 网址")
+    except urllib.error.URLError as e:
+        warn("Moodle", f"连不上 {host}：{e.reason}", "检查网络（校园网 / VPN）后重跑体检")
+    except canvas_api.CanvasError as e:  # MoodleError、浏览器起不来
+        warn("Moodle", str(e))
+    else:
+        ok("登录", f"Moodle 登录模式（用浏览器里的登录，没有 token）；{me.get('name') or '已登录'}（{me.get('id')}）@ {host}")
+        return api, me, True, True
+    try:
+        api.close()
+    except Exception:  # noqa: BLE001
+        pass
+    return None, None, False, alive
 
 
 def md_of(v, depth=0):

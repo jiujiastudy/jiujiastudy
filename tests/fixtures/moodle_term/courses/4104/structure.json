@@ -1,0 +1,19 @@
+{
+ "ids_as": "int",
+ "indent_as": "string",
+ "sections": [
+  {"id": 5400, "number": 0, "name": null, "summary": "", "cms": [7301, 7304]},
+  {"id": 5401, "number": 1, "name": "Topic 1: What makes a data story", "summary": "", "cms": []},
+  {"id": 5402, "number": 2, "name": "Topic 2: Cleaning data", "summary": "", "cms": [7302]},
+  {"id": 5403, "number": 3, "name": "Week 9 (Topic 3)", "summary": "", "cms": [7303]}
+ ],
+ "cms": [
+  {"id": 7301, "module": "forum", "name": "Announcements", "forum": {"id": 331, "type": "news"}},
+  {"id": 7304, "module": "resource", "name": "Course guide.docx",
+   "resource": {"filename": "Course guide.docx", "mimetype": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "body": "Synthetic course file: course guide."}},
+  {"id": 7302, "module": "assign", "name": "Data report",
+   "assign": {"allow_from": "2026-09-06T23:00:00Z", "status": "new", "intro": "<p>Submit a 1500-word data report with charts.</p>"}},
+  {"id": 7303, "module": "quiz", "name": "Module quiz",
+   "quiz": {"attempts_allowed": 2, "grademax": "10.00", "grading": "Highest grade", "review": "link", "attempts": []}}
+ ]
+}

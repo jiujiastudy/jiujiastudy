@@ -149,15 +149,24 @@ class Canvas:
 
 def from_config():
     """优先用 config.json 里的域名；没有 config 时退回环境变量 CANVAS_HOST。"""
-    host = None
+    host = home = None
+    cfg = {}
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     try:
         import cc_paths
         import cc_store
-        cfg = cc_store.jload(os.path.join(cc_paths.home_dir(), "config.json")) or {}
+        home = cc_paths.home_dir()
+        cfg = cc_store.jload(os.path.join(home, "config.json")) or {}
         host = cfg.get("canvas_host")
     except Exception:  # noqa: BLE001
         host = None
+    import cc_session
+    login = cc_session.read_login(home) if home else None
+    if login and (login.get("lms") == "moodle" or cfg.get("lms") == "moodle"):  # Moodle 只能用登录
+        import moodle_api
+        return moodle_api.MoodleClient(host or login["host"], home)
+    if login:  # 跑过 login：用浏览器里的登录，不用 token
+        return cc_session.SessionCanvas(host or login["host"], home)
     import cc_token
     return Canvas(host, cc_token.token())
 

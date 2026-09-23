@@ -11,8 +11,9 @@ import os
 import re
 import urllib.error
 
-from cc_courses import course_of_context, course_pairs
-from cc_downloads import DOC_EXT, queue_downloads
+from canvas_api import CanvasAuthError
+from cc_courses import course_of_context, course_pairs, lms_of
+from cc_downloads import DOC_EXT, doc_name, queue_downloads
 from cc_store import FileLock, jload, jsave
 from cc_time import parse_ts
 
@@ -56,6 +57,10 @@ def snapshot_from(courses, assignments, modules, group_ws, ann_ids, conv):
                 "submission_types": a.get("submission_types") or [],
                 "is_quiz": bool(a.get("is_quiz_assignment") or "online_quiz" in (a.get("submission_types") or [])),
             }
+            m = a.get("moodle")
+            if m:  # Moodle：交没交有几分把握、日期从哪来（下游据此标待确认）；Canvas 作业没有这个键
+                snap["assignments"][str(a["id"])]["moodle"] = {
+                    k: m[k] for k in ("status_confidence", "date_from", "calendar_empty") if m.get(k)}
         for m in modules.get(code) or []:
             for it in m.get("items") or []:
                 if it.get("type") == "SubHeader":
@@ -67,6 +72,8 @@ def snapshot_from(courses, assignments, modules, group_ws, ann_ids, conv):
                     "unlock_at": cd.get("unlock_at") or m.get("unlock_at"), "content_id": it.get("content_id"),
                     "url": it.get("html_url"), "page_url": it.get("page_url"),
                 }
+                if it.get("filename"):  # Moodle 的课件标题常不带扩展名，真实文件名另存；Canvas 条目没有这个键
+                    snap["items"][str(it["id"])]["filename"] = it["filename"]
     return snap
 
 
@@ -178,42 +185,10 @@ def refresh_courses(ctx, api, errors):
     return changes
 
 
-def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
+def _fetch_canvas(ctx, api, courses, date, quick, get, run, errors):
+    """Canvas：刷新课程清单，按课拉作业（含本人提交）和模块，再拉公告、站内信和考试站点探针。
+    get 负责记错，并把原始响应留到最后一起落盘。"""
     cfg, state, clock = ctx.cfg, ctx.state, ctx.clock
-    courses = course_pairs(cfg, include_inactive=False)
-    rawdir = ctx.P("raw", "daily", date)
-    os.makedirs(rawdir, exist_ok=True)
-    api = ctx.api
-    errors = []
-    failures = []  # 结构化的失败：{course, kind, code}，用来决定哪门课沿用旧数据（S03）
-    pending_raw = {}
-    collected_at = clock.now_utc().isoformat()
-
-    def get(path, name=None, course=None, kind=None):
-        short = path.split("?")[0]
-        try:
-            data = api.get(path)
-        except urllib.error.HTTPError as e:
-            if course and e.code in (401, 403, 404):
-                # 课程级的 401/403/404 不是 token 的问题：多半退课了、或课程已结束、或没权限
-                errors.append(f"{course} 这门课打不开了（HTTP {e.code}，可能退课或课程已结束）")
-            else:
-                errors.append(f"HTTP {e.code}: {short}")
-            failures.append({"course": course, "kind": kind, "code": e.code})
-            return None
-        except urllib.error.URLError as e:
-            errors.append(f"网络错误 {short}: {e.reason}")
-            failures.append({"course": course, "kind": kind, "code": None})
-            return None
-        except Exception as e:  # noqa: BLE001
-            errors.append(f"{type(e).__name__}: {short}")
-            failures.append({"course": course, "kind": kind, "code": None})
-            return None
-        if name:
-            pending_raw[name] = data
-        return data
-
-    prev = load_snapshot(ctx)
     course_changes = refresh_courses(ctx, api, errors) if not quick else []
     if course_changes:
         courses = course_pairs(ctx.cfg, include_inactive=False)
@@ -262,6 +237,76 @@ def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
                 elif r is None and len(errors) > n0:
                     readiness[label] = errors[n0]
                     del errors[n0:]  # optional readiness failure is reported, not promoted as core failure
+    return {"courses": courses, "course_changes": course_changes, "assignments": assignments, "modules": modules,
+            "group_ws": group_ws, "anns": anns, "convs": convs, "readiness": readiness}
+
+
+def _fetch_moodle(ctx, api, courses, date, quick, get, run, errors):
+    """Moodle：取数在 mdl_collect.py，交回的是和 Canvas 一样形状的列表，后面的比对、快照、雷达、周报不用分支。"""
+    import mdl_collect
+    return mdl_collect.fetch(ctx, api, courses, date, quick, run, errors)
+
+
+def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
+    cfg, state, clock = ctx.cfg, ctx.state, ctx.clock
+    courses = course_pairs(cfg, include_inactive=False)
+    rawdir = ctx.P("raw", "daily", date)
+    os.makedirs(rawdir, exist_ok=True)
+    api = ctx.api
+    errors = []
+    failures = []  # 结构化的失败：{course, kind, code}，用来决定哪门课沿用旧数据（S03）
+    pending_raw = {}
+    collected_at = clock.now_utc().isoformat()
+    moodle = lms_of(cfg) == "moodle"
+
+    def run(short, fn, name=None, course=None, kind=None):
+        """跑一次读取，失败按类型记进 errors / failures（S03）；成功的原样数据等全部读完再落盘。
+        Moodle 的登录过期不在这里吞掉：每个请求都会一样失败，原样抛出去，让「重新登录」那句话传到外面。
+        Canvas 照旧记一条错误、写 last_failure.json，雷达还能用上次的快照出。"""
+        try:
+            data = fn()
+        except CanvasAuthError as e:
+            if moodle:
+                raise
+            if str(e) not in errors:  # 每个请求都会一样失败：原话（里面写着怎么重新登录）只记一次
+                errors.append(str(e))
+            failures.append({"course": course, "kind": kind, "code": None})
+            return None
+        except urllib.error.HTTPError as e:
+            if course and e.code in (401, 403, 404):
+                # 课程级的 401/403/404 不是 token 的问题：多半退课了、或课程已结束、或没权限
+                errors.append(f"{course} 这门课打不开了（HTTP {e.code}，可能退课或课程已结束）")
+            else:
+                errors.append(f"HTTP {e.code}: {short}")
+            failures.append({"course": course, "kind": kind, "code": e.code})
+            return None
+        except urllib.error.URLError as e:
+            errors.append(f"网络错误 {short}: {e.reason}")
+            failures.append({"course": course, "kind": kind, "code": None})
+            return None
+        except Exception as e:  # noqa: BLE001
+            msg = f"{type(e).__name__}: {short}"
+            if moodle:  # Moodle 的异常里写了中文原因，要带上
+                import mdl_collect
+                msg = mdl_collect.error_text(e, short, course)
+            if msg:
+                errors.append(msg)
+            failures.append({"course": course, "kind": kind, "code": None})
+            return None
+        if name:
+            pending_raw[name] = data
+        return data
+
+    def get(path, name=None, course=None, kind=None):
+        return run(path.split("?")[0], lambda: api.get(path), name=name, course=course, kind=kind)
+
+    prev = load_snapshot(ctx)
+    fetch = _fetch_moodle if lms_of(cfg) == "moodle" else _fetch_canvas
+    f = fetch(ctx, api, courses, date, quick, get, run, errors)
+    courses, course_changes = f["courses"], f["course_changes"]
+    assignments, modules, group_ws = f["assignments"], f["modules"], f["group_ws"]
+    anns, convs, readiness = f["anns"], f["convs"], f["readiness"]
+    last_check = parse_ts(state.get("last_check")) or (clock.now_utc() - dt.timedelta(days=14))
 
     # 哪几门课这次没采到作业：沿用它自己上次的数据，别把别的课一起冻住（S03）
     stale, hard = {}, list(failures)
@@ -406,8 +451,12 @@ def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
         for iid, it in pi.items():
             if iid not in snap["items"]:
                 digest["removed_items"].append({"id": iid, **it})
-        want = [it for it in digest["new_items"] + digest["unlocked_items"]
-                if it["type"] == "File" and it["title"].lower().endswith(DOC_EXT) and not it["locked"]]
+        # Moodle 课件第一次没问到真实文件名（标题不带扩展名，就没排队）、这次问到了：补排一次。Canvas 条目没有 filename
+        refill = [{"id": iid, **it} for iid, it in snap["items"].items()
+                  if it.get("filename") and iid in pi and not pi[iid].get("filename") and not pi[iid].get("locked")
+                  and not doc_name(pi[iid]).lower().endswith(DOC_EXT)]
+        want = [it for it in digest["new_items"] + digest["unlocked_items"] + refill
+                if it["type"] == "File" and doc_name(it).lower().endswith(DOC_EXT) and not it["locked"]]
         added, total = queue_downloads(ctx, want)  # 采集不下载：课件排队，后台或用到时再下，周报和 deadline 永远先出
         digest["queued_downloads"] = total
         digest["skipped_downloads"] = [{"course": it["course"], "module": it["module"], "title": it["title"], "url": it.get("url"), "reason": "已排队"} for it in want]

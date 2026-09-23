@@ -12,6 +12,7 @@ import cc_deadlines
 import cc_digest
 import cc_radar
 import cc_state
+from cc_courses import lms_label, lms_of
 from cc_store import jload, jsave
 from cc_time import monday_of, parse_date, parse_ts
 from mantras import slogan_for
@@ -77,7 +78,8 @@ def current_week(ctx, today, mods_by_course, override=None):
         return int(override), "user"
     term = ctx.cfg.get("term") or {}
     n = ctx.clock.week_no(today)
-    if n and term.get("week1_monday") and term.get("week_source") in ("config", "user"):
+    # moodle：建档时按课程开课日定的第 1 周，比按模块名猜可靠（Moodle 的节名常是日期）
+    if n and term.get("week1_monday") and term.get("week_source") in ("config", "user", "moodle"):
         return n, term.get("week_source")
     now = ctx.clock.now_utc()
     sig = [week_signal(m, now) for m in mods_by_course.values() if m]
@@ -103,7 +105,7 @@ def item_kind(it):
     if t == "Assignment":
         return "Assignment"
     if t == "File":
-        return "File" if title.endswith(DOC_EXT) else "Other"
+        return "File" if (it.get("filename") or title).lower().endswith(DOC_EXT) else "Other"
     if t in ("ExternalUrl", "ExternalTool"):
         return "Video" if VIDEO_RE.search(title + " " + url) else "ExternalUrl"
     if t == "Page":
@@ -121,7 +123,7 @@ KIND_ZH = {"Page": "页面", "File": "课件", "Video": "视频", "ExternalUrl":
 def minutes_for(ctx, kind, it):
     table = (ctx.cfg.get("study") or {}).get("minutes") or {}
     base = table.get(kind, 20)
-    if kind == "File" and (it.get("title") or "").lower().endswith((".pptx", ".ppt")):
+    if kind == "File" and (it.get("filename") or it.get("title") or "").lower().endswith((".pptx", ".ppt")):
         base = table.get("File", 40)
     return base
 
@@ -205,7 +207,7 @@ def build(ctx, today, week=None, days=14):
             n += 1
             item = {"id": f"{code[-4:]}-{n}", "course": code, "title": r["item"], "kind": "Deadline" if not r.get("overdue") else "Overdue",
                     "kind_zh": "已过期未交" if r.get("overdue") else "deadline", "verb": "交", "url": r.get("url"), "module": None,
-                    "minutes": None, "minutes_src": None, "first_step": cc_radar.first_step_for(r), "source": r.get("src"),
+                    "minutes": None, "minutes_src": None, "first_step": cc_radar.first_step_for(r, lms_label(cfg)), "source": r.get("src"),
                     "when": r["when"], "rel": r["rel"], "due_at": r["t"].isoformat() if r.get("t") else None,
                     "weight": r.get("weight"), "days_left": r.get("days_left"), "pending": r.get("pending"), "status": "📦",
                     "exam": r.get("kind") == "exam",
@@ -223,7 +225,8 @@ def build(ctx, today, week=None, days=14):
         notes = [{"when": a["when"], "title": a["title"], "url": a["url"], "gist": a["gist"]} for a in anns if a["course"] == code]
         gap = None
         if method == "none":
-            mod_url = f"{cfg.get('canvas_host')}/courses/{c['id']}/modules"
+            mod_url = (f"{cfg.get('canvas_host')}/course/view.php?id={c['id']}" if lms_of(cfg) == "moodle"
+                       else f"{cfg.get('canvas_host')}/courses/{c['id']}/modules")
             gap = f"{code} 的模块没按周命名，这周看什么请打开课程主页确认：{mod_url}"
             gaps.append(gap)
         exam = (next((x for x in dl if x.get("exam") and x.get("days_left") is not None), None)
@@ -246,12 +249,12 @@ def build(ctx, today, week=None, days=14):
         "week": iso, "week_no": W, "week_source": wsrc, "title": f"第 {W} 周" if W else "本周",
         "range": f"{clock.fmt_date(monday)} 至 {clock.fmt_date(sunday)} · {len(courses_out)} 门课",
         "tz_note": clock.tz_note(today), "generated": today.isoformat(), "generated_by": "study",
-        "canvas_check": (f"数据截至 {clock.fmt(parse_ts(snap.get('collected_at')))}" if snap.get("collected_at") else "还没采集过 Canvas"),
+        "canvas_check": (f"数据截至 {clock.fmt(parse_ts(snap.get('collected_at')))}" if snap.get("collected_at") else f"还没采集过 {lms_label(cfg)}"),
         "mantra": slogan_for(iso),
         "top": ([{"course": top_one["course"], "title": top_one["title"], "when": top_one.get("when") or "", "why": top_one.get("why") or "",
                   "first_step": top_one.get("first_step") or ""}] if top_one else []) + [
             {"course": r["course"], "title": r["item"], "when": f"{r['when']}{'，' + r['rel'] if r['rel'] else ''}",
-             "why": f"权重 {r['weight']}，{r['status']}", "first_step": cc_radar.first_step_for(r)}
+             "why": f"权重 {r['weight']}，{r['status']}", "first_step": cc_radar.first_step_for(r, lms_label(cfg))}
             for r in rows if not r.get("overdue") and (r.get("days_left") or 99) <= 7 and not (top_one and r["item"] == top_one["title"])][:2],
         "days": days_out,
         "study": {"week": iso, "week_no": W, "week_source": wsrc, "top_one": top_one, "courses": courses_out, "gaps": gaps,
@@ -260,9 +263,11 @@ def build(ctx, today, week=None, days=14):
                        "days_left": r.get("days_left"), "rel": r.get("rel"), "url": r.get("url"), "kind": r.get("kind"), "overdue": bool(r.get("overdue"))} for r in rows],
         "clash": clash_txt, "parking": [], "review": review,
         "state": ev,
-        "sources": [{"label": "Canvas 快照", "ref": "raw/daily/snapshot.json"}, {"label": "模块列表", "ref": "raw/daily/<日期>/modules_<课程id>.json"},
+        "sources": [{"label": f"{lms_label(cfg)} 快照", "ref": "raw/daily/snapshot.json"}, {"label": "模块列表", "ref": "raw/daily/<日期>/modules_<课程id>.json"},
                     {"label": "手动 deadline 与待确认", "ref": "state.json"}],
     }
+    if lms_of(cfg) == "moodle":  # 周报页面上的平台名；Canvas 档案不加这个键，输出不变
+        plan["platform"] = lms_label(cfg)
     return plan
 
 

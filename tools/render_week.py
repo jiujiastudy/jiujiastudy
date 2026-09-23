@@ -148,6 +148,7 @@ def render(r, week_no=None, n_courses=None):
     inferred = (r.get("week_source") or st.get("week_source")) == "modules"
     days = r.get("days") or []
     gen = r.get("generated") or ""
+    lbl = r.get("platform") or "Canvas"  # 没有这个键就是 Canvas
     name = f"第 {week_no} 周" if week_no else (r.get("title") or "本周")
     accs = cc_author.accounts()
     o = [head(f"{brand.NAME} · {name}", r.get("week", "week"), app=brand.SLUG, extra_css=cc_author.css(accs))]
@@ -211,7 +212,7 @@ def render(r, week_no=None, n_courses=None):
                  + ('<div class="card flush"><ul class="rows">' + "".join(_dl_row(x) for x in dated) + "</ul></div>"
                     if dated else '<p class="meta">两周内没有写了日期的 deadline。</p>')
                  + (f'<p class="callout end-gap">{rich(r["clash"])}</p>' if r.get("clash") else "")
-                 + (f'<details class="fold"><summary>Canvas 没写日期的 {len(undated)} 条，以 Canvas 和老师为准</summary>'
+                 + (f'<details class="fold"><summary>{lbl} 没写日期的 {len(undated)} 条，以 {lbl} 和老师为准</summary>'
                     '<div class="card flush"><ul class="rows">' + "".join(_dl_row(x) for x in undated) + "</ul></div></details>" if undated else "")
                  + "</section>")
 
@@ -276,7 +277,7 @@ def render(r, week_no=None, n_courses=None):
         o.append("</div></section>")
     o.append('<section class="end"><details class="fold"><summary>资料来源</summary><ul class="plain">'
              + "".join(f"<li>{esc(s.get('label'))}：{rich(s.get('ref'))}</li>" for s in r.get("sources") or [])
-             + "<li>标了待确认的，以 Canvas、课表和老师的答复为准。</li></ul></details>"
+             + f"<li>标了待确认的，以 {lbl}、课表和老师的答复为准。</li></ul></details>"
              + cc_author.feedback_html(accs) + "</section>")
     o.append('<div class="toast" data-toast hidden><span></span><button type="button">复制</button></div>')
     o.append(cc_author.footer_html(accs))

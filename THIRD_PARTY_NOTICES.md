@@ -10,6 +10,7 @@
 | `python-docx` | 同上，要读 .docx | MIT |
 | `tzlocal` | 认电脑时区（认不出就退回按课程时区显示） | MIT |
 | `tzdata` | 这个 Python 自带的时区库不全时 | Apache-2.0 |
+| `playwright` | 学校不让生成 token、改用登录模式（`login`）时，以及学校用 Moodle 时（Moodle 只走登录模式）；浏览器用电脑上已有的 Edge / Chrome | Apache-2.0 |
 
 不装任何一个，deadline 和本周清单照常工作——这是设计上的硬要求。
 

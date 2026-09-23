@@ -1,0 +1,9 @@
+{
+ "showweight": false,
+ "category": {"id": 63, "name": "Data Storytelling"},
+ "items": [
+  {"id": 641, "cmid": 7302, "grade": "-", "range": "0–50", "percentage": "-", "contribution": "-"},
+  {"id": 642, "cmid": 7303, "grade": "-", "range": "0–10", "percentage": "-", "contribution": "-"},
+  {"id": 640, "type": "courseitem", "name": "Course total", "grade": "-", "range": "0–60", "percentage": "-", "contribution": "-"}
+ ]
+}
