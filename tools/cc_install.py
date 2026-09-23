@@ -61,6 +61,49 @@ def check_skill_location(install=False, agent="auto", display_coach=""):
     return "ok", f"{sd}", None
 
 
+HOST_TOOLS = {".claude": "Claude Code", ".codex": "Codex", ".agents": "Codex 等其它 AI 工具"}
+
+
+def _version_of(d):
+    try:
+        with open(os.path.join(d, "tools", "brand.py"), encoding="utf-8") as f:
+            m = re.search(r'^VERSION\s*=\s*"([\d.]+)"', f.read(), re.M)
+        return tuple(int(x) for x in m.group(1).split(".")) if m else None
+    except (OSError, ValueError):
+        return None
+
+
+def duplicate_skills(sd=None, home=None):
+    """skills 文件夹里有没有多出来的一份本技能。返回 [(级别 "warn" / "info", 详情, 要做的事或 None)]。
+    - 同一个 skills 里的备份（<SLUG>.backup-… 这类，更新时常被放在这里）或旧名字的一份：宿主会当成第二个技能加载 → warn；
+    - 别的 AI 工具的 skills 里同名的一份：是给那个工具用的，正常；只在它比这份旧时提醒一句 → info。"""
+    sd = os.path.normpath(os.path.abspath(sd or skill_dir()))
+    home = home or os.path.expanduser("~")
+    key = os.path.normcase  # 比较时不分大小写（Windows），显示时保留原样
+    dirs = {key(d): d for d in [os.path.dirname(sd)] + [os.path.join(home, h, "skills") for h in HOST_DIRS]}
+    mine, out = _version_of(sd), []
+    for _, skills in sorted(dirs.items()):
+        try:
+            names = os.listdir(skills)
+        except OSError:
+            continue
+        for name in sorted(names):
+            p = os.path.join(skills, name)
+            if key(p) == key(sd) or not os.path.isfile(os.path.join(p, "SKILL.md")):
+                continue
+            low = name.lower()
+            if (low.startswith(brand.SLUG) and low != brand.SLUG) or low in brand.LEGACY_SKILL_DIRS:
+                out.append(("warn", f"{p} 也是一份{brand.NAME}（备份或旧名字），AI 工具会把它当成第二个技能加载，可能用到旧版",
+                            f"跟用户说一句，把 {p} 挪出 skills 文件夹（比如挪到「文档」里），别删"))
+            elif low == brand.SLUG:
+                theirs = _version_of(p)
+                if mine and theirs and theirs < mine:
+                    tool = HOST_TOOLS.get(os.path.basename(os.path.dirname(skills)).lower(), "另一个 AI 工具")
+                    out.append(("info", f"给 {tool} 用的那份（{p}）还是 {'.'.join(map(str, theirs))} 版，比这份旧",
+                                f"用户说「更新{brand.NAME}」时一起更新它"))
+    return out
+
+
 FLAG_PATTERNS = [r"\d{3,6}~[A-Za-z0-9]{40,}", r"CANVAS_TOKEN\s*=\s*[\"']?\d{3,6}~"]
 
 

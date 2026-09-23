@@ -1,8 +1,9 @@
 救驾 · 第 5 周
 第 5 周
-03-23 至 03-29 · 数据截至 03-25 周三 10:00（悉尼）= 07:00（北京） · 时间先悉尼后北京，04-05 起悉尼结束夏令时
+03-23 至 03-29 · 数据截至 03-25 周三 07:00
 把 deadline 交给机器，把凌晨三点还给自己。
-状态：过载只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 23:59（悉尼）= 20:59（北京），已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。
+做完一项就打勾，再回到 AI 对话里说「做完了」（点底部的「复制，发给 AI」粘过去最快），不说 AI 不知道你做完了。不知道怎么办，直接问 AI。
+状态：过载只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 20:59，已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。
 7 天内到期的作业合计 60% 还没交；72 小时内有 3 条 deadline；有 1 项已过期未交（ACCT1101 Weekly Quiz 4）
 可以让我做的
 ACCT1101 Weekly Quiz 5，还有 2 天，出一套 10 道的模拟小测，带中文解析。
@@ -13,53 +14,53 @@ PSYC2012 Week 5 discussion post，还有 2 天，给我两个能接住别人的�
 PSYC2012 Mid-semester test (20%)，还有 7 天，帮我做个复习包，复习计划和模拟小测都要。
 DSGN3402 Prototype critique (15%)，还有 5 天，先给我三个角度和一份提纲，正文我自己写。
 今天 · 03-25 周三 · 也是本周最要紧的一件
-PSYC2012 Lab Report (25%)（03-26 周四 17:00（悉尼）= 14:00（北京））
+PSYC2012 Lab Report (25%)（03-26 周四 14:00）
 第一步：打开作业页，看文件格式和命名要求。
 有空再做 2 件
 ACCT1101 看课件：ACCT1101 W5 Lecture Slides.pdf（40 分钟）
 PSYC2012 看课件：PSYC2012 Lecture 5 - Working Memory.pptx（40 分钟）
 本周还有 2 件要紧的
-ACCT1101 Weekly Quiz 5权重 —，未交第一步：打开测验页，看时长、可试次数和开放时间。03-27 周五 23:59（悉尼）= 20:59（北京），还有 2 天
-PSYC2012 Week 5 discussion post权重 —，未交第一步：打开讨论帖，看字数和回帖要求。03-27 周五 23:59（悉尼）= 20:59（北京），还有 2 天
+ACCT1101 Weekly Quiz 5权重 —，未交第一步：打开测验页，看时长、可试次数和开放时间。03-27 周五 20:59，还有 2 天
+PSYC2012 Week 5 discussion post权重 —，未交第一步：打开讨论帖，看字数和回帖要求。03-27 周五 20:59，还有 2 天
 Deadline · 两周内
-已过 5 天ACCT1101 Weekly Quiz 4 [<CANVAS>/courses/1101/assignments/1101004]已过期03-20 周五 23:59（悉尼）= 20:59（北京）
-明天PSYC2012 Lab Report (25%) [<CANVAS>/courses/1102/assignments/1102002]03-26 周四 17:00（悉尼）= 14:00（北京） · 25%
-还有 2 天ACCT1101 Weekly Quiz 5 [<CANVAS>/courses/1101/assignments/1101005]03-27 周五 23:59（悉尼）= 20:59（北京）
-还有 2 天PSYC2012 Week 5 discussion post [<CANVAS>/courses/1102/assignments/1102003]03-27 周五 23:59（悉尼）= 20:59（北京）
-还有 5 天DSGN3402 Prototype critique (15%) [<CANVAS>/courses/1103/assignments/1103002]03-30 周一 09:00（悉尼）= 06:00（北京） · 15%
+已过 5 天ACCT1101 Weekly Quiz 4 [<CANVAS>/courses/1101/assignments/1101004]已过期03-20 周五 20:59
+明天PSYC2012 Lab Report (25%) [<CANVAS>/courses/1102/assignments/1102002]03-26 周四 14:00 · 25%
+还有 2 天ACCT1101 Weekly Quiz 5 [<CANVAS>/courses/1101/assignments/1101005]03-27 周五 20:59
+还有 2 天PSYC2012 Week 5 discussion post [<CANVAS>/courses/1102/assignments/1102003]03-27 周五 20:59
+还有 5 天DSGN3402 Prototype critique (15%) [<CANVAS>/courses/1103/assignments/1103002]03-30 周一 06:00 · 15%
 还有 6 天DSGN3402 Studio pitch (in class)03-31 周二 课上 · 10%
-还有 7 天PSYC2012 Mid-semester test (20%) [<CANVAS>/courses/1102/assignments/1102004]04-01 周三 13:00（悉尼）= 10:00（北京） · 20%
-还有 8 天ACCT1101 Case Study Report (30%) [<CANVAS>/courses/1101/assignments/1101009]04-02 周四 23:59（悉尼）= 20:59（北京） · 30%
-还有 9 天ACCT1101 Final Exam (50%) [<CANVAS>/courses/1101/assignments/1101010]待确认04-03 周五 09:15（悉尼）= 06:15（北京） · 50%
-还有 9 天ACCT1101 Weekly Quiz 6 [<CANVAS>/courses/1101/assignments/1101006]04-03 周五 23:59（悉尼）= 20:59（北京）
-还有 14 天DSGN3402 Design Portfolio (40%) [<CANVAS>/courses/1103/assignments/1103003]待确认04-08 周三 23:59（悉尼）= 21:59（北京）（锁定时间当截止） · 40%
+还有 7 天PSYC2012 Mid-semester test (20%) [<CANVAS>/courses/1102/assignments/1102004]04-01 周三 10:00 · 20%
+还有 8 天ACCT1101 Case Study Report (30%) [<CANVAS>/courses/1101/assignments/1101009]04-02 周四 20:59 · 30%
+还有 9 天ACCT1101 Final Exam (50%) [<CANVAS>/courses/1101/assignments/1101010]待确认04-03 周五 06:15 · 50%
+还有 9 天ACCT1101 Weekly Quiz 6 [<CANVAS>/courses/1101/assignments/1101006]04-03 周五 20:59
+还有 14 天DSGN3402 Design Portfolio (40%) [<CANVAS>/courses/1103/assignments/1103003]待确认04-08 周三 21:59（锁定时间当截止） · 40%
 撞车：03-26 周四 至 03-27 周五，PSYC2012 Lab Report (25%)（25%）、ACCT1101 Weekly Quiz 5（—）、PSYC2012 Week 5 discussion post（—）。
 Canvas 没写日期的 2 条，以 Canvas 和老师为准
 PSYC2012 Research Participation (5%) [<CANVAS>/courses/1102/assignments/1102005]Canvas 没写日期 · 5%
-DSGN3402 Reflection journal [<CANVAS>/courses/1103/assignments/1103001]03-18 周三 23:59（悉尼）= 20:59（北京）（Canvas 日期只是占位）
+DSGN3402 Reflection journal [<CANVAS>/courses/1103/assignments/1103001]03-18 周三 20:59（Canvas 日期只是占位）
 每天
 23周一
 整理这周的笔记，把没看完的补上
 24周二
 整理这周的笔记，把没看完的补上
 25周三
-PSYC2012 Lab Report (25%)（03-26 周四 17:00（悉尼）= 14:00（北京））
+PSYC2012 Lab Report (25%)（03-26 周四 14:00）
 有空再做：ACCT1101 看课件：ACCT1101 W5 Lecture Slides.pdf（40 分钟）；PSYC2012 看课件：PSYC2012 Lecture 5 - Working Memory.pptx（40 分钟）
 26周四
-ACCT1101 Weekly Quiz 5（03-27 周五 23:59（悉尼）= 20:59（北京））
-17:00（悉尼）= 14:00（北京） PSYC2012 Lab Report (25%) 截止
-有空再做：PSYC2012 Week 5 discussion post（03-27 周五 23:59（悉尼）= 20:59（北京））；ACCT1101 读：Week 5 tutorial questions（20 分钟）
+ACCT1101 Weekly Quiz 5（03-27 周五 20:59）
+14:00 PSYC2012 Lab Report (25%) 截止
+有空再做：PSYC2012 Week 5 discussion post（03-27 周五 20:59）；ACCT1101 读：Week 5 tutorial questions（20 分钟）
 27周五
 整理这周的笔记，把没看完的补上
-23:59（悉尼）= 20:59（北京） ACCT1101 Weekly Quiz 5 截止
-23:59（悉尼）= 20:59（北京） PSYC2012 Week 5 discussion post 截止
+20:59 ACCT1101 Weekly Quiz 5 截止
+20:59 PSYC2012 Week 5 discussion post 截止
 有空再做：ACCT1101 看视频：Lecture recording（45 分钟）；ACCT1101 做：Weekly Quiz 5（30 分钟）
 28周六
-DSGN3402 Prototype critique (15%)（03-30 周一 09:00（悉尼）= 06:00（北京））
-有空再做：PSYC2012 读：Week 5 tutorial prep（20 分钟）；PSYC2012 看视频：Week 5 lecture recording（45 分钟）
+DSGN3402 Prototype critique (15%)（03-30 周一 06:00）
+有空再做：DSGN3402 Studio pitch (in class)（03-31 周二 课上）；PSYC2012 读：Week 5 tutorial prep（20 分钟）
 29周日
-DSGN3402 Studio pitch (in class)（03-31 周二 课上）
-有空再做：复习 PSYC2012：过一周的课件（Mid-semester test (20%) 还有 7 天）；PSYC2012 发帖：Week 5 discussion post（30 分钟）
+复习 PSYC2012：过一周的课件（Mid-semester test (20%) 还有 7 天）
+有空再做：PSYC2012 看视频：Week 5 lecture recording（45 分钟）；PSYC2012 发帖：Week 5 discussion post（30 分钟）
 周日：回我「做完了」，我记进度、排下周。
 这周要学的
 ACCT1101本周完成考试 03-20 · 还有 -5 天
@@ -72,8 +73,8 @@ Week 5: Financial Statements
 要做
 做Weekly Quiz 5 [<CANVAS>/courses/1101/modules/items/11010025]30 分钟
 公告 2 条
-03-24 周二 16:00（悉尼）= 13:00（北京） Final exam timetable [<CANVAS>/courses/1101/discussion_topics/90005]
-03-23 周一 09:15（悉尼）= 06:15（北京） Case study report: submission guide [<CANVAS>/courses/1101/discussion_topics/90002]
+03-24 周二 13:00 Final exam timetable [<CANVAS>/courses/1101/discussion_topics/90005]
+03-23 周一 06:15 Case study report: submission guide [<CANVAS>/courses/1101/discussion_topics/90002]
 PSYC2012本周完成考试 04-01 · 还有 7 天
 PSYC2012 Cognition and Memory
 Week 5: Working Memory
@@ -84,8 +85,8 @@ Week 5: Working Memory
 要做
 发帖Week 5 discussion post [<CANVAS>/courses/1102/modules/items/11020016]30 分钟
 公告 2 条
-03-24 周二 16:30（悉尼）= 13:30（北京） Research participation window [<CANVAS>/courses/1102/discussion_topics/90006]
-03-24 周二 14:00（悉尼）= 11:00（北京） Lab report extension policy [<CANVAS>/courses/1102/discussion_topics/90003]
+03-24 周二 13:30 Research participation window [<CANVAS>/courses/1102/discussion_topics/90006]
+03-24 周二 11:00 Lab report extension policy [<CANVAS>/courses/1102/discussion_topics/90003]
 DSGN3402本周完成
 DSGN3402 Interaction Design Studio
 W5 Studio: Prototyping
@@ -95,7 +96,7 @@ W5 Studio: Prototyping
 要做
 交Prototype critique (15%) [<CANVAS>/courses/1103/modules/items/11030012]90 分钟
 公告 1 条
-03-20 周五 11:30（悉尼）= 08:30（北京） Studio room change for Week 6 [<CANVAS>/courses/1103/discussion_topics/90004]
+03-20 周五 08:30 Studio room change for Week 6 [<CANVAS>/courses/1103/discussion_topics/90004]
 先搁着
 2026-03-29 DSGN3402 读：W5 studio notes（20 分钟）
 2026-03-29 DSGN3402 看课件：W5_Studio_Toolkit.pdf（40 分钟）
@@ -109,7 +110,7 @@ Canvas 快照：raw/daily/snapshot.json
 使用问题或建议，可以通过小红书或抖音私信我。
 小红书 · @悉尼苏丹（控制canvas版）小红书号 42860459630抖音 · @悉尼苏丹（控制canvas版）抖音号 64313418501
 恢复作者信息
-复制
+复制，发给 AI
 大家都离家这么远了，能帮上彼此一点，就帮一点。
 小红书、抖音 · @悉尼苏丹（控制canvas版）
 隐藏作者信息

@@ -198,7 +198,7 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
     clock, state = ctx.clock, ctx.state
     lbl = lms_label(getattr(ctx, "cfg", None))  # 给人看的平台名：Canvas 档案下逐字不变
     now = clock.now_utc()
-    start = clock.course_date(now)
+    start = clock.show_date(now)
     end = start + dt.timedelta(days=days)
     oldest = now - dt.timedelta(days=21)  # 已过期未交只回看 21 天
     notes = {str(k): v for k, v in (state.get("deadline_notes") or {}).items() if v}
@@ -246,7 +246,7 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
         unsub = a.get("sub_state") not in SUBMITTED
         noted = notes.get(str(aid))
         if due:
-            d = clock.course_date(due)
+            d = clock.show_date(due)
             if noted and unsub and due <= now:
                 if include_undated:
                     r = base(a, aid)
@@ -274,7 +274,7 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
                           "rel": clock.rel(t, now), "days_left": (d - start).days,
                           "pending": True, "undated": False, "src": f"公告《{title}》"})
             else:
-                when = (f"{clock.fmt_date(clock.course_date(ua))} 解锁，截止未写" if ua and clock.course_date(ua) > start else f"{lbl} 没写日期")
+                when = (f"{clock.fmt_date(clock.show_date(ua))} 解锁，截止未写" if ua and clock.show_date(ua) > start else f"{lbl} 没写日期")
                 r.update({"t": clock.course_local_to_utc(end, "23:59"), "date": None, "when": when, "rel": "", "days_left": None,
                           "pending": True, "undated": True, "src": "作业页没有 due_at"})
             rows.append(r)

@@ -23,7 +23,7 @@ import deps
 from cc_bootstrap import align_week1, bootstrap_config
 from cc_config import SCHEMA_VERSION, CoachError, Ctx, adapt_v1, minimal_state, upgrade_v2, version_of
 from cc_courses import lms_label, lms_of
-from cc_install import check_skill_location, pip_install
+from cc_install import check_skill_location, duplicate_skills, pip_install
 from cc_paths import WEEK_PAGE, agent_kind, coach_cmd, fwd, home_dir, python_cmd, root_dir
 from cc_perms import check_perms, claude_settings_path, codex_snippet, fix_perms
 from cc_store import jload, jsave
@@ -38,7 +38,8 @@ def doctor(args):
     checks, must_fix = [], []
     blocking = False
     extra_blocks = []
-    ask_host_action = "让用户把 Canvas 登录页网址整个发过来（地址栏 https:// 开头那一串），然后跑 doctor --host 网址"
+    ask_host_action = ("让用户把平时交作业的那个网站随便哪一页的网址发过来（浏览器地址栏里 https:// 开头的那一串；"
+                       "是 Canvas 还是 Moodle 不用他分，我来认），然后跑 doctor --host 网址；认出是 Canvas 再教他拿 token")
     retry_browser_action = ("按宿主机制批准一次只读浏览器记录权限后重跑 doctor --detect-site；"
                             "仍读不了，再让用户发 Canvas 登录页网址并跑 doctor --host 网址")
     retry_canvas_action = ("按宿主机制批准访问候选 Canvas（需要时检查校园网 / VPN）后重跑 doctor --detect-site；"
@@ -167,15 +168,18 @@ def doctor(args):
                 else:
                     ok("token", "已设置；有学校地址后再验证")
                     if not any(name == "学校" for _, name, _ in checks):
-                        warn("学校", "还不知道学校的 Canvas 地址", ask_host_action)
+                        warn("学校", "还不知道学校平台的网址", ask_host_action)
         except canvas_api.CanvasAuthError as e:
             if login:
                 token_available = False
                 warn("登录", str(e), "跑 login，让用户在弹出的窗口里重新登录，再跑 doctor")
             else:
                 # token 由用户直接发到对话里，AI 用 token set 存；不让用户去弄环境变量、终端或别的窗口
-                warn("token", "还没有 token", f"{ASK}（{HOW_TO_PASS}），再跑 doctor")
-                checks.append(("信息", "没有 token 时", cc_session.ALT))
+                if host:
+                    warn("token", "还没有 token", f"{ASK}（{HOW_TO_PASS}），再跑 doctor")
+                    checks.append(("信息", "没有 token 时", cc_session.ALT))
+                else:  # 一次只问一件事：先要网址；认出是 Canvas 才要 token，Moodle 根本不要
+                    checks.append(("信息", "token", "先确认学校网址：认出是 Canvas 再要 token，是 Moodle 就不要 token"))
         except urllib.error.HTTPError as e:
             api = None
             if e.code == 401:
@@ -191,7 +195,7 @@ def doctor(args):
             warn("Canvas", str(e))
 
     if not host and not any(name == "学校" for _, name, _ in checks):
-        warn("学校", "还不知道学校的 Canvas 地址", ask_host_action)
+        warn("学校", "还不知道学校平台的网址", ask_host_action)
 
     # 5 config
     if cfg is None:
@@ -339,9 +343,9 @@ def doctor(args):
             mz = normalize_zone(machine_zone() or "")
             if auto:
                 if not mz:
-                    warn("电脑时钟", "认不出电脑的时区，先按课程时区显示", "说「我人在 X」我把显示时区固定成 X（config set user_tz）")
+                    checks.append(("信息", "电脑时钟", "认不出电脑的时区，先按课程时区显示"))
                 elif mz != ctz_name:
-                    checks.append(("信息", "电脑时钟", f"显示时间跟着电脑走（{zone_label(mz)}）；课程时区是 {zone_label(ctz_name)}，deadline 会并列写两个时间。人其实在 {zone_label(ctz_name)} 的话，把电脑时区改过去就只剩一个时间"))
+                    checks.append(("信息", "电脑时钟", f"显示时间跟着电脑走（{zone_label(mz)}）"))
                 else:
                     ok("电脑时钟", f"显示时间跟着电脑走（{zone_label(mz)}），和课程时区一致")
             else:
@@ -357,7 +361,7 @@ def doctor(args):
                     if machine != want:
                         mismatch.append(f"{label}：电脑 UTC{machine.total_seconds() / 3600:+g}，{utz_name} UTC{want.total_seconds() / 3600:+g}")
                 if mismatch:
-                    warn("电脑时钟", "；".join(mismatch), f"显示时区固定为 {zone_label(utz_name)}，和电脑不一致：系统设置里把电脑时区改过去，或 config set user_tz auto 让显示跟着电脑走")
+                    checks.append(("信息", "电脑时钟", f"显示时区固定为 {zone_label(utz_name)}，和电脑不一致"))
                 else:
                     ok("电脑时钟", f"显示时区固定为 {zone_label(utz_name)}，与电脑一致（含学期末）")
         except Exception as e:  # noqa: BLE001
@@ -372,6 +376,14 @@ def doctor(args):
             warn("skill 位置", detail, action)
     except Exception as e:  # noqa: BLE001
         warn("skill 位置", f"检查失败：{type(e).__name__}")
+    try:  # skills 里多出来的一份（更新时的备份、旧名字）会被当成第二个技能加载
+        for lvl, detail, action in duplicate_skills():
+            if lvl == "warn":
+                warn("重复的技能", detail, action)
+            else:
+                checks.append(("信息", "别处的技能", f"{detail}；{action}"))
+    except Exception:  # noqa: BLE001  查不了就算了，不挡体检
+        pass
 
     # 10 deps：缺就自动装
     missing = deps.missing()

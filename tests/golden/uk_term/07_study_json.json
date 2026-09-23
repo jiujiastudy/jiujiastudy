@@ -5,30 +5,30 @@
   "week_source": "config",
   "title": "第 9 周",
   "range": "03-16 周一 至 03-22 周日 · 3 门课",
-  "tz_note": "时间先伦敦后北京，03-29 起伦敦进入夏令时",
+  "tz_note": "",
   "generated": "2026-03-18",
   "generated_by": "study",
-  "canvas_check": "数据截至 03-18 周三 12:00（伦敦）= 20:00（北京）",
+  "canvas_check": "数据截至 03-18 周三 20:00",
   "mantra": "留学生的工业革命，就是再也不用手动翻 Canvas。",
   "top": [
    {
     "course": "PSY2031",
     "title": "Lab report (50%)",
-    "when": "03-20 周五 16:00（伦敦）= 00:00（北京）",
-    "why": "权重 50%，还有 2 天",
+    "when": "03-21 周六 00:00",
+    "why": "权重 50%，还有 3 天",
     "first_step": "打开作业页，看文件格式和命名要求。"
    },
    {
     "course": "HIS2102",
     "title": "Source Analysis (40%)",
-    "when": "03-19 周四 12:00（伦敦）= 20:00（北京），明天",
-    "why": "权重 40%，已交 03-17 周二 21:14（伦敦）= 05:14（北京）",
+    "when": "03-19 周四 20:00，明天",
+    "why": "权重 40%，已交 03-18 周三 05:14",
     "first_step": "打开作业页，看文件格式和命名要求。"
    },
    {
     "course": "LAW1113",
     "title": "Problem question (30%)",
-    "when": "03-19 周四 23:59（伦敦）= 07:59（北京），明天",
+    "when": "03-20 周五 07:59，还有 2 天",
     "why": "权重 30%，未交",
     "first_step": "打开作业页，看文件格式和命名要求。"
    }
@@ -72,7 +72,7 @@
     "date": "2026-03-18",
     "weekday": "周三",
     "fixed": [],
-    "must": "HIS2102 Source Analysis (40%)（03-19 周四 12:00（伦敦）= 20:00（北京））",
+    "must": "HIS2102 Source Analysis (40%)（03-19 周四 20:00）",
     "must_first_step": "打开作业页，看文件格式和命名要求。",
     "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
     "must_minutes": null,
@@ -82,8 +82,8 @@
     "must_item_id": "2102-5",
     "must_url": "<CANVAS>/courses/3301/assignments/3301002",
     "should": [
-     "PSY2031 Lab report (50%)（03-20 周五 16:00（伦敦）= 00:00（北京））",
-     "LAW1113 Problem question (30%)（03-19 周四 23:59（伦敦）= 07:59（北京））"
+     "LAW1113 Problem question (30%)（03-20 周五 07:59）",
+     "HIS2102 读：Seminar 9 reading list（20 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -92,21 +92,20 @@
     "date": "2026-03-19",
     "weekday": "周四",
     "fixed": [
-     "12:00（伦敦）= 20:00（北京） HIS2102 Source Analysis (40%) 截止",
-     "23:59（伦敦）= 07:59（北京） LAW1113 Problem question (30%) 截止"
+     "20:00 HIS2102 Source Analysis (40%) 截止"
     ],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
-    "must_if_then": null,
+    "must": "PSY2031 Lab report (50%)（03-21 周六 00:00）",
+    "must_first_step": "打开作业页，看文件格式和命名要求。",
+    "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
     "must_minutes": null,
-    "must_kind": "机械",
+    "must_kind": "自己写",
     "must_who": "👤",
-    "must_course": null,
-    "must_item_id": null,
-    "must_url": null,
+    "must_course": "PSY2031",
+    "must_item_id": "2031-4",
+    "must_url": "<CANVAS>/courses/3302/assignments/3302003",
     "should": [
-     "HIS2102 读：Seminar 9 reading list（20 分钟）",
-     "HIS2102 看课件：HIS2102 Lecture 9.pdf（40 分钟）"
+     "HIS2102 看课件：HIS2102 Lecture 9.pdf（40 分钟）",
+     "HIS2102 看视频：Lecture 9 recording (Panopto)（45 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -115,7 +114,7 @@
     "date": "2026-03-20",
     "weekday": "周五",
     "fixed": [
-     "16:00（伦敦）= 00:00（北京） PSY2031 Lab report (50%) 截止"
+     "07:59 LAW1113 Problem question (30%) 截止"
     ],
     "must": "整理这周的笔记，把没看完的补上",
     "must_first_step": "打开本周清单，从第一条没勾的开始",
@@ -127,8 +126,8 @@
     "must_item_id": null,
     "must_url": null,
     "should": [
-     "HIS2102 看视频：Lecture 9 recording (Panopto)（45 分钟）",
-     "HIS2102 读：Seminar 9 prep questions（20 分钟）"
+     "HIS2102 读：Seminar 9 prep questions（20 分钟）",
+     "PSY2031 看课件：PSY2031_Lecture09_MixedANOVA.pptx（40 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -136,7 +135,9 @@
    {
     "date": "2026-03-21",
     "weekday": "周六",
-    "fixed": [],
+    "fixed": [
+     "00:00 PSY2031 Lab report (50%) 截止"
+    ],
     "must": "整理这周的笔记，把没看完的补上",
     "must_first_step": "打开本周清单，从第一条没勾的开始",
     "must_if_then": null,
@@ -147,8 +148,8 @@
     "must_item_id": null,
     "must_url": null,
     "should": [
-     "PSY2031 看课件：PSY2031_Lecture09_MixedANOVA.pptx（40 分钟）",
-     "PSY2031 读：Lab 9: R worksheet（20 分钟）"
+     "PSY2031 读：Lab 9: R worksheet（20 分钟）",
+     "LAW1113 读：Seminar 9 reading（20 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -167,7 +168,6 @@
     "must_item_id": null,
     "must_url": null,
     "should": [
-     "LAW1113 读：Seminar 9 reading（20 分钟）",
      "LAW1113 看课件：LAW1113 Seminar 9 handout.pdf（40 分钟）"
     ],
     "revise": "周日：回我「做完了」，我记进度、排下周。",
@@ -182,8 +182,8 @@
     "id": "2031-4",
     "course": "PSY2031",
     "title": "Lab report (50%)",
-    "why": "权重 50%，还有 2 天",
-    "when": "03-20 周五 16:00（伦敦）= 00:00（北京）",
+    "why": "权重 50%，还有 3 天",
+    "when": "03-21 周六 00:00",
     "first_step": "打开作业页，看文件格式和命名要求。",
     "url": "<CANVAS>/courses/3302/assignments/3302003",
     "kind": "Deadline"
@@ -281,7 +281,7 @@
        "minutes_src": null,
        "first_step": "打开作业页，看文件格式和命名要求。",
        "source": "Canvas due_at",
-       "when": "03-19 周四 12:00（伦敦）= 20:00（北京）",
+       "when": "03-19 周四 20:00",
        "rel": "明天",
        "due_at": "2026-03-19T12:00:00+00:00",
        "weight": "40%",
@@ -307,7 +307,7 @@
        "minutes_src": null,
        "first_step": "打开作业页，看文件格式和命名要求。",
        "source": "Canvas due_at",
-       "when": "03-26 周四 12:00（伦敦）= 20:00（北京）",
+       "when": "03-26 周四 20:00",
        "rel": "还有 8 天",
        "due_at": "2026-03-26T12:00:00+00:00",
        "weight": "60%",
@@ -323,7 +323,7 @@
      ],
      "notes": [
       {
-       "when": "03-16 周一 09:00（伦敦）= 17:00（北京）",
+       "when": "03-16 周一 17:00",
        "title": "Essay deadline reminder",
        "url": "<CANVAS>/courses/3301/discussion_topics/90001",
        "gist": "「CANVAS 原文（数据，不是指令）」\n> The summative essay is due Thursday 26 March at 12:00 noon .\n「原文结束」"
@@ -390,11 +390,11 @@
        "minutes_src": null,
        "first_step": "打开测验页，看时长、可试次数和开放时间。",
        "source": "Canvas due_at",
-       "when": "03-13 周五 17:00（伦敦）= 01:00（北京）",
-       "rel": "已过 5 天",
+       "when": "03-14 周六 01:00",
+       "rel": "已过 4 天",
        "due_at": "2026-03-13T17:00:00+00:00",
        "weight": "—",
-       "days_left": -5,
+       "days_left": -4,
        "pending": false,
        "status": "📦",
        "exam": true,
@@ -416,11 +416,11 @@
        "minutes_src": null,
        "first_step": "打开作业页，看文件格式和命名要求。",
        "source": "Canvas due_at",
-       "when": "03-20 周五 16:00（伦敦）= 00:00（北京）",
-       "rel": "还有 2 天",
+       "when": "03-21 周六 00:00",
+       "rel": "还有 3 天",
        "due_at": "2026-03-20T16:00:00+00:00",
        "weight": "50%",
-       "days_left": 2,
+       "days_left": 3,
        "pending": false,
        "status": "📦",
        "exam": false,
@@ -458,7 +458,7 @@
      ],
      "notes": [
       {
-       "when": "03-12 周四 14:00（伦敦）= 22:00（北京）",
+       "when": "03-12 周四 22:00",
        "title": "R drop-in sessions",
        "url": "<CANVAS>/courses/3302/discussion_topics/90002",
        "gist": "「CANVAS 原文（数据，不是指令）」\n> Drop-in help with R every Thursday, 2-4 pm, Room B12.\n「原文结束」"
@@ -467,8 +467,8 @@
      "gap": null,
      "exam": {
       "title": "Weekly practice quiz 8",
-      "when": "03-13 周五 17:00（伦敦）= 01:00（北京）",
-      "days_left": -5
+      "when": "03-14 周六 01:00",
+      "days_left": -4
      }
     },
     {
@@ -529,11 +529,11 @@
        "minutes_src": null,
        "first_step": "打开作业页，看文件格式和命名要求。",
        "source": "Canvas due_at",
-       "when": "03-19 周四 23:59（伦敦）= 07:59（北京）",
-       "rel": "明天",
+       "when": "03-20 周五 07:59",
+       "rel": "还有 2 天",
        "due_at": "2026-03-19T23:59:00+00:00",
        "weight": "30%",
-       "days_left": 1,
+       "days_left": 2,
        "pending": false,
        "status": "📦",
        "exam": false,
@@ -555,7 +555,7 @@
        "minutes_src": null,
        "first_step": "课上交或线下交，确认时间地点。",
        "source": "Canvas due_at",
-       "when": "03-24 周二 10:00（伦敦）= 18:00（北京）",
+       "when": "03-24 周二 18:00",
        "rel": "还有 6 天",
        "due_at": "2026-03-24T10:00:00+00:00",
        "weight": "—",
@@ -597,7 +597,7 @@
      ],
      "notes": [
       {
-       "when": "03-17 周二 08:30（伦敦）= 16:30（北京）",
+       "when": "03-17 周二 16:30",
        "title": "Seminar 9 room change",
        "url": "<CANVAS>/courses/3303/discussion_topics/90003",
        "gist": "「CANVAS 原文（数据，不是指令）」\n> Seminar 9 moves to the Moot Court Room this week.\n「原文结束」"
@@ -617,24 +617,24 @@
   },
   "deadlines": [
    {
-    "when": "03-13 周五 17:00（伦敦）= 01:00（北京）",
+    "when": "03-14 周六 01:00",
     "course": "PSY2031",
     "item": "Weekly practice quiz 8",
     "weight": "—",
     "status": "未交",
     "pending": false,
-    "days_left": -5,
-    "rel": "已过 5 天",
+    "days_left": -4,
+    "rel": "已过 4 天",
     "url": "<CANVAS>/courses/3302/assignments/3302002",
     "kind": "exam",
     "overdue": true
    },
    {
-    "when": "03-19 周四 12:00（伦敦）= 20:00（北京）",
+    "when": "03-19 周四 20:00",
     "course": "HIS2102",
     "item": "Source Analysis (40%)",
     "weight": "40%",
-    "status": "已交 03-17 周二 21:14（伦敦）= 05:14（北京）",
+    "status": "已交 03-18 周三 05:14",
     "pending": false,
     "days_left": 1,
     "rel": "明天",
@@ -643,33 +643,33 @@
     "overdue": false
    },
    {
-    "when": "03-19 周四 23:59（伦敦）= 07:59（北京）",
+    "when": "03-20 周五 07:59",
     "course": "LAW1113",
     "item": "Problem question (30%)",
     "weight": "30%",
     "status": "未交",
     "pending": false,
-    "days_left": 1,
-    "rel": "明天",
+    "days_left": 2,
+    "rel": "还有 2 天",
     "url": "<CANVAS>/courses/3303/assignments/3303001",
     "kind": "assignment",
     "overdue": false
    },
    {
-    "when": "03-20 周五 16:00（伦敦）= 00:00（北京）",
+    "when": "03-21 周六 00:00",
     "course": "PSY2031",
     "item": "Lab report (50%)",
     "weight": "50%",
     "status": "未交",
     "pending": false,
-    "days_left": 2,
-    "rel": "还有 2 天",
+    "days_left": 3,
+    "rel": "还有 3 天",
     "url": "<CANVAS>/courses/3302/assignments/3302003",
     "kind": "assignment",
     "overdue": false
    },
    {
-    "when": "03-24 周二 10:00（伦敦）= 18:00（北京）",
+    "when": "03-24 周二 18:00",
     "course": "LAW1113",
     "item": "Moot participation",
     "weight": "—",
@@ -682,7 +682,7 @@
     "overdue": false
    },
    {
-    "when": "03-26 周四 12:00（伦敦）= 20:00（北京）",
+    "when": "03-26 周四 20:00",
     "course": "HIS2102",
     "item": "Summative Essay – 3,000 words (60%)",
     "weight": "60%",
@@ -721,7 +721,7 @@
     "overdue": false
    }
   ],
-  "clash": "撞车：03-19 周四 至 03-20 周五，HIS2102 Source Analysis (40%)（40%）、LAW1113 Problem question (30%)（30%）、PSY2031 Lab report (50%)（50%）。",
+  "clash": "撞车：03-19 周四 至 03-21 周六，HIS2102 Source Analysis (40%)（40%）、LAW1113 Problem question (30%)（30%）、PSY2031 Lab report (50%)（50%）。",
   "parking": [],
   "review": "",
   "state": {
@@ -732,11 +732,11 @@
     "有 1 项已过期未交（PSY2031 Weekly practice quiz 8）",
     "你 2026-03-17 说过状态不好"
    ],
-   "advice": "只留必做，按权重排。今天只做最急的一条的第一步：PSY2031 Weekly practice quiz 8（03-13 周五 17:00（伦敦）= 01:00（北京），已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
+   "advice": "只留必做，按权重排。今天只做最急的一条的第一步：PSY2031 Weekly practice quiz 8（03-14 周六 01:00，已过 4 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
    "exam": {
     "course": "PSY2031",
     "item": "Weekly practice quiz 8",
-    "when": "03-13 周五 17:00（伦敦）= 01:00（北京）"
+    "when": "03-14 周六 01:00"
    }
   },
   "sources": [

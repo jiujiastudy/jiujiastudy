@@ -158,7 +158,9 @@ def render(r, week_no=None, n_courses=None):
     meta = [x for x in (rng, r.get("canvas_check"), r.get("tz_note"), "周次是推断的" if inferred else "") if x]
     o.append(f'<header class="top"><h1>{esc(name)}</h1><p class="meta num">{esc(" · ".join(meta))}</p>'
              + (f'<p class="lead">{esc(r["mantra"])}</p>' if r.get("mantra") else "")
-             + ('<div class="progress" data-progress><div class="bar"><div class="fill"></div></div><span class="ptxt"></span></div>' if courses else "")
+             + ('<div class="progress" data-progress><div class="bar"><div class="fill"></div></div><span class="ptxt"></span></div>'
+                '<p class="meta">做完一项就打勾，再回到 AI 对话里说「做完了」（点底部的「复制，发给 AI」粘过去最快），'
+                '不说 AI 不知道你做完了。不知道怎么办，直接问 AI。</p>' if courses else "")
              + "</header>")
     o.append(status(r.get("state")))
     asks = cc_asks.suggest(r)
@@ -279,14 +281,14 @@ def render(r, week_no=None, n_courses=None):
              + "".join(f"<li>{esc(s.get('label'))}：{rich(s.get('ref'))}</li>" for s in r.get("sources") or [])
              + f"<li>标了待确认的，以 {lbl}、课表和老师的答复为准。</li></ul></details>"
              + cc_author.feedback_html(accs) + "</section>")
-    o.append('<div class="toast" data-toast hidden><span></span><button type="button">复制</button></div>')
+    o.append('<div class="toast" data-toast hidden><span></span><button type="button">复制，发给 AI</button></div>')
     o.append(cc_author.footer_html(accs))
     return "\n".join(o) + foot()
 
 
 def to_markdown(r, week_no=None, generated=None):
     L = [MD_MARK, f"# {r.get('title', '周计划')}（{r.get('range', '')}）", "",
-         f"> 生成 {generated or dt.date.today().isoformat()}{' · 学期第 ' + str(week_no) + ' 周' if week_no else ''} · {r.get('tz_note', '')}",
+         f"> 生成 {generated or dt.date.today().isoformat()}{' · 学期第 ' + str(week_no) + ' 周' if week_no else ''}",
          "> 📦 = 已交付；✅ = 你确认做了。做完回「做完了」「做完了 编号」或「✓ 09-16」。", ""]
     if r.get("mantra"):
         L += [f"**今日心法** ——「{r['mantra']}」", ""]

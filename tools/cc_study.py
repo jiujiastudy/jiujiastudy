@@ -151,7 +151,7 @@ def week_items(ctx, code, mods, W, monday):
             for it in flat(m):
                 cd = it.get("content_details") or {}
                 ua = parse_ts(cd.get("unlock_at") or m.get("unlock_at"))
-                if ua and lo <= ctx.clock.course_date(ua) <= hi:
+                if ua and lo <= ctx.clock.show_date(ua) <= hi:
                     picked.append((m, it))
         if picked:
             method = "unlock-window"
@@ -339,7 +339,7 @@ def schedule_days(ctx, today, monday, courses_out, rows):
         for it in c["deadline_related"]:
             if it["kind"] != "Deadline" or it.get("due_at") is None:
                 continue
-            due = parse_date(ctx.clock.course_date(parse_ts(it["due_at"])).isoformat())
+            due = parse_date(ctx.clock.show_date(parse_ts(it["due_at"])).isoformat())
             if due and due.isoformat() in by_date:
                 by_date[due.isoformat()]["fixed"].append(f"{it['when'].split(' ', 2)[-1] if it.get('when') else ''} {it['course']} {it['title']} 截止" .strip())
             heavy = cc_state.weight_pct(it.get("weight")) >= 10
@@ -354,7 +354,7 @@ def schedule_days(ctx, today, monday, courses_out, rows):
         ex = next((it for it in c["deadline_related"] if it.get("exam") and it.get("due_at")), None)
         if not ex:
             continue
-        due = ctx.clock.course_date(parse_ts(ex["due_at"]))
+        due = ctx.clock.show_date(parse_ts(ex["due_at"]))
         for k in range(1, 4):
             d = due - dt.timedelta(days=k)
             if d.isoformat() in by_date and d >= today:

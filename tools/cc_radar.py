@@ -89,7 +89,7 @@ def to_markdown(ctx, rs, today, ev=None):
     clock = ctx.clock
     lbl = lms_label(ctx.cfg)
     normal, undated, overdue = split(rs)
-    L = [MARK_START, f"_更新 {clock.fmt(clock.now_utc())} · {clock.tz_note(today)}_", ""]
+    L = [MARK_START, f"_更新 {clock.fmt(clock.now_utc())}_", ""]
     L.append("## 每门课下一条")
     for code, r in next_per_course(ctx, rs):
         L.append(f"- {code}：" + (f"{r['item']} · {r['when']}{'，' + r['rel'] if r.get('rel') else ''}（{r['weight']}）{'（待确认）' if r.get('pending') else ''}" if r else "14 天内没有"))

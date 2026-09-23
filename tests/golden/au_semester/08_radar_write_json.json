@@ -2,7 +2,7 @@
  "rows": [
   {
    "rel": "已过 5 天",
-   "when": "03-20 周五 23:59（悉尼）= 20:59（北京）",
+   "when": "03-20 周五 20:59",
    "course": "ACCT1101",
    "item": "Weekly Quiz 4",
    "weight": "—",
@@ -18,7 +18,7 @@
   },
   {
    "rel": "明天",
-   "when": "03-26 周四 17:00（悉尼）= 14:00（北京）",
+   "when": "03-26 周四 14:00",
    "course": "PSYC2012",
    "item": "Lab Report (25%)",
    "weight": "25%",
@@ -34,7 +34,7 @@
   },
   {
    "rel": "还有 2 天",
-   "when": "03-27 周五 23:59（悉尼）= 20:59（北京）",
+   "when": "03-27 周五 20:59",
    "course": "ACCT1101",
    "item": "Weekly Quiz 5",
    "weight": "—",
@@ -50,7 +50,7 @@
   },
   {
    "rel": "还有 2 天",
-   "when": "03-27 周五 23:59（悉尼）= 20:59（北京）",
+   "when": "03-27 周五 20:59",
    "course": "PSYC2012",
    "item": "Week 5 discussion post",
    "weight": "—",
@@ -66,7 +66,7 @@
   },
   {
    "rel": "还有 5 天",
-   "when": "03-30 周一 09:00（悉尼）= 06:00（北京）",
+   "when": "03-30 周一 06:00",
    "course": "DSGN3402",
    "item": "Prototype critique (15%)",
    "weight": "15%",
@@ -98,7 +98,7 @@
   },
   {
    "rel": "还有 7 天",
-   "when": "04-01 周三 13:00（悉尼）= 10:00（北京）",
+   "when": "04-01 周三 10:00",
    "course": "PSYC2012",
    "item": "Mid-semester test (20%)",
    "weight": "20%",
@@ -114,7 +114,7 @@
   },
   {
    "rel": "还有 8 天",
-   "when": "04-02 周四 23:59（悉尼）= 20:59（北京）",
+   "when": "04-02 周四 20:59",
    "course": "ACCT1101",
    "item": "Case Study Report (30%)",
    "weight": "30%",
@@ -130,7 +130,7 @@
   },
   {
    "rel": "还有 9 天",
-   "when": "04-03 周五 09:15（悉尼）= 06:15（北京）",
+   "when": "04-03 周五 06:15",
    "course": "ACCT1101",
    "item": "Final Exam (50%)",
    "weight": "50%",
@@ -146,7 +146,7 @@
   },
   {
    "rel": "还有 9 天",
-   "when": "04-03 周五 23:59（悉尼）= 20:59（北京）",
+   "when": "04-03 周五 20:59",
    "course": "ACCT1101",
    "item": "Weekly Quiz 6",
    "weight": "—",
@@ -178,7 +178,7 @@
   },
   {
    "rel": "",
-   "when": "03-18 周三 23:59（悉尼）= 20:59（北京）（Canvas 日期只是占位）",
+   "when": "03-18 周三 20:59（Canvas 日期只是占位）",
    "course": "DSGN3402",
    "item": "Reflection journal",
    "weight": "—",
@@ -194,7 +194,7 @@
   },
   {
    "rel": "还有 14 天",
-   "when": "04-08 周三 23:59（悉尼）= 21:59（北京）（锁定时间当截止）",
+   "when": "04-08 周三 21:59（锁定时间当截止）",
    "course": "DSGN3402",
    "item": "Design Portfolio (40%)",
    "weight": "40%",
@@ -216,14 +216,14 @@
    "72 小时内有 3 条 deadline",
    "有 1 项已过期未交（ACCT1101 Weekly Quiz 4）"
   ],
-  "advice": "只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 23:59（悉尼）= 20:59（北京），已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
+  "advice": "只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 20:59，已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
   "exam": {
    "course": "ACCT1101",
    "item": "Weekly Quiz 4",
-   "when": "03-20 周五 23:59（悉尼）= 20:59（北京）"
+   "when": "03-20 周五 20:59"
   }
  },
- "markdown": "<!-- coach:radar:start -->\n_更新 03-25 周三 10:00（悉尼）= 07:00（北京） · 时间先悉尼后北京，04-05 起悉尼结束夏令时_\n\n## 每门课下一条\n- ACCT1101：Weekly Quiz 5 · 03-27 周五 23:59（悉尼）= 20:59（北京），还有 2 天（—）\n- PSYC2012：Lab Report (25%) · 03-26 周四 17:00（悉尼）= 14:00（北京），明天（25%）\n- DSGN3402：Prototype critique (15%) · 03-30 周一 09:00（悉尼）= 06:00（北京），还有 5 天（15%）\n\n## 🔴 最急的一条\n\n**PSYC2012 · Lab Report (25%)** — 03-26 周四 17:00（悉尼）= 14:00（北京），明天（25%）\n第一步：打开作业页，看文件格式和命名要求。\n\n## ⚠️ 撞车预警\n\n- 03-26 周四 至 03-27 周五：PSYC2012 Lab Report (25%)（25%）、ACCT1101 Weekly Quiz 5（—）、PSYC2012 Week 5 discussion post（—），合计 25%\n- 03-31 周二 至 04-01 周三：DSGN3402 Studio pitch (in class)（10%）、PSYC2012 Mid-semester test (20%)（20%），合计 30%\n\n## 区块一 · 已确认 deadline\n\n| 剩余 | 时间 | 课 | 事项 | 权重 | 状态 | 说明 · 出处 |\n|---|---|---|---|---|---|---|\n| 明天 | 03-26 周四 17:00（悉尼）= 14:00（北京） | PSYC2012 | [Lab Report (25%)](<CANVAS>/courses/1102/assignments/1102002) | 25% | 未交 | Canvas due_at |\n| 还有 2 天 | 03-27 周五 23:59（悉尼）= 20:59（北京） | ACCT1101 | [Weekly Quiz 5](<CANVAS>/courses/1101/assignments/1101005) | — | 未交 | Canvas due_at |\n| 还有 2 天 | 03-27 周五 23:59（悉尼）= 20:59（北京） | PSYC2012 | [Week 5 discussion post](<CANVAS>/courses/1102/assignments/1102003) | — | 未交 | Canvas due_at |\n| 还有 5 天 | 03-30 周一 09:00（悉尼）= 06:00（北京） | DSGN3402 | [Prototype critique (15%)](<CANVAS>/courses/1103/assignments/1103002) | 15% | 未交 | Canvas due_at |\n| 还有 6 天 | 03-31 周二 课上 | DSGN3402 | Studio pitch (in class) | 10% | 未交 | 公告 03-20 |\n| 还有 7 天 | 04-01 周三 13:00（悉尼）= 10:00（北京） | PSYC2012 | [Mid-semester test (20%)](<CANVAS>/courses/1102/assignments/1102004) | 20% | 未交 | Canvas due_at |\n| 还有 8 天 | 04-02 周四 23:59（悉尼）= 20:59（北京） | ACCT1101 | [Case Study Report (30%)](<CANVAS>/courses/1101/assignments/1101009) | 30% | 未交 | Canvas due_at |\n| 还有 9 天 | 04-03 周五 23:59（悉尼）= 20:59（北京） | ACCT1101 | [Weekly Quiz 6](<CANVAS>/courses/1101/assignments/1101006) | — | 未交 | Canvas due_at |\n\n## 区块二 · 待确认（Canvas 没给正式截止时间、从公告或说明里推的、或你还没确认的，以 Canvas 和老师为准）\n\n| 剩余 | 时间 | 课 | 事项 | 权重 | 状态 | 出处 |\n|---|---|---|---|---|---|---|\n| 还有 9 天 | ⚠️ 04-03 周五 09:15（悉尼）= 06:15（北京） | ACCT1101 | [Final Exam (50%)](<CANVAS>/courses/1101/assignments/1101010) | 50% | 未交 | 公告《Final exam timetable》 |\n| 还有 14 天 | ⚠️ 04-08 周三 23:59（悉尼）= 21:59（北京）（锁定时间当截止） | DSGN3402 | [Design Portfolio (40%)](<CANVAS>/courses/1103/assignments/1103003) | 40% | 未交 | Canvas lock_at |\n| — | ⚠️ Canvas 没写日期 | PSYC2012 | [Research Participation (5%)](<CANVAS>/courses/1102/assignments/1102005) | 5% | 未交 | 作业页没有 due_at |\n| — | ⚠️ 03-18 周三 23:59（悉尼）= 20:59（北京）（Canvas 日期只是占位） | DSGN3402 | [Reflection journal](<CANVAS>/courses/1103/assignments/1103001) | — | 未交 | 你说明过：老师说 Canvas 日期只是占位，真正截止另行通知 |\n\n## 已过期未交（可能是课堂活动或已线下交，以 Canvas 为准）\n\n| 过了 | 时间 | 课 | 事项 | 权重 |\n|---|---|---|---|---|\n| 已过 5 天 | 03-20 周五 23:59（悉尼）= 20:59（北京） | ACCT1101 | [Weekly Quiz 4](<CANVAS>/courses/1101/assignments/1101004) | — |\n\n## 新变化（最近一次采集 03-25 周三 10:00（悉尼）= 07:00（北京））\n\n- PSYC2012 · 公告 · 03-24 周二 16:30（悉尼）= 13:30（北京）：Research participation window\n- ACCT1101 · 公告 · 03-24 周二 16:00（悉尼）= 13:00（北京）：Final exam timetable\n- PSYC2012 · 公告 · 03-24 周二 14:00（悉尼）= 11:00（北京）：Lab report extension policy\n- ACCT1101 · 公告 · 03-23 周一 09:15（悉尼）= 06:15（北京）：Case study report: submission guide\n- DSGN3402 · 公告 · 03-20 周五 11:30（悉尼）= 08:30（北京）：Studio room change for Week 6\n- ACCT1101 · 公告 · 02-20 周五 09:00（悉尼）= 06:00（北京）：Welcome to ACCT1101\n- ACCT1101 · 站内信 · 03-23 周一 13:10（悉尼）= 10:10（北京）：Quiz 4 technical issue\n- PSYC2012 · 站内信 · 03-12 周四 10:00（悉尼）= 07:00（北京）：Lab groups\n\n状态：过载（7 天内到期的作业合计 60% 还没交；72 小时内有 3 条 deadline；有 1 项已过期未交（ACCT1101 Weekly Quiz 4））。建议：只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 23:59（悉尼）= 20:59（北京），已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。\n\n<!-- coach:radar:end -->",
+ "markdown": "<!-- coach:radar:start -->\n_更新 03-25 周三 07:00_\n\n## 每门课下一条\n- ACCT1101：Weekly Quiz 5 · 03-27 周五 20:59，还有 2 天（—）\n- PSYC2012：Lab Report (25%) · 03-26 周四 14:00，明天（25%）\n- DSGN3402：Prototype critique (15%) · 03-30 周一 06:00，还有 5 天（15%）\n\n## 🔴 最急的一条\n\n**PSYC2012 · Lab Report (25%)** — 03-26 周四 14:00，明天（25%）\n第一步：打开作业页，看文件格式和命名要求。\n\n## ⚠️ 撞车预警\n\n- 03-26 周四 至 03-27 周五：PSYC2012 Lab Report (25%)（25%）、ACCT1101 Weekly Quiz 5（—）、PSYC2012 Week 5 discussion post（—），合计 25%\n- 03-31 周二 至 04-01 周三：DSGN3402 Studio pitch (in class)（10%）、PSYC2012 Mid-semester test (20%)（20%），合计 30%\n\n## 区块一 · 已确认 deadline\n\n| 剩余 | 时间 | 课 | 事项 | 权重 | 状态 | 说明 · 出处 |\n|---|---|---|---|---|---|---|\n| 明天 | 03-26 周四 14:00 | PSYC2012 | [Lab Report (25%)](<CANVAS>/courses/1102/assignments/1102002) | 25% | 未交 | Canvas due_at |\n| 还有 2 天 | 03-27 周五 20:59 | ACCT1101 | [Weekly Quiz 5](<CANVAS>/courses/1101/assignments/1101005) | — | 未交 | Canvas due_at |\n| 还有 2 天 | 03-27 周五 20:59 | PSYC2012 | [Week 5 discussion post](<CANVAS>/courses/1102/assignments/1102003) | — | 未交 | Canvas due_at |\n| 还有 5 天 | 03-30 周一 06:00 | DSGN3402 | [Prototype critique (15%)](<CANVAS>/courses/1103/assignments/1103002) | 15% | 未交 | Canvas due_at |\n| 还有 6 天 | 03-31 周二 课上 | DSGN3402 | Studio pitch (in class) | 10% | 未交 | 公告 03-20 |\n| 还有 7 天 | 04-01 周三 10:00 | PSYC2012 | [Mid-semester test (20%)](<CANVAS>/courses/1102/assignments/1102004) | 20% | 未交 | Canvas due_at |\n| 还有 8 天 | 04-02 周四 20:59 | ACCT1101 | [Case Study Report (30%)](<CANVAS>/courses/1101/assignments/1101009) | 30% | 未交 | Canvas due_at |\n| 还有 9 天 | 04-03 周五 20:59 | ACCT1101 | [Weekly Quiz 6](<CANVAS>/courses/1101/assignments/1101006) | — | 未交 | Canvas due_at |\n\n## 区块二 · 待确认（Canvas 没给正式截止时间、从公告或说明里推的、或你还没确认的，以 Canvas 和老师为准）\n\n| 剩余 | 时间 | 课 | 事项 | 权重 | 状态 | 出处 |\n|---|---|---|---|---|---|---|\n| 还有 9 天 | ⚠️ 04-03 周五 06:15 | ACCT1101 | [Final Exam (50%)](<CANVAS>/courses/1101/assignments/1101010) | 50% | 未交 | 公告《Final exam timetable》 |\n| 还有 14 天 | ⚠️ 04-08 周三 21:59（锁定时间当截止） | DSGN3402 | [Design Portfolio (40%)](<CANVAS>/courses/1103/assignments/1103003) | 40% | 未交 | Canvas lock_at |\n| — | ⚠️ Canvas 没写日期 | PSYC2012 | [Research Participation (5%)](<CANVAS>/courses/1102/assignments/1102005) | 5% | 未交 | 作业页没有 due_at |\n| — | ⚠️ 03-18 周三 20:59（Canvas 日期只是占位） | DSGN3402 | [Reflection journal](<CANVAS>/courses/1103/assignments/1103001) | — | 未交 | 你说明过：老师说 Canvas 日期只是占位，真正截止另行通知 |\n\n## 已过期未交（可能是课堂活动或已线下交，以 Canvas 为准）\n\n| 过了 | 时间 | 课 | 事项 | 权重 |\n|---|---|---|---|---|\n| 已过 5 天 | 03-20 周五 20:59 | ACCT1101 | [Weekly Quiz 4](<CANVAS>/courses/1101/assignments/1101004) | — |\n\n## 新变化（最近一次采集 03-25 周三 07:00）\n\n- PSYC2012 · 公告 · 03-24 周二 13:30：Research participation window\n- ACCT1101 · 公告 · 03-24 周二 13:00：Final exam timetable\n- PSYC2012 · 公告 · 03-24 周二 11:00：Lab report extension policy\n- ACCT1101 · 公告 · 03-23 周一 06:15：Case study report: submission guide\n- DSGN3402 · 公告 · 03-20 周五 08:30：Studio room change for Week 6\n- ACCT1101 · 公告 · 02-20 周五 06:00：Welcome to ACCT1101\n- ACCT1101 · 站内信 · 03-23 周一 10:10：Quiz 4 technical issue\n- PSYC2012 · 站内信 · 03-12 周四 07:00：Lab groups\n\n状态：过载（7 天内到期的作业合计 60% 还没交；72 小时内有 3 条 deadline；有 1 项已过期未交（ACCT1101 Weekly Quiz 4））。建议：只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 20:59，已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。\n\n<!-- coach:radar:end -->",
  "written": [
   "<ARCHIVE>/DDL雷达.md",
   "<ROOT>/Deadline雷达.html"
