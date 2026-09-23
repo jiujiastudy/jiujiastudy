@@ -43,8 +43,8 @@ class AnnouncementDate(unittest.TestCase):
 
     def test_公告里写明日期的进了雷达(self):
         r = self.row("Final Exam")
-        self.assertIn("04-03", r["when"], "公告写了 3 April 2026 9:15 am")
-        self.assertIn("09:15", r["when"])
+        self.assertIn("04-03", r["when"], "公告写了 3 April 2026 9:15 am（悉尼）")
+        self.assertIn("06:15", r["when"], "学生在上海：显示上海时间（悉尼 09:15 = 上海 06:15）")
         self.assertEqual(9, r["days_left"])
         self.assertFalse(r["undated"], "有了日期就不再算「没写日期」，否则撞车和最急都看不见它")
         self.assertTrue(r["pending"], "日期是从公告推的，必须留在待确认区")

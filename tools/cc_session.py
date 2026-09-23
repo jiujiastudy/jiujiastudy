@@ -364,16 +364,52 @@ def _spawn(home, host, lms="canvas"):
         log.close()
 
 
-WAITING_MSG = ("登录窗口已经打开：让用户在那个窗口里登录 Canvas（账号密码、验证码都是他自己输），"
-               "登好了窗口会自己关。用户说登好了就跑 login --check")
+HOST_BROWSER = f"不要改用宿主自带的浏览器让用户登录：{brand.NAME}读不到那里的登录，用户会白登一次"
+WAITING_MSG = ("登录窗口已经打开。跟用户说：「弹出了一个浏览器窗口（被挡住了就在任务栏找），在里面登录 Canvas，"
+               "账号密码、验证码都是你自己输；登好它会自己关，这是正常的。登好了回我一句。」用户说登好了就跑 login --check。"
+               "用户说没看到窗口：先让他看任务栏；还是没有，就按宿主的办法申请在沙盒外重跑 login。" + HOST_BROWSER)
+NO_WINDOW = ("这条命令跑在用户看不到的桌面上（多半是宿主在沙盒里运行命令），这里弹出的登录窗口用户看不见，所以没有开。"
+             "按宿主的办法申请在沙盒外运行这条 login（Codex：申请提升权限，让用户批准一次），再跑一次。" + HOST_BROWSER)
 
 
 def waiting_msg(lms="canvas"):
     return WAITING_MSG if lms != "moodle" else WAITING_MSG.replace("登录 Canvas", "登录 Moodle")
 
 
+def visible_desktop():
+    """这个进程在不在用户看得见的桌面上。Windows 上交互式的是窗口站 WinSta0 + 桌面 Default；
+    沙盒、服务、别的用户身份下开的窗口，用户看不到。认不出就当看得见，不挡人。"""
+    if sys.platform != "win32":
+        return True
+    try:
+        import ctypes
+        from ctypes import wintypes
+        user32 = ctypes.WinDLL("user32", use_last_error=True)
+        user32.GetProcessWindowStation.restype = wintypes.HANDLE
+        user32.GetThreadDesktop.restype = wintypes.HANDLE
+        user32.GetThreadDesktop.argtypes = [wintypes.DWORD]
+        user32.GetUserObjectInformationW.argtypes = [wintypes.HANDLE, ctypes.c_int, ctypes.c_void_p, wintypes.DWORD,
+                                                     ctypes.POINTER(wintypes.DWORD)]
+
+        def name(h):
+            buf, need = ctypes.create_unicode_buffer(256), wintypes.DWORD()
+            ok = h and user32.GetUserObjectInformationW(h, 2, buf, ctypes.sizeof(buf), ctypes.byref(need))  # 2 = UOI_NAME
+            return buf.value if ok else None
+
+        station = name(user32.GetProcessWindowStation())
+        desk = name(user32.GetThreadDesktop(ctypes.windll.kernel32.GetCurrentThreadId()))
+    except Exception:  # noqa: BLE001
+        return True
+    if not station or not desk:
+        return True
+    return station.lower() == "winsta0" and desk.lower() == "default"
+
+
 def start_login(home, host, wait=90, lms="canvas"):
-    """开登录窗口（已经开着就不重复开），最多等 wait 秒。返回 {state, message, ...}。"""
+    """开登录窗口（已经开着就不重复开），最多等 wait 秒。返回 {state, message, ...}。
+    这个进程在用户看不到的桌面上（沙盒）就不开：开了用户也看不见，AI 还会以为窗口在等人。"""
+    if not visible_desktop():
+        return {"state": "no_window", "host": host, "message": NO_WINDOW}
     s = _status(home)
     if not (_window_alive(s) and s.get("host") == host):
         _set_status(home, host, "starting", lms=lms)

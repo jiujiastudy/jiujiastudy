@@ -217,7 +217,7 @@ CORE_JS = r"""
     if (toast) {
       var p = uniq(boxes.filter(function (b) { return b.checked && !b.hasAttribute('data-done'); })).map(function (b) { return b.getAttribute('data-label') || b.getAttribute('data-tick'); });
       toast.hidden = !p.length;
-      if (p.length) { toast.querySelector('span').textContent = '做完了 ' + p.join('、'); toast.querySelector('button').textContent = '复制'; }
+      if (p.length) { toast.querySelector('span').textContent = '做完了 ' + p.join('、'); toast.querySelector('button').textContent = '复制，发给 AI'; }
     }
   }
   boxes.forEach(function (b) {

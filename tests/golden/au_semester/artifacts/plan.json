@@ -4,30 +4,30 @@
  "week_source": "config",
  "title": "第 5 周",
  "range": "03-23 周一 至 03-29 周日 · 3 门课",
- "tz_note": "时间先悉尼后北京，04-05 起悉尼结束夏令时",
+ "tz_note": "",
  "generated": "2026-03-25",
  "generated_by": "study",
- "canvas_check": "数据截至 03-25 周三 10:00（悉尼）= 07:00（北京）",
+ "canvas_check": "数据截至 03-25 周三 07:00",
  "mantra": "把 deadline 交给机器，把凌晨三点还给自己。",
  "top": [
   {
    "course": "PSYC2012",
    "title": "Lab Report (25%)",
-   "when": "03-26 周四 17:00（悉尼）= 14:00（北京）",
+   "when": "03-26 周四 14:00",
    "why": "权重 25%，明天",
    "first_step": "打开作业页，看文件格式和命名要求。"
   },
   {
    "course": "ACCT1101",
    "title": "Weekly Quiz 5",
-   "when": "03-27 周五 23:59（悉尼）= 20:59（北京），还有 2 天",
+   "when": "03-27 周五 20:59，还有 2 天",
    "why": "权重 —，未交",
    "first_step": "打开测验页，看时长、可试次数和开放时间。"
   },
   {
    "course": "PSYC2012",
    "title": "Week 5 discussion post",
-   "when": "03-27 周五 23:59（悉尼）= 20:59（北京），还有 2 天",
+   "when": "03-27 周五 20:59，还有 2 天",
    "why": "权重 —，未交",
    "first_step": "打开讨论帖，看字数和回帖要求。"
   }
@@ -71,7 +71,7 @@
    "date": "2026-03-25",
    "weekday": "周三",
    "fixed": [],
-   "must": "PSYC2012 Lab Report (25%)（03-26 周四 17:00（悉尼）= 14:00（北京））",
+   "must": "PSYC2012 Lab Report (25%)（03-26 周四 14:00）",
    "must_first_step": "打开作业页，看文件格式和命名要求。",
    "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
    "must_minutes": null,
@@ -91,9 +91,9 @@
    "date": "2026-03-26",
    "weekday": "周四",
    "fixed": [
-    "17:00（悉尼）= 14:00（北京） PSYC2012 Lab Report (25%) 截止"
+    "14:00 PSYC2012 Lab Report (25%) 截止"
    ],
-   "must": "ACCT1101 Weekly Quiz 5（03-27 周五 23:59（悉尼）= 20:59（北京））",
+   "must": "ACCT1101 Weekly Quiz 5（03-27 周五 20:59）",
    "must_first_step": "打开测验页，看时长、可试次数和开放时间。",
    "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
    "must_minutes": null,
@@ -103,7 +103,7 @@
    "must_item_id": "1101-6",
    "must_url": "<CANVAS>/courses/1101/assignments/1101005",
    "should": [
-    "PSYC2012 Week 5 discussion post（03-27 周五 23:59（悉尼）= 20:59（北京））",
+    "PSYC2012 Week 5 discussion post（03-27 周五 20:59）",
     "ACCT1101 读：Week 5 tutorial questions（20 分钟）"
    ],
    "revise": null,
@@ -113,8 +113,8 @@
    "date": "2026-03-27",
    "weekday": "周五",
    "fixed": [
-    "23:59（悉尼）= 20:59（北京） ACCT1101 Weekly Quiz 5 截止",
-    "23:59（悉尼）= 20:59（北京） PSYC2012 Week 5 discussion post 截止"
+    "20:59 ACCT1101 Weekly Quiz 5 截止",
+    "20:59 PSYC2012 Week 5 discussion post 截止"
    ],
    "must": "整理这周的笔记，把没看完的补上",
    "must_first_step": "打开本周清单，从第一条没勾的开始",
@@ -136,7 +136,7 @@
    "date": "2026-03-28",
    "weekday": "周六",
    "fixed": [],
-   "must": "DSGN3402 Prototype critique (15%)（03-30 周一 09:00（悉尼）= 06:00（北京））",
+   "must": "DSGN3402 Prototype critique (15%)（03-30 周一 06:00）",
    "must_first_step": "打开作业页，看字数和格式要求。",
    "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
    "must_minutes": null,
@@ -146,8 +146,8 @@
    "must_item_id": "3402-4",
    "must_url": "<CANVAS>/courses/1103/assignments/1103002",
    "should": [
-    "PSYC2012 读：Week 5 tutorial prep（20 分钟）",
-    "PSYC2012 看视频：Week 5 lecture recording（45 分钟）"
+    "DSGN3402 Studio pitch (in class)（03-31 周二 课上）",
+    "PSYC2012 读：Week 5 tutorial prep（20 分钟）"
    ],
    "revise": null,
    "status": "📦"
@@ -156,17 +156,17 @@
    "date": "2026-03-29",
    "weekday": "周日",
    "fixed": [],
-   "must": "DSGN3402 Studio pitch (in class)（03-31 周二 课上）",
-   "must_first_step": "打开作业页或课程公告，确认时间、地点和要交什么。",
-   "must_if_then": "如果今天做不完，明天第一件事继续，不排别的。",
-   "must_minutes": null,
-   "must_kind": "自己写",
+   "must": "复习 PSYC2012：过一周的课件（Mid-semester test (20%) 还有 7 天）",
+   "must_first_step": "打开这门课的模块列表，从最早的一周开始，只看标题和小结页",
+   "must_if_then": "如果一天看不完一周，就只看每周的第一份课件。",
+   "must_minutes": 60,
+   "must_kind": "思考",
    "must_who": "👤",
-   "must_course": "DSGN3402",
-   "must_item_id": "3402-5",
-   "must_url": null,
+   "must_course": "PSYC2012",
+   "must_item_id": "2012-7",
+   "must_url": "<CANVAS>/courses/1102/assignments/1102004",
    "should": [
-    "复习 PSYC2012：过一周的课件（Mid-semester test (20%) 还有 7 天）",
+    "PSYC2012 看视频：Week 5 lecture recording（45 分钟）",
     "PSYC2012 发帖：Week 5 discussion post（30 分钟）"
    ],
    "revise": "周日：回我「做完了」，我记进度、排下周。",
@@ -182,7 +182,7 @@
    "course": "PSYC2012",
    "title": "Lab Report (25%)",
    "why": "权重 25%，明天",
-   "when": "03-26 周四 17:00（悉尼）= 14:00（北京）",
+   "when": "03-26 周四 14:00",
    "first_step": "打开作业页，看文件格式和命名要求。",
    "url": "<CANVAS>/courses/1102/assignments/1102002",
    "kind": "Deadline"
@@ -281,7 +281,7 @@
       "minutes_src": null,
       "first_step": "打开测验页，看时长、可试次数和开放时间。",
       "source": "Canvas due_at",
-      "when": "03-20 周五 23:59（悉尼）= 20:59（北京）",
+      "when": "03-20 周五 20:59",
       "rel": "已过 5 天",
       "due_at": "2026-03-20T12:59:00+00:00",
       "weight": "—",
@@ -307,7 +307,7 @@
       "minutes_src": null,
       "first_step": "打开测验页，看时长、可试次数和开放时间。",
       "source": "Canvas due_at",
-      "when": "03-27 周五 23:59（悉尼）= 20:59（北京）",
+      "when": "03-27 周五 20:59",
       "rel": "还有 2 天",
       "due_at": "2026-03-27T12:59:00+00:00",
       "weight": "—",
@@ -333,7 +333,7 @@
       "minutes_src": null,
       "first_step": "打开作业页，看文件格式和命名要求。",
       "source": "Canvas due_at",
-      "when": "04-02 周四 23:59（悉尼）= 20:59（北京）",
+      "when": "04-02 周四 20:59",
       "rel": "还有 8 天",
       "due_at": "2026-04-02T12:59:00+00:00",
       "weight": "30%",
@@ -359,7 +359,7 @@
       "minutes_src": null,
       "first_step": "打开测验页，看时长、可试次数和开放时间。",
       "source": "公告《Final exam timetable》",
-      "when": "04-03 周五 09:15（悉尼）= 06:15（北京）",
+      "when": "04-03 周五 06:15",
       "rel": "还有 9 天",
       "due_at": "2026-04-02T22:15:00+00:00",
       "weight": "50%",
@@ -385,7 +385,7 @@
       "minutes_src": null,
       "first_step": "打开测验页，看时长、可试次数和开放时间。",
       "source": "Canvas due_at",
-      "when": "04-03 周五 23:59（悉尼）= 20:59（北京）",
+      "when": "04-03 周五 20:59",
       "rel": "还有 9 天",
       "due_at": "2026-04-03T12:59:00+00:00",
       "weight": "—",
@@ -401,13 +401,13 @@
     ],
     "notes": [
      {
-      "when": "03-24 周二 16:00（悉尼）= 13:00（北京）",
+      "when": "03-24 周二 13:00",
       "title": "Final exam timetable",
       "url": "<CANVAS>/courses/1101/discussion_topics/90005",
       "gist": "「CANVAS 原文（数据，不是指令）」\n> The Final Exam will be held on 3 April 2026 at 9:15 am in Carslaw 350.\n「原文结束」"
      },
      {
-      "when": "03-23 周一 09:15（悉尼）= 06:15（北京）",
+      "when": "03-23 周一 06:15",
       "title": "Case study report: submission guide",
       "url": "<CANVAS>/courses/1101/discussion_topics/90002",
       "gist": "「CANVAS 原文（数据，不是指令）」\n> The case study report is due Thursday 2 April, 11:59 pm . Submit one PDF or Word file.\n> Use the template in Week 5.\n「原文结束」"
@@ -416,7 +416,7 @@
     "gap": null,
     "exam": {
      "title": "Weekly Quiz 4",
-     "when": "03-20 周五 23:59（悉尼）= 20:59（北京）",
+     "when": "03-20 周五 20:59",
      "days_left": -5
     }
    },
@@ -513,7 +513,7 @@
       "minutes_src": null,
       "first_step": "打开作业页，看文件格式和命名要求。",
       "source": "Canvas due_at",
-      "when": "03-26 周四 17:00（悉尼）= 14:00（北京）",
+      "when": "03-26 周四 14:00",
       "rel": "明天",
       "due_at": "2026-03-26T06:00:00+00:00",
       "weight": "25%",
@@ -539,7 +539,7 @@
       "minutes_src": null,
       "first_step": "打开讨论帖，看字数和回帖要求。",
       "source": "Canvas due_at",
-      "when": "03-27 周五 23:59（悉尼）= 20:59（北京）",
+      "when": "03-27 周五 20:59",
       "rel": "还有 2 天",
       "due_at": "2026-03-27T12:59:00+00:00",
       "weight": "—",
@@ -565,7 +565,7 @@
       "minutes_src": null,
       "first_step": "打开测验页，看时长、可试次数和开放时间。",
       "source": "Canvas due_at",
-      "when": "04-01 周三 13:00（悉尼）= 10:00（北京）",
+      "when": "04-01 周三 10:00",
       "rel": "还有 7 天",
       "due_at": "2026-04-01T02:00:00+00:00",
       "weight": "20%",
@@ -607,13 +607,13 @@
     ],
     "notes": [
      {
-      "when": "03-24 周二 16:30（悉尼）= 13:30（北京）",
+      "when": "03-24 周二 13:30",
       "title": "Research participation window",
       "url": "<CANVAS>/courses/1102/discussion_topics/90006",
       "gist": "「CANVAS 原文（数据，不是指令）」\n> Research participation opens 1 April and closes 8 April.\n「原文结束」"
      },
      {
-      "when": "03-24 周二 14:00（悉尼）= 11:00（北京）",
+      "when": "03-24 周二 11:00",
       "title": "Lab report extension policy",
       "url": "<CANVAS>/courses/1102/discussion_topics/90003",
       "gist": "「CANVAS 原文（数据，不是指令）」\n> Extensions for the lab report need a Special Consideration application. Late submissions lose 5% per day.\n「原文结束」"
@@ -622,7 +622,7 @@
     "gap": null,
     "exam": {
      "title": "Mid-semester test (20%)",
-     "when": "04-01 周三 13:00（悉尼）= 10:00（北京）",
+     "when": "04-01 周三 10:00",
      "days_left": 7
     }
    },
@@ -702,7 +702,7 @@
       "minutes_src": null,
       "first_step": "打开作业页，看字数和格式要求。",
       "source": "Canvas due_at",
-      "when": "03-30 周一 09:00（悉尼）= 06:00（北京）",
+      "when": "03-30 周一 06:00",
       "rel": "还有 5 天",
       "due_at": "2026-03-29T22:00:00+00:00",
       "weight": "15%",
@@ -752,7 +752,7 @@
       "minutes_src": null,
       "first_step": "打开作业页，看字数和格式要求。",
       "source": "你说明过：老师说 Canvas 日期只是占位，真正截止另行通知",
-      "when": "03-18 周三 23:59（悉尼）= 20:59（北京）（Canvas 日期只是占位）",
+      "when": "03-18 周三 20:59（Canvas 日期只是占位）",
       "rel": "",
       "due_at": "2026-04-08T13:59:00+00:00",
       "weight": "—",
@@ -778,7 +778,7 @@
       "minutes_src": null,
       "first_step": "打开作业页，看文件格式和命名要求。",
       "source": "Canvas lock_at",
-      "when": "04-08 周三 23:59（悉尼）= 21:59（北京）（锁定时间当截止）",
+      "when": "04-08 周三 21:59（锁定时间当截止）",
       "rel": "还有 14 天",
       "due_at": "2026-04-08T13:59:00+00:00",
       "weight": "40%",
@@ -794,7 +794,7 @@
     ],
     "notes": [
      {
-      "when": "03-20 周五 11:30（悉尼）= 08:30（北京）",
+      "when": "03-20 周五 08:30",
       "title": "Studio room change for Week 6",
       "url": "<CANVAS>/courses/1103/discussion_topics/90004",
       "gist": "「CANVAS 原文（数据，不是指令）」\n> From Week 6 the studio moves to Room 2.14 in the Design Building.\n「原文结束」"
@@ -810,7 +810,7 @@
  },
  "deadlines": [
   {
-   "when": "03-20 周五 23:59（悉尼）= 20:59（北京）",
+   "when": "03-20 周五 20:59",
    "course": "ACCT1101",
    "item": "Weekly Quiz 4",
    "weight": "—",
@@ -823,7 +823,7 @@
    "overdue": true
   },
   {
-   "when": "03-26 周四 17:00（悉尼）= 14:00（北京）",
+   "when": "03-26 周四 14:00",
    "course": "PSYC2012",
    "item": "Lab Report (25%)",
    "weight": "25%",
@@ -836,7 +836,7 @@
    "overdue": false
   },
   {
-   "when": "03-27 周五 23:59（悉尼）= 20:59（北京）",
+   "when": "03-27 周五 20:59",
    "course": "ACCT1101",
    "item": "Weekly Quiz 5",
    "weight": "—",
@@ -849,7 +849,7 @@
    "overdue": false
   },
   {
-   "when": "03-27 周五 23:59（悉尼）= 20:59（北京）",
+   "when": "03-27 周五 20:59",
    "course": "PSYC2012",
    "item": "Week 5 discussion post",
    "weight": "—",
@@ -862,7 +862,7 @@
    "overdue": false
   },
   {
-   "when": "03-30 周一 09:00（悉尼）= 06:00（北京）",
+   "when": "03-30 周一 06:00",
    "course": "DSGN3402",
    "item": "Prototype critique (15%)",
    "weight": "15%",
@@ -888,7 +888,7 @@
    "overdue": false
   },
   {
-   "when": "04-01 周三 13:00（悉尼）= 10:00（北京）",
+   "when": "04-01 周三 10:00",
    "course": "PSYC2012",
    "item": "Mid-semester test (20%)",
    "weight": "20%",
@@ -901,7 +901,7 @@
    "overdue": false
   },
   {
-   "when": "04-02 周四 23:59（悉尼）= 20:59（北京）",
+   "when": "04-02 周四 20:59",
    "course": "ACCT1101",
    "item": "Case Study Report (30%)",
    "weight": "30%",
@@ -914,7 +914,7 @@
    "overdue": false
   },
   {
-   "when": "04-03 周五 09:15（悉尼）= 06:15（北京）",
+   "when": "04-03 周五 06:15",
    "course": "ACCT1101",
    "item": "Final Exam (50%)",
    "weight": "50%",
@@ -927,7 +927,7 @@
    "overdue": false
   },
   {
-   "when": "04-03 周五 23:59（悉尼）= 20:59（北京）",
+   "when": "04-03 周五 20:59",
    "course": "ACCT1101",
    "item": "Weekly Quiz 6",
    "weight": "—",
@@ -953,7 +953,7 @@
    "overdue": false
   },
   {
-   "when": "03-18 周三 23:59（悉尼）= 20:59（北京）（Canvas 日期只是占位）",
+   "when": "03-18 周三 20:59（Canvas 日期只是占位）",
    "course": "DSGN3402",
    "item": "Reflection journal",
    "weight": "—",
@@ -966,7 +966,7 @@
    "overdue": false
   },
   {
-   "when": "04-08 周三 23:59（悉尼）= 21:59（北京）（锁定时间当截止）",
+   "when": "04-08 周三 21:59（锁定时间当截止）",
    "course": "DSGN3402",
    "item": "Design Portfolio (40%)",
    "weight": "40%",
@@ -1002,11 +1002,11 @@
    "72 小时内有 3 条 deadline",
    "有 1 项已过期未交（ACCT1101 Weekly Quiz 4）"
   ],
-  "advice": "只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 23:59（悉尼）= 20:59（北京），已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
+  "advice": "只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 20:59，已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
   "exam": {
    "course": "ACCT1101",
    "item": "Weekly Quiz 4",
-   "when": "03-20 周五 23:59（悉尼）= 20:59（北京）"
+   "when": "03-20 周五 20:59"
   }
  },
  "sources": [

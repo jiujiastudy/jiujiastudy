@@ -60,6 +60,54 @@ def default_root():
     return os.path.join(desktop_dir(), ROOT_NAME)
 
 
+def open_page(path):
+    """用系统默认浏览器打开一张页面。测试和没有桌面的环境（NO_DIALOG）不打开。返回打开了没有。"""
+    if brand.env("NO_DIALOG") or not path or not os.path.isfile(path):
+        return False
+    try:
+        if sys.platform == "win32":
+            os.startfile(path)  # noqa: S606
+        else:
+            import subprocess
+            subprocess.Popen(["open" if sys.platform == "darwin" else "xdg-open", path], stdin=subprocess.DEVNULL,
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        return True
+    except (OSError, AttributeError):
+        return False
+
+
+def desktop_shortcut(root, page):
+    """资料夹就在桌面上（默认位置）时，在桌面放一个直接打开周页的快捷方式，找不到文件夹的人双击它就行。
+    已经有了就不动；资料夹不在桌面上或 NO_DIALOG 时不放。返回快捷方式路径或 None。"""
+    desk = desktop_dir()
+    if brand.env("NO_DIALOG") or not page or os.path.normcase(os.path.dirname(os.path.abspath(root))) != os.path.normcase(os.path.abspath(desk)):
+        return None
+    stem = os.path.splitext(WEEK_PAGE)[0]
+    try:
+        if sys.platform == "win32":
+            import pathlib
+            dst = os.path.join(desk, stem + ".url")
+            body = "[InternetShortcut]\r\nURL=" + pathlib.Path(os.path.abspath(page)).as_uri() + "\r\n"
+            try:
+                with open(dst, encoding="utf-8") as f:
+                    if f.read() == body:
+                        return dst
+            except OSError:
+                pass
+            with open(dst, "w", encoding="utf-8", newline="") as f:
+                f.write(body)
+            return dst
+        dst = os.path.join(desk, WEEK_PAGE)
+        if os.path.islink(dst) and os.path.realpath(dst) == os.path.realpath(page):
+            return dst
+        if os.path.lexists(dst):
+            return None  # 桌面上已经有同名的东西：不动它
+        os.symlink(os.path.abspath(page), dst)
+        return dst
+    except OSError:
+        return None
+
+
 def root_dir(cfg=None):
     """给人看的资料夹：每门课一个文件夹（课件 / 产出），根目录放本周清单和 deadline 雷达。
     优先级：环境变量 brand.env_name("ROOT")（旧版的名字也认）→ config.root → 桌面上的 ROOT_NAME。"""

@@ -147,7 +147,7 @@ def cmd_login(args):
             r["message"] += "。下一步：doctor" if not cfg or lms_of(cfg) != lms else "。下一步：collect"
     if not args.json:
         print(r["message"])
-    return {"done": 0, "ok": 0, "waiting": 1}.get(r["state"], 2 if r["state"] == "failed" else 1), r
+    return {"done": 0, "ok": 0, "waiting": 1}.get(r["state"], 2 if r["state"] in ("failed", "no_window") else 1), r
 
 
 def _login_target(home, cfg, raw, host):
@@ -271,10 +271,16 @@ def cmd_radar(args):
     ev = cc_state.evaluate(ctx, today, cc_deadlines.plan_today(ctx, today), rows)
     md = cc_radar.to_markdown(ctx, rows, today, ev)
     written = cc_radar.write(ctx, rows, today, ev) if args.write else []
+    opened = False
+    if args.open and written:
+        from cc_paths import open_page
+        opened = open_page(next((w for w in written if w.endswith(".html")), None))
     if not args.json:
         print(md)
         for w in written:
             print("WRITTEN=" + w)
+        if args.open:
+            print("OPENED=" + ("yes" if opened else "no"))
     return 0, {"rows": [{k: r.get(k) for k in ("rel", "when", "course", "item", "weight", "status", "pending", "url", "src", "note",
                                                 "days_left", "kind", "overdue", "undated")} for r in rows],
                "state_eval": ev, "markdown": md, "written": written}
@@ -298,6 +304,13 @@ def cmd_study(args):
         cc_record.record_product(ctx, ctx.rel(r["html"]), "📦 本周学习清单", course="全部课程",
                                  log=f"本周学习清单 `{ctx.rel(path)}`：{plan['study']['items_total']} 项，最要紧：{(plan['study'].get('top_one') or {}).get('title', '无')}")
         res.update({"written": r["html"], "json": path, "md": r.get("md"), "copy": r.get("copy")})
+        if args.open:  # 交给用户时：直接打开，资料夹在桌面上就再放个快捷方式；定时任务不加 --open，早上不会自己弹网页
+            import render_help
+            from cc_paths import desktop_shortcut, open_page
+            page = res.get("copy") or res["written"]
+            res["help"] = render_help.ensure(ctx)
+            res["opened"] = open_page(page)
+            res["shortcut"] = desktop_shortcut(ctx.root, page)
     if not args.json:
         print(cc_study.to_text(plan))
         if res.get("written"):
@@ -307,6 +320,10 @@ def cmd_study(args):
                 print("MD=" + res["md"])
             if res.get("copy"):
                 print("COPY=" + res["copy"])
+            if args.open:
+                print("OPENED=" + ("yes" if res.get("opened") else "no"))
+                if res.get("shortcut"):
+                    print("SHORTCUT=" + res["shortcut"])
     return 0, res
 
 
@@ -650,6 +667,7 @@ def build_parser():
     p.add_argument("--days", type=int, default=14)
     p.add_argument("--fetch", action="store_true")
     p.add_argument("--write", action="store_true")
+    p.add_argument("--open", action="store_true", help="和 --write 一起用：写完用浏览器打开雷达（交给用户时用；定时任务别加）")
     p.set_defaults(fn=cmd_radar)
 
     p = sub.add_parser("study", parents=[common])
@@ -659,6 +677,8 @@ def build_parser():
     p.add_argument("--zh", default=None, help="中文润色覆盖层 JSON 文件，或 - 表示 stdin")
     p.add_argument("--out", default=None)
     p.add_argument("--force", action="store_true", help="覆盖手写的同名计划")
+    p.add_argument("--open", action="store_true",
+                   help="和 --write 一起用：写完用浏览器打开本周清单，资料夹在桌面上时再放一个「本周清单」快捷方式（交给用户时用；定时任务别加）")
     p.set_defaults(fn=cmd_study)
 
     p = sub.add_parser("record", parents=[common])

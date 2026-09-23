@@ -1,7 +1,7 @@
 """时间与时区：全部经 zoneinfo。课程时区 = Canvas 显示的时区；用户时区 = 用户人在哪。相同只显示一个。
 
 「现在」只有一个来源：Clock.now_utc()，--date 会把它钉在指定的那一刻。过没过期看这个时刻，
-今天 / 明天 / 还有几天按课程时区的日历天算（显示的日期也是课程时区的，两边才对得上）。
+今天 / 明天 / 还有几天按显示的那个时区（用户那边）的日历天算，和显示的日期对得上。
 
 没有任何城市的默认值：config 没写就用电脑时钟的时区，再没有才 UTC。
 这台电脑的 Python 读不到任何时区数据（Windows 上没装 tzdata）时不装、不崩：按电脑时钟算并提示一句，装 tzdata 交给 doctor。
@@ -309,15 +309,12 @@ class Clock:
 
     # ---- formatting
     def fmt(self, t, date=True):
+        """显示用户那边的日期和时刻（人在哪，看到的就是哪里的时间）；不再解释两地差几个小时。
+        两地时间相同时和原来一样。"""
         if t is None:
             return "—"
-        c, u = t.astimezone(self.course_tz), t.astimezone(self.user_tz)
-        base = f"{c:%m-%d} {WD[c.weekday()]} " if date else ""
-        if self.same:
-            return f"{base}{c:%H:%M}"
-        if c.utcoffset() == u.utcoffset():
-            return f"{base}{c:%H:%M}"  # 两地此刻时间相同：不加标签，tz_note 里说明一次
-        return f"{base}{c:%H:%M}（{self.course_label}）= {u:%H:%M}（{self.user_label}）"
+        u = t.astimezone(self.course_tz if self.same else self.user_tz)
+        return (f"{u:%m-%d} {WD[u.weekday()]} " if date else "") + f"{u:%H:%M}"
 
     @staticmethod
     def fmt_date(d):
@@ -328,8 +325,8 @@ class Clock:
         return f"{t:%Y-%m-%d %H:%M}（{self.user_label}）"
 
     def days_ahead(self, t, now=None):
-        """课程时区里，t 落在此刻之后的第几个日历天（0 = 今天，负数 = 已经过去的天数）。显示的日期也是课程时区的，两边才对得上。"""
-        return (self.course_date(t) - self.course_date(now or self.now_utc())).days
+        """显示的时区里，t 落在此刻之后的第几个日历天（0 = 今天，负数 = 已经过去的天数）。和 fmt 显示的日期用同一个时区，两边才对得上。"""
+        return (self.show_date(t) - self.show_date(now or self.now_utc())).days
 
     def rel(self, t, now=None, cap=60):
         """剩余：过没过看真实时刻（差一小时也算过了），今天 / 明天 / 还有几天按课程时区的日历天数。"""
@@ -349,6 +346,10 @@ class Clock:
     # ---- conversions
     def course_date(self, t):
         return t.astimezone(self.course_tz).date() if t else None
+
+    def show_date(self, t):
+        """给人看的日期：和 fmt 同一个时区（两地相同时就是课程时区）。deadline 分天、排哪天做都用它。"""
+        return t.astimezone(self.course_tz if self.same else self.user_tz).date() if t else None
 
     def user_date(self, t):
         return t.astimezone(self.user_tz).date() if t else None
@@ -412,18 +413,9 @@ class Clock:
         return None
 
     def tz_note(self, today):
-        """报告页眉的一句：时间按哪个时区；两地此刻不同才说先后；14 天内有夏令时切换才提。"""
-        noon = dt.datetime.combine(today, dt.time(12), tzinfo=self.course_tz)
-        diff = 0 if self.same else (noon.utcoffset() - noon.astimezone(self.user_tz).utcoffset()).total_seconds() / 3600
-        s = f"时间为{self.course_label}时间" if diff == 0 else f"时间先{self.course_label}后{self.user_label}"
-        zones = ((self.course_label, self.course_tz),) if self.same else ((self.course_label, self.course_tz), (self.user_label, self.user_tz))
-        for label, zone in zones:
-            tr = self.next_transition(today, days=14, tz=zone)
-            if tr:
-                d, h = tr
-                base = dt.datetime.combine(today, dt.time(12), tzinfo=zone).utcoffset().total_seconds() / 3600
-                s += f"，{d:%m-%d} 起{label}{'进入' if h > base else '结束'}夏令时"
-        return s
+        """页眉里关于时区的说明。发起人 2026-09-23：时间没那么重要，只要让人知道是什么时候出的；
+        不解释时区、不提夏令时（每行时间已是用户那边的）。留着这个方法，调用处不用改。"""
+        return ""
 
 
 # ---- 公告正文里写明的日期（作业页没写 due_at 时才用）----
