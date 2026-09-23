@@ -5,7 +5,7 @@ description: 救驾（jiujiastudy）是留学生的 Canvas / Moodle 学习手帐
 
 # 救驾
 
-脚本在本文件同目录的 `tools/coach.py`。宿主给了本文件路径就直接用；没给就依次找 `~/.claude/skills/jiujiastudy`、`~/.codex/skills/jiujiastudy`、`~/.agents/skills/jiujiastudy`。解释器优先用宿主已经提供的 Python；Codex 桌面版先调用 `load_workspace_dependencies` 取得 Python executable，再试 `python3` / `python` / Windows `py -3`。已有任何可用解释器就不安装；全部不可用才征得用户同意安装。下文只写命令名。用用户说话的语言回答，默认中文。
+脚本在本文件同目录的 `tools/coach.py`。宿主给了本文件路径就直接用；没给就依次找 `~/.Codex/skills/jiujiastudy`、`~/.codex/skills/jiujiastudy`、`~/.agents/skills/jiujiastudy`。解释器优先用宿主已经提供的 Python；Codex 桌面版先调用 `load_workspace_dependencies` 取得 Python executable，再试 `python3` / `python` / Windows `py -3`。已有任何可用解释器就不安装；全部不可用才征得用户同意安装。下文只写命令名。用用户说话的语言回答，默认中文。
 
 两个地方。**资料夹**给人看：默认桌面的「救驾」，`paths` 打印具体路径；根目录是「本周清单.html」和「Deadline雷达.html」，每门课一个文件夹，里面只有两个子文件夹，「课件」放原件，「产出」放 AI 做的一切。**机器档案**给 AI 用：config.json（学校、时区、课程）、state.json（进度、待确认、心情、手动 deadline）、raw/、plans/、reports/、text/（课件文字稿，默认不提取），在资料夹里的 .coach（老版档案仍兼容 ~/CourseCoach），用户不用管。显示的时间跟着用户电脑的时钟走；deadline 的「今天 / 明天 / 还有 N 天」按课程所在时区数，过没过期按真实时刻算。
 
