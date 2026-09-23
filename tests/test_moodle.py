@@ -52,7 +52,22 @@ def log_in(home, mock):
 def coach(home, mock, *args, now=None, date=None):
     sc = mock.scenario.meta
     argv = list(args) + ["--date", date or sc["date"]]
-    return harness.run_coach(home, argv, TOOLS, now=now or sc["now"], ports=(mock.port,), extra_env=ENV)
+    r = harness.run_coach(home, argv, TOOLS, now=now or sc["now"], ports=(mock.port,), extra_env=ENV)
+    if args and args[0] == "doctor":
+        pin_user_tz(home, sc.get("usertimezone") or "Australia/Sydney")
+    return r
+
+
+def pin_user_tz(home, zone):
+    """建档后把「学生在哪」钉住：时间只写学生那边的，不钉就跟着跑测试那台电脑的时区走（Mac 的 CI 是 UTC）。"""
+    path = os.path.join(home.archive, "config.json")
+    if not os.path.isfile(path):
+        return
+    cfg = jread(path)
+    if cfg.get("user_tz") in (None, "", "auto"):
+        cfg["user_tz"] = zone
+        with open(path, "w", encoding="utf-8", newline="\n") as f:
+            json.dump(cfg, f, ensure_ascii=False, indent=1)
 
 
 def as_json(tc, r):
