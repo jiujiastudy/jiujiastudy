@@ -14,6 +14,7 @@ import urllib.error
 from canvas_api import CanvasAuthError
 from cc_courses import course_of_context, course_pairs, lms_of
 from cc_downloads import DOC_EXT, doc_name, queue_downloads
+from cc_paths import rel_home
 from cc_store import FileLock, jload, jsave
 from cc_time import parse_ts
 
@@ -99,6 +100,8 @@ def cacheable_snapshot(ctx):
     snap = load_snapshot(ctx)
     if not snap or snap.get("complete") is False:
         return None
+    if "complete" in snap:  # 新快照以 complete 为准：可选接口（考试站点、公告）的错误照样记在 digest 里，不影响缓存
+        return snap
     # Legacy snapshots predate the complete flag. Reject one when its matching
     # digest records errors; this repairs caches poisoned by older versions.
     rd = raw_dir_abs(ctx, snap)
@@ -112,7 +115,14 @@ def raw_dir_abs(ctx, snap):
     rd = (snap or {}).get("raw_dir")
     if not rd:
         return None
-    return rd if os.path.isabs(rd) else ctx.P(rd)
+    p = rd if os.path.isabs(rd) else ctx.P(rd)
+    if not os.path.isdir(p):
+        # 旧版按资料夹记（".coach/raw/daily/<日期>"，拼到档案上多一层 .coach），档案挪过地方旧的绝对路径也会失效：
+        # 原始数据总在档案的 raw/daily/<日期> 下，按日期找
+        q = ctx.P("raw", "daily", os.path.basename(os.path.normpath(rd)))
+        if os.path.isdir(q):
+            return q
+    return p
 
 
 def latest_digest(ctx):
@@ -372,7 +382,7 @@ def _collect_unlocked(ctx, date, quick=False, touch=False, download=None):
             for iid, it in (prev.get("items") or {}).items():
                 if it.get("course") == code:
                     snap["items"].setdefault(iid, it)
-    snap["raw_dir"] = ctx.rel(rawdir)
+    snap["raw_dir"] = rel_home(ctx.home, rawdir)  # 按档案记，raw_dir_abs 也按档案拼
     snap["collected_at"] = collected_at
     snap["stale"] = stale  # {课程代码: 那门课上次采到的时间}
     snap["complete"] = not stale
