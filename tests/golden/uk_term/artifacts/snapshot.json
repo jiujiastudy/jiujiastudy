@@ -1104,7 +1104,7 @@
   "80002": "2026-03-11T15:20:00Z"
  },
  "inactive": {},
- "raw_dir": ".coach/raw/daily/2026-03-18",
+ "raw_dir": "raw/daily/2026-03-18",
  "collected_at": "<NOW>",
  "stale": {},
  "complete": true
