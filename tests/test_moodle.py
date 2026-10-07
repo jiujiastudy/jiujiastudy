@@ -313,7 +313,7 @@ class MoodleChainTest(unittest.TestCase):
     def test_日历过滤掉的课靠课程结构兜底(self):
         for item in ("Data report", "Module quiz"):
             r = self.row(item)
-            self.assertEqual(("MDL4004", True, "日历里没看到日期（可能被过滤）"), (r["course"], r["undated"], r["when"]),
+            self.assertEqual(("MDL4004", True, "日期待确认"), (r["course"], r["undated"], r["when"]),
                              "不能说成「Moodle 没写日期」：学生会以为老师真的没写")
 
     def test_课件真实文件名(self):
@@ -787,7 +787,14 @@ class RealBrowserMoodle(unittest.TestCase):
             self.assertEqual(1, mock.logins, "没过期就不该再登录")
             self.assertEqual([], mock.writes())
 
+            mock.expire_session()  # 学校还记得（登录页直接发 cookie）：后台自己重进，不开窗口
+            api = moodle_api.MoodleClient(mock.base_url, home, transport=moodle_api.PlaywrightTransport(home=home))
+            self.assertEqual(1234, api.whoami()["id"])
+            api.close()
+            self.assertEqual(2, mock.logins)
+
             mock.expire_session()
+            mock.auto_login = False  # 学校要重新输密码了：这时才报「重新登录」
             api = moodle_api.MoodleClient(mock.base_url, home, transport=moodle_api.PlaywrightTransport(home=home))
             with self.assertRaises(CanvasAuthError):
                 api.whoami()

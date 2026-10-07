@@ -64,13 +64,13 @@
 
 | 日期 | 必做 | 应做 | 状态 |
 |---|---|---|---|
-| 03-23 周一 | 整理这周的笔记，把没看完的补上（第一步：打开本周清单，从第一条没勾的开始；👤） |  | 📦 |
-| 03-24 周二 | 整理这周的笔记，把没看完的补上（第一步：打开本周清单，从第一条没勾的开始；👤） |  | 📦 |
+| 03-23 周一 | （没排事） |  | 📦 |
+| 03-24 周二 | （没排事） |  | 📦 |
 | 03-25 周三 | PSYC2012 Lab Report (25%)（03-26 周四 14:00）（第一步：打开作业页，看文件格式和命名要求。；如果今天做不完，明天第一件事继续，不排别的。；👤） | ACCT1101 看课件：ACCT1101 W5 Lecture Slides.pdf（40 分钟）；PSYC2012 看课件：PSYC2012 Lecture 5 - Working Memory.pptx（40 分钟） | 📦 |
-| 03-26 周四 | ⏰ 14:00 PSYC2012 Lab Report (25%) 截止 ACCT1101 Weekly Quiz 5（03-27 周五 20:59）（第一步：打开测验页，看时长、可试次数和开放时间。；如果今天做不完，明天第一件事继续，不排别的。；👤） | PSYC2012 Week 5 discussion post（03-27 周五 20:59）；ACCT1101 读：Week 5 tutorial questions（20 分钟） | 📦 |
-| 03-27 周五 | ⏰ 20:59 ACCT1101 Weekly Quiz 5 截止 ⏰ 20:59 PSYC2012 Week 5 discussion post 截止 整理这周的笔记，把没看完的补上（第一步：打开本周清单，从第一条没勾的开始；👤） | ACCT1101 看视频：Lecture recording（45 分钟）；ACCT1101 做：Weekly Quiz 5（30 分钟） | 📦 |
-| 03-28 周六 | DSGN3402 Prototype critique (15%)（03-30 周一 06:00）（第一步：打开作业页，看字数和格式要求。；如果今天做不完，明天第一件事继续，不排别的。；👤） | DSGN3402 Studio pitch (in class)（03-31 周二 课上）；PSYC2012 读：Week 5 tutorial prep（20 分钟） | 📦 |
-| 03-29 周日 | 复习 PSYC2012：过一周的课件（Mid-semester test (20%) 还有 7 天）（第一步：打开这门课的模块列表，从最早的一周开始，只看标题和小结页；如果一天看不完一周，就只看每周的第一份课件。；60 分钟；👤） | PSYC2012 看视频：Week 5 lecture recording（45 分钟）；PSYC2012 发帖：Week 5 discussion post（30 分钟）；周日：回我「做完了」，我记进度、排下周。 | 📦 |
+| 03-26 周四 | ⏰ 14:00 PSYC2012 Lab Report (25%) 截止 ACCT1101 Weekly Quiz 5（03-27 周五 20:59）（第一步：打开测验页，看时长、可试次数和开放时间。；如果今天做不完，明天第一件事继续，不排别的。；👤） | PSYC2012 Week 5 discussion post（03-27 周五 20:59）；PSYC2012 读：Week 5 tutorial prep（20 分钟） | 📦 |
+| 03-27 周五 | ⏰ 20:59 ACCT1101 Weekly Quiz 5 截止 ⏰ 20:59 PSYC2012 Week 5 discussion post 截止 ACCT1101 读：Week 5 tutorial questions（20 分钟）（第一步：打开页面，读完这一页；20 分钟；👤） | ACCT1101 看视频：Lecture recording（45 分钟） | 📦 |
+| 03-28 周六 | DSGN3402 Prototype critique (15%)（03-30 周一 06:00）（第一步：打开作业页，看字数和格式要求。；如果今天做不完，明天第一件事继续，不排别的。；👤） | DSGN3402 Studio pitch (in class)（03-31 周二 课上）；PSYC2012 看视频：Week 5 lecture recording（45 分钟） | 📦 |
+| 03-29 周日 | 复习 PSYC2012：过一周的课件（Mid-semester test (20%) 还有 7 天）（第一步：打开这门课的模块列表，从最早的一周开始，只看标题和小结页；如果一天看不完一周，就只看每周的第一份课件。；60 分钟；👤） | ACCT1101 做：Weekly Quiz 5（30 分钟）；PSYC2012 发帖：Week 5 discussion post（30 分钟）；周日：回我「做完了」，我记进度、排下周。 | 📦 |
 
 ## 先搁着（有日期）
 - 2026-03-29 DSGN3402 读：W5 studio notes（20 分钟）

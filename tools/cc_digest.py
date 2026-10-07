@@ -264,7 +264,7 @@ def render(ctx, date, zh=None, out=None, record=True):
     if plan:
         o.append(f'<p class="meta">{esc(ctx.rel(plan["file"]))} ｜ 本周 {plan["rows"]} 行，✅ {plan["done"]} 行，📦 {plan["boxes"]} 行</p>')
         o.append('<div class="scroll"><table class="grid"><tr><th>今天</th><th>必做</th><th>应做</th><th>状态</th></tr>'
-                 f"<tr><td>{esc(clock.fmt_date(today))}</td><td>{rich(plan.get('must'))}"
+                 f"<tr><td>{esc(clock.fmt_date(today))}</td><td>{rich(plan.get('must') or '（没排事）')}"
                  + (f'<div class="sub">第一步：{rich(plan["first_step"])}</div>' if plan.get("first_step") else "")
                  + f"</td><td>{rich('；'.join(plan.get('should') or []))}</td><td>{esc(plan.get('status'))}</td></tr></table></div>")
         o.append('<p class="sub">📦 = 我交付了；✅ = 你确认做了。做完回我「做完了」或「✓ 日期」，我在计划里改。</p>')

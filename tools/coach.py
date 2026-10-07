@@ -5,7 +5,7 @@
   token   set | forget                     用户发到对话里的 token：set 从标准输入读进来存好（有学校地址就先验一次）；forget 删掉
   login   [--host URL] [--wait 90] | --check | --forget
           学校不让生成 token 或用 Moodle 时用：弹出浏览器窗口，用户自己登录 Canvas / Moodle，之后读数据用这份登录（只读）；--check 看还有没有效；--forget 删掉
-  status                                     一屏现状 + 状态评估，零副作用
+  status                                     一屏现状 + 状态评估；只记今天开场问了哪几句（没回就不再问），别的不写
   collect [--quick] [--touch] [--download] | --materials CODE WEEK
           只读采集（默认只元数据，不下载课件）
   radar   [--days 14] [--fetch] [--write]    deadline 雷达（每门课下一条 / 最急 / 撞车 / 已确认 / 待确认 / 已过期未交 / 新变化 / 状态）
@@ -13,9 +13,17 @@
           本周该学什么：脚本按模块和 deadline 排三桶和每天必做；--zh 传中文润色；--write 落盘并渲染
   record  done [目标] | mood 词 [--note] | product --file --status [--course --log] | pending 文本 --course [--blocks 日期 --ask-en --ask-zh]
           | asked ID | resolve ID --resolution 文本 | decision 文本 [--course] | note 作业id 文本
-          | deadline 事项 --course 课 --due 日期 [--time 时刻 --weight --url --pending] | deadline --list | deadline --remove 序号或事项
+          | deadline 事项 [--course 课，课外的事不写] --due 日期 [--time 时刻 --weight --url --pending] | deadline --list | deadline --remove 序号或事项
   week <plans/X.json> [--out HTML] [--md] [--record]   渲染一份现成的周计划 JSON
   guide <导读.json> [--out] [--record] · unit {unit|plan|vocab|mock|all} <src> [dst] · lecture <精讲.json> [--out]   工具箱渲染器
+  jj list | remove                           /jj 入口：列出装了哪些、各读哪份说明；remove 删掉（卸载时用）
+  update [--check]                           /jj-update：GitHub 上有新版就换上（几份一起换），新的 /jj 入口装上、下架的删掉
+  external CODE [--rescan] · browse 网址 [--course CODE] [--wait 20]
+          外部平台：external 列这门课的外部链接（模块、公告、作业说明，加上导航栏、课程页面）读过没有；browse 用本工具自己那份浏览器只读打开一个网页
+  learn prep CODE [--week N] | check CODE
+          学习页：prep 列这周和前两周的课件（页数），没开读课件的直接打开；check 检查这周的学习页清单
+  outline CODE [--url 网址 | --syllabus | --file 表.json | --remove]
+          课程说明里的每周安排表（只给模块没按周分的课用）：读一遍认出每周题目存进档案，周报按周次写「这周讲什么」
   config show | get KEY | set KEY VALUE | course CODE [--materials-ai on|off]
           看 / 改 config.json（KEY 用点号，如 term.week1_monday）；course 管这门课的课件文字交不交给 AI（默认 off，原件照下）
   migrate [--dry-run] · share [--out DIR] [--zip] · api get|download|post|upload …
@@ -111,6 +119,8 @@ def cmd_login(args):
     from cc_store import jload
     home = home_dir(args.home)
     if args.worker:
+        if args.site:
+            return cc_session.signin_worker(home, args.site), {}
         if args.lms == "moodle":  # Moodle 的站点根可能带子目录，不能只留域名
             return cc_session.worker(home, (args.host or "").rstrip("/"), lms="moodle"), {}
         return cc_session.worker(home, cc_host.normalize_host(args.host)), {}
@@ -217,6 +227,7 @@ def cmd_collect(args):
             cc_digest.print_context(ctx, date)
         res = {"skipped": True, "age_minutes": mins, "errors": [], "quick": args.quick}
         res["downloads"] = _downloads(ctx, args)
+        _auto_scan(ctx, args, res)
         return 0, res
     d = cc_collect.collect(ctx, date, quick=args.quick, touch=args.touch, download=(True if args.download else None))
     if not args.json:
@@ -230,18 +241,60 @@ def cmd_collect(args):
                                                        "new_items", "unlocked_items", "locked_items", "downloaded", "skipped_downloads")},
            "readiness": d.get("readiness"), "queued_downloads": d.get("queued_downloads", 0)}
     res["downloads"] = _downloads(ctx, args)
+    _auto_scan(ctx, args, res)
     return (1 if d["errors"] else 0), res
 
 
+def _auto_scan(ctx, args, res):
+    """采集完顺手在后台去 Canvas 查外部平台（导航栏、课程页面、学生的分班；每门课 7 天一次），不等它（10-07：开场不该为它等）。"""
+    import cc_external
+    try:
+        info = cc_external.spawn_scans(ctx, ctx.clock.now_utc())
+    except Exception:  # noqa: BLE001  起不了就算了：「还差」里那条 external 照样会补
+        return
+    if info:
+        res["external_scan"] = info
+        if not args.json:
+            print(f"外部平台：在后台去 {lms_label(ctx.cfg)} 查 {len(info['due'])} 门课的导航栏和课程页面，不用等")
+
+
+def _auto_background(ctx, args):
+    """采集完、队列里有课件、设置没关自动下载：顺手在后台开始下，不等它。
+    以前全靠 AI 看到 status 那句「课件待下载」再去跑 --download --background；会话没读到这份档案时，就一直没人下。"""
+    import cc_downloads
+    if (ctx.cfg.get("materials") or {}).get("auto_download") is False:
+        return None
+    import datetime as _dt
+    from cc_time import parse_ts as _pts
+    last_err = _pts(cc_downloads.load_downloads(ctx).get("last_error_at"))
+    if last_err and ctx.clock.now_utc() - last_err < _dt.timedelta(hours=cc_downloads.RETRY_AFTER_H):
+        return None  # 上一批刚出过错：隔一段时间再自动试，免得每次刷新都白跑一遍
+    try:
+        info = cc_downloads.spawn_downloads(ctx)
+    except Exception:  # noqa: BLE001  宿主不让开子进程（沙盒、测试）就算了，status 那句提示还在
+        return None
+    if info.get("disk_low") is not None:
+        if not args.json:
+            print(f"课件后台下载：硬盘只剩 {info['disk_low']} GB（不到 {cc_downloads.MIN_FREE_GB} GB），这次先不下")
+        return info
+    if not info.get("started"):
+        return None
+    if not args.json:
+        print(f"课件后台下载：已自动开始，队列 {info['queued']} 个")
+    return info
+
+
 def _downloads(ctx, args):
-    """collect 之后：--download 下队列（--background 另起进程，立刻返回）。"""
+    """collect 之后：--download 下队列（--background 另起进程，立刻返回）；没写 --download 也会在后台自动开始。"""
     import cc_downloads
     if not getattr(args, "download", False):
-        return None
+        return _auto_background(ctx, args)
     if getattr(args, "background", False):
         info = cc_downloads.spawn_downloads(ctx)
         if not args.json:
-            if info.get("started"):
+            if info.get("disk_low") is not None:
+                msg = f"硬盘只剩 {info['disk_low']} GB（不到 {cc_downloads.MIN_FREE_GB} GB），这次先不下，队列 {info['queued']} 个留着"
+            elif info.get("started"):
                 msg = f"已启动，队列 {info['queued']} 个，日志 {info['log']}"
             elif info.get("running"):
                 msg = f"已经在运行，队列 {info['queued']} 个，日志 {info['log']}"
@@ -251,7 +304,9 @@ def _downloads(ctx, args):
         return info
     r = cc_downloads.run_downloads(ctx, cap=10)
     if not args.json:
-        if r.get("running"):
+        if r.get("disk_low") is not None:
+            print(f"课件下载：硬盘只剩 {r['disk_low']} GB（不到 {cc_downloads.MIN_FREE_GB} GB），这次先不下，队列 {r['left']} 个留着")
+        elif r.get("running"):
             print(f"课件后台下载已经在运行，队列 {r['left']} 个；这次没有重复启动")
         else:
             print(f"课件下载 {len(r['downloaded'])} 个，队列还剩 {r['left']}" + (f"，出错 {len(r['errors'])}" if r["errors"] else ""))
@@ -294,7 +349,8 @@ def cmd_study(args):
     today = today_of(ctx, args)
     plan = cc_study.build(ctx, today, week=args.week, days=args.days)
     plan = cc_study.apply_overlay(plan, load_json_arg(args.zh))
-    res = {"plan": plan, "written": None}
+    import cc_gaps
+    res = {"plan": plan, "written": None, "todo_for_ai": cc_gaps.for_ai(ctx, plan, today)}
     if args.write:
         path = cc_study.write_plan(ctx, plan, force=args.force)
         r = render_week.write(path, args.out, week_no=plan.get("week_no"), generated=today.isoformat())
@@ -313,6 +369,8 @@ def cmd_study(args):
             res["shortcut"] = desktop_shortcut(ctx.root, page)
     if not args.json:
         print(cc_study.to_text(plan))
+        if res["todo_for_ai"]:
+            print(cc_gaps.text_block(res["todo_for_ai"]))
         if res.get("written"):
             print("JSON=" + res["json"])
             print("WRITTEN=" + res["written"])
@@ -325,6 +383,317 @@ def cmd_study(args):
                 if res.get("shortcut"):
                     print("SHORTCUT=" + res["shortcut"])
     return 0, res
+
+
+def cmd_update(args):
+    """/jj-update：GitHub 上有新版就下下来换上（Claude Code、Codex 装着的几份一起换），旧版备份在 skills 外面；
+    新版带来的 /jj 入口装上、下架的删掉。只跟学生说这次更新的新内容。"""
+    import cc_update
+    from cc_paths import skill_dir
+    if args.finish:  # 换上新版以后，由新版自己的代码来装入口
+        return 0, cc_update.finish(args.finish)
+    r = cc_update.update(running=skill_dir(), check_only=args.check)
+    if not args.json:
+        print(r["message"])
+        if r["state"] == "updated":
+            if r.get("notes"):
+                print("这次更新的新内容：")
+                print(r["notes"])
+            got = r.get("entries") or {}
+            if got.get("installed"):
+                print("新口令：" + "、".join("/" + n for n in got["installed"]))
+            if got.get("removed"):
+                print("下架的口令：" + "、".join("/" + n for n in got["removed"]))
+            if r.get("failed"):
+                print("这几份没换上，用的还是旧版：" + "；".join(r["failed"]))
+            print("旧版备份在：" + cc_update.backup_dir(os.path.expanduser("~")) + "（给 AI 的：跟学生只说新内容和新口令，不用提备份）")
+        elif r["state"] == "available" and r.get("notes"):
+            print("新版的内容：")
+            print(r["notes"])
+    return {"latest": 0, "updated": 0, "available": 1}.get(r["state"], 2), r
+
+
+def cmd_jj(args):
+    """/jj 入口：主技能挑功能时用 list 看装了哪些、各读哪份 references（挑中后直接读那份说明，不去调用入口）。"""
+    import cc_install
+    if args.op == "remove":
+        removed = cc_install.remove_entries()
+        if not args.json:
+            print(f"删掉了 {len(removed)} 个入口" + ("：" + "、".join(os.path.basename(d) for d in removed) if removed else ""))
+        return 0, {"removed": removed}
+    rows = cc_install.installed_entries()
+    if not args.json:
+        if not rows:
+            print("没有 /jj 入口")
+        for r in rows:
+            refs = "、".join("references/" + x for x in r["refs"]) or "（没写）"
+            state = f"已装（版本 {r['version'] or '?'}）" if r["installed"] else "没装（doctor --install 会装）"
+            print(f"{r['name']}：{state} ｜ 读 {refs}")
+    return 0, {"entries": rows}
+
+
+def _course_of(ctx, code):
+    want = (code or "").upper()
+    return next((c for c in ctx.cfg.get("courses") or [] if c["code"].upper() == want), None)
+
+
+def cmd_external(args):
+    """一门课的外部平台保底清单，每条读过没有、上次结果。Canvas 的课先去查导航栏、课程页面和学生的分班（7 天一次，--rescan 马上再查），
+    再合上已采集的模块、公告和作业说明。"""
+    import cc_external
+    import cc_study
+    from cc_courses import lms_of
+    from cc_time import parse_ts
+    ctx = Ctx(args.home, quiet=args.json)
+    now = ctx.clock.now_utc()
+    if getattr(args, "scan_worker", False):  # collect 在后台起的那一路：把该查的课都查一遍
+        res = cc_external.run_scans(ctx, now, cc_study.current_week(ctx, today_of(ctx, args), cc_study.load_modules(ctx))[0])
+        if not args.json:
+            print(f"{now.isoformat()} 外部平台：" + ("；".join(f"{k} {v}" for k, v in res.items()) or "没有要查的（或者另一个在查）"))
+        return 0, {"scans": res, "worker": True}
+    course = _course_of(ctx, args.code)
+    if not course:
+        raise CoachError(f"没有这门课：{args.code}（课程代码照 config 里的写）", 2)
+    code = course["code"]
+    mods = cc_study.load_modules(ctx)
+    week = cc_study.current_week(ctx, today_of(ctx, args), mods)[0]
+    scan = None
+    busy = cc_external.scan_running(ctx)
+    if busy and not args.json:
+        print("后台正在去 Canvas 查外部平台：这次先列已有的，过一两分钟再跑一次能看到查完的")
+    if not busy and lms_of(ctx.cfg) != "moodle" and (args.rescan or cc_external.scan_stale(ctx.home, code, now)):
+        try:
+            scan = cc_external.scan_canvas(ctx.api, ctx.cfg.get("canvas_host"), course.get("id"), mods.get(code), week, now)
+            cc_external.save_found(ctx.home, code, scan)
+        except Exception as e:  # noqa: BLE001  连不上 Canvas（没 token、登录过期）：照旧列已采集的
+            scan = {"failed": f"{type(e).__name__}: {str(e).splitlines()[0][:160] if str(e) else ''}"}
+    links, notes = cc_external.course_links(ctx, course, week, now, mods=mods)
+    found = cc_external.load_found(ctx.home, code)
+    recs = cc_external.load_records(ctx.home, code)
+    for x in links:
+        x["record"] = cc_external.record_of(recs, x["url"])
+    if not args.json:
+        if scan and scan.get("failed"):
+            print(f"这次没能去 Canvas 查导航栏和课程页面（{scan['failed']}），下面只有已采集的")
+        elif scan:
+            pages = scan.get("pages") or []
+            print(f"刚去 Canvas 查了导航栏、{len(pages)} 个课程页面" + (f"（{'、'.join(pages[:6])}{'……' if len(pages) > 6 else ''}）" if pages else ""))
+            for e in scan.get("errors") or []:
+                print(f"有一处没查到：{e}")
+        elif found.get("scanned_at"):
+            print(f"导航栏和课程页面 {ctx.clock.fmt(parse_ts(found['scanned_at']))} 查过（7 天内不再查，--rescan 马上再查）")
+        if found.get("sections"):
+            print(f"学生在 Canvas 上的分班：{'；'.join(found['sections'])}")
+        for n in notes:
+            print(f"说明：{n}")
+        if not links:
+            print(f"{code}：没找到外部平台的链接（「提到了但没给链接」的要 AI 读公告和课程页面认）")
+        for x in links:
+            r = x["record"] or {}
+            read_at = parse_ts(r.get("read_at"))
+            state = {"ok": f"读过（{ctx.clock.fmt(read_at) if read_at else ''}）", "login": "上次被带去登录页", "bot": "上次碰到人机验证",
+                     "error": "上次没打开"}.get(r.get("result"), "还没读过")
+            print(f" - {x['platform']}（{x['kind']}）「{x['title'] or '无标题'}」· {state} · 来自{x['source']}\n   {x['url']}")
+    return 0, {"course": code, "week": week, "links": links, "notes": notes, "sections": found.get("sections") or [], "scan": scan}
+
+
+def cmd_browse(args):
+    """用本工具自己那份登录浏览器在后台只读打开一个网页，把文字存下来给 AI 读；结果记进这门课的外部平台记录。"""
+    import cc_external
+    import cc_study
+    from cc_courses import lms_of
+    from cc_session import LoginUnavailable
+    ctx = Ctx(args.home, quiet=args.json)
+    now = ctx.clock.now_utc()
+    course = _course_of(ctx, args.course) if args.course else None
+    known = None
+    if course:  # 清单上有的用清单上的平台名（Canvas 里的 Zoom 跳转链接按网址认不出来）
+        mods = cc_study.load_modules(ctx)
+        week = cc_study.current_week(ctx, today_of(ctx, args), mods)[0]
+        k = cc_external.norm(args.url)
+        known = next((x for x in cc_external.course_links(ctx, course, week, now, mods=mods)[0] if cc_external.norm(x["url"]) == k), None)
+    hit = (known["platform"], known["kind"]) if known else (cc_external.classify(args.url) or ("其他网站", "内容"))
+    signed = None
+    if args.sign_in:  # 学生同意了：开窗口让学生自己登一次，登好接着读；存下的学校登录以后对别的网站也管用
+        import cc_session
+        signed = cc_session.start_signin(ctx.home, args.url, wait=90)
+        if signed["state"] not in ("done", "closed"):  # 关了窗口的可能已经登好：照样读一次看看
+            if not args.json:
+                print(signed["message"])
+            return (1 if signed["state"] in ("waiting", "timeout") else 2), {"result": signed["state"], "note": signed["message"]}
+    open_url, launch_note = None, None
+    host = ctx.cfg.get("canvas_host")
+    if lms_of(ctx.cfg) != "moodle" and cc_external.session_open_path(args.url, host):
+        # 本校 Canvas 上的网址（嵌的工具、课程页面）：先换免登录的打开链接，token 和浏览器登录读到的一样
+        try:
+            open_url, launch_note = cc_external.open_link(ctx.api, args.url, host, lti=bool((known or {}).get("lti")))
+        except Exception as e:  # noqa: BLE001  连接口都建不起来（没有 token 之类）：照原网址开
+            launch_note = f"拿免登录打开链接没成（{type(e).__name__}）"
+        finally:
+            import cc_session
+            cc_session.close_all()  # 浏览器登录模式下拿链接用的是同一份浏览器资料夹：先放开，下面才开得了
+    try:
+        r = cc_external.browse(ctx.home, args.url, wait=args.wait, open_url=open_url)
+        if launch_note and r.get("result") != "ok":
+            r["note"] = "；".join(x for x in (r.get("note"), launch_note) if x)
+    except LoginUnavailable as e:
+        r = {"result": "error", "note": str(e)}
+    except Exception as e:  # noqa: BLE001  网址打不开、超时：记成没读到，下次再试（报错原话可能带着打开链接，先去掉凭证）
+        first = cc_external.scrub(str(e), open_url).splitlines()[0][:160] if str(e) else ""
+        r = {"result": "error", "note": f"{type(e).__name__}: {first}"}
+    if course:
+        cc_external.record(ctx.home, course["code"], args.url, r["result"], now, platform=hit[0], kind=hit[1],
+                           title=r.get("title"), note=r.get("note"))
+    if not args.json:
+        if r["result"] == "ok":
+            print(f"读到了：{r.get('title') or args.url}（{r['chars']} 字，链接 {len(r.get('links') or [])} 个）→ 文字存在 {r['path']}")
+        elif r["result"] == "login" and signed:
+            print("在窗口里登过了，还是被带去登录页：这个网站多半要别的账号。这次记成没读到；跟学生只说情况（learn.md「汇报」那段）")
+        elif r["result"] == "login":
+            from urllib.parse import urlparse
+            print(f"被带去登录页（{urlparse(r.get('final_url') or '').netloc}）：这个网站要登录（多半是学校账号），{brand.NAME}的浏览器里还没有它的登录。"
+                  "这次记成没读到。学生在对话里的话，先问一句：「这个网站要用学校账号登一次，我弹个窗口你登一下，以后就不用再登了，可以吗？」"
+                  "同意就跑 browse 网址 --course 课 --sign-in；没人在对话里（定时任务）就不弹窗，跟学生只说情况（learn.md「汇报」那段）")
+        elif r["result"] == "bot":
+            print("这个网站要人机验证：停在这里，不绕过。这次记成没读到；跟学生只说情况")
+        else:
+            print(f"没打开：{r.get('note') or '原因不明'}。这次记成没读到，下次再试")
+    return (0 if r["result"] == "ok" else 1), r
+
+
+def cmd_learn(args):
+    """学习页：prep 做之前看课件和读课件那一问；check 做完检查这周的清单文件。"""
+    import cc_learn
+    import cc_study
+    from cc_config import materials_ai
+    from cc_time import monday_of
+    ctx = Ctx(args.home, quiet=args.json)
+    code = (args.code or "").upper()
+    course = next((c for c in ctx.cfg.get("courses") or [] if c["code"].upper() == code), None)
+    if not course:
+        raise CoachError(f"没有这门课：{args.code}（课程代码照 config 里的写）", 2)
+    code, label = course["code"], cc_learn.display_code(course)
+    today = today_of(ctx, args)
+    monday = monday_of(today)
+    week = f"{monday.isocalendar()[0]}-W{monday.isocalendar()[1]:02d}"
+    if args.op == "check":
+        info = cc_learn.load_week(ctx.home, week, None, [code])[code]
+        if info["state"] == "ok":
+            m = info["m"]
+            msg = (f"{label} {week} 的学习页清单能用：{len(m['blocks'])} 块 {m['minutes_total']} 分钟，"
+                   f"{len(m.get('sessions') or [])} 个上课时间，{len(m.get('todos') or [])} 件要学生做的")
+        elif info["state"] is None:
+            msg = f"{label} 还没有 {week} 的学习页清单：{cc_learn.manifest_path(ctx.home, week, code)}"
+        else:
+            msg = f"{label} {week} 的学习页清单有问题：{'；'.join(info['problems'])}"
+        if not args.json:
+            print(msg)
+        return (0 if info["state"] == "ok" else 1), {"course": code, "week": week, "state": info["state"], "problems": info["problems"]}
+    w = args.week or cc_study.current_week(ctx, today, cc_study.load_modules(ctx))[0]
+    if not w:
+        raise CoachError("认不出这是第几周：用 --week N 指定", 2)
+    files = cc_learn.week_materials(ctx, code, w)
+    raw_course = next((c for c in ctx.raw_cfg.get("courses") or [] if (c.get("code") or "").upper() == code.upper()), None) or {}
+    declined = raw_course.get("materials_ai") is False  # 学生明说过这门课不读课件（config course 课 --materials-ai off）
+    on, opened = materials_ai(ctx.cfg, code), False
+    if not on and not declined:  # 学生要学习页，就是同意读这门课的课件：不再单独问（10-07 发起人：方便学生最重要）
+        from cc_config import course_option
+        course_option(ctx, code, "on")
+        on, opened = True, True
+    pages = sum(f["pages"] or 0 for f in files if f["local"] and not f["locked"])
+    missing = [f for f in files if not f["local"] and not f["locked"]]
+    tip = None
+    if not (ctx.state.get("tips") or {}).get("learn_effort"):  # 第一次做学习页：提一次努力程度，只这一次
+        tip = "第一次做学习页：跟学生提一句「想讲得更细，建议把努力程度调到 Extra high（xhigh）或更高，会慢一点、多用一些额度」，以后不再提"
+        ctx.state.setdefault("tips", {})["learn_effort"] = today.isoformat()
+        ctx.save_state()
+    if not args.json:
+        if tip:
+            print(tip)
+        print(f"{label} 第 {w} 周（连前两周）课件 {len(files)} 份：")
+        for f in files:
+            state = "锁着" if f["locked"] else ("还没下载" if not f["local"] else (f"{f['pages']} 页" if f["pages"] else "页数不明"))
+            print(f"  第 {f['week']} 周 · {f['title']} · {state}")
+        if missing:
+            print(f"有 {len(missing)} 份还没下载：先跑 collect --materials {code} <周>")
+        if declined:
+            print("读课件：学生说过这门课不读课件。照样做，只用网页、公告和课程说明，学习页顶上写一句「这份没读课件」。")
+        elif opened:
+            print(f"读课件：学生要了这门课的学习页，已经替 {label} 打开读课件（不再单独问）。做完在结果里说一句读了几页课件。")
+        else:
+            print("读课件：已经打开，直接做。")
+    return 0, {"course": code, "label": label, "week": w, "files": files, "materials_ai": on, "opened": opened, "declined": declined,
+               "pages": pages, "missing": len(missing), "effort_tip": tip}
+
+
+def cmd_outline(args):
+    """课程说明里的每周安排：--url 公开页 / --syllabus Canvas 的 Syllabus / --file AI 整理的表 / 不带参数就看 / --remove 删。"""
+    import cc_outline
+    ctx = Ctx(args.home, quiet=args.json)
+    code = (args.code or "").upper()
+    course = next((c for c in ctx.cfg.get("courses") or [] if c["code"].upper() == code), None)
+    if not course:
+        raise CoachError(f"没有这门课：{args.code}（课程代码照 config 里的写）", 2)
+    code = course["code"]
+    if args.remove:
+        try:
+            os.remove(cc_outline.path(ctx.home, code))
+            msg = f"{code}：每周安排表删了"
+        except OSError:
+            msg = f"{code}：本来就没有每周安排表"
+        if not args.json:
+            print(msg)
+        return 0, {"course": code, "removed": True}
+    if args.file:
+        t = load_json_arg(args.file)
+        bad = cc_outline.validate(t, code)
+        if bad:
+            raise CoachError(f"{code} 的表有问题：{'；'.join(bad)}", 2)
+        p = cc_outline.save(ctx.home, code, t)
+        import cc_gaps
+        cc_gaps.clear_failed(ctx, f"outline:{code}")
+        if not args.json:
+            print(f"{code}：存好了 {len(t['weeks'])} 周 → {p}")
+        return 0, {"course": code, "path": p, "weeks": t["weeks"]}
+    if args.url or args.syllabus:
+        import cc_gaps
+        if args.url:
+            try:
+                html, title, url = cc_outline.fetch_public(args.url), f"{code} 课程说明", args.url
+            except Exception as e:  # noqa: BLE001  打不开（网址错、网站挂了、要登录、断网）：记下，7 天内「还差」不再列
+                cc_gaps.mark_failed(ctx, f"outline:{code}", today_of(ctx, args))
+                msg = f"{code}：课程说明网页打不开（{type(e).__name__}）"
+                if not args.json:
+                    print(msg)
+                return 1, {"course": code, "weeks": {}, "message": msg}
+        else:
+            from cc_courses import lms_of
+            if lms_of(ctx.cfg) == "moodle":
+                raise CoachError("Moodle 没有 Syllabus 页：用 --url 给课程说明的网址", 2)
+            obj = ctx.api.get(f"/api/v1/courses/{course['id']}?include[]=syllabus_body")
+            html, title = (obj or {}).get("syllabus_body") or "", f"{code} Syllabus"
+            url = f"{ctx.cfg.get('canvas_host')}/courses/{course['id']}/assignments/syllabus"
+        weeks = cc_outline.extract_weeks(cc_outline.text_lines(html))
+        if not weeks:
+            cc_gaps.mark_failed(ctx, f"outline:{code}", today_of(ctx, args))
+            msg = f"{code}：页面里认不出每周安排（少于 {cc_outline.MIN_WEEKS} 周）。请照页面整理一张表，用 outline {code} --file 表.json 存"
+            if not args.json:
+                print(msg)
+            return 1, {"course": code, "weeks": {}, "message": msg}
+        old = cc_outline.load(ctx.home, code) or {}
+        t = cc_outline.build(code, weeks, title, url, ctx.clock.now_utc())
+        if old.get("weeks_zh"):
+            t["weeks_zh"] = old["weeks_zh"]  # AI 之前补的中文留着
+        p = cc_outline.save(ctx.home, code, t)
+        if not args.json:
+            print(f"{code}：认出 {len(weeks)} 周 → {p}\n" + "\n".join(f"  第 {k} 周：{v}" for k, v in weeks.items())
+                  + "\n核对一遍：认错的地方照页面改好，用 --file 存回去；顺手补上 weeks_zh（每周一句中文）。")
+        return 0, {"course": code, "path": p, "weeks": weeks}
+    t = cc_outline.load(ctx.home, code)
+    if not args.json:
+        print(f"{code}：还没有每周安排表" if not t else "\n".join(
+            f"第 {k} 周：{v}" + (f"（{t.get('weeks_zh', {}).get(k)}）" if (t.get("weeks_zh") or {}).get(k) else "") for k, v in t["weeks"].items()))
+    return (0 if t else 1), {"course": code, "table": t}
 
 
 def cmd_paths(args):
@@ -347,8 +716,9 @@ def cmd_record(args):
     import cc_record
     import cc_state
     op = args.op
-    if op == "deadline" and not args.list and args.remove is None and not (args.item and args.course and args.due):
-        raise CoachError('要写事项、--course 和 --due，例：record deadline "Essay" --course ACCT1101 --due 09-20 --time 23:59', 2)
+    if op == "deadline" and not args.list and args.remove is None and not (args.item and args.due):
+        raise CoachError('要写事项和 --due，例：record deadline "Essay" --course ACCT1101 --due 09-20 --time 23:59'
+                         '（课外的事不写 --course，记成「课外」）', 2)
     ctx = Ctx(args.home, quiet=args.json)
     if op == "product":
         r = cc_record.record_product(ctx, args.file, args.status, course=args.course, log=args.log, date=date_of(ctx, args))
@@ -372,17 +742,21 @@ def cmd_record(args):
         r = cc_record.remove_deadline(ctx, args.remove)
         msg = f"删掉了：{r.get('course')} {r.get('item')} {cc_record.deadline_text(ctx.clock, r)}"
     elif op == "deadline":
-        r = cc_record.add_deadline(ctx, args.item, args.course, args.due, time=args.time, time_text=args.time_text, weight=args.weight,
+        r = cc_record.add_deadline(ctx, args.item, args.course or cc_record.EXTRA, args.due, time=args.time, time_text=args.time_text, weight=args.weight,
                                    url=args.url, note=args.note, source=args.source, status=args.status, pending=args.pending,
-                                   assignment_id=args.assignment_id)
-        msg = (f"手动 deadline {'更新' if r['action'] == 'updated' else '+1'}：{r['course']} {r['item']} "
-               f"{cc_record.deadline_text(ctx.clock, r)}").rstrip() + ("（待确认）" if r["pending"] else "")
+                                   assignment_id=args.assignment_id, force=args.force)
+        if r["action"] == "same":
+            msg = f"Canvas 上已经有这一项（「{r['canvas_item']}」，同一天），不用再记。"
+        else:
+            msg = (f"手动 deadline {'更新' if r['action'] == 'updated' else '+1'}：{r['course']} {r['item']} "
+                   f"{cc_record.deadline_text(ctx.clock, r)}").rstrip() + ("（待确认）" if r["pending"] else "")
     elif op == "mood":
         r = cc_state.add_mood(ctx, args.word, note=args.note)
         today = today_of(ctx, args)
         ev = cc_state.evaluate(ctx, today, cc_deadlines.plan_today(ctx, today), cc_radar.rows(ctx, today))
         r = {"mood": r, "state_eval": ev}
-        msg = "记下了。" + cc_state.state_line(ev)
+        hint = "开不了头的话跟我说一句，我们把最急的那件拆成一小步。" if ev["label"] in ("落后", "卡住", "过载") else ""
+        msg = "记下了。" + hint + cc_state.state_line(ev)
     elif op == "pending":
         r = cc_record.add_pending(ctx, args.text, args.course, blocks=args.blocks, ask_en=args.ask_en, ask_zh=args.ask_zh)
         msg = f"待确认 +1 {r['id']}"
@@ -647,10 +1021,33 @@ def build_parser():
     p.add_argument("--forget", action="store_true", help="删掉这份登录，回到 token")
     p.add_argument("--worker", action="store_true", help=argparse.SUPPRESS)
     p.add_argument("--lms", choices=["canvas", "moodle"], default="canvas", help=argparse.SUPPRESS)  # 窗口进程用：哪种平台
+    p.add_argument("--site", help=argparse.SUPPRESS)  # 窗口进程用：给别的网站登学校账号（browse --sign-in 起的）
     p.set_defaults(fn=cmd_login)
 
     sub.add_parser("status", parents=[common]).set_defaults(fn=cmd_status)
     p = sub.add_parser("paths", parents=[common], help="资料夹和每门课的 课件 / 产出 目录"); p.add_argument("code", nargs="?"); p.set_defaults(fn=cmd_paths)
+    p = sub.add_parser("external", parents=[common], help="一门课的外部平台保底清单：导航栏、课程页面、模块、公告里的外部链接，读过没有")
+    p.add_argument("code", nargs="?"); p.add_argument("--rescan", action="store_true", help="马上再去 Canvas 查一遍导航栏和课程页面")
+    p.add_argument("--scan-worker", dest="scan_worker", action="store_true", help=argparse.SUPPRESS)  # collect 在后台起的那一路
+    p.set_defaults(fn=cmd_external)
+    p = sub.add_parser("browse", parents=[common], help="用本工具自己那份登录浏览器在后台只读打开一个网页，文字存下来给 AI 读")
+    p.add_argument("url"); p.add_argument("--course"); p.add_argument("--wait", type=int, default=20)
+    p.add_argument("--sign-in", dest="sign_in", action="store_true", help="学生同意以后：弹出窗口让学生自己登一次（学校账号），登好接着读；以后不用再登")
+    p.set_defaults(fn=cmd_browse)
+    p = sub.add_parser("learn", parents=[common], help="学习页：prep 做之前看课件和读课件那一问；check 做完检查这周的清单文件")
+    p.add_argument("op", choices=["prep", "check"]); p.add_argument("code"); p.add_argument("--week", type=int); p.set_defaults(fn=cmd_learn)
+    p = sub.add_parser("outline", parents=[common], help="课程说明里的每周安排表：--url / --syllabus 读一遍，--file 存 AI 整理的表，--remove 删")
+    p.add_argument("code"); p.add_argument("--url"); p.add_argument("--syllabus", action="store_true"); p.add_argument("--file")
+    p.add_argument("--remove", action="store_true"); p.set_defaults(fn=cmd_outline)
+    p = sub.add_parser("update", parents=[common], help="/jj-update：GitHub 上有新版就换上，新的 /jj 入口装上、下架的删掉")
+    p.add_argument("--check", action="store_true", help="只看有没有新版，不换")
+    p.add_argument("--finish", help=argparse.SUPPRESS)  # 换上新版以后由新版的代码装入口：给出这一份的路径
+    p.set_defaults(fn=cmd_update)
+    p = sub.add_parser("jj", parents=[common], help="/jj 菜单的入口：list 列出装了哪些、各自读哪份说明；remove 删掉（卸载时用）")
+    js = p.add_subparsers(dest="op", required=True)
+    js.add_parser("list", parents=[common])
+    js.add_parser("remove", parents=[common])
+    p.set_defaults(fn=cmd_jj)
 
     p = sub.add_parser("collect", parents=[common])
     p.add_argument("--quick", action="store_true", help="只拉作业和公告")
@@ -691,13 +1088,14 @@ def build_parser():
     q = rs.add_parser("resolve", parents=[common]); q.add_argument("id"); q.add_argument("--resolution", required=True)
     q = rs.add_parser("decision", parents=[common]); q.add_argument("text"); q.add_argument("--course")
     q = rs.add_parser("note", parents=[common], help="作业说明：Canvas 日期只是占位等"); q.add_argument("assignment_id"); q.add_argument("text")
-    q = rs.add_parser("deadline", parents=[common], help="手动 deadline（公告 / 大纲 / 老师说的）")
+    q = rs.add_parser("deadline", parents=[common], help="手动 deadline（公告 / 大纲 / 老师说的；课外的事不写 --course）")
     q.add_argument("item", nargs="?"); q.add_argument("--course"); q.add_argument("--due", help="课程时区的日期：2026-09-20 或 09-20")
     q.add_argument("--time", help="HH:MM，也认 4pm / 11:59pm"); q.add_argument("--time-text", dest="time_text", help="写不出具体时刻时的文字，如「课上」")
     q.add_argument("--list", action="store_true", help="列出记过的手动 deadline（带序号）")
     q.add_argument("--remove", help="删掉一条：序号或事项名")
     q.add_argument("--weight"); q.add_argument("--url"); q.add_argument("--note"); q.add_argument("--source"); q.add_argument("--status")
     q.add_argument("--pending", action="store_true", help="还没确认：进区块二"); q.add_argument("--assignment-id", dest="assignment_id", help="替换 Canvas 上的这条作业")
+    q.add_argument("--force", action="store_true", help="和 Canvas 上同一个作业的日期对不上也照记（确定 Canvas 写错了才用）")
     p.set_defaults(fn=cmd_record)
 
     p = sub.add_parser("week", parents=[common])

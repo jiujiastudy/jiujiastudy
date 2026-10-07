@@ -37,6 +37,7 @@ a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--r-s)}
 .page{max-width:760px;margin:0 auto;padding:var(--s6) var(--s4) var(--s7);overflow-wrap:break-word}
+.card.course .sub{overflow-wrap:anywhere}
 h1{margin:0;font-size:var(--fs-xl);font-weight:700;line-height:1.25;letter-spacing:-.01em}
 h2{margin:var(--s6) 0 var(--s3);font-size:var(--fs-m);font-weight:600;color:var(--muted)}
 h3{margin:0;font-size:var(--fs-l);font-weight:600;line-height:1.4}
@@ -106,7 +107,8 @@ input[type=checkbox]{width:18px;height:18px;margin:0;accent-color:var(--good);cu
 .rows .t{min-width:0}
 .rows .v{margin-right:var(--s2);color:var(--muted);cursor:pointer}
 .rows .code{margin-right:var(--s1)}
-.rows .m{padding-top:2px;font-size:var(--fs-s);color:var(--muted);white-space:nowrap;text-align:right}
+.rows .m{max-width:11em;padding-top:2px;font-size:var(--fs-s);color:var(--muted);text-align:right}
+.rows>li>div:not(.t):not(.m),.rows>li>p,.rows>li>ul,.rows>li>ol,.rows>li>details,.rows>li>.sub{grid-column:1/-1}
 .rows .rel{display:inline-block;min-width:5.4em;margin-right:var(--s2);font-size:var(--fs-s);font-weight:600;color:var(--muted)}
 .rows .rel.soon{color:var(--bad)}
 .rows .src{display:block;font-size:var(--fs-s);color:var(--muted)}
@@ -148,6 +150,7 @@ details.fold>.rows,details.fold>.plain{margin-top:var(--s2)}
 .changes .gist{margin-top:var(--s2);white-space:pre-line}
 
 .scroll{overflow-x:auto}
+.scroll td,.scroll th{min-width:6em}
 table{width:100%;border-collapse:collapse;font-size:var(--fs-s)}
 th{padding:var(--s2) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line);color:var(--muted);font-weight:600;text-align:left}
 td{padding:var(--s2) var(--s3) var(--s2) 0;border-bottom:1px solid var(--line);vertical-align:top}
@@ -170,7 +173,7 @@ mark{padding:0 2px;border-radius:3px;background:var(--highlight);color:var(--on-
 .card.flush{padding:var(--s1) var(--s3)}
 .courses{grid-template-columns:1fr}
 .rows>li{grid-template-columns:20px minmax(0,1fr)}
-.rows .m{grid-column:2;padding-top:0;text-align:left;white-space:normal}
+.rows .m{grid-column:2;max-width:none;padding-top:0;text-align:left}
 .rows.nobox>li{grid-template-columns:minmax(0,1fr)}
 .rows.nobox .m{grid-column:1}
 .days>li{grid-template-columns:36px minmax(0,1fr);padding:var(--s3) var(--s1)}

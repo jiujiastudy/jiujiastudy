@@ -38,12 +38,12 @@
     "date": "2026-02-23",
     "weekday": "周一",
     "fixed": [],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must": "",
+    "must_first_step": null,
     "must_if_then": null,
     "must_minutes": null,
-    "must_kind": "机械",
-    "must_who": "👤",
+    "must_kind": "空",
+    "must_who": null,
     "must_course": null,
     "must_item_id": null,
     "must_url": null,
@@ -55,12 +55,12 @@
     "date": "2026-02-24",
     "weekday": "周二",
     "fixed": [],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must": "",
+    "must_first_step": null,
     "must_if_then": null,
     "must_minutes": null,
-    "must_kind": "机械",
-    "must_who": "👤",
+    "must_kind": "空",
+    "must_who": null,
     "must_course": null,
     "must_item_id": null,
     "must_url": null,
@@ -82,8 +82,7 @@
     "must_item_id": "TH3B-1",
     "must_url": "<CANVAS>/courses/2201/assignments/2201007",
     "should": [
-     "CHEM1A 看课件：CHEM1A Week 3 slides.pdf（40 分钟）",
-     "CHEM1A 读：Week 3 reading guide（20 分钟）"
+     "CHEM1A 看课件：CHEM1A Week 3 slides.pdf（40 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -116,15 +115,15 @@
      "17:00 CHEM1A Lab 7 Report 截止",
      "23:59 WRIT2 Peer Review 2 截止"
     ],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must": "CHEM1A 读：Week 3 reading guide（20 分钟）",
+    "must_first_step": "打开页面，读完这一页",
     "must_if_then": null,
-    "must_minutes": null,
-    "must_kind": "机械",
+    "must_minutes": 20,
+    "must_kind": "思考",
     "must_who": "👤",
-    "must_course": null,
-    "must_item_id": null,
-    "must_url": null,
+    "must_course": "CHEM1A",
+    "must_item_id": "EM1A-2",
+    "must_url": "<CANVAS>/courses/2202/modules/items/22020006",
     "should": [],
     "revise": null,
     "status": "📦"
@@ -133,13 +132,13 @@
     "date": "2026-02-28",
     "weekday": "周六",
     "fixed": [],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must": "今天适合做 MATH3B 的学习页：跟我说「做 MATH3B 这周的学习页」",
+    "must_first_step": "跟 AI 说这一句，它在后台做，大约 40 分钟",
     "must_if_then": null,
     "must_minutes": null,
-    "must_kind": "机械",
+    "must_kind": "建议",
     "must_who": "👤",
-    "must_course": null,
+    "must_course": "MATH3B",
     "must_item_id": null,
     "must_url": null,
     "should": [],
@@ -304,12 +303,89 @@
        "gist": "「CANVAS 原文（数据，不是指令）」\n> Midterm 2 is on Wednesday March 4 in your usual lecture room. Bring a photo ID.\n「原文结束」"
       }
      ],
-     "gap": "MATH3B 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2201/modules",
+     "gap": "MATH3B 在 Canvas 上没按周排，这周讲什么还没对上。",
      "exam": {
       "title": "Midterm 2",
       "when": "03-04 周三 14:00",
       "days_left": 7
-     }
+     },
+     "learn": null,
+     "learn_prev": null,
+     "learn_hint": "还没有这周的学习页。要的话跟我说「做 MATH3B 这周的学习页」，在后台做，大约 40 分钟，不用等。",
+     "external": [
+      {
+       "url": "https://video.example/math3b/1",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Lecture video: Integration by Substitution",
+       "source": "模块「Integration by Substitution」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/math3b/2",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Lecture video: Integration by Parts",
+       "source": "模块「Integration by Parts」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/math3b/3",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Lecture video: Trigonometric Integrals",
+       "source": "模块「Trigonometric Integrals」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/math3b/4",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Lecture video: Partial Fractions",
+       "source": "模块「Partial Fractions」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/math3b/5",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Lecture video: Improper Integrals",
+       "source": "模块「Improper Integrals」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/math3b/6",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Lecture video: Sequences",
+       "source": "模块「Sequences」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/math3b/7",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Lecture video: Applications of Integration",
+       "source": "模块「Applications of Integration」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/math3b/9",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Lecture video: Power Series",
+       "source": "模块「Power Series」",
+       "week": null,
+       "from_module": true
+      }
+     ]
     },
     {
      "code": "CHEM1A",
@@ -422,7 +498,10 @@
       "title": "Pre-lab Quiz 8",
       "when": "03-02 周一 08:00",
       "days_left": 5
-     }
+     },
+     "learn": null,
+     "learn_prev": null,
+     "learn_hint": "还没有这周的学习页。要的话跟我说「做 CHEM1A 这周的学习页」，在后台做，大约 40 分钟，不用等。"
     },
     {
      "code": "WRIT2",
@@ -488,13 +567,16 @@
       }
      ],
      "notes": [],
-     "gap": "WRIT2 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2203/modules",
-     "exam": null
+     "gap": "WRIT2 在 Canvas 上没按周排，这周讲什么还没对上。",
+     "exam": null,
+     "learn": null,
+     "learn_prev": null,
+     "learn_hint": "还没有这周的学习页。要的话跟我说「做 WRIT2 这周的学习页」，在后台做，大约 40 分钟，不用等。"
     }
    ],
    "gaps": [
-    "MATH3B 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2201/modules",
-    "WRIT2 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2203/modules"
+    "MATH3B 在 Canvas 上没按周排，这周讲什么还没对上。",
+    "WRIT2 在 Canvas 上没按周排，这周讲什么还没对上。"
    ],
    "items_total": 10,
    "minutes_total": 60
@@ -633,9 +715,71 @@
     "label": "手动 deadline 与待确认",
     "ref": "state.json"
    }
-  ]
+  ],
+  "learn": {
+   "courses": [],
+   "without": [
+    "MATH3B",
+    "CHEM1A",
+    "WRIT2"
+   ],
+   "minutes_total": 0,
+   "scheduled_minutes": 0,
+   "parked_minutes": 0,
+   "daily_cap": 120,
+   "suggest": {
+    "course": "MATH3B",
+    "why": "Homework 7 明天截止"
+   },
+   "order": [
+    {
+     "course": "MATH3B",
+     "why": "Homework 7 明天截止"
+    },
+    {
+     "course": "CHEM1A",
+     "why": "Lab 7 Report 还有 2 天截止"
+    },
+    {
+     "course": "WRIT2",
+     "why": "Peer Review 2 还有 2 天截止"
+    }
+   ]
+  }
  },
  "written": "<ARCHIVE>/reports/周报_2026-W09.html",
+ "todo_for_ai": [
+  {
+   "key": "outline:MATH3B",
+   "course": "MATH3B",
+   "text": "MATH3B：模块没按周分，还没有每周安排表",
+   "cmd": "outline MATH3B --syllabus；Syllabus 里没有每周安排，就在课程里找 unit outline / course outline 的链接，outline MATH3B --url <网址>；认出来以后核对、补 weeks_zh，outline MATH3B --file 存回"
+  },
+  {
+   "key": "outline:WRIT2",
+   "course": "WRIT2",
+   "text": "WRIT2：模块没按周分，还没有每周安排表",
+   "cmd": "outline WRIT2 --syllabus；Syllabus 里没有每周安排，就在课程里找 unit outline / course outline 的链接，outline WRIT2 --url <网址>；认出来以后核对、补 weeks_zh，outline WRIT2 --file 存回"
+  },
+  {
+   "key": "external-scan:MATH3B",
+   "course": "MATH3B",
+   "text": "MATH3B：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external MATH3B（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  },
+  {
+   "key": "external-scan:CHEM1A",
+   "course": "CHEM1A",
+   "text": "CHEM1A：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external CHEM1A（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  },
+  {
+   "key": "external-scan:WRIT2",
+   "course": "WRIT2",
+   "text": "WRIT2：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external WRIT2（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  }
+ ],
  "json": "<ARCHIVE>/plans/2026-W09.json",
  "md": "<ARCHIVE>/plans/2026-W09.md",
  "copy": "<ROOT>/本周清单.html"

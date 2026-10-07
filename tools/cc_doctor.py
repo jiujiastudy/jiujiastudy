@@ -23,7 +23,7 @@ import deps
 from cc_bootstrap import align_week1, bootstrap_config
 from cc_config import SCHEMA_VERSION, CoachError, Ctx, adapt_v1, minimal_state, upgrade_v2, version_of
 from cc_courses import lms_label, lms_of
-from cc_install import check_skill_location, duplicate_skills, pip_install
+from cc_install import check_skill_location, duplicate_skills, entry_problems, pip_install
 from cc_paths import WEEK_PAGE, agent_kind, coach_cmd, fwd, home_dir, python_cmd, root_dir
 from cc_perms import check_perms, claude_settings_path, codex_snippet, fix_perms
 from cc_store import jload, jsave
@@ -383,6 +383,14 @@ def doctor(args):
             else:
                 checks.append(("信息", "别处的技能", f"{detail}；{action}"))
     except Exception:  # noqa: BLE001  查不了就算了，不挡体检
+        pass
+    try:  # /jj 入口：路径、版本、没装的、同一个入口两份
+        for lvl, detail, action in entry_problems(display_coach=display_coach):
+            if lvl == "warn":
+                warn("/jj 入口", detail, action)
+            else:
+                checks.append(("信息", "/jj 入口", f"{detail}；{action}"))
+    except Exception:  # noqa: BLE001
         pass
 
     # 10 deps：缺就自动装

@@ -1,0 +1,6 @@
+interface:
+  display_name: "jj-update 更新救驾"
+  short_description: "更新救驾到最新版：主程序和新功能一起装好"
+  default_prompt: "用 $jj-update 更新救驾"
+policy:
+  allow_implicit_invocation: false

@@ -176,8 +176,62 @@ def remove_deadline(ctx, which):
     return row
 
 
+EXTRA = "课外"  # 不属于任何一门课的 deadline（品牌交稿、比赛截止），record deadline 不写 --course 时记成这个
+
+
+GUARD_STOP = {"the", "and", "for", "due", "of", "to", "in", "on", "by", "at", "with", "your", "end", "week", "class", "from",
+              "this", "that", "will", "are", "is", "be", "submit", "submission"}
+
+
+def _tokens(s):
+    import re as _re
+    words = {w for w in _re.findall(r"[a-z]+", (s or "").lower()) if len(w) >= 3 and w not in GUARD_STOP}
+    digits = set(_re.findall(r"\d+", s or ""))
+    return words, digits
+
+
+def same_item(a, b):
+    """两个作业名是不是同一件事：词有两个以上重合（短名字一个就够），两边都带编号时编号要对得上（Quiz 5 ≠ Quiz 6）。"""
+    wa, da = _tokens(a)
+    wb, db = _tokens(b)
+    shared = wa & wb
+    if not shared:
+        return False
+    if da and db and not (da & db):
+        return False
+    if len(shared) >= 2:
+        return len(shared) / len(wa | wb) >= 0.4
+    return min(len(wa), len(wb)) == 1
+
+
+def _likeness(a, b):
+    wa, _ = _tokens(a)
+    wb, _ = _tokens(b)
+    return len(wa & wb) / len(wa | wb) if wa | wb else 0
+
+
+def canvas_conflict(ctx, course, item, d):
+    """Canvas 上同一门课里像同一个作业的那条：(作业名, Canvas 的截止日期)；没有就 None。
+    像的不止一条（「Social Media Campaign Pitch」和「Social Media Campaign」）：日期对得上的那条优先，再挑最像的，
+    不按 Canvas 列出来的先后（10-07：closing date 被拿去和 Pitch 比了）。"""
+    import cc_collect
+    from cc_time import parse_ts
+    snap = cc_collect.load_snapshot(ctx) or {}
+    hits = []
+    for a in (snap.get("assignments") or {}).values():
+        if not isinstance(a, dict) or (a.get("course") or "").upper() != (course or "").upper() or not a.get("due_at"):
+            continue
+        if same_item(item, a.get("name")):
+            day = ctx.clock.course_date(parse_ts(a["due_at"]))
+            hits.append((day == d, _likeness(item, a.get("name")), a.get("name"), day))
+    if not hits:
+        return None
+    best = max(hits, key=lambda h: (h[0], h[1]))
+    return best[2], best[3]
+
+
 def add_deadline(ctx, item, course, date, time=None, time_text=None, weight=None, url=None, note=None, source=None,
-                 status=None, pending=False, assignment_id=None):
+                 status=None, pending=False, assignment_id=None, force=False):
     """手动 deadline（公告 / 大纲 / 老师说的）：进雷达区块一；pending=True 进区块二。url 或 assignment_id 指向某个 Canvas 作业时替换那一行。
 
     日期和时刻当场规整：09-20、9/20、4pm、11:59pm、16：00 都认，认不出来就退回（退出码 2），不留到雷达那边才出事。
@@ -189,6 +243,15 @@ def add_deadline(ctx, item, course, date, time=None, time_text=None, weight=None
     hhmm = norm_hhmm(time) if time else None
     if time and not hhmm:
         raise CoachError(f"--time 写成 23:59 或 11:59pm，「{time}」认不出来", 2)
+    if not force and not url and not assignment_id and course != EXTRA:
+        hit = canvas_conflict(ctx, course, item, d)
+        if hit and hit[1] == d:
+            return {"course": course, "item": (item or "").strip(), "date": d.isoformat(), "time": hhmm, "time_text": time_text,
+                    "pending": bool(pending), "action": "same", "canvas_item": hit[0]}
+        if hit:  # 往年的模板、没更新的文档常写错日期：不记进雷达，以 Canvas 为准
+            raise CoachError(f"对不上：Canvas 上已经有「{hit[0]}」，截止 {hit[1].isoformat()}；要记的是 {d.isoformat()}。"
+                             "先别记进雷达，以 Canvas 为准（往年的模板、没更新的文档常这样）；跟学生写成情况，可以附一句问老师确认的英文。"
+                             "确定是 Canvas 写错了才加 --force。", 1)
     row = {"course": course, "item": (item or "").strip(), "date": d.isoformat(), "time": hhmm, "time_text": time_text,
            "weight": weight or "—", "status": status or "未交", "note": note or "", "source": source or "用户 / 公告", "url": url,
            "pending": bool(pending), "assignment_id": str(assignment_id) if assignment_id else None,
@@ -241,7 +304,7 @@ def mark_done(ctx, target, today=None):
     def tick_day(d):
         d["status"] = "✅"
         d["done_at"] = stamp
-        marked.append(f"{d['date'][5:]} {d.get('must')}")
+        marked.append(f"{d['date'][5:]} {d.get('must') or '（没排事的一天）'}")
         if d.get("must_item_id"):
             for _, it in _all_items(data):
                 if it["id"] == d["must_item_id"]:
@@ -297,7 +360,8 @@ def mark_done(ctx, target, today=None):
     ctx.state["last_done"] = ctx.clock.now_utc().isoformat()
     append_log(ctx, "✅ " + "；".join(marked))
     touch(ctx)
-    nxt = next((d for d in days if (d.get("date") or "") > today.isoformat() and d.get("status") != "✅"), None)
+    from cc_state import real_must
+    nxt = next((d for d in days if (d.get("date") or "") > today.isoformat() and d.get("status") != "✅" and real_must(d)), None)
     return {"marked": marked, "plan": path, "html": res.get("html"), "md": res.get("md"),
             "next": ({"date": nxt.get("date"), "must": nxt.get("must"), "first_step": nxt.get("must_first_step")} if nxt else None)}
 

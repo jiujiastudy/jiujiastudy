@@ -68,6 +68,15 @@ def looks_like_non_course(name, code=None):
     return bool(re.match(r"^\d{4}_", s))
 
 
+EXAM_SITE_RE = re.compile(r"(?i)\b(?:test|exam|examination|quiz)s?\s+(?:for\b|site\b)")
+
+
+def looks_like_exam_site(name):
+    """只放考试的站（悉大的「In-semester Test for: MECO6936」「Final Exam for: …」）：考试时间照样进雷达和每天，
+    但它不是一门要学的课——周报不给它出「这周要学的」卡片，也不给 AI 列要补的事（10-07）。"""
+    return bool(EXAM_SITE_RE.search(name or ""))
+
+
 def in_current_term(course, today, before=14, after=7):
     """这门课的学期是不是当前的：开学前 14 天到结课后 7 天算在读。
 

@@ -160,7 +160,23 @@ class _Handler(BaseHTTPRequestHandler):
         self._path, self._query, self._matched = parts.path, parse_qsl(parts.query, keep_blank_values=True), True
         self._session_auth = False
         if mock.session:
+            if self._path in ("/login", "/login/canvas") and mock.sso:  # 学校统一登录：转去学校登录页，带票回 /login/saml
+                return self._send(302, None, {"Location": mock.sso.login_url(f"{mock.base_url}/login/saml")}, raw=b"", ctype="text/html")
+            if self._path == "/login/saml" and mock.sso:
+                if not mock.sso.redeem(self._q1("ticket")):
+                    return self._send(302, None, {"Location": "/login"}, raw=b"", ctype="text/html")
+                mock.logins += 1
+                return self._send(302, None, {"Location": "/?login_success=1",
+                                              "Set-Cookie": f"canvas_session={mock.session_cookie}; Path=/; HttpOnly"},
+                                  raw=b"", ctype="text/html")
+            if self._path == "/login":  # Canvas 默认的登录入口
+                return self._send(302, None, {"Location": "/login/canvas"}, raw=b"", ctype="text/html")
             if self._path == "/login/canvas":  # 登录页：直接发会话 cookie（不带过期时间，浏览器一关就丢）
+                if not mock.auto_login:  # 学校要重新输密码：给登录表单（后台浏览器不会填）
+                    return self._send(200, None, raw=b'<!doctype html><title>Log In</title><form method="post">'
+                                      b'<input name="pseudonym_session[unique_id]"><input type="password" '
+                                      b'name="pseudonym_session[password]"><button>Log In</button></form>',
+                                      ctype="text/html; charset=utf-8")
                 mock.logins += 1
                 return self._send(302, None, {"Location": "/?login_success=1",
                                               "Set-Cookie": f"canvas_session={mock.session_cookie}; Path=/; HttpOnly"},
@@ -174,6 +190,36 @@ class _Handler(BaseHTTPRequestHandler):
             if mock.session and not self.headers.get("Authorization") and not self._cookie_ok():
                 return self._send(302, None, {"Location": "/login/canvas"}, raw=b"", ctype="text/html")
             return self._download(int(m.group(1)))
+        if self._path == "/login/session_token":  # token 换浏览器会话：给回「原网址 + session_token」（真 Canvas 也是这样）
+            if self.headers.get("Authorization") != f"Bearer {mock.scenario.token}":
+                return self._send(401, {"status": "unauthenticated", "errors": [{"message": "user authorization required"}]})
+            back = self._q1("return_to") or "/"
+            if urlsplit(back).netloc not in ("", urlsplit(mock.base_url).netloc):
+                return self._error(400, "return_to must be on this domain")
+            sep = "&" if "?" in back else "?"
+            return self._send(200, {"session_url": f"{back}{sep}session_token=mock-session-token", "requires_terms_acceptance": False})
+        m = re.fullmatch(r"/courses/(\d+)/pages/([\w-]+)", self._path)
+        if m:  # Canvas 自己的课程页面（网页，不是接口）：要浏览器会话
+            if self._q1("session_token") == "mock-session-token":
+                rest = [(k, v) for k, v in self._query if k != "session_token"]
+                return self._send(302, None, {"Location": self._path + ("?" + urlencode(rest) if rest else ""),
+                                              "Set-Cookie": f"canvas_session={mock.web_cookie}; Path=/; HttpOnly"},
+                                  raw=b"", ctype="text/html")
+            if not (self._cookie_ok() or f"canvas_session={mock.web_cookie}" in (self.headers.get("Cookie") or "")):
+                return self._send(302, None, {"Location": "/login/canvas"}, raw=b"", ctype="text/html")
+            slug = m.group(2)
+            return self._send(200, None, raw=(f"<!doctype html><title>{slug}</title><h1>{slug.replace('-', ' ').title()}</h1>"
+                                              "<p>Week 9 page: set up the audio effects before Tuesday's class.</p>").encode("utf-8"),
+                              ctype="text/html; charset=utf-8")
+        if self._path == "/lti_launch":  # sessionless_launch 给的一次性链接：带对 verifier 才打开工具页（假的 Zoom 会议列表）
+            if self._q1("verifier") != "mock-verifier":
+                return self._send(302, None, {"Location": "/login/canvas"}, raw=b"", ctype="text/html")
+            tool = self._q1("tool")  # 有的工具页会把凭证回显在自己的链接里
+            return self._send(200, None, raw=("<!doctype html><title>Rich LTI</title><h1>Upcoming Meetings</h1>"
+                                              f"<p>Tool {tool}: Week 9 class on Zoom, Tuesday 4 pm</p>"
+                                              f'<a href="/lti_launch?tool={tool}&verifier=mock-verifier&page=2">More meetings</a> '
+                                              '<a href="https://zoom.example/recordings/week9">Week 9 recording</a>').encode("utf-8"),
+                              ctype="text/html; charset=utf-8")
         if not self._path.startswith("/api/v1/"):
             self._matched = False
             return self._error(404, "The specified resource does not exist.")
@@ -363,6 +409,14 @@ class _Handler(BaseHTTPRequestHandler):
         out.sort(key=lambda c: c.get("last_message_at") or "", reverse=True)
         return self._page(out)
 
+    def r_sessionless_launch(self, cid):
+        """Canvas 的 sessionless_launch：凭 token（或登录）给一个一次性打开外部工具的链接。"""
+        if self._course_or_404(cid) is None:
+            return None
+        tool = self._q1("id") or ("module_item_" + str(self._q1("module_item_id") or ""))
+        return self._send(200, {"id": tool, "name": "Mock Tool",
+                                "url": f"{self.server.mock.base_url}/lti_launch?tool={tool}&verifier=mock-verifier"})
+
     def r_calendar_events(self):
         sc = self.server.mock.scenario
         kind = self._q1("type") or "event"
@@ -406,17 +460,21 @@ _ROUTES = [
     (r"/api/v1/conversations", "conversations"),
     (r"/api/v1/calendar_events", "calendar_events"),
     (r"/api/v1/planner/items", "planner_items"),
+    (r"/api/v1/courses/(\d+)/external_tools/sessionless_launch", "sessionless_launch"),
 ]
 
 
 class MockCanvas:
     """with MockCanvas("au_semester") as mock: ... mock.base_url ... mock.requests()"""
 
-    def __init__(self, scenario, host="127.0.0.1", port=0, session=False):
+    def __init__(self, scenario, host="127.0.0.1", port=0, session=False, sso=None):
         if host not in LOOPBACK:
             raise ValueError("mockcanvas only binds to loopback")
         self.session = session  # True：另外接受浏览器登录（/login/canvas 发 cookie），测登录模式用
         self.session_cookie = uuid.uuid4().hex if session else None
+        self.web_cookie = uuid.uuid4().hex  # session_token 换来的浏览器会话（token 方式读 Canvas 自己的页面）
+        self.sso = sso  # tests/mocksso.MockSSO：登录走学校统一登录
+        self.auto_login = True  # 不走 sso 时：True = 登录页直接发 cookie（当学生登好了）；False = 学校要重新输密码，给表单
         self.logins = 0
         self.scenario = scenario if isinstance(scenario, Scenario) else Scenario(scenario)
         self.host, self.port = host, port

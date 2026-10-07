@@ -519,3 +519,55 @@ def folder_files(html):
         return out
     tree = _first(root, lambda n: _cls(n) & {"foldertree", "filemanager"} or n.get("id").startswith("folder_tree"))
     return [] if tree is not None or _is_page(root, "mod-folder-view") else None
+
+
+def _intro_files(node):
+    """作业说明下挂的附件：pluginfile.php/<ctx>/mod_assign/introattachment/… → [{"id", "name", "url"}]。"""
+    out, seen = [], set()
+    for a in _walk(node):
+        href = a.get("href") if a.tag == "a" else ""
+        if "/pluginfile.php" not in href or ("introattachment" not in href and "/intro/" not in href) or href in seen:
+            continue
+        seen.add(href)
+        name = _line(a) or unquote(urlsplit(href).path.rstrip("/").rsplit("/", 1)[-1])
+        out.append({"id": None, "name": name[:120], "url": href})
+    return out
+
+
+def _rubric(root):
+    """作业页上给学生预览的评分标准（gradingform_rubric）→ [{id, title, long, points, ratings}]；档位按分数从高到低。
+    按 Moodle 的 rubric 渲染标记认：tr.criterion 里 td.description 是评分项，td.level 里 .definition 是档位说明、.score 是分。"""
+    box = _first(root, lambda n: "gradingform_rubric" in _cls(n))
+    if box is None:
+        return []
+    out = []
+    for tr in _walk(box):
+        if tr.tag != "tr" or "criterion" not in _cls(tr):
+            continue
+        desc = _first(tr, lambda n: n.tag == "td" and "description" in _cls(n))
+        title = _line(desc) if desc is not None else ""
+        levels = []
+        for td in _walk(tr):
+            if td.tag != "td" or "level" not in _cls(td):
+                continue
+            d = _first(td, lambda n: "definition" in _cls(n))
+            s = _first(td, lambda n: "score" in _cls(n) or "scorevalue" in _cls(n))
+            pts = _num(_line(s)) if s is not None else None
+            levels.append({"id": td.get("id") or f"l{len(levels)}", "title": _line(d) if d is not None else "", "long": "", "points": pts})
+        if not title or not levels:
+            continue
+        levels.sort(key=lambda r: -(r["points"] if r["points"] is not None else -1))
+        top = max((x["points"] for x in levels if x["points"] is not None), default=None)
+        out.append({"id": tr.get("id") or f"c{len(out)}", "title": title, "long": "", "points": top, "ratings": levels})
+    return out
+
+
+def assign_brief(html):
+    """作业页 → {"brief": 说明文字, "files": 说明附件, "rubric": 评分标准预览（没有就 []）}。不是作业页返回 None。
+    说明在 #intro / .activity-description 里（4.x 是 activity-description，3.x 是 #intro 的 box）。"""
+    root = _parse(html)
+    if _unreadable(root) or not _is_page(root, "mod-assign-view"):
+        return None
+    intro = _first(root, lambda n: n.get("id") == "intro" or "activity-description" in _cls(n))
+    brief = _text(intro) if intro is not None else ""
+    return {"brief": brief, "files": _intro_files(intro) if intro is not None else [], "rubric": _rubric(root)}

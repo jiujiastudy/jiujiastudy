@@ -18,7 +18,7 @@
   - [ ] TH3B-3 交：Homework 8，03-05 周四 23:59，还有 8 天（<CANVAS>/courses/2201/assignments/2201008）
   - [ ] TH3B-4 交：Participation (10%)，Canvas 没写日期（<CANVAS>/courses/2201/assignments/2201012）
 - 公告 02-23 周一 10:00：Midterm 2 room assignments
-- ⚠️ MATH3B 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2201/modules
+- ⚠️ MATH3B 在 Canvas 上没按周排，这周讲什么还没对上。
 
 ### CHEM1A CHEM 1A: General Chemistry（Week 3: Stoichiometry）
 - 上课前要看的：
@@ -33,7 +33,7 @@
 - 与 deadline 相关的事：
   - [ ] RIT2-1 交：Peer Review 2，02-27 周五 23:59，还有 2 天（<CANVAS>/courses/2203/assignments/2203002）
   - [ ] RIT2-2 交：Essay 2: Argument (25%)，03-06 周五 23:59，还有 9 天（<CANVAS>/courses/2203/assignments/2203003）
-- ⚠️ WRIT2 的模块没按周命名，这周看什么请打开课程主页确认：<CANVAS>/courses/2203/modules
+- ⚠️ WRIT2 在 Canvas 上没按周排，这周讲什么还没对上。
 
 ## 这周最要紧的三件事
 1. **[MATH3B] Homework 7** — 02-26 周四 23:59。权重 —，明天 第一步：打开作业页，看一眼提交要求。
@@ -44,12 +44,12 @@
 
 | 日期 | 必做 | 应做 | 状态 |
 |---|---|---|---|
-| 02-23 周一 | 整理这周的笔记，把没看完的补上（第一步：打开本周清单，从第一条没勾的开始；👤） |  | 📦 |
-| 02-24 周二 | 整理这周的笔记，把没看完的补上（第一步：打开本周清单，从第一条没勾的开始；👤） |  | 📦 |
-| 02-25 周三 | MATH3B Homework 7（02-26 周四 23:59）（第一步：打开作业页，看一眼提交要求。；如果今天做不完，明天第一件事继续，不排别的。；👤） | CHEM1A 看课件：CHEM1A Week 3 slides.pdf（40 分钟）；CHEM1A 读：Week 3 reading guide（20 分钟） | 📦 |
+| 02-23 周一 | （没排事） |  | 📦 |
+| 02-24 周二 | （没排事） |  | 📦 |
+| 02-25 周三 | MATH3B Homework 7（02-26 周四 23:59）（第一步：打开作业页，看一眼提交要求。；如果今天做不完，明天第一件事继续，不排别的。；👤） | CHEM1A 看课件：CHEM1A Week 3 slides.pdf（40 分钟） | 📦 |
 | 02-26 周四 | ⏰ 23:59 MATH3B Homework 7 截止 CHEM1A Lab 7 Report（02-27 周五 17:00）（第一步：打开作业页，看文件格式和命名要求。；如果今天做不完，明天第一件事继续，不排别的。；👤） | WRIT2 Peer Review 2（02-27 周五 23:59） | 📦 |
-| 02-27 周五 | ⏰ 17:00 CHEM1A Lab 7 Report 截止 ⏰ 23:59 WRIT2 Peer Review 2 截止 整理这周的笔记，把没看完的补上（第一步：打开本周清单，从第一条没勾的开始；👤） |  | 📦 |
-| 02-28 周六 | 整理这周的笔记，把没看完的补上（第一步：打开本周清单，从第一条没勾的开始；👤） |  | 📦 |
+| 02-27 周五 | ⏰ 17:00 CHEM1A Lab 7 Report 截止 ⏰ 23:59 WRIT2 Peer Review 2 截止 CHEM1A 读：Week 3 reading guide（20 分钟）（第一步：打开页面，读完这一页；20 分钟；👤） |  | 📦 |
+| 02-28 周六 | 建议：今天适合做 MATH3B 的学习页：跟我说「做 MATH3B 这周的学习页」（第一步：跟 AI 说这一句，它在后台做，大约 40 分钟；👤） |  | 📦 |
 | 03-01 周日 | CHEM1A Pre-lab Quiz 8（03-02 周一 08:00）（第一步：打开测验页，看时长、可试次数和开放时间。；如果今天做不完，明天第一件事继续，不排别的。；👤） | 复习 MATH3B：过一周的课件（Midterm 2 还有 7 天）；周日：回我「做完了」，我记进度、排下周。 | 📦 |
 
 ## 未来两周的 deadline

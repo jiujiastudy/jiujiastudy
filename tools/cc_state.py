@@ -7,6 +7,14 @@ import re
 
 from cc_time import parse_date, parse_ts
 
+FILLER = ("整理这周的笔记，把没看完的补上", "收工：回我「做完了」，我来排下周")  # 老版本给空日子塞的句子：旧计划里看到也不算必做
+
+
+def real_must(d):
+    """这一天有没有真的必做：空的日子、「今天适合做 X 的学习页」这种建议、老版本的填空句子都不算。"""
+    m = (d or {}).get("must")
+    return bool(m) and d.get("must_kind") not in ("机械", "空", "建议") and m not in FILLER
+
 LEVELS = ["正常", "落后", "卡住", "过载"]
 MOOD_WORDS = {
     "没状态": "落后", "不想学": "落后", "累": "落后", "疲": "落后", "困": "落后",
@@ -22,6 +30,12 @@ def classify_mood(word):
         if k in w:
             return v
     return "落后"
+
+
+def days_of(r):
+    """还剩几天；没日期算 99。今天到期是 0，不能用 `or 99`（0 会被当成没日期）。"""
+    d = r.get("days_left")
+    return 99 if d is None else d
 
 
 def weight_pct(s):
@@ -43,8 +57,8 @@ def evaluate(ctx, today, plan=None, rows=None):
     unsub = [r for r in rows if r.get("origin") == "canvas" and r.get("status") == "未交"]
     overdue = [r for r in rows if r.get("overdue")]
     soon48 = [r for r in unsub if 0 <= (r.get("days_left") if r.get("days_left") is not None else 99) <= 2]
-    w7 = sum(weight_pct(r.get("weight")) for r in unsub if 0 <= (r.get("days_left") or 99) <= 7)
-    n72 = sum(1 for r in rows if 0 <= (r.get("days_left") or 99) <= 3)
+    w7 = sum(weight_pct(r.get("weight")) for r in unsub if 0 <= days_of(r) <= 7)
+    n72 = sum(1 for r in rows if 0 <= days_of(r) <= 3)
     if w7 >= 40:
         bump("过载", f"7 天内到期的作业合计 {w7:g}% 还没交")
     if n72 >= 3:
@@ -56,13 +70,15 @@ def evaluate(ctx, today, plan=None, rows=None):
     days = (data or {}).get("days") or []
     if days:
         past = [d for d in days if parse_date(d.get("date")) and parse_date(d["date"]) <= today]
-        ticked = sum(1 for d in past if d.get("status") == "✅")
-        musts = sum(1 for d in past if d.get("must"))
+        ticked = sum(1 for d in past if d.get("status") == "✅" and real_must(d))
+        musts = sum(1 for d in past if real_must(d))
         if musts >= 2 and today.weekday() >= 3 and ticked / max(musts, 1) < 0.4:
             bump("落后", f"本周到今天 {musts} 件必做只勾了 {ticked} 件")
         streak = 0
         for d in reversed(past):
-            if d.get("must") and d.get("status") != "✅":
+            if not real_must(d):  # 没排事的日子不打断、也不算
+                continue
+            if d.get("status") != "✅":
                 streak += 1
             else:
                 break
@@ -71,7 +87,7 @@ def evaluate(ctx, today, plan=None, rows=None):
     last_done = parse_ts(state.get("last_done"))
     if last_done and days:
         gap = (today - clock.user_date(last_done)).days
-        if gap > 4 and any(d.get("must") for d in days):
+        if gap > 4 and any(real_must(d) for d in days):
             bump("落后", f"上次打勾是 {gap} 天前")
     if soon48 and level < 1:
         bump("落后", f"48 小时内有 {len(soon48)} 项还没交（{soon48[0].get('course')} {soon48[0].get('item')}）")
@@ -106,8 +122,8 @@ def advise(label, top, exam, plan, today, clock):
     if label == "病了":
         return "先休息。要交的东西去 Canvas 课程页找「Special Consideration」或「Extension」申请，附医生证明；两句话我可以替你起草给老师的消息。"
     if label == "过载":
-        return (f"只留必做，按权重排。今天只做最急的一条的第一步：{top_txt or must or '打开作业页看要求'}，15 分钟就停。" +
-                ("交不完的先发消息问能不能延期，我可以起草两句。" if top else ""))
+        ask = "交不完的先问对方能不能晚几天，我可以起草两句。" if top and top.get("extra") else "交不完的先发消息问能不能延期，我可以起草两句。"
+        return (f"只留必做，按权重排。今天只做最急的一条的第一步：{top_txt or must or '打开作业页看要求'}，15 分钟就停。" + (ask if top else ""))
     if label == "卡住":
         step = first or "打开作业页，把要求抄成三行"
         lead = "今天的必做已经勾了，先歇；明天" if done_today else "现在"
@@ -116,7 +132,7 @@ def advise(label, top, exam, plan, today, clock):
         tail = "今天的必做已经勾了，今天就到这。" if done_today else f"今天先做：{must or top_txt or '打开本周清单看第一项'}。"
         return f"本周清单砍到「上课前要看的」最小集，周末补一件。{tail}"
     if exam and exam.get("days_left") is None:
-        return f"节奏正常。{exam['course']} 有个 {exam['item']} 还没写日期，去公告或课程页确认时间，我记进雷达。"
+        return f"节奏正常。{exam['course']} 有个 {exam['item']} 还没写日期，我去公告和课程页找时间，找到就记进雷达。"
     if exam:
         return f"节奏正常。{exam['course']} 的 {exam['item']}（{exam['when']}）快到了，从今天起每天过一周的课件。"
     if done_today:

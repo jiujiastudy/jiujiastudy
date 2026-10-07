@@ -282,6 +282,10 @@ def deadline_rows(ctx, snap, today, days=14, include_overdue=True, include_undat
     for m in manual:
         rows.append(manual_row(clock, m, now, start, end))
     rows = [r for r in rows if r]
+    codes = {(c.get("code") or "").upper() for c in (getattr(ctx, "cfg", None) or {}).get("courses") or []}
+    for r in rows:  # 课外的事（品牌交稿、比赛截止）：手动记的、不属于任何一门课。照样算进撞车和 72 小时条数，说法不当成课
+        if r.get("origin") == "manual" and (r.get("course") or "").upper() not in codes:
+            r["extra"] = True
     rows.sort(key=lambda r: r["t"])
     return rows
 
@@ -298,4 +302,4 @@ def _moodle_hints(rows, assignments, lbl):
         if m.get("date_from") == "expected" and r.get("date"):
             r.update(pending=True, src=f"{lbl} 预期完成日期（不是硬性截止）")
         if m.get("calendar_empty") and r.get("undated") and r.get("when") == f"{lbl} 没写日期":
-            r["when"] = "日历里没看到日期（可能被过滤）"
+            r["when"] = "日期待确认"  # 日历里一个事件都没有：可能没设日期，也可能被过滤；AI 去读作业页补（cc_gaps）

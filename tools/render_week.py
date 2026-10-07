@@ -60,7 +60,7 @@ def _day_parts(d):
     must, t = _strip_when(d.get("must"), date)
     extra = []
     for f in d.get("fixed") or []:
-        m = re.match(r"\s*(\d{1,2}:\d{2})\s+(.*)$", f or "")
+        m = re.match(r"\s*(\d{1,2}:\d{2}(?:–\d{1,2}:\d{2})?)\s+(.*)$", f or "")
         if not m:
             extra.append((None, f))
             continue
@@ -70,6 +70,23 @@ def _day_parts(d):
         else:
             extra.append((m.group(1), m.group(2)))
     return must, t, extra
+
+
+def _blank(d):
+    """没排事的一天：没有必做、没有定死的时间、没有要做的事、没有有空再做的、不是周日收尾那天。"""
+    return not d.get("must") and not d.get("fixed") and not d.get("todos") and not d.get("should") and not d.get("revise")
+
+
+def _blank_li(group, past):
+    a, b = group[0], group[-1]
+    try:
+        dom = str(int(a["date"][8:10])) + (f"–{int(b['date'][8:10])}" if len(group) > 1 else "")
+    except (KeyError, ValueError):
+        dom = (a.get("date") or "")[5:]
+    wk = (a.get("weekday") or "") + (f"–{b.get('weekday') or ''}" if len(group) > 1 else "")
+    txt = "—" if past else "没排事，留给自己"
+    return (f'<li data-date="{esc(a.get("date"))}"><div class="d">{esc(dom)}<span>{esc(wk)}</span></div>'
+            f'<div><p class="t meta">{txt}</p></div></li>')
 
 
 def _box(tick, label, done, item=False, id_=None):
@@ -91,7 +108,41 @@ def _item_meta(it):
     if it.get("locked"):
         ua = (it.get("unlock_at") or "")[:10]
         return f"未解锁 · {ua[5:]} 开" if ua else "未解锁"
-    return f"{it['minutes']} 分钟" if it.get("minutes") else ""
+    mins = f"{it['minutes']} 分钟" if it.get("minutes") else ""
+    return " · ".join(x for x in (mins, it.get("before_label")) if x)
+
+
+def _hours(m):
+    h, mm = divmod(int(m or 0), 60)
+    return (f"{h} 小时" if h else "") + (f" {mm} 分" if h and mm else f"{mm} 分钟" if mm else "") or "0 分钟"
+
+
+def _learn_card_body(c):
+    """有学习页的课：一句「看完你就」、分几块看（每块能打勾、点标题跳到那一节）、做好后 Canvas 又多了什么。"""
+    L = c["learn"]
+    out = [f'<p class="meta">学习页 · {esc(_hours(L.get("minutes_total")))}'
+           + ("" if L.get("materials_read", True) else " · 这份没读课件") + "</p>",
+           f'<p>看完你就：{rich(L.get("promise"))}</p>']
+    blocks = c.get("before_class") or []
+    if blocks:
+        out.append('<ul class="rows">' + "".join(_item_row(it) for it in blocks) + "</ul>")
+    ch = L.get("changed") or []
+    if ch:
+        shown = "；".join(f'{x["what"]}：{x["title"]}' for x in ch[:3]) + (f" 等 {len(ch)} 样" if len(ch) > 3 else "")
+        out.append(f'<p class="sub">{tag("学习页做好后又有新东西", "warn")}{esc(shown)}。要更新就说「更新 {esc(c.get("code"))} 学习页」。</p>')
+    if L.get("todos_undated"):
+        out.append('<p class="sub meta">要你自己做的：' + "；".join(rich(x) for x in L["todos_undated"]) + "</p>")
+    out.append(f'<p class="sub meta">{link(L.get("page"), "打开学习页")}</p>')
+    return out
+
+
+def _outline_line(c):
+    """模块没按周分的课：照课程说明写这周讲什么。"""
+    ol = c.get("outline") or {}
+    if not ol.get("topic"):
+        return ""
+    zh = f"（{ol['topic_zh']}）" if ol.get("topic_zh") else ""
+    return f'<p class="sub">这周讲：<span lang="en">{esc(ol["topic"])}</span>{esc(zh)}<span class="meta"> · 出自课程说明第 {esc(ol.get("week"))} 周</span></p>'
 
 
 def _item_row(it):
@@ -149,14 +200,21 @@ def render(r, week_no=None, n_courses=None):
     days = r.get("days") or []
     gen = r.get("generated") or ""
     lbl = r.get("platform") or "Canvas"  # 没有这个键就是 Canvas
-    name = f"第 {week_no} 周" if week_no else (r.get("title") or "本周")
+    brk = (r.get("week_source") or st.get("week_source")) == "break"
+    name = r.get("title") if brk else f"第 {week_no} 周" if week_no else (r.get("title") or "本周")
     accs = cc_author.accounts()
     o = [head(f"{brand.NAME} · {name}", r.get("week", "week"), app=brand.SLUG, extra_css=cc_author.css(accs))]
 
     # ---- 页头：周次、时间范围、数据截至、口号、进度
     rng = re.sub(r"\s*周[一二三四五六日]", "", re.sub(r"\s*·\s*\d+\s*门课\s*$", "", r.get("range") or ""))
     meta = [x for x in (rng, r.get("canvas_check"), r.get("tz_note"), "周次是推断的" if inferred else "") if x]
-    o.append(f'<header class="top"><h1>{esc(name)}</h1><p class="meta num">{esc(" · ".join(meta))}</p>'
+    lr = r.get("learn") or {}
+    learn_line = ""
+    if lr.get("courses"):
+        learn_line = (f'<p class="meta">学习页 {len(lr["courses"])} 门，一共 {_hours(lr.get("minutes_total"))}；'
+                      f'这周排进 {_hours(lr.get("scheduled_minutes"))}'
+                      + (f'，先搁着 {_hours(lr.get("parked_minutes"))}' if lr.get("parked_minutes") else "") + "</p>")
+    o.append(f'<header class="top"><h1>{esc(name)}</h1><p class="meta num">{esc(" · ".join(meta))}</p>{learn_line}'
              + (f'<p class="lead">{esc(r["mantra"])}</p>' if r.get("mantra") else "")
              + ('<div class="progress" data-progress><div class="bar"><div class="fill"></div></div><span class="ptxt"></span></div>'
                 '<p class="meta">做完一项就打勾，再回到 AI 对话里说「做完了」（点底部的「复制，发给 AI」粘过去最快），'
@@ -173,7 +231,18 @@ def render(r, week_no=None, n_courses=None):
     today = next((d for d in days if d.get("date") == gen), None)
     same = bool(hero and today and ((hero.get("id") and hero.get("id") == today.get("must_item_id"))
                                     or (_norm(hero.get("title")) and _norm(hero.get("title")) in _norm(today.get("must")))))
-    if today and today.get("must"):
+    tkind = (today or {}).get("must_kind")
+    if today and (not today.get("must") or tkind == "建议"):  # 今天没排必做：说清楚，定死的时间和要做的事照样列
+        _, _, extra = _day_parts(today)
+        head_txt = (f'{tag("建议")}{rich(today["must"])}' if tkind == "建议" else "今天没排事，留给自己。")
+        kick = f"今天 · {gen[5:]} {today.get('weekday') or ''}".rstrip()
+        o.append(f'<section class="card today" data-today="{esc(gen)}"><p class="kicker">{esc(kick)}</p>'
+                 f'<p class="t">{head_txt}</p>'
+                 + "".join(f'<p class="sub meta">{_pill(tm)}{rich(x)}</p>' for tm, x in extra)
+                 + (f'<p class="sub meta">要你做的：{"；".join(rich(x) for x in today["todos"])}</p>' if today.get("todos") else "")
+                 + (f'<p class="sub meta">{rich(today["revise"])}</p>' if today.get("revise") else "")
+                 + "</section>")
+    elif today and today.get("must"):
         must, t, extra = _day_parts(today)
         kick = f"今天 · {gen[5:]} {today.get('weekday') or ''}".rstrip() + (" · 也是本周最要紧的一件" if same else "")
         o.append(f'<section class="card today" data-today="{esc(gen)}"><p class="kicker">{esc(kick)}</p>'
@@ -221,7 +290,18 @@ def render(r, week_no=None, n_courses=None):
     # ---- 每天
     if days:
         o.append('<section><h2>每天</h2><div class="card flush"><ol class="days">')
-        for d in days:
+        i = 0
+        while i < len(days):
+            d = days[i]
+            if _blank(d):  # 连着几天没排事：并成一行；今天以前的只留一道横线
+                past = (d.get("date") or "") < gen
+                j = i
+                while j + 1 < len(days) and _blank(days[j + 1]) and ((days[j + 1].get("date") or "") < gen) == past:
+                    j += 1
+                o.append(_blank_li(days[i:j + 1], past))
+                i = j + 1
+                continue
+            i += 1
             date = d.get("date") or ""
             must, t, extra = _day_parts(d)
             try:
@@ -231,21 +311,38 @@ def render(r, week_no=None, n_courses=None):
             subs = "".join(f'<p class="sub meta">{_pill(tm)}{rich(x)}</p>' for tm, x in extra)
             if d.get("should"):
                 subs += f'<p class="sub meta">有空再做：{"；".join(rich(x) for x in d["should"])}</p>'
+            if d.get("todos"):
+                subs += f'<p class="sub meta">要你做的：{"；".join(rich(x) for x in d["todos"])}</p>'
             if d.get("revise"):
                 subs += f'<p class="sub meta">{rich(d["revise"])}</p>'
+            kind = d.get("must_kind")
+            if not must:
+                head_html = f'<p class="t meta">{_pill(t)}没排必做</p>'
+            elif kind == "建议":
+                head_html = f'<p class="t">{_pill(t)}{tag("建议")}{rich(must)}</p>'
+            else:
+                head_html = f'<label class="must">{_box(date, date[5:], d.get("status") == "✅")}<span class="t">{_pill(t)}{rich(must)}</span></label>'
             o.append(f'<li data-date="{esc(date)}" data-row><div class="d">{esc(dom)}<span>{esc(d.get("weekday"))}</span></div><div>'
-                     f'<label class="must">{_box(date, date[5:], d.get("status") == "✅")}<span class="t">{_pill(t)}{rich(must)}</span></label>'
-                     f"{subs}</div></li>")
+                     f"{head_html}{subs}</div></li>")
         o.append("</ol></div></section>")
 
-    # ---- 每门课这周要学的（deadline 已经在上面，这里不重复）
-    if courses:
-        o.append('<section><h2>这周要学的</h2><div class="courses">')
-        for c in courses:
+    # ---- 每门课这周要学的（deadline 已经在上面，这里不重复；只放考试的站没有卡片）
+    cards = [c for c in courses if not c.get("exam_site")]
+    if cards:
+        sug = (r.get("learn") or {}).get("suggest")
+        lead = (f'<p class="meta">先做哪门的学习页：{esc(sug["course"])}（{esc(sug["why"])}）。跟我说「做 {esc(sug["course"])} 这周的学习页」。</p>'
+                if sug else "")
+        o.append(f'<section><h2>这周要学的</h2>{lead}<div class="courses">')
+        for c in cards:
             ex = c.get("exam") or {}
             exam = tag(f"考试 {str(ex.get('when'))[:5]} · 还有 {ex['days_left']} 天", "hl") if ex.get("when") and ex.get("days_left") is not None else ""
             body = []
-            for lab, key in STUDY_BUCKETS:
+            if c.get("learn"):  # 有学习页：入口代替模块里的「课前看」，要做的小测和讨论照旧列在下面
+                body += _learn_card_body(c)
+                buckets = [x for x in STUDY_BUCKETS if x[1] != "before_class"]
+            else:
+                buckets = STUDY_BUCKETS
+            for lab, key in buckets:
                 items = c.get(key) or []
                 if items:
                     body.append(f'<p class="blabel">{lab}</p><ul class="rows">' + "".join(_item_row(it) for it in items) + "</ul>")
@@ -256,15 +353,26 @@ def render(r, week_no=None, n_courses=None):
                 body.append(f'<details class="fold"><summary>公告 {len(notes)} 条</summary><ul class="plain">'
                             + "".join(f'<li><span class="num">{esc(x.get("when"))}</span> {link(x.get("url"), x.get("title"))}</li>' for x in notes[:5])
                             + "</ul></details>")
-            if c.get("gap"):
+            if c.get("gap") and not c.get("learn"):
                 body.append(f'<p class="sub meta">{rich(c["gap"])}</p>')
+            for line in c.get("external_notes") or []:  # 外部平台这周试过没读到：只说情况
+                body.append(f'<p class="sub meta">{rich(line)}</p>')
+            if c.get("learn_hint") and not c.get("learn"):
+                body.append(f'<p class="sub meta">{rich(c["learn_hint"])}</p>')
+            if c.get("learn_prev"):
+                body.append(f'<p class="sub meta">{link(c["learn_prev"], "上周的学习页")}</p>')
             o.append(f'<article class="card course" data-group><p class="code">{esc(c.get("code"))}{tag("本周完成", "good done-mark")}{exam}</p>'
                      f'<h3>{esc(c.get("name"))}</h3>' + (f'<p class="meta">{esc(c.get("topic"))}</p>' if c.get("topic") else "")
+                     + _outline_line(c)
                      + (f'<p class="meta">课：{rich(c["class"])}</p>' if c.get("class") else "") + "".join(body) + "</article>")
         o.append("</div></section>")
 
     # ---- 很少出现的几块
     parked = _parked(r)
+    lr = r.get("learn") or {}
+    if lr.get("parked_minutes"):
+        o.append(f'<p class="callout">学习页这周有 {esc(_hours(lr["parked_minutes"]))} 排不下（每天最多排 {esc(lr.get("daily_cap"))} 分钟），'
+                 '原因写在「先搁着」里。想多排就跟我说「每天学习页改成 150 分钟」。</p>')
     if parked:
         o.append('<section><h2>先搁着</h2><ul class="plain">'
                  + "".join(f"<li>{esc(p.get('date') or '') if isinstance(p, dict) else ''} {rich(p.get('text') if isinstance(p, dict) else str(p))}</li>"
@@ -301,7 +409,17 @@ def to_markdown(r, week_no=None, generated=None):
             t = st["top_one"]
             L.append(f"本周最要紧的一件：**{t.get('course')} {t.get('title')}**（{t.get('why')}）。第一步：{t.get('first_step')}")
         for c in st["courses"]:
+            if c.get("exam_site"):
+                continue
             L.append(f"\n### {c.get('code')} {c.get('name') or ''}" + (f"（{c['topic']}）" if c.get("topic") else ""))
+            if (c.get("outline") or {}).get("topic"):
+                ol = c["outline"]
+                L.append(f"- 这周讲：{ol['topic']}" + (f"（{ol['topic_zh']}）" if ol.get("topic_zh") else "") + f"（课程说明第 {ol.get('week')} 周）")
+            if c.get("learn"):
+                lw = c["learn"]
+                L.append(f"- 学习页（{_hours(lw.get('minutes_total'))}）：{lw.get('page')}　看完你就：{lw.get('promise')}")
+                for x in (lw.get("changed") or [])[:3]:
+                    L.append(f"- 学习页做好后{x['what']}：{x['title']}")
             for label, key in BUCKETS:
                 items = c.get(key) or []
                 if items:
@@ -322,7 +440,9 @@ def to_markdown(r, week_no=None, generated=None):
         L.append("")
     L += ["## 每天", "", "| 日期 | 必做 | 应做 | 状态 |", "|---|---|---|---|"]
     for d in r.get("days") or []:
-        must = d.get("must") or ""
+        must = d.get("must") or "（没排事）"
+        if d.get("must_kind") == "建议":
+            must = "建议：" + must
         bits = []
         if d.get("must_first_step"):
             bits.append(f"第一步：{d['must_first_step']}")

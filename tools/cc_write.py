@@ -129,7 +129,8 @@ def _write_preview(ctx, api, args, body):
     m = _re.search(r"/courses/(\d+)/discussion_topics/(\d+)/entries(?:/(\d+)/replies)?$", path)
     if path.endswith("/conversations"):
         rec = body.get("recipients") or []
-        p["lines"] = [f"发站内信给：{'、'.join(str(x) for x in rec) or '（没写收件人）'}", f"主题：{body.get('subject') or '（无）'}"]
+        shown = [str(x) for x in rec]
+        p["lines"] = [f"发站内信给：{'、'.join(shown) or '（没写收件人）'}", f"主题：{body.get('subject') or '（无）'}"]
         if not rec:
             p["refuse"] = "站内信没写收件人"
     elif m:
