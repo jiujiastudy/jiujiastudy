@@ -38,12 +38,12 @@
     "date": "2026-03-23",
     "weekday": "周一",
     "fixed": [],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must": "",
+    "must_first_step": null,
     "must_if_then": null,
     "must_minutes": null,
-    "must_kind": "机械",
-    "must_who": "👤",
+    "must_kind": "空",
+    "must_who": null,
     "must_course": null,
     "must_item_id": null,
     "must_url": null,
@@ -55,12 +55,12 @@
     "date": "2026-03-24",
     "weekday": "周二",
     "fixed": [],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must": "",
+    "must_first_step": null,
     "must_if_then": null,
     "must_minutes": null,
-    "must_kind": "机械",
-    "must_who": "👤",
+    "must_kind": "空",
+    "must_who": null,
     "must_course": null,
     "must_item_id": null,
     "must_url": null,
@@ -104,8 +104,8 @@
     "must_item_id": "1205-6",
     "must_url": "<CANVAS>/courses/4401/assignments/4401002",
     "should": [
-     "MA1205 读：第5周 习题说明（20 分钟）",
-     "MA1205 交：作业5（10％）（90 分钟）"
+     "MA1205 交：作业5（10％）（90 分钟）",
+     "C4403 看课件：第5讲 课件.pdf（40 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -116,18 +116,17 @@
     "fixed": [
      "23:59 MA1205 作业5（10％） 截止"
     ],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must": "MA1205 读：第5周 习题说明（20 分钟）",
+    "must_first_step": "打开页面，读完这一页",
     "must_if_then": null,
-    "must_minutes": null,
-    "must_kind": "机械",
+    "must_minutes": 20,
+    "must_kind": "思考",
     "must_who": "👤",
-    "must_course": null,
-    "must_item_id": null,
-    "must_url": null,
+    "must_course": "MA1205",
+    "must_item_id": "1205-2",
+    "must_url": "<CANVAS>/courses/4401/modules/items/44010010",
     "should": [
-     "MA1205 做：小测2（30 分钟）",
-     "3 看课件：Unit 5 课文讲解.pptx（40 分钟）"
+     "MA1205 做：小测2（30 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -146,8 +145,8 @@
     "must_item_id": "3-5",
     "must_url": "<CANVAS>/courses/4402/assignments/4402002",
     "should": [
-     "3 看视频：Unit 5 听力音频（45 分钟）",
-     "C4403 看课件：第5讲 课件.pdf（40 分钟）"
+     "3 看课件：Unit 5 课文讲解.pptx（40 分钟）",
+     "C4403 看视频：第5讲 教学视频（45 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -168,7 +167,7 @@
     "must_item_id": "4403-4",
     "must_url": "<CANVAS>/courses/4403/assignments/4403002",
     "should": [
-     "C4403 看视频：第5讲 教学视频（45 分钟）",
+     "3 看视频：Unit 5 听力音频（45 分钟）",
      "C4403 做：第5讲 课后测验（30 分钟）"
     ],
     "revise": "周日：回我「做完了」，我记进度、排下周。",
@@ -362,7 +361,10 @@
       "title": "小测2",
       "when": "03-26 周四 19:00",
       "days_left": 1
-     }
+     },
+     "learn": null,
+     "learn_prev": null,
+     "learn_hint": "还没有这周的学习页。要的话跟我说「做 MA1205 这周的学习页」，在后台做，大约 40 分钟，不用等。"
     },
     {
      "code": "3",
@@ -514,7 +516,57 @@
       }
      ],
      "gap": null,
-     "exam": null
+     "exam": null,
+     "learn": null,
+     "learn_prev": null,
+     "learn_hint": "还没有这周的学习页。要的话跟我说「做 3 这周的学习页」，在后台做，大约 40 分钟，不用等。",
+     "external": [
+      {
+       "url": "https://video.example/english/unit1",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Unit 1 听力音频",
+       "source": "模块「第二周 Unit 1 Campus Life」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/english/unit2",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Unit 2 听力音频",
+       "source": "模块「第三周 Unit 2 Friendship」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/english/unit3",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Unit 3 听力音频",
+       "source": "模块「第四周 Unit 3 Technology」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/english/unit4",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Unit 4 听力音频",
+       "source": "模块「第五周 Unit 4 Food and Culture」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/english/unit5",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "Unit 5 听力音频",
+       "source": "模块「第六周 Unit 5 Travel」",
+       "week": null,
+       "from_module": true
+      }
+     ]
     },
     {
      "code": "C4403",
@@ -619,7 +671,57 @@
       "title": "第5讲 课后测验",
       "when": "03-31 周二 23:59",
       "days_left": 6
-     }
+     },
+     "learn": null,
+     "learn_prev": null,
+     "learn_hint": "还没有这周的学习页。要的话跟我说「做 C4403 这周的学习页」，在后台做，大约 40 分钟，不用等。",
+     "external": [
+      {
+       "url": "https://video.example/junli/1",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "第1讲 教学视频",
+       "source": "模块「第1讲 中国国防」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/junli/2",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "第2讲 教学视频",
+       "source": "模块「第2讲 国家安全」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/junli/3",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "第3讲 教学视频",
+       "source": "模块「第3讲 军事思想」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/junli/4",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "第4讲 教学视频",
+       "source": "模块「第4讲 现代战争」",
+       "week": null,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/junli/5",
+       "platform": "其他网站：video.example",
+       "kind": "内容",
+       "title": "第5讲 教学视频",
+       "source": "模块「第5讲 信息化装备」",
+       "week": null,
+       "from_module": true
+      }
+     ]
     }
    ],
    "gaps": [],
@@ -748,9 +850,59 @@
     "label": "手动 deadline 与待确认",
     "ref": "state.json"
    }
-  ]
+  ],
+  "learn": {
+   "courses": [],
+   "without": [
+    "MA1205",
+    "3",
+    "C4403"
+   ],
+   "minutes_total": 0,
+   "scheduled_minutes": 0,
+   "parked_minutes": 0,
+   "daily_cap": 120,
+   "suggest": {
+    "course": "MA1205",
+    "why": "小测2 明天截止"
+   },
+   "order": [
+    {
+     "course": "MA1205",
+     "why": "小测2 明天截止"
+    },
+    {
+     "course": "3",
+     "why": "Unit 4 写作任务 还有 4 天截止"
+    },
+    {
+     "course": "C4403",
+     "why": "第5讲 课后测验 还有 6 天截止"
+    }
+   ]
+  }
  },
  "written": "<ARCHIVE>/reports/周报_2026-W13.html",
+ "todo_for_ai": [
+  {
+   "key": "external-scan:MA1205",
+   "course": "MA1205",
+   "text": "MA1205：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external MA1205（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  },
+  {
+   "key": "external-scan:3",
+   "course": "3",
+   "text": "3：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external 3（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  },
+  {
+   "key": "external-scan:C4403",
+   "course": "C4403",
+   "text": "C4403：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external C4403（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  }
+ ],
  "json": "<ARCHIVE>/plans/2026-W13.json",
  "md": "<ARCHIVE>/plans/2026-W13.md",
  "copy": "<ROOT>/本周清单.html"

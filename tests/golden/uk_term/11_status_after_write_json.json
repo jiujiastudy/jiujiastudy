@@ -164,7 +164,6 @@
    "7 天内到期的作业合计 80% 还没交",
    "72 小时内有 3 条 deadline",
    "有 1 项已过期未交（PSY2031 Weekly practice quiz 8）",
-   "连续 3 天有必做没打勾",
    "你 2026-03-17 说过状态不好"
   ],
   "advice": "只留必做，按权重排。今天只做最急的一条的第一步：PSY2031 Weekly practice quiz 8（03-14 周六 01:00，已过 4 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
@@ -174,5 +173,25 @@
    "when": "03-14 周六 01:00"
   }
  },
- "warnings": []
+ "warnings": [],
+ "todo_for_ai": [
+  {
+   "key": "external-scan:HIS2102",
+   "course": "HIS2102",
+   "text": "HIS2102：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external HIS2102（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  },
+  {
+   "key": "external-scan:PSY2031",
+   "course": "PSY2031",
+   "text": "PSY2031：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external PSY2031（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  },
+  {
+   "key": "external-scan:LAW1113",
+   "course": "LAW1113",
+   "text": "LAW1113：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external LAW1113（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  }
+ ]
 }

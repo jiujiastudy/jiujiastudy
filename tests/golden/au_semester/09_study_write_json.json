@@ -38,12 +38,12 @@
     "date": "2026-03-23",
     "weekday": "周一",
     "fixed": [],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must": "",
+    "must_first_step": null,
     "must_if_then": null,
     "must_minutes": null,
-    "must_kind": "机械",
-    "must_who": "👤",
+    "must_kind": "空",
+    "must_who": null,
     "must_course": null,
     "must_item_id": null,
     "must_url": null,
@@ -55,12 +55,12 @@
     "date": "2026-03-24",
     "weekday": "周二",
     "fixed": [],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must": "",
+    "must_first_step": null,
     "must_if_then": null,
     "must_minutes": null,
-    "must_kind": "机械",
-    "must_who": "👤",
+    "must_kind": "空",
+    "must_who": null,
     "must_course": null,
     "must_item_id": null,
     "must_url": null,
@@ -105,7 +105,7 @@
     "must_url": "<CANVAS>/courses/1101/assignments/1101005",
     "should": [
      "PSYC2012 Week 5 discussion post（03-27 周五 20:59）",
-     "ACCT1101 读：Week 5 tutorial questions（20 分钟）"
+     "PSYC2012 读：Week 5 tutorial prep（20 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -117,18 +117,17 @@
      "20:59 ACCT1101 Weekly Quiz 5 截止",
      "20:59 PSYC2012 Week 5 discussion post 截止"
     ],
-    "must": "整理这周的笔记，把没看完的补上",
-    "must_first_step": "打开本周清单，从第一条没勾的开始",
+    "must": "ACCT1101 读：Week 5 tutorial questions（20 分钟）",
+    "must_first_step": "打开页面，读完这一页",
     "must_if_then": null,
-    "must_minutes": null,
-    "must_kind": "机械",
+    "must_minutes": 20,
+    "must_kind": "思考",
     "must_who": "👤",
-    "must_course": null,
-    "must_item_id": null,
-    "must_url": null,
+    "must_course": "ACCT1101",
+    "must_item_id": "1101-2",
+    "must_url": "<CANVAS>/courses/1101/modules/items/11010023",
     "should": [
-     "ACCT1101 看视频：Lecture recording（45 分钟）",
-     "ACCT1101 做：Weekly Quiz 5（30 分钟）"
+     "ACCT1101 看视频：Lecture recording（45 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -148,7 +147,7 @@
     "must_url": "<CANVAS>/courses/1103/assignments/1103002",
     "should": [
      "DSGN3402 Studio pitch (in class)（03-31 周二 课上）",
-     "PSYC2012 读：Week 5 tutorial prep（20 分钟）"
+     "PSYC2012 看视频：Week 5 lecture recording（45 分钟）"
     ],
     "revise": null,
     "status": "📦"
@@ -167,7 +166,7 @@
     "must_item_id": "2012-7",
     "must_url": "<CANVAS>/courses/1102/assignments/1102004",
     "should": [
-     "PSYC2012 看视频：Week 5 lecture recording（45 分钟）",
+     "ACCT1101 做：Weekly Quiz 5（30 分钟）",
      "PSYC2012 发帖：Week 5 discussion post（30 分钟）"
     ],
     "revise": "周日：回我「做完了」，我记进度、排下周。",
@@ -419,7 +418,129 @@
       "title": "Weekly Quiz 4",
       "when": "03-20 周五 20:59",
       "days_left": -5
-     }
+     },
+     "learn": null,
+     "learn_prev": null,
+     "learn_hint": "还没有这周的学习页。要的话跟我说「做 ACCT1101 这周的学习页」，在后台做，大约 40 分钟，不用等。",
+     "external": [
+      {
+       "url": "https://video.example/echo360/acct1101-w1",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 1: Introduction to Accounting」",
+       "week": 1,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w2",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 2: The Accounting Equation」",
+       "week": 2,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w3",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 3: Recording Transactions」",
+       "week": 3,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w4",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 4: Adjusting Entries」",
+       "week": 4,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w5",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 5: Financial Statements」",
+       "week": 5,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w6",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 6: Inventory」",
+       "week": 6,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w7",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 7: Receivables」",
+       "week": 7,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w8",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 8: Non-current Assets」",
+       "week": 8,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w9",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 9: Liabilities」",
+       "week": 9,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w10",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 10: Equity」",
+       "week": 10,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w11",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 11: Cash Flow」",
+       "week": 11,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w12",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 12: Ratio Analysis」",
+       "week": 12,
+       "from_module": true
+      },
+      {
+       "url": "https://video.example/echo360/acct1101-w13",
+       "platform": "Echo360 录播",
+       "kind": "录播",
+       "title": "Lecture recording",
+       "source": "模块「Week 13: Revision」",
+       "week": 13,
+       "from_module": true
+      }
+     ]
     },
     {
      "code": "PSYC2012",
@@ -625,7 +746,129 @@
       "title": "Mid-semester test (20%)",
       "when": "04-01 周三 10:00",
       "days_left": 7
-     }
+     },
+     "learn": null,
+     "learn_prev": null,
+     "learn_hint": "还没有这周的学习页。要的话跟我说「做 PSYC2012 这周的学习页」，在后台做，大约 40 分钟，不用等。",
+     "external": [
+      {
+       "url": "https://youtube.example/watch?v=psyc01",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 1 lecture recording",
+       "source": "模块「Week 1: What is Cognition」",
+       "week": 1,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc02",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 2 lecture recording",
+       "source": "模块「Week 2: Perception」",
+       "week": 2,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc03",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 3 lecture recording",
+       "source": "模块「Week 3: Attention」",
+       "week": 3,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc04",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 4 lecture recording",
+       "source": "模块「Week 4: Short-term Memory」",
+       "week": 4,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc05",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 5 lecture recording",
+       "source": "模块「Week 5: Working Memory」",
+       "week": 5,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc06",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 6 lecture recording",
+       "source": "模块「Week 6: Long-term Memory」",
+       "week": 6,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc07",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 7 lecture recording",
+       "source": "模块「Week 7: Forgetting」",
+       "week": 7,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc08",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 8 lecture recording",
+       "source": "模块「Week 8: Language」",
+       "week": 8,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc09",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 9 lecture recording",
+       "source": "模块「Week 9: Reasoning」",
+       "week": 9,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc10",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 10 lecture recording",
+       "source": "模块「Week 10: Decision Making」",
+       "week": 10,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc11",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 11 lecture recording",
+       "source": "模块「Week 11: Expertise」",
+       "week": 11,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc12",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 12 lecture recording",
+       "source": "模块「Week 12: Cognitive Ageing」",
+       "week": 12,
+       "from_module": true
+      },
+      {
+       "url": "https://youtube.example/watch?v=psyc13",
+       "platform": "其他网站：youtube.example",
+       "kind": "内容",
+       "title": "Week 13 lecture recording",
+       "source": "模块「Week 13: Review」",
+       "week": 13,
+       "from_module": true
+      }
+     ]
     },
     {
      "code": "DSGN3402",
@@ -802,7 +1045,10 @@
       }
      ],
      "gap": null,
-     "exam": null
+     "exam": null,
+     "learn": null,
+     "learn_prev": null,
+     "learn_hint": "还没有这周的学习页。要的话跟我说「做 DSGN3402 这周的学习页」，在后台做，大约 40 分钟，不用等。"
     }
    ],
    "gaps": [],
@@ -1023,9 +1269,65 @@
     "label": "手动 deadline 与待确认",
     "ref": "state.json"
    }
-  ]
+  ],
+  "learn": {
+   "courses": [],
+   "without": [
+    "ACCT1101",
+    "PSYC2012",
+    "DSGN3402"
+   ],
+   "minutes_total": 0,
+   "scheduled_minutes": 0,
+   "parked_minutes": 0,
+   "daily_cap": 120,
+   "suggest": {
+    "course": "PSYC2012",
+    "why": "Lab Report (25%) 明天截止"
+   },
+   "order": [
+    {
+     "course": "PSYC2012",
+     "why": "Lab Report (25%) 明天截止"
+    },
+    {
+     "course": "ACCT1101",
+     "why": "Weekly Quiz 5 还有 2 天截止"
+    },
+    {
+     "course": "DSGN3402",
+     "why": "Prototype critique (15%) 还有 5 天截止"
+    }
+   ]
+  }
  },
  "written": "<ARCHIVE>/reports/周报_2026-W13.html",
+ "todo_for_ai": [
+  {
+   "key": "external-scan:ACCT1101",
+   "course": "ACCT1101",
+   "text": "ACCT1101：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external ACCT1101（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  },
+  {
+   "key": "external-scan:PSYC2012",
+   "course": "PSYC2012",
+   "text": "PSYC2012：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external PSYC2012（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  },
+  {
+   "key": "external:PSYC2012:455423c0c6",
+   "course": "PSYC2012",
+   "text": "PSYC2012：其他网站：youtube.example「Week 5 lecture recording」还没读过（模块「Week 5: Working Memory」）",
+   "cmd": "browse https://youtube.example/watch?v=psyc05 --course PSYC2012"
+  },
+  {
+   "key": "external-scan:DSGN3402",
+   "course": "DSGN3402",
+   "text": "DSGN3402：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external DSGN3402（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  }
+ ],
  "json": "<ARCHIVE>/plans/2026-W13.json",
  "md": "<ARCHIVE>/plans/2026-W13.md",
  "copy": "<ROOT>/本周清单.html"

@@ -17,7 +17,7 @@
 - 页头 `header.top`：h1，一行 `.meta`（时间范围、数据截至、时区），可选一句 `.lead`，可选 `.progress`。
 - 状态条：`status(ev)`，按档位自动是 `.is-good` / `.is-warn` / `.is-bad`。
 - 卡片 `.card`；最要紧的那张加 `.hero`；卡片上方的小标签 `.kicker`；课程代码 `.code`；卡里的补充行 `.sub`。
-- 勾选清单 `ul.rows > li[data-row]`：勾选框 + `.t`（动词 `.v` + 标题链接）+ 右侧小字 `.m`。要记住勾选就给框加 `data-tick="编号"`；计入进度加 `data-item`；底部提示里显示的名字放 `data-label`；档案里已完成的加 `checked data-done`。
+- 勾选清单 `ul.rows > li[data-row]`：勾选框 + `.t`（动词 `.v` + 标题链接）+ 右侧小字 `.m`。要记住勾选就给框加 `data-tick="编号"`；计入进度加 `data-item`；底部提示里显示的名字放 `data-label`；档案里已完成的加 `checked data-done`。`.m` 只放短的（30 分钟、10-07 周三）；一句话以上的说明放进 `.t` 里的 `span.src`（标题下面一行），别在 `li` 里另放一段——中文会被挤成一字一行。
 - deadline 行：`.rows` 里标题前放 `span.rel`（今天、还有 N 天），3 天内加 `.soon`。没有勾选框的清单用 `ul.rows.nobox`。
 - 标签 `tag(文字, 种类)`：warn 待确认，bad 已过期，good 完成，hl 时间点。
 - 提醒块 `.callout`：撞车之类，一页最多一两个。

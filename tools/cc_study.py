@@ -10,9 +10,12 @@ import re
 import cc_collect
 import cc_deadlines
 import cc_digest
+import cc_external
+import cc_learn
+import cc_outline
 import cc_radar
 import cc_state
-from cc_courses import lms_label, lms_of
+from cc_courses import lms_label, lms_of, looks_like_exam_site
 from cc_store import jload, jsave
 from cc_time import monday_of, parse_date, parse_ts
 from mantras import slogan_for
@@ -78,6 +81,10 @@ def current_week(ctx, today, mods_by_course, override=None):
         return int(override), "user"
     term = ctx.cfg.get("term") or {}
     n = ctx.clock.week_no(today)
+    br = ctx.clock.break_range()
+    if br and term.get("week1_monday") and br[0] <= today <= br[1]:
+        # 期中假：排假后第一周的东西（提前准备），不按模块重推，免得把第 1 周改错
+        return ctx.clock.week_no(br[1] + dt.timedelta(days=1)), "break"
     # moodle：建档时按课程开课日定的第 1 周，比按模块名猜可靠（Moodle 的节名常是日期）
     if n and term.get("week1_monday") and term.get("week_source") in ("config", "user", "moodle"):
         return n, term.get("week_source")
@@ -231,20 +238,31 @@ def build(ctx, today, week=None, days=14):
             all_items.append(item)
         notes = [{"when": a["when"], "title": a["title"], "url": a["url"], "gist": a["gist"]} for a in anns if a["course"] == code]
         gap = None
-        if method == "none":
-            mod_url = (f"{cfg.get('canvas_host')}/course/view.php?id={c['id']}" if lms_of(cfg) == "moodle"
-                       else f"{cfg.get('canvas_host')}/courses/{c['id']}/modules")
-            gap = f"{code} 的模块没按周命名，这周看什么请打开课程主页确认：{mod_url}"
-            gaps.append(gap)
+        outline = None
+        exam_site = looks_like_exam_site(c.get("name"))
+        if method == "none" and not exam_site:
+            hit = cc_outline.topic_for(cc_outline.load(ctx.home, code), W)
+            if hit:  # 课程说明里有这周的题目：写出来，不再让学生自己去主页找
+                outline = {"week": W, "topic": hit[0], "topic_zh": hit[1]}
+            else:  # 只说情况，不叫学生去主页看（10-07）；「还差」里有给 AI 的那条去补
+                gap = f"{code} 在 {lms_label(cfg)} 上没按周排，这周讲什么还没对上。"
+                gaps.append(gap)
         exam = (next((x for x in dl if x.get("exam") and x.get("days_left") is not None), None)
                 or next((x for x in dl if x.get("exam")), None))  # 有日期的考试优先
         courses_out.append({"code": code, "name": c.get("name"), "topic": "、".join(sorted({m.get('name') for m, _ in picked if m.get('name')}))[:80] or None,
                             "detect": method, "class": c.get("class"), "weekday": c.get("weekday"),
                             "before_class": before, "todo": todo, "deadline_related": dl, "notes": notes, "gap": gap,
                             "exam": ({"title": exam["title"], "when": exam["when"], "days_left": exam.get("days_left")} if exam else None)})
+        if outline:
+            courses_out[-1]["outline"] = outline
+        if exam_site:  # 只放考试的站：考试时间照样排进每天和雷达，但没有「这周要学的」卡片
+            courses_out[-1]["exam_site"] = True
 
+    suggestion = attach_learn(ctx, today, monday, iso, courses_out, mods, rows)
+    attach_external(ctx, courses_out, mods, W)
+    all_items = [it for c in courses_out for k in ("before_class", "todo", "deadline_related") for it in c[k]]
     top_one = pick_top(courses_out)
-    days_out = schedule_days(ctx, today, monday, courses_out, rows)
+    days_out = schedule_days(ctx, today, monday, courses_out, rows, suggestion)
     ev = cc_state.evaluate(ctx, today, None, rows)
     clash = cc_radar.clashes(rows)
     clash_txt = ""
@@ -253,8 +271,8 @@ def build(ctx, today, week=None, days=14):
         clash_txt = f"撞车：{clock.fmt_date(g[0]['date'])} 至 {clock.fmt_date(g[-1]['date'])}，" + "、".join(f"{x['course']} {x['item']}（{x['weight']}）" for x in g) + "。"
     review = last_week_review(ctx, monday)
     plan = {
-        "week": iso, "week_no": W, "week_source": wsrc, "title": f"第 {W} 周" if W else "本周",
-        "range": f"{clock.fmt_date(monday)} 至 {clock.fmt_date(sunday)} · {len(courses_out)} 门课",
+        "week": iso, "week_no": W, "week_source": wsrc, "title": (f"期中假（假后是第 {W} 周）" if wsrc == "break" else f"第 {W} 周" if W else "本周"),
+        "range": f"{clock.fmt_date(monday)} 至 {clock.fmt_date(sunday)} · {len([c for c in courses_out if not c.get('exam_site')])} 门课",
         "tz_note": clock.tz_note(today), "generated": today.isoformat(), "generated_by": "study",
         "canvas_check": (f"数据截至 {clock.fmt(parse_ts(snap.get('collected_at')))}" if snap.get("collected_at") else f"还没采集过 {lms_label(cfg)}"),
         "mantra": slogan_for(iso),
@@ -262,7 +280,7 @@ def build(ctx, today, week=None, days=14):
                   "first_step": top_one.get("first_step") or ""}] if top_one else []) + [
             {"course": r["course"], "title": r["item"], "when": f"{r['when']}{'，' + r['rel'] if r['rel'] else ''}",
              "why": f"权重 {r['weight']}，{r['status']}", "first_step": cc_radar.first_step_for(r, lms_label(cfg))}
-            for r in rows if not r.get("overdue") and (r.get("days_left") or 99) <= 7 and not (top_one and r["item"] == top_one["title"])][:2],
+            for r in rows if not r.get("overdue") and cc_state.days_of(r) <= 7 and not (top_one and r["item"] == top_one["title"])][:2],
         "days": days_out,
         "study": {"week": iso, "week_no": W, "week_source": wsrc, "top_one": top_one, "courses": courses_out, "gaps": gaps,
                   "items_total": len(all_items), "minutes_total": sum(i.get("minutes") or 0 for i in all_items)},
@@ -273,9 +291,73 @@ def build(ctx, today, week=None, days=14):
         "sources": [{"label": f"{lms_label(cfg)} 快照", "ref": "raw/daily/snapshot.json"}, {"label": "模块列表", "ref": "raw/daily/<日期>/modules_<课程id>.json"},
                     {"label": "手动 deadline 与待确认", "ref": "state.json"}],
     }
+    with_l = [c for c in courses_out if c.get("learn")]
+    ls = getattr(schedule_days, "learn", None) or {}
+    plan["learn"] = {"courses": [c["code"] for c in with_l], "without": [c["code"] for c in courses_out if not c.get("learn")],
+                     "minutes_total": sum(c["learn"]["minutes_total"] for c in with_l),
+                     "scheduled_minutes": ls.get("scheduled", 0), "parked_minutes": sum(x["minutes"] for x in ls.get("parked") or []),
+                     "daily_cap": ls.get("cap"), "suggest": suggestion,
+                     "order": cc_learn.learn_order(courses_out, rows)}  # /jj-learn 不说哪门就照这个顺序全做
     if lms_of(cfg) == "moodle":  # 周报页面上的平台名；Canvas 档案不加这个键，输出不变
         plan["platform"] = lms_label(cfg)
     return plan
+
+
+def attach_external(ctx, courses_out, mods, week=None):
+    """每门课的外部平台保底清单（已采集的模块、公告、作业说明，加上 external 查过的导航栏和课程页面）和课程卡上的情况句
+    （试过没读到的作业通知类平台）。"""
+    now = ctx.clock.now_utc()
+    anns = cc_learn.latest_raw(ctx.home, "announcements.json") or []
+    by_code = {c["code"]: c for c in ctx.cfg.get("courses") or []}
+    for c in courses_out:
+        if c.get("exam_site"):
+            continue
+        links = cc_external.course_links(ctx, by_code.get(c["code"]) or {"code": c["code"]}, week, now, mods=mods, anns=anns)[0]
+        if links:
+            c["external"] = links
+        notes = cc_external.situation_lines(ctx.home, c["code"], now)
+        if notes:
+            c["external_notes"] = notes
+
+
+def attach_learn(ctx, today, monday, iso, courses_out, mods, rows):
+    """有这周学习页清单的课：学习页的阅读块代替模块里的「课前看」，带上上课时间、要学生做的事、做好后 Canvas 又多了什么。
+    没有清单（或清单坏了、学习页文件不在了）的课照旧，只多一句怎么要学习页。返回「先做哪门」的推荐（两门以上没有时才有）。"""
+    prev = monday - dt.timedelta(days=7)
+    prev_iso = f"{prev.isocalendar()[0]}-W{prev.isocalendar()[1]:02d}"
+    info = cc_learn.load_week(ctx.home, iso, prev_iso, [c["code"] for c in courses_out])
+    ids = {c["code"]: c.get("id") for c in ctx.cfg.get("courses") or []}
+    anns = None
+    for c in courses_out:
+        got = info.get(c["code"]) or {}
+        m = got.get("m")
+        c["learn"] = None
+        c["learn_prev"] = cc_learn.page_url(got["prev"]["page"]) if got.get("prev") else None
+        if got.get("problems"):
+            c["learn_problems"] = got["problems"]
+        if not m:
+            if not c.get("exam_site") and any(c.get(k) for k in ("before_class", "todo", "deadline_related")):  # 这周什么都没有的课、考试站不提
+                c["learn_hint"] = cc_learn.HINT.format(code=c["code"])
+            continue
+        if anns is None:
+            anns = cc_learn.latest_raw(ctx.home, "announcements.json") or []
+        n = max([int(it["id"].rsplit("-", 1)[1]) for k in ("before_class", "todo", "deadline_related") for it in c[k]] or [0])
+        blocks = []
+        for b in m["blocks"]:
+            n += 1
+            blocks.append({"id": f"{c['code'][-4:]}-{n}", "course": c["code"], "title": f"学习页：{b['label']}", "kind": "Learn",
+                           "kind_zh": "学习页", "verb": "看", "url": cc_learn.page_url(m["page"], b.get("anchor")), "module": None,
+                           "minutes": b["minutes"], "minutes_src": "学习页", "first_step": "打开学习页，点这一块的标题直接跳到那一节",
+                           "source": "学习页", "locked": False, "unlock_at": None, "status": "📦",
+                           "before": b.get("before"), "after": b.get("after"), "before_label": b.get("before_label")})
+        dated, undated = cc_learn.todos_split(m, c["code"], today, monday, ctx.clock)
+        c["before_class"] = blocks  # 这周模块里要看的东西，学习页已经逐份讲过了
+        c["learn"] = {"page": cc_learn.page_url(m["page"]), "promise": m["promise"], "minutes_total": m["minutes_total"],
+                      "materials_read": m.get("materials_read", True), "made_at": m.get("made_at"),
+                      "changed": cc_learn.what_changed(m, mods.get(c["code"]), anns, ids.get(c["code"])),
+                      "sessions": [[d.isoformat(), t] for d, t in cc_learn.sessions_fixed(m, c["code"], ctx.clock)],
+                      "todos": [[d.isoformat(), t] for d, t in dated], "todos_undated": undated}
+    return cc_learn.suggest_first(courses_out, rows, today)
 
 
 def pick_top(courses_out):
@@ -292,7 +374,7 @@ def pick_top(courses_out):
             if it["kind"] in ("Quiz", "Discussion"):
                 cands.append((2, 0, 0, it))
     if not cands:
-        for c in sorted(courses_out, key=lambda x: min([i.get("days_left") or 99 for i in x["deadline_related"]] or [99])):
+        for c in sorted(courses_out, key=lambda x: min([cc_state.days_of(i) for i in x["deadline_related"]] or [99])):
             if c["before_class"]:
                 it = c["before_class"][0]
                 cands.append((3, 0, 0, it))
@@ -306,8 +388,15 @@ def pick_top(courses_out):
             "first_step": it.get("first_step"), "url": it.get("url"), "kind": it["kind"]}
 
 
-def schedule_days(ctx, today, monday, courses_out, rows):
-    """排天：deadline 前 1–2 天必做；核心课件排上课日前一天（不知道就周一到周四轮流）；其余应做 ≤2；周日收工。"""
+def _hhmm(f):
+    """「09:00–12:00 …」「23:59 … 截止」开头的钟点，用来给一天里的固定时间排序；没写钟点的排最后。"""
+    m = re.match(r"\s*(\d{1,2}):(\d{2})", f or "")
+    return (int(m.group(1)), int(m.group(2))) if m else (99, 99)
+
+
+def schedule_days(ctx, today, monday, courses_out, rows, suggestion=None):
+    """排天：deadline 前 1–2 天必做；核心课件排上课日前一天（不知道就周一到周四轮流）；其余应做 ≤2。
+    空出来的日子先把真有的事提上来，再给一天放「今天适合做 X 的学习页」，其余留空（没排事，不算必做）。"""
     cfg = ctx.cfg
     lead = (cfg.get("study") or {}).get("lead_days") or {"heavy": 2, "light": 1}
     max_should = (cfg.get("study") or {}).get("max_should", 2)
@@ -319,6 +408,8 @@ def schedule_days(ctx, today, monday, courses_out, rows):
                      "must_course": None, "must_item_id": None, "must_url": None, "should": [], "revise": None, "status": "📦"})
     by_date = {d["date"]: d for d in days}
     placed = set()
+    should_items = {}  # 应做那一行的文字 → 条目：空日子把它提成必做时，第一步、时长、链接都带上
+    movable = []       # 先搁着里没有截止约束的（模块条目、小测）：空日子可以挪过去
 
     def put_must(d, text, item, kind, who, if_then=None):
         if item.get("id") in placed:
@@ -326,6 +417,7 @@ def schedule_days(ctx, today, monday, courses_out, rows):
         if d["must"]:
             if len(d["should"]) < max_should:
                 d["should"].append(text)
+                should_items[text] = item
                 placed.add(item.get("id"))
             return False
         placed.add(item.get("id"))
@@ -362,6 +454,58 @@ def schedule_days(ctx, today, monday, courses_out, rows):
                 put_must(by_date[d.isoformat()], f"复习 {c['code']}：过一周的课件（{ex['title']} {ex.get('rel') or ''}）",
                          {"first_step": "打开这门课的模块列表，从最早的一周开始，只看标题和小结页", "minutes": 60, "course": c["code"], "id": ex["id"], "url": ex.get("url")},
                          "思考", "👤", "如果一天看不完一周，就只看每周的第一份课件。")
+    # 3a. 学习页：上课时间进 fixed，带日期的事挂在那天；阅读块照「在哪节课之前」排进某天，每天最多 daily_minutes 分钟
+    sunday = monday + dt.timedelta(days=6)
+    cap = int((cfg.get("study") or {}).get("daily_minutes") or 120)
+    used = {d["date"]: 0 for d in days}
+    learn_parked, scheduled = [], 0
+    timed = set()
+    for c in courses_out:
+        for ds, text in (c.get("learn") or {}).get("sessions") or []:
+            if ds in by_date:
+                by_date[ds]["fixed"].append(text)
+                timed.add(ds)
+        for ds, text in (c.get("learn") or {}).get("todos") or []:
+            if ds in by_date:
+                by_date[ds].setdefault("todos", []).append(text)
+    for ds in timed:  # 加了上课时间的那几天按钟点排一下；别的天保持原样
+        by_date[ds]["fixed"].sort(key=_hhmm)
+    blocks = [(it, c) for c in courses_out if c.get("learn") for it in c["before_class"] if it.get("kind") == "Learn"]
+
+    def last_ok(it):
+        return cc_learn.latest_day(it.get("before"), ctx.clock) or sunday
+
+    for it, c in sorted(blocks, key=lambda x: (last_ok(x[0]), x[0]["id"])):
+        lo = max(today, monday, cc_learn.earliest_day(it.get("after"), ctx.clock) or monday)
+        hi = min(last_ok(it), sunday)
+        late = hi < lo
+        if late:
+            hi = lo  # 建议的时间已经过了：排最早能看的那天，写明是补的
+        text = (f"{c['code']} {it['title']}（{it['minutes']} 分钟" + (f"，{it['before_label']}" if it.get("before_label") else "")
+                + ("，原定时间已过，能补就补" if late else "") + "）")
+        cands = [d for d in days if lo <= parse_date(d["date"]) <= hi]
+        fits = [d for d in cands if used[d["date"]] + it["minutes"] <= cap and (not d["must"] or len(d["should"]) < max_should)]
+        placed.add(it["id"])
+        if not fits:
+            real = cc_learn.latest_day(it.get("before"), ctx.clock)
+            if real and real > sunday:
+                why = f"这周每天都排满了；它{it.get('before_label') or '在截止前'}看完就行，下周初再看"
+            elif cands:
+                why = f"到 {hi.month:02d}-{hi.day:02d} 前每天的学习页已经排满 {cap} 分钟，或者那几天的事已经排满"
+            else:
+                why = "这周已经没有能排的日子"
+            learn_parked.append({"date": (hi if cands else sunday).isoformat(), "text": f"{text}——{why}", "minutes": it["minutes"], "course": c["code"]})
+            continue
+        d = min(fits, key=lambda x: (used[x["date"]], x["date"]))
+        used[d["date"]] += it["minutes"]
+        scheduled += it["minutes"]
+        placed.discard(it["id"])
+        put_must(d, text, it, "思考", "👤", "如果看不完，先看这一块的第一节，剩下的挪到明天。")
+        if it["id"] not in placed:  # 必做已经有了、应做也满了（理论上 fits 已经排除）：照放进应做
+            d["should"].append(text)
+            should_items[text] = it
+            placed.add(it["id"])
+    schedule_days.learn = {"cap": cap, "scheduled": scheduled, "parked": learn_parked}
     # 3. 核心课件：上课日前一天，或周一到周四轮流
     slot = 0
     for c in courses_out:
@@ -388,21 +532,41 @@ def schedule_days(ctx, today, monday, courses_out, rows):
             placed.add(it["id"])
             text = f"{c['code']} {it['verb']}：{it['title']}（{it['minutes']} 分钟）" if it.get("minutes") else f"{c['code']} {it['verb']}：{it['title']}"
             found_slot = False
-            for d in days:
-                if parse_date(d["date"]) < today:
-                    continue
-                if len(d["should"]) < max_should:
-                    d["should"].append(text)
-                    found_slot = True
-                    break
+            # 放到事最少的那天（必做算一件），一样少就放早的：一周里每天都有一件真事，不让后几天空着、前几天挤着
+            open_days = [d for d in days if parse_date(d["date"]) >= today and len(d["should"]) < max_should]
+            if open_days:
+                d = min(open_days, key=lambda x: ((1 if x["must"] else 0) + len(x["should"]), x["date"]))
+                d["should"].append(text)
+                should_items[text] = it
+                found_slot = True
             if not found_slot:
                 parking.append({"date": (monday + dt.timedelta(days=6)).isoformat(), "text": text})
+                movable.append((text, it))
+    parking += [{"date": p["date"], "text": p["text"]} for p in learn_parked]
+    # 5. 空出来的日子（今天及以后）：先把这天「有空再做」的第一件提成必做，再从先搁着里挪一件；还空，就给第一个空日子
+    #    放「今天适合做 X 的学习页」（建议，不算必做）；其余留空：没排事，留给自己（不算必做、不打勾）。今天以前的日子不补。
+    suggested = False
     for d in days:
-        if not d["must"]:
-            d["must"] = "整理这周的笔记，把没看完的补上" if d["weekday"] != "周日" else "收工：回我「做完了」，我来排下周"
-            d["must_kind"] = "机械"
-            d["must_who"] = "👤"
-            d["must_first_step"] = "打开本周清单，从第一条没勾的开始"
+        if d["must"]:
+            continue
+        future = parse_date(d["date"]) >= today
+        text, it = None, {}
+        if future and d["should"]:
+            text = d["should"].pop(0)
+            it = should_items.get(text) or {}
+        elif future and movable:
+            text, it = movable.pop(0)
+            parking[:] = [p for p in parking if p.get("text") != text]
+        if text:
+            d.update({"must": text, "must_first_step": it.get("first_step"), "must_minutes": it.get("minutes"), "must_kind": "思考",
+                      "must_who": "👤", "must_course": it.get("course"), "must_item_id": it.get("id"), "must_url": it.get("url")})
+        elif future and suggestion and not suggested:
+            suggested = True
+            code = suggestion["course"]
+            d.update({"must": f"今天适合做 {code} 的学习页：跟我说「做 {code} 这周的学习页」", "must_kind": "建议", "must_who": "👤",
+                      "must_course": code, "must_first_step": "跟 AI 说这一句，它在后台做，大约 40 分钟"})
+        else:
+            d.update({"must": "", "must_kind": "空"})
     days[-1]["revise"] = "周日：回我「做完了」，我记进度、排下周。"
     schedule_days.parking = parking
     return days
@@ -414,8 +578,8 @@ def last_week_review(ctx, monday):
     if not data:
         return ""
     days = data.get("days") or []
-    done = sum(1 for d in days if d.get("status") == "✅")
-    musts = [d for d in days if d.get("must")]
+    musts = [d for d in days if cc_state.real_must(d)]  # 没排事的日子、建议、老版本的填空句子都不算必做
+    done = sum(1 for d in musts if d.get("status") == "✅")
     left = [d for d in musts if d.get("status") != "✅"]
     if not musts:
         return ""
@@ -483,6 +647,8 @@ def to_text(plan):
         t = s["top_one"]
         L.append(f"本周最要紧的一件：{t['course']} {t['title']}（{t.get('why')}）。第一步：{t.get('first_step')}")
     for c in s["courses"]:
+        if c.get("exam_site"):  # 只放考试的站：考试时间在每天和雷达里
+            continue
         L.append(f"\n## {c['code']} {c.get('name') or ''}（识别：{c['detect']}）")
         for label, key in (("上课前要看的", "before_class"), ("要做的练习或小测", "todo"), ("与 deadline 相关的事", "deadline_related")):
             items = c[key]
@@ -498,7 +664,7 @@ def to_text(plan):
             L.append(f"- ⚠️ {c['gap']}")
     L.append("\n## 每天")
     for d in plan["days"]:
-        L.append(f"- {d['date'][5:]} {d['weekday']}：必做 {d['must']}" + (f"（第一步：{d['must_first_step']}）" if d.get("must_first_step") else "")
+        L.append(f"- {d['date'][5:]} {d['weekday']}：必做 {d['must'] or '（没排事）'}" + (f"（第一步：{d['must_first_step']}）" if d.get("must_first_step") else "")
                  + (f"；应做 {'；'.join(d['should'])}" if d.get("should") else "") + f" [{d['status']}]")
     if plan.get("review"):
         L.append("\n" + plan["review"])

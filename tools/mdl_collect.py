@@ -10,6 +10,7 @@ import hashlib
 import html as html_mod
 import json
 import re
+import urllib.error
 
 import mdl_pages
 from cc_courses import course_code_of, course_pairs, in_current_term, looks_like_non_course
@@ -39,6 +40,7 @@ PART_LABEL = {"closesubmission": "提交", "closeassessment": "互评"}  # works
 EXAM_RE = re.compile(r"(?i)\b(exam|test|quiz|midterm|final)\b|考试|测验|小测")
 OLD_DAYS = 21  # 截止过了这么久、已经读过页面的，不再每次去读
 TERM_AFTER = 30  # 结课日后多少天仍算在读：Moodle 的 enddate 常设在最后一个教学周，考试周在后面
+TERM_SPAN = 380  # 拿来推学期的课：一年内开课、开课到结课不超过一年（全年课也算）
 
 
 class CalendarMissing(Exception):
@@ -385,12 +387,28 @@ def _modules(api, run, errors, code, st, host, files):
 
 
 # ---------------------------------------------------------------- 页面：成绩、作业、测验、课程页
+GRADES_CLOSED = object()
+
+
+def _grade_page(api, cid):
+    """成绩页；老师没对学生开放（403 / 404）时返回 GRADES_CLOSED。
+    10-07 演示站：一门课的成绩页 404，原来按「课程级 404」报成「这门课打不开了（可能退课）」。"""
+    try:
+        return api.page(f"/grade/report/user/index.php?id={cid}")
+    except urllib.error.HTTPError as e:
+        if e.code in (403, 404):
+            return GRADES_CLOSED
+        raise
+
+
 def _grades(api, run, errors, code, cid, cache, quick):
     """成绩页 → 成绩项；读不到或读不懂时沿用上次读到的（并点名），quick 直接用上次的。"""
     key, old = str(cid), cache["grades"].get(str(cid))
     if quick:
         return old
-    html = run(f"{code} 成绩页", lambda: api.page(f"/grade/report/user/index.php?id={cid}"), course=code, kind="modules")
+    html = run(f"{code} 成绩页", lambda: _grade_page(api, cid), course=code, kind="modules")
+    if html is GRADES_CLOSED:  # 这门课的成绩页不对学生开放：不是退课，满分和权重用上次读到的（没有就不写）
+        return old
     items = mdl_pages.grade_items(html) if html is not None else None
     if items is None:
         if html is not None:  # 200 但没有成绩表：重算中、课程被隐藏或没权限，不是「没有计分项」
@@ -661,13 +679,13 @@ def _n_work(cms):
 
 
 def _empty_calendar_notes(empty, checked):
-    """课里有作业测验、日历里这门课却一个事件都没有：多半是学生在日历里关掉了「课程事件」，
-    日历接口会静默少给。点名说，别让学生以为老师没写日期。所有课都这样时合成一条。"""
-    fix = "这些日期先标待确认；到 Moodle 日历把「课程事件」打开就能读到"
+    """课里有作业测验、日历里这门课却一个事件都没有：可能老师没设截止日期，也可能学生在日历里关掉了「课程事件」
+    （日历接口会静默少给）。给 AI 的：日期先标待确认，AI 去读作业页、测验页补上；不叫学生去改设置。所有课都这样时合成一条。"""
+    fix = ("多半是老师没设截止日期，也可能是日历里的「课程事件」被关了。这些日期先标待确认；"
+           "AI 去读作业页、测验页（页头写着 Due / Closes 日期）补上，不叫学生去改设置")
     if len(empty) > 1 and len(empty) == checked:
-        return [f"每门课的 Moodle 日历都是空的，但课里有作业/测验：可能在日历里关掉了「课程事件」。{fix}"]
-    return [f"{code}：课里有 {n} 个作业/测验，但 Moodle 日历里这门课一个事件都没有（可能在日历里关掉了「课程事件」）。{fix}"
-            for code, n in empty]
+        return [f"每门课的 Moodle 日历都是空的，但课里有作业/测验。{fix}"]
+    return [f"{code}：课里有 {n} 个作业/测验，但 Moodle 日历里这门课一个事件都没有。{fix}" for code, n in empty]
 
 
 def fetch(ctx, api, courses, date, quick, run, errors):
@@ -738,6 +756,16 @@ def _zone(tz, api):
     return "UTC", "默认"
 
 
+def _plausible_term(start, end, today):
+    """这门课的起止日期能不能拿来推学期：一年内开的课，开课到结课不超过一年。
+    10-07 Moodle 官方演示站：几门常设课 2009 年开课、2028 年结课，学期被推成十九年，周报写「第 917 周」。"""
+    if start and (today - start).days > TERM_SPAN:
+        return False
+    if start and end and (end - start).days > TERM_SPAN:
+        return False
+    return bool(start or end)
+
+
 def bootstrap(home, host, api, me, all_courses=False, tz=None):
     """在读课程 → 和 Canvas 版同形状的 config（lms=moodle）。学期取在读课程起止日期的最早/最晚。
     课程拿全部（连仪表盘上隐藏的），在读与否自己按日期筛：inprogress 在结课日一过就不列了，
@@ -764,9 +792,11 @@ def bootstrap(home, host, api, me, all_courses=False, tz=None):
             hidden.append(label)
         courses.append({"id": c.get("id"), "code": _unique(course_code_of(o), codes), "name": o["name"],
                         "section": None, "weekday": None})
-        for v, acc in ((c.get("startdate"), starts), (c.get("enddate"), ends)):
-            if _int(v):
-                acc.append(dt.datetime.fromtimestamp(_int(v), UTC).astimezone(zone).date())
+        s, e = (dt.datetime.fromtimestamp(_int(v), UTC).astimezone(zone).date() if _int(v) else None
+                for v in (c.get("startdate"), c.get("enddate")))
+        if _plausible_term(s, e, today):  # 常年开着的课（2009 年开、2028 年结）照样跟踪，但不拿来推学期
+            starts += [s] if s else []
+            ends += [e] if e else []
     start, end = (min(starts) if starts else None), (max(ends) if ends else None)
     notes = []
     if skipped:

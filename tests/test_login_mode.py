@@ -206,14 +206,22 @@ class RealBrowser(unittest.TestCase):
             api.close()
             self.assertEqual(1, mock.logins, "没过期就不该再登录")
 
+            mock.expire_session()  # 学校还记得（登录页直接发 cookie）：后台自己重进，不开窗口
+            api = cc_session.SessionCanvas(base, home)
+            self.assertEqual("Test Student", api.get("/api/v1/users/self")["name"])
+            api.close()
+            self.assertEqual(2, mock.logins)
+
             mock.expire_session()
+            mock.auto_login = False  # 学校要重新输密码了：这时才报「重新登录」
             api = cc_session.SessionCanvas(base, home)
             with self.assertRaises(CanvasAuthError):
                 api.get("/api/v1/users/self")
             api.close()
 
+            mock.auto_login = True  # 学生在窗口里登好
             self.assertEqual("done", cc_session.start_login(home, base, wait=60)["state"])
-            self.assertEqual(2, mock.logins)
+            self.assertEqual(3, mock.logins)
             self.assertEqual("ok", cc_session.check(home)["state"])
             self.assertTrue(cc_session.forget(home))
             self.assertFalse(cc_session.has_login(home))

@@ -7,6 +7,7 @@
   环境变量 {PREFIX}_MOODLE_TRANSPORT=urllib 时用 UrllibTransport（离线测试对着本机假 Moodle）。
 """
 import email.message
+import functools
 import http.cookiejar
 import io
 import json
@@ -46,6 +47,25 @@ class MoodleError(CanvasError):
 def _relogin():
     import cc_session
     return CanvasAuthError(cc_session.RELOGIN)
+
+
+def _relogin_once(fn):
+    """会话过期：先在后台走一遍学校登录（只有浏览器传输层会），学校还记得就再来一次，学生什么都不用做；
+    学校要重新输密码，照旧报「重新登录」。一个客户端只试一次。"""
+    @functools.wraps(fn)
+    def run(self, *a, **kw):
+        try:
+            return fn(self, *a, **kw)
+        except CanvasAuthError:
+            redo = getattr(self.transport, "relogin", None)
+            if self._relogged or redo is None:
+                raise
+            self._relogged = True
+            if not redo(self.host):
+                raise
+            self._sesskey, self.site = None, None
+            return fn(self, *a, **kw)
+    return run
 
 
 def normalize_host(host):
@@ -252,6 +272,17 @@ class PlaywrightTransport:
     def post(self, url, body, headers=None):
         return self._call(self._request().post, url, headers=headers or {}, data=body, max_redirects=0)
 
+    def relogin(self, host, lms="moodle"):
+        """会话过期时在后台走一遍学校登录（不开窗口）：学校还记得就 True。别人的浏览器上下文（登录窗口里的）不碰。"""
+        if not self._own:
+            return False
+        try:
+            self._request()
+        except Exception:  # noqa: BLE001
+            return False
+        import cc_session
+        return cc_session.silent_relogin(self._ctx, self.home, host, lms)
+
     def _stop(self):
         if self._pw is not None:
             try:
@@ -265,8 +296,8 @@ class PlaywrightTransport:
             return
         if self._ctx is not None:
             import cc_session
-            if self.host and self.home:  # 按「站点根/」取：装在子目录里时会话 cookie 的路径是 /moodle/
-                cc_session._save_cookies(self._ctx, self.home, self.host.rstrip("/") + "/")
+            if self.home:  # 全部网站的登录记录一起存（Moodle、学校统一登录）：过期了能在后台自己重进
+                cc_session._save_cookies(self._ctx, self.home)
             try:
                 self._ctx.close()
             except Exception:  # noqa: BLE001
@@ -298,6 +329,7 @@ class MoodleClient:
         if getattr(self.transport, "host", "") is None:
             self.transport.host = self.host
         self.site = None       # 上次读到的 M.cfg
+        self._relogged = False  # 后台重进过一次了：再过期就直接报「重新登录」
         self._sesskey = None
 
     # ---- 地址
@@ -410,12 +442,14 @@ class MoodleClient:
             self._load_cfg()
         return self._sesskey
 
+    @_relogin_once
     def whoami(self):
         """当前登录的人 → {"id", "name"}；id 在 4.5 以前的 Moodle 没有（None），name 取不到也是 None。"""
         cfg, html = self._load_cfg()
         return {"id": _user_id(cfg), "name": _user_name(html)}
 
     # ---- ajax
+    @_relogin_once
     def ajax(self, method, args=None):
         """调一个白名单里的只读函数，返回 data。"""
         if method not in AJAX_READ:
@@ -457,16 +491,19 @@ class MoodleClient:
         return MoodleError(f"{method}: {code}" + (f"（{msg}）" if msg else ""), errorcode=code)
 
     # ---- 页面和文件
+    @_relogin_once
     def page(self, path_or_url):
         """GET 本站页面，返回 HTML 文本。"""
         _, body, _ = self._walk(self._url(path_or_url), "text/html,application/xhtml+xml")
         return body.decode("utf-8", "replace")
 
+    @_relogin_once
     def fetch(self, url, accept="*/*"):
         """下载本站文件（pluginfile）→ (headers, body)。"""
         hdrs, body, _ = self._walk(self._url(url), accept)
         return _message(hdrs), body
 
+    @_relogin_once
     def file_meta(self, x):
         """课件信息（Canvas 形状）。x 是 cmid（resource）或 pluginfile 地址（folder 里的文件）。"""
         x = str(x)
@@ -499,6 +536,7 @@ class MoodleClient:
                 "locked_for_user": not url, "unlock_at": None, "updated_at": None,
                 "lock_explanation": None if url else "打不开这个文件（可能有访问限制，或已被隐藏）"}
 
+    @_relogin_once
     def download(self, cmid, dest_dir, max_bytes=None):
         """和 Canvas.download 同样的返回形状：saved/name/bytes/updated_at，或 locked / skipped。"""
         meta = self.file_meta(cmid)
@@ -517,7 +555,8 @@ class MoodleClient:
         return {"saved": dest, "name": name, "bytes": len(body), "updated_at": meta.get("updated_at")}
 
     def get(self, path, max_pages=None):
-        raise MoodleError(f"这是 Moodle，没有 Canvas 接口：{str(path).split('?')[0]}")
+        raise MoodleError(f"这是 Moodle，没有 Canvas 接口：{str(path).split('?')[0]}。Moodle 的页面、作业要求、成绩和评语"
+                          "用 browse <网址> --course <课> 读（本工具那份登录过的浏览器）")
 
     def close(self):
         self.transport.close()

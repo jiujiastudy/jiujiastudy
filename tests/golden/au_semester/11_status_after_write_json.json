@@ -243,8 +243,7 @@
   "signals": [
    "7 天内到期的作业合计 60% 还没交",
    "72 小时内有 3 条 deadline",
-   "有 1 项已过期未交（ACCT1101 Weekly Quiz 4）",
-   "连续 3 天有必做没打勾"
+   "有 1 项已过期未交（ACCT1101 Weekly Quiz 4）"
   ],
   "advice": "只留必做，按权重排。今天只做最急的一条的第一步：ACCT1101 Weekly Quiz 4（03-20 周五 20:59，已过 5 天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。",
   "exam": {
@@ -253,5 +252,31 @@
    "when": "03-20 周五 20:59"
   }
  },
- "warnings": []
+ "warnings": [],
+ "todo_for_ai": [
+  {
+   "key": "external-scan:ACCT1101",
+   "course": "ACCT1101",
+   "text": "ACCT1101：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external ACCT1101（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  },
+  {
+   "key": "external-scan:PSYC2012",
+   "course": "PSYC2012",
+   "text": "PSYC2012：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external PSYC2012（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  },
+  {
+   "key": "external:PSYC2012:455423c0c6",
+   "course": "PSYC2012",
+   "text": "PSYC2012：其他网站：youtube.example「Week 5 lecture recording」还没读过（模块「Week 5: Working Memory」）",
+   "cmd": "browse https://youtube.example/watch?v=psyc05 --course PSYC2012"
+  },
+  {
+   "key": "external-scan:DSGN3402",
+   "course": "DSGN3402",
+   "text": "DSGN3402：导航栏、课程页面和学生的分班这 7 天还没查过外部平台",
+   "cmd": "external DSGN3402（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse"
+  }
+ ]
 }

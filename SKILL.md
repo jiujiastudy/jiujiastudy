@@ -1,6 +1,6 @@
 ---
 name: jiujiastudy
-description: 救驾（jiujiastudy）是留学生的 Canvas / Moodle 学习手帐：盯 deadline、排本周该学什么、按状态给建议。用户提到课程、作业、deadline、考试、Canvas、Moodle、老师，或说「现在什么情况」「最近要交什么」「这周学什么」「做完了」「没状态 / 累 / 来不及」时使用；第一次用时自己完成设置，只向用户要学校网址（Canvas 另要 token）。
+description: 救驾（jiujiastudy）是留学生的 Canvas / Moodle 学习手帐：盯 deadline、排本周该学什么、按状态给建议。用户提到课程、作业、deadline、考试、Canvas、Moodle、老师，或说「现在什么情况」「最近要交什么」「这周学什么」「做完了」「没状态 / 累 / 来不及」「交之前检查」「想问老师」「做学习页」「一直在拖 / 开不了头」时使用；第一次用时自己完成设置，只向用户要学校网址（Canvas 另要 token）。
 ---
 
 # 救驾
@@ -23,16 +23,17 @@ description: 救驾（jiujiastudy）是留学生的 Canvas / Moodle 学习手帐
 ## 第一次（用户不用说任何口令）
 用户说「帮我从 GitHub 安装 jiujiastudy」这类话：装好（`SKILL.md` 直接在 `skills/jiujiastudy/` 下）不要停，也不用重启，在同一个对话里接着走下面的流程，一直做到把本周清单交到用户手上。更新时旧版备份放到 skills 文件夹外面（比如「文档」），放在 skills 里会被当成第二个技能加载。
 
-动手之前先跟用户说两件事（原话在 references/setup.md）：①输入框左下角的权限设置，Claude Code 选「Auto」、Codex 选「帮我批准」，能省掉很多次点「允许」——只提醒，不替他改；②接下来要做什么、大概多久，中途不懂直接问你。之后每一步动手前说一句要做什么、要等多久。
+动手之前先跟用户说两件事（原话在 references/setup.md）：①输入框左下角的权限设置，Claude Code 选「Auto」、Codex 选「帮我批准」，能省掉很多次点「允许」；顺带一句「想让周报和学习页讲得更细，建议把 AI 的努力程度调到 Extra high（xhigh）或更高，会慢一点、多用一些额度」（只说「更细」，不说「更完整」）——只提醒，不替他改；②接下来要做什么、大概多久，中途不懂直接问你。之后每一步动手前说一句要做什么、要等多久。
 
-`status` 报「还没有档案」→ 按 references/setup.md 走：确认有可用 Python（宿主内置优先，不重复安装）→ `doctor --detect-site`（浏览器记录里认 Canvas 域名）→ 打印了「config.json：已新建」就直接往下；否则一次只问一件事：先确认学校网址（认出来了就问对不对；没认出就要他平时交作业那个网站随便一页的网址，是 Canvas 还是 Moodle 你来认），确认是 Canvas 再教他拿 token（发来就 `token set` 存好），是 Moodle 就 `login`；再跑 `doctor` → `collect --touch`（只记元数据，十几秒；失败不进入缓存）→ `radar --write` → `study --write --open`（写完直接帮他打开，资料夹在桌面上就再放一个「本周清单」快捷方式）→ `collect --download --background`（课件后台补；同一档案最多一个 worker，命令立刻返回）→ 一条消息：连上了哪个站、最急的一条和第一步、本周最要紧的一件、本周清单已经打开了、以后双击桌面上的「本周清单」就能看、做完一项打勾后要回来说「做完了」、资料夹里的「我能帮你做什么」列着能说的话、状态一句，最后给用户接下来能说的话（「这周学什么」「最近要交什么」「做完了」「帮我导读这周的课件」）和「不知道怎么办直接问我」。doctor 列的「你需要做的事」：自己能做的（`--fix-perms`）做掉，其余最多一句带给用户。网络和权限已就绪时通常一分钟内出首份雷达和清单；首次权限审批或装依赖的时间另算。
+`status` 报「还没有档案」→ 按 references/setup.md 走：确认有可用 Python（宿主内置优先，不重复安装）→ `doctor --detect-site`（浏览器记录里认 Canvas 域名）→ 打印了「config.json：已新建」就直接往下；否则一次只问一件事：先确认学校网址（认出来了就问对不对；没认出就要他平时交作业那个网站随便一页的网址，是 Canvas 还是 Moodle 你来认），确认是 Canvas 再教他拿 token（发来就 `token set` 存好），是 Moodle 就 `login`；再跑 `doctor` → `collect --touch`（只记元数据，十几秒；失败不进入缓存）→ `radar --write` → 模块没按周分的课先读一遍课程说明（`outline`，见 setup.md 第 5 步）→ `study --write --open`（写完直接帮他打开，资料夹在桌面上就再放一个「本周清单」快捷方式）→ `collect --download --background`（课件后台补；同一档案最多一个 worker，命令立刻返回）→ 一条消息：连上了哪个站、最急的一条和第一步、本周最要紧的一件、本周清单已经打开了、以后双击桌面上的「本周清单」就能看、做完一项打勾后要回来说「做完了」、资料夹里的「我能帮你做什么」列着能说的话、状态一句、只推荐一门学习页（原话在 setup.md，study 的 learn.suggest 挑哪门），最后给用户接下来能说的话（「这周学什么」「最近要交什么」「做完了」「帮我导读这周的课件」）和「不知道怎么办直接问我」。doctor 列的「你需要做的事」：自己能做的（`--fix-perms`）做掉，其余最多一句带给用户。网络和权限已就绪时通常一分钟内出首份雷达和清单；首次权限审批或装依赖的时间另算。
 
 脚本退出码：0 成功；1 = 有提醒，不是失败，照输出里列的事做；2 = 卡住了，输出只有一句原因；3 = 档案版本太老，先跑 `migrate`。
 
 ## 用户说什么，做什么
 | 用户说 | 做 | 读 |
 |---|---|---|
-| 任何话（会话开始） | `status`；要看新数据先 `collect --touch`（10 分钟内采过它会直接用上次的）；status 说有课件待下载就 `collect --download --background`，不等它 | — |
+| 学生打 /jiujiastudy（后面没话） | 先说一句「在更新数据，大约半分钟」→ `collect --force --touch`（每次都重新采，信息齐全优先）→ `status` 说本周没有计划：`study --write --open --zh plans/<周>.zh.json`（覆盖层没有就先写）；有了：同样带覆盖层 `study --write` 重做，collect 报了新作业、新公告或日期变了才加 `--open`，并说一句变了什么，没变就不打开 → 回 `status` 那一屏（今天必做、每门课下一条、状态一句）和两三句能说的话；这周还没有学习页就推荐一门：「打 /jj-learn 就做」→ 课件没下完 `collect --download --background`；「还差 N 件」答完在后台补 | study.md |
+| 任何话（会话开始） | `status`；要看新数据先 `collect --touch`（10 分钟内采过它会直接用上次的）；status 说有课件待下载就 `collect --download --background`，不等它；status 或 study 末尾有「还差 N 件」（给 AI 的）：先回答学生，回答完再照着补（能放后台就放后台），补到新作业、新截止或周报要改的再说一句；不跟学生说「还差」 | — |
 | 「现在什么情况」 | `status` 一屏：今天必做、每门课下一条、状态一句 | — |
 | 「最近要交什么」 | `collect --touch` → `radar --write`；复述每门课下一条、最急一条和第一步、撞车、待确认里今天要定的；不整表贴 | radar.md |
 | 「这周学什么」「这周干什么」「周报」 | `collect --force --touch` → `study --write --open --zh plans/<周>.zh.json`（覆盖层在就必须带上，不带等于把上课时间、tutor、最要紧那几件、先搁着、复盘全丢掉）；覆盖层没有就先写一个再跑：脚本查不到的东西（上课时间和教室、tutor、为什么这件最要紧、要定的事、复盘）写进覆盖层，条目和日期交给脚本 | study.md |
@@ -41,7 +42,10 @@ description: 救驾（jiujiastudy）是留学生的 Canvas / Moodle 学习手帐
 | 「这个日期只是占位」「老师说 X 号交」「公告说考试在 X」 | `record note <作业id> "…"`（Canvas 日期不算数，不再算过期）/ `record deadline "事项" --course 课 --due 日期 --time 时刻 --weight 权重 --url 作业链接`（进雷达；`--due` 认 2026-09-20 / 09-20，`--time` 认 23:59 / 4pm，认不出当场退回；`--list` 看、`--remove 序号` 删） | radar.md |
 | 「这周是第 N 周」「X 不是课」「这门课周二上」「时间按 X 显示」 | `config set term.week1_monday …` / 改 courses / `config set user_tz Asia/Shanghai`（`auto` = 跟着电脑） | setup.md |
 | 「资料放哪」「换个文件夹」 | `paths` 报路径；换地方：`config set root <路径>` 再 `doctor`，它会把旧文件搬过去 | setup.md |
-| 导读课件、复习包、逐页精讲、做图、问老师、写东西、发帖、交作业、任何想法 | 直接做：先 `paths 课` 拿路径；课件原件在「课件」；课件文字默认不提取给 AI，要读某门课的文字稿先经用户同意开：`config course <课程代码> --materials-ai on`，开了才有 text/<课>/；某周课件还没下就 `collect --materials 课 周`；产物一律写进「产出」；做页面先读 references/style.md；发帖交作业按规矩 5 | toolbox.md |
+| 「这门课还用 Ed / Padlet / 别的网站」；「还差 N 件」里列了外部平台 | `external 课` 看保底清单，公告和课程页面里提到的也找全；`browse 网址 --course 课` 只读打开（被带去登录页：问学生一句，同意就加 `--sign-in` 弹窗让学生自己登一次，以后不用再登）；读到的截止 `record deadline … --source "Ed（AI 读到的）"`；碰到人机验证就停；跟学生只说做了什么、情况是什么，不说「看不到」「你去看」 | learn.md |
+| 「做 X 这周的学习页」「更新 X 学习页」；第一次推荐后学生说「好」；学生打 /jj-learn（不说哪门就照 `study --json` 的 learn.order 全做，最急的先，每门都按完整标准，开始前说一句做哪几门、大概多久） | `learn prep 课`（要学习页就是同意读这门课的课件，它直接打开，不再问）→ 照 learn.md 找资料、做页面、写清单 → `learn check 课` → 刷新周报（`study --write --zh …`） | learn.md |
+| 「这个作业到底要求什么」「草稿帮我对着评分标准看看」「帮我给老师写封信」「开不了头」 | 直接做，不套固定流程：作业要求读作业页和评分标准全文（Canvas 用 `api get`，Moodle 用 `browse`，Moodle 上去哪读见 moodle.md），课程页面、课程说明、公告里提到它的也找全，以 Canvas 为准，说法打架的写出来；草稿按评分标准一项项看，说哪一段还差什么；信给英文稿和中文意思，学生自己发；开不了头就把最急的那件拆成一小步 | — |
+| 导读课件、复习包、逐页精讲、做图、写东西、发帖、交作业、任何想法 | 直接做：先 `paths 课` 拿路径；课件原件在「课件」；课件文字默认不提取给 AI；学生要的东西得读课件（导读、复习包、逐页精讲），就当同意，直接开 `config course <课程代码> --materials-ai on`（学生明说过不读的除外），开了才有 text/<课>/；某周课件还没下就 `collect --materials 课 周`；产物一律写进「产出」；做页面先读 references/style.md；发帖交作业按规矩 5 | toolbox.md |
 
 ## 自愈（先修，修不了才说一句）
 脚本出错时会连「该怎么办」一起打印：照它那句做，做得了就做掉，别复述。下面几种它给不出办法：
@@ -50,6 +54,7 @@ description: 救驾（jiujiastudy）是留学生的 Canvas / Moodle 学习手帐
 | 没有可调用的 Python | 先用宿主公开的 Python（Codex：`load_workspace_dependencies`）并查 `python3` / `python` / Windows `py -3`；确认全不可用，再征得用户同意按平台安装。不要把 `xcode-select --install` 当 Python 安装器 |
 | 用户在对话里发来 token | `token set` 存好，token 从标准输入传（Bash `<<'EOF'`，PowerShell 管道），不进命令参数；回复里不重复 token，说「存好了」 |
 | 学校不让生成 token，或学校用的是 Moodle | `login`（Moodle 不要 token），用户在弹出的窗口里自己登录；照它打印的往下做 |
+| 「更新救驾」；学生打 /jj-update | `update`：GitHub 上有新版就换上（Claude Code、Codex 装着的几份一起换，新的 /jj 口令装上、下架的删掉）；只跟学生说它打印的「这次更新的新内容」和「新口令」，已经是最新就说一句 |
 | 用户说没看到登录窗口，或 `login` 报这里弹不出窗口 | 先让他看任务栏；还没有，就按宿主的办法申请在沙盒外重跑 `login`（Codex：申请提升权限）。不要改用宿主自带的浏览器让他登录：救驾读不到那里的登录，他会白登一次 |
 | 一步被宿主的自动模式拦下（比如「刚下载的代码」） | 让用户把输入框左下角的权限设置临时换成「每次询问」，回你「继续」；这一步跑完再换回 Auto /「帮我批准」 |
 | doctor 报 skills 里有重复的救驾 | 跟用户说一句，把那份挪出 skills 文件夹（比如挪到「文档」），别删 |

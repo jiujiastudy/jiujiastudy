@@ -5,10 +5,16 @@
 今日必做：MATH3B Homework 7（02-26 周四 23:59）  [📦]
   第一步：打开作业页，看一眼提交要求。
   如果今天做不完，明天第一件事继续，不排别的。
-  应做：CHEM1A 看课件：CHEM1A Week 3 slides.pdf（40 分钟）；CHEM1A 读：Week 3 reading guide（20 分钟）
+  应做：CHEM1A 看课件：CHEM1A Week 3 slides.pdf（40 分钟）
 每门课下一条：
  - MATH3B：Homework 7 · 02-26 周四 23:59，明天（—）
  - CHEM1A：Lab 7 Report · 02-27 周五 17:00，还有 2 天（—）
  - WRIT2：Peer Review 2 · 02-27 周五 23:59，还有 2 天（—）
 待你确认（0 条）：无
-状态：过载（72 小时内有 3 条 deadline；连续 3 天有必做没打勾）。建议：只留必做，按权重排。今天只做最急的一条的第一步：MATH3B Homework 7（02-26 周四 23:59，明天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。
+状态：过载（72 小时内有 3 条 deadline）。建议：只留必做，按权重排。今天只做最急的一条的第一步：MATH3B Homework 7（02-26 周四 23:59，明天），15 分钟就停。交不完的先发消息问能不能延期，我可以起草两句。
+## 还差 5 件（给 AI 的：先回答学生，回答完再照着补；补到新作业、新截止或周报要改的，再跟学生说一句；这一块不给学生看，也不跟学生说「还差」）
+ - MATH3B：模块没按周分，还没有每周安排表 → outline MATH3B --syllabus；Syllabus 里没有每周安排，就在课程里找 unit outline / course outline 的链接，outline MATH3B --url <网址>；认出来以后核对、补 weeks_zh，outline MATH3B --file 存回
+ - WRIT2：模块没按周分，还没有每周安排表 → outline WRIT2 --syllabus；Syllabus 里没有每周安排，就在课程里找 unit outline / course outline 的链接，outline WRIT2 --url <网址>；认出来以后核对、补 weeks_zh，outline WRIT2 --file 存回
+ - MATH3B：导航栏、课程页面和学生的分班这 7 天还没查过外部平台 → external MATH3B（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse
+ - CHEM1A：导航栏、课程页面和学生的分班这 7 天还没查过外部平台 → external CHEM1A（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse
+ - WRIT2：导航栏、课程页面和学生的分班这 7 天还没查过外部平台 → external WRIT2（会先去 Canvas 查一遍），列出来「还没读过」的逐个 browse

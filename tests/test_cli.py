@@ -140,7 +140,8 @@ class CommandLineTest(unittest.TestCase):
         # A wrong flag is the mistake an agent makes most. No English usage text: one Chinese line and exit 2,
         # and with --json a JSON error on stdout.
         for args in (["status", "--bogus"], ["bogus"], ["doctor", "--agent", "nope"], ["radar", "--days", "x"],
-                     ["record", "deadline", "Essay"], ["config", "get"], ["unit", "bogus", "x.json"]):
+                     ["record", "deadline", "Essay"], ["config", "get"], ["unit", "bogus", "x.json"],
+                     ["learn", "prep"], ["learn", "bogus", "X"]):
             with self.subTest(args=args):
                 r = self.run_cli(*args)
                 self.assertEqual(2, r.code, r.stderr)

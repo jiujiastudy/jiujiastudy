@@ -1,6 +1,7 @@
 user/Desktop/救驾/.coach/DDL雷达.md
 user/Desktop/救驾/.coach/INDEX.md
 user/Desktop/救驾/.coach/config.json
+user/Desktop/救驾/.coach/logs/download-worker.lock
 user/Desktop/救驾/.coach/plans/2026-W12.json
 user/Desktop/救驾/.coach/plans/2026-W12.md
 user/Desktop/救驾/.coach/raw/collect.lock

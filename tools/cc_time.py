@@ -259,6 +259,9 @@ def norm_date(s, today):
     return None
 
 
+MAX_TERM_WEEKS = 52  # 一个学期（连全年课）不会超过一年；推出来更大就是起点错了
+
+
 class Clock:
     def __init__(self, cfg):
         cfg = cfg or {}
@@ -376,6 +379,8 @@ class Clock:
         if not w1:
             return None
         n = (d - w1).days // 7 + 1
+        if n > MAX_TERM_WEEKS:  # 学期起点推错了（比如按 2009 年开课的常设课推）：当不知道，不报「第 917 周」
+            return None
         br = self.break_range()
         if br:
             b0, b1 = br
@@ -386,7 +391,7 @@ class Clock:
         return n
 
     def term_week(self, d):
-        if not self.week1():
+        if not self.week1() or (d - self.week1()).days // 7 + 1 > MAX_TERM_WEEKS:
             return "周次待定"
         br = self.break_range()
         if br and br[0] <= d <= br[1]:

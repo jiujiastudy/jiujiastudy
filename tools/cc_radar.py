@@ -51,6 +51,8 @@ def clashes(rs, hours=48):
 
 def first_step_for(r, lms="Canvas"):
     st = r.get("submission_types") or []
+    if r.get("extra"):  # 课外的事：没有作业页和课程公告
+        return "打开对方给的要求（brief、邮件或比赛页），确认时间和要交什么。"
     if r.get("origin") == "manual":
         return "打开作业页或课程公告，确认时间、地点和要交什么。"
     if r.get("kind") == "exam" or "online_quiz" in st:
@@ -239,7 +241,7 @@ def hours_ago(ts, clock):
 
 
 def status(ctx, today):
-    """一屏现状，零副作用。返回 (dict, 文本)。"""
+    """一屏现状。返回 (dict, 文本)。只读，不写档案。"""
     clock, state = ctx.clock, ctx.state
     rs = rows(ctx, today)
     normal, undated, overdue = split(rs)
@@ -273,7 +275,7 @@ def status(ctx, today):
     if dq:
         T.append(f"课件待下载 {dq} 个（后台补：collect --download --background）")
     if plan:
-        T.append(f"今日必做：{plan.get('must')}  [{plan.get('status')}]" + (f"\n  第一步：{plan['first_step']}" if plan.get("first_step") else "")
+        T.append(f"今日必做：{plan.get('must') or '今天没排事'}  [{plan.get('status')}]" + (f"\n  第一步：{plan['first_step']}" if plan.get("first_step") else "")
                  + (f"\n  {plan['if_then']}" if plan.get("if_then") else "")
                  + (f"\n  应做：{'；'.join(plan['should'])}" if plan.get("should") else ""))
     else:
@@ -288,4 +290,9 @@ def status(ctx, today):
     T.append(cc_state.state_line(ev))
     if warnings:
         T.append("提醒：" + "；".join(warnings))
+    import cc_gaps
+    gaps = cc_gaps.for_ai(ctx, (plan or {}).get("data") or {}, today)
+    if gaps:
+        d["todo_for_ai"] = gaps
+        T.append(cc_gaps.text_block(gaps))
     return d, "\n".join(T)

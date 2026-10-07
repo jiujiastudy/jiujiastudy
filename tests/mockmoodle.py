@@ -417,6 +417,9 @@ class _Handler(BaseHTTPRequestHandler):
         m = self.mock
         if m.logged_out == "sso":
             return self._redirect(IDP_URL + "?SAMLRequest=mock")
+        if not m.auto_login:  # 学校要重新输密码：给登录表单（后台浏览器不会填）
+            return self._send(200, b'<!doctype html><title>Log in</title><form method="post"><input name="username">'
+                              b'<input type="password" name="password"><button>Log in</button></form>')
         m.logins += 1
         return self._redirect(BASE_MARK + "/my/", {"Set-Cookie": f"{m.cookie_name}={m.session_cookie}; path=/; HttpOnly"})
 
@@ -1371,6 +1374,7 @@ class MockMoodle:
         self.session_cookie = uuid.uuid4().hex
         self.sesskey = self._new_key()
         self.logins = 0
+        self.auto_login = True  # True：登录页直接发 cookie（当学生登好了）；False：学校要重新输密码，给表单
         self.regrading = set()  # 这些课的成绩页显示「正在重算」
         self.slasharguments = 1  # 0：pluginfile 地址写成 /pluginfile.php?file=…
         self.release = "4.5"     # "4.4"：M.cfg 没有 userId / apibase（访客只能看用户菜单认）

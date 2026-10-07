@@ -148,6 +148,24 @@ def _ai_policy_page(ctx, codes):
     return None
 
 
+MIN_FREE_GB = 2      # 硬盘剩不到这么多就先不下课件（config materials.min_free_gb 可改）
+RETRY_AFTER_H = 6    # 上一批下载出错后，自动下载隔这么久再试
+
+
+def disk_ok(ctx):
+    """(够不够, 剩多少 GB)。查不到剩余空间就当够。"""
+    import shutil
+    need = float((ctx.cfg.get("materials") or {}).get("min_free_gb", MIN_FREE_GB))
+    base = getattr(ctx, "root", None) or ctx.home
+    while base and not os.path.isdir(base) and os.path.dirname(base) != base:
+        base = os.path.dirname(base)
+    try:
+        free = shutil.disk_usage(base or ctx.home).free / 1e9
+    except (OSError, TypeError, ValueError):
+        return True, None
+    return free >= need, round(free, 1)
+
+
 def run_downloads(ctx, cap=10, lock_token=None):
     """下队列里的课件：本周的先，一次最多 cap 个；失败 3 次的丢掉。"""
     worker_lock = FileLock(_download_lock_path(ctx))
@@ -158,6 +176,10 @@ def run_downloads(ctx, cap=10, lock_token=None):
     token = lock_token or uuid.uuid4().hex
     try:
         _clear_launch(ctx, lock_token)
+        ok, free = disk_ok(ctx)
+        if not ok:  # 硬盘快满了：一个都不下，队列原样留着
+            d = load_downloads(ctx)
+            return {"downloaded": [], "left": len(d["queue"]) + len(d["in_progress"]), "errors": [], "disk_low": free}
         # A crashed foreground or background worker may have left reserved
         # items behind. We hold the sole worker lock, so reclaiming is safe.
         _recover_orphaned_downloads(ctx)
@@ -214,6 +236,10 @@ def run_downloads(ctx, cap=10, lock_token=None):
                                         "saved": result.get("saved"), "skipped": result.get("skipped")})
                     done_ids.add(it.get("id"))
             cur["last_run"] = now.isoformat()
+            if errors:
+                cur["last_error_at"] = now.isoformat()
+            else:
+                cur.pop("last_error_at", None)
             jsave(downloads_path(ctx), cur)
             left = len(cur["queue"]) + len(cur["in_progress"])
         return {"downloaded": out, "left": left, "errors": errors}
@@ -236,6 +262,9 @@ def spawn_downloads(ctx):
     pending = len(d["queue"]) + len(d["in_progress"])
     if not pending:
         return {"queued": 0, "started": False, "running": False, "log": log}
+    ok, free = disk_ok(ctx)
+    if not ok:
+        return {"queued": pending, "started": False, "running": False, "log": log, "disk_low": free}
     token = uuid.uuid4().hex
     if not _claim_launch(ctx, token):
         return {"queued": pending, "started": False, "running": True, "log": log}
@@ -257,6 +286,12 @@ def spawn_downloads(ctx):
         proc = subprocess.Popen(cmd, **kw)
     except Exception:
         _clear_launch(ctx, token)
+        log_handle.close()
+        try:  # 没开成就别留一个空日志（宿主不让开子进程时，collect 每次都会试一下）
+            if os.path.getsize(log) == 0:
+                os.remove(log)
+        except OSError:
+            pass
         raise
     finally:
         log_handle.close()

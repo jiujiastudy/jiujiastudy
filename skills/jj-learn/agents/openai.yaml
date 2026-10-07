@@ -1,0 +1,6 @@
+interface:
+  display_name: "jj-learn 本周学习页"
+  short_description: "本周学习页：把每门课这周要学的讲透，英文配中文，带自测题；不说哪门就全做"
+  default_prompt: "用 $jj-learn 做这周的学习页"
+policy:
+  allow_implicit_invocation: false

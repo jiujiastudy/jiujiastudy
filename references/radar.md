@@ -19,6 +19,7 @@
 ## 日期不对、Canvas 没写的（都有命令，别手改 state.json）
 - Canvas 上的 due 只是占位（公告说「system demands a date」、课上讲的作业、锁定时间当截止）：`record note <作业id> "Canvas 的 09-13 只是占位，实际 Week 7 课上讲"`。作业 id 在作业链接末尾（/assignments/123456）。之后这条不算过期，进区块二带着说明。
 - 真实日期从公告 / 大纲 / 老师那里来：`record deadline "Class Pitch 本人上场" --course MKTG2001 --due 2026-09-15 --time 16:00 --weight 15% --url <作业链接> --status "课上讲" --source "公告 09-11"`。给了 `--url`（或 `--assignment-id`）指向 Canvas 那条作业时，雷达用手动的替换 Canvas 那行。没到确认的加 `--pending`（进区块二）。
+- 课外的事（品牌交稿、比赛截止、接单交期）：`record deadline "品牌视频交稿" --due 10-12 --time 18:00`，不写 `--course`，记成「课外」。照样算进撞车和「72 小时内几条」，没有权重就不算进 7 天权重；它当最急的一条时，第一步是去看对方给的要求。
 - 两来源冲突：记两条都 `--pending`，计划按较早的排；老师答复后再记一条不带 pending 的，并 `record resolve` 对应的待确认。
 - 从公告 / 说明里挖到但还要用户去查的：`record pending "内容" --course 课 --blocks 2026-09-20 --ask-en "…" --ask-zh "…"`。
 - 需要老师答的，附两行英文 + 中文意思 + 路径（Canvas → Inbox → Compose，选课程和 tutor）。这是事务性消息，直接替用户起草。

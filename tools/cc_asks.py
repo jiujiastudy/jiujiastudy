@@ -14,10 +14,10 @@ import re
 MAX_LINE = 72   # 整句上限：一行读得完，手机上也不至于折成三行
 SHOW = 3        # 卡片上露几条
 MAX_TOTAL = 6   # 连折叠的一起，最多留几条
-URGENT = ("overdue", "exam", "quiz", "write", "discussion", "oral", "homework")  # deadline 驱动的那几类
+URGENT = ("overdue", "exam", "quiz", "write", "check", "discussion", "oral", "homework")  # deadline 驱动的那几类
 
 # 这个技能真做得出来的产出；每条建议必须落在这里面（tests/test_asks.py 机器校验）
-PRODUCES = ("消息草稿", "复习包", "模拟小测", "写东西", "排练表", "导读", "下课件", "重排清单", "讲概念")
+PRODUCES = ("消息草稿", "复习包", "模拟小测", "写东西", "排练表", "导读", "下课件", "重排清单", "讲概念", "对照评分标准")
 
 ORAL_RE = re.compile(r"(?i)presentation|pitch|viva|oral|seminar|moot|debate|演讲|口试|答辩|汇报|展示")
 ATTEND_RE = re.compile(r"(?i)participation|attendance|sona|打卡|出勤|考勤|签到")
@@ -29,6 +29,7 @@ TEXTS = {
     "exam": "{course} {item}{when}，帮我做个复习包，复习计划和模拟小测都要。",
     "quiz": "{course} {item}{when}，出一套 10 道的模拟小测，带中文解析。",
     "write": "{course} {item}{when}，先给我三个角度和一份提纲，正文我自己写。",
+    "check": "{course} {item}{when}，草稿写好发你，对着评分标准看还差哪里。",
     "discussion": "{course} {item}{when}，给我两个能接住别人的角度，正文我自己写。",
     "oral": "{course} {item}{when}，帮我做张排练表，标好每段讲几分钟。",
     "homework": "{course} {item}{when}，讲讲它到底要我做什么，第一步从哪下手。",
@@ -41,7 +42,7 @@ TEXTS = {
 }
 
 PRODUCED_BY = {
-    "overdue": "消息草稿", "exam": "复习包", "quiz": "模拟小测", "write": "写东西",
+    "overdue": "消息草稿", "exam": "复习包", "quiz": "模拟小测", "write": "写东西", "check": "对照评分标准",
     "discussion": "写东西", "oral": "排练表", "homework": "重排清单", "guide": "导读",
     "state_overload": "重排清单", "state_stuck": "讲概念", "state_sick": "消息草稿",
     "state_behind": "重排清单", "prefetch": "下课件",
@@ -172,6 +173,8 @@ def _kind_of(x):
         return "oral"
     if ("discussion_topic" in st) and d <= 7:
         return "discussion"
+    if ({"online_upload", "online_text_entry"} & set(st)) and x["weight"] >= 10 and 3 <= d <= 21:
+        return "check"  # 计分的写作：草稿发来对着评分标准看（交之前对着标准自评、再有人给反馈，才是有效成分，见 DESIGN.md）
     if ({"online_upload", "online_text_entry"} & set(st)) and d <= (14 if x["weight"] >= 25 else 7):
         return "write"  # 大论文要提前动手，窗口放宽
     if "on_paper" in st and d <= 10:
@@ -222,7 +225,7 @@ def suggest(plan, show=SHOW, total=MAX_TOTAL):
     kind = STATE_KIND.get(state.get("label"))
     if kind:
         top = (plan.get("study") or {}).get("top_one") or {}
-        course = top.get("course") or next((c.get("code") for c in ((plan.get("study") or {}).get("courses")) or []), "")
+        course = top.get("course") or next((c.get("code") for c in ((plan.get("study") or {}).get("courses")) or [] if not c.get("exam_site")), "")
         if kind != "state_stuck" or course:
             add(90, (0, 0, "", ""), ("state",), _line(kind, course=course))
 
