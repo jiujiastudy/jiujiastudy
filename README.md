@@ -3,7 +3,7 @@
 给用第二语言上课的留学生的 Canvas / Moodle 学习手帐：盯 deadline、排本周该学什么、按完成情况给下一步。它是一个 Agent Skill，装在你自己的电脑上，数据存在你自己的文件夹里。
 
 [![tests](https://github.com/jiujiastudy/jiujiastudy/actions/workflows/ci.yml/badge.svg)](https://github.com/jiujiastudy/jiujiastudy/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: PolyForm Noncommercial](https://img.shields.io/badge/license-PolyForm%20Noncommercial-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](#要求)
 
 ## 它做什么
@@ -130,4 +130,4 @@ token 只要给一次：它存在你电脑上的 `~/.config/jiujiastudy/token`�
 
 ## 许可
 
-MIT，见 [LICENSE](LICENSE)，不提供任何担保。与 Instructure 无关，未获其背书；Canvas 是 Instructure, Inc. 的商标。使用前请自行确认它符合你所在学校的规定。
+PolyForm Noncommercial 1.0.0，见 [LICENSE](LICENSE)：自己学习、学校、非营利机构都可以免费用，不能用在商业用途；不提供任何担保。v0.2.x 及更早的版本仍按 MIT。与 Instructure 无关，未获其背书；Canvas 是 Instructure, Inc. 的商标。使用前请自行确认它符合你所在学校的规定。
