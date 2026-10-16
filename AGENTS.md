@@ -1,4 +1,4 @@
-# 救驾（留学生的 Canvas / Moodle 学习手帐）
+# 救驾 / 救驾study（留学生的 Canvas / Moodle 学习手帐）
 
 给 Codex、Cursor、Cline 这类读 AGENTS.md 的代理看的入口。完整规范在同目录的 `SKILL.md`，先读它。
 
