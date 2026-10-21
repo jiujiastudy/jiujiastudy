@@ -6,6 +6,8 @@
 - 学生最多输一次：窗口里登好以后，这份浏览器里全部网站的登录记录（Canvas、学校的统一登录、别的网站）都存下来，
   每次用完浏览器再存一遍最新的（学校会在用的时候续期）。登录过期 → 先在后台（不开窗口）走一遍学校登录，
   学校还记得就自己进去；学校要重新输密码，才报「重新登录」，这时再跑 login。
+  有的学校 /login 先给一个「选怎么登录」的页面（学校账号 / 校外账号），后台重进照着页面上唯一的学校统一登录链接走，
+  走通了把这条链接记进 login.json 的 sso，下次直接走。
 - 要学校账号的别的网站（Zoom 录像、选课系统……）：start_signin 开窗口打开那个网站，学生登一次；
   存下的学校登录对走同一个登录的网站都管用。token 方式也用这份浏览器读网页，一样受益。
 - 只读：登录模式不代发帖、不代交作业（cc_write 拦住）。login --forget 删掉 browser/ 和 login.json，回到 token。
@@ -32,7 +34,7 @@ from cc_store import jload, jsave
 
 PROFILE = "browser"                  # 档案目录下：本工具专用的浏览器资料夹（登录状态在里面）
 COOKIES = "canvas-cookies.json"      # 放在 PROFILE 里：各网站浏览器一关就会丢的登录记录（会话 cookie；名字是老的，照旧认）
-MARKER = "login.json"                # {host, lms, name, user_id, at}：有它就是登录模式；没有 lms 的老文件是 Canvas
+MARKER = "login.json"                # {host, lms, name, user_id, at, sso}：有它就是登录模式；没有 lms 的老文件是 Canvas
 STATUS = "login-status.json"         # 登录窗口进程的状态和心跳
 SIGNIN = "signin-status.json"        # 给别的网站登学校账号的窗口：状态和心跳
 CHANNELS = ("msedge", "chrome", None)  # None = Playwright 自带的 Chromium（装过才有）
@@ -180,37 +182,74 @@ def _restore_cookies(ctx, home):
 # 学校登录页上要学生动手的输入框（UniKey / 邮箱 / 密码）：后台重进碰到它就停，不替学生填
 LOGIN_INPUTS = ("input[type=password], input[type=email], input[name=identifier], input[name=username], "
                 "input[name=loginfmt], input[name=j_username]")
+# 微软的「选择帐户」页：没有输入框，但要学生自己点（点了多半接着要密码），一样算要学生动手
+ACCOUNT_PICKER = "#otherTile, #tilesHolder"
+# Canvas 自己的学校统一登录入口；/login/canvas、/login/ldap 是要输密码的表单，不算
+SSO_PATH = re.compile(r"^/login/(saml|openid_connect|cas|google|microsoft|apple|clever|facebook|github|linkedin)(/|$)")
 
 
 def _wants_input(page):
     try:
-        return any(el.is_visible() for el in page.query_selector_all(LOGIN_INPUTS))
+        return any(el.is_visible() for el in page.query_selector_all(LOGIN_INPUTS + ", " + ACCOUNT_PICKER))
     except Exception:  # noqa: BLE001  页面正在跳：当没有
         return False
 
 
+def _sso_path(url, host):
+    """url 是这个 Canvas 的学校统一登录入口（如 /login/saml/12）就返回路径，否则 None。"""
+    p = urllib.parse.urlparse(url or "")
+    return p.path if f"{p.scheme}://{p.netloc}" == host and SSO_PATH.match(p.path or "") else None
+
+
+def _sso_link(page, host):
+    """「选怎么登录」的页面上只有一条学校统一登录链接，就返回它；没有或有好几条（不知道学生用哪个）返回 None。"""
+    try:
+        hrefs = page.eval_on_selector_all("a[href]", "els => els.map(e => e.href)")
+    except Exception:  # noqa: BLE001  页面正在跳：下一轮再看
+        return None
+    paths = {p for p in (_sso_path(h, host) for h in hrefs) if p}
+    return host + paths.pop() if len(paths) == 1 else None
+
+
+def _remember_sso(home, path):
+    """把走通的学校统一登录入口记进 login.json，下次后台重进直接从这里进。"""
+    info = read_login(home)
+    if info and path and info.get("sso") != path:
+        jsave(_p(home, MARKER), {**info, "sso": path})
+
+
 def silent_relogin(ctx, home, host, lms="canvas", timeout=20):
     """会话过期时先在后台（不开窗口）走一遍学校登录：学校还记得就自己跳回来、登好，返回 True（顺手存下新的登录记录）；
-    学校要输账号密码（页面上出现输入框）、出错或超时，返回 False，交给登录窗口。不填表、不点按钮。"""
+    学校要输账号密码（页面上出现输入框或微软的选帐户页）、出错或超时，返回 False，交给登录窗口。不填表、不点按钮。
+    Canvas 从 login.json 记的 sso 入口进；没记过就从 /login 进，碰到「选怎么登录」的页面，照着唯一的学校统一登录链接走。"""
     page = None
+    sso = (read_login(home) or {}).get("sso") if lms != "moodle" else None
     try:
         page = ctx.new_page()
-        resp = page.goto(host.rstrip("/") + ("/my/" if lms == "moodle" else "/login"), wait_until="domcontentloaded",
+        resp = page.goto(host.rstrip("/") + ("/my/" if lms == "moodle" else (sso or "/login")), wait_until="domcontentloaded",
                          timeout=timeout * 1000)
         if resp is not None and resp.status >= 400 and not _on_site(page.url, host, lms):
             return False
         deadline = time.time() + timeout
         asked = 0
+        followed = None
         while time.time() < deadline:
             if _on_site(page.url, host, lms):
                 me = _whoami_moodle(ctx, host, home) if lms == "moodle" else _whoami(ctx.request, host)
                 if me:
                     _save_cookies(ctx, home)
+                    _remember_sso(home, followed)
                     return True
             elif _wants_input(page):
                 asked += 1
                 if asked >= 2:  # 连着两次都停在要输入的页面：学校要学生自己登
                     return False
+            elif lms != "moodle" and not followed:
+                link = _sso_link(page, host)
+                if link:  # 「选怎么登录」的页面：照着学校统一登录的链接打开（不点按钮）
+                    followed = _sso_path(link, host)
+                    page.goto(link, wait_until="domcontentloaded", timeout=timeout * 1000)
+                    continue
             page.wait_for_timeout(700)
         return False
     except Exception:  # noqa: BLE001  打不开、跳转出错：交给登录窗口
@@ -396,6 +435,10 @@ def worker(home, host, timeout=WINDOW_TIMEOUT, lms="canvas"):
             ctx = _launch(pw, home, headless=False)
             try:
                 _restore_cookies(ctx, home)
+                seen = []  # 学生在窗口里走过的学校统一登录入口：记进 login.json，以后后台重进直接从这里进
+                if lms != "moodle":
+                    ctx.on("request", lambda r: r.is_navigation_request() and _sso_path(r.url, host)
+                           and seen.append(_sso_path(r.url, host)))
                 page = ctx.pages[0] if ctx.pages else ctx.new_page()
                 start = host + ("/my/" if lms == "moodle" else "/")  # Moodle 首页可能不用登录；/my/ 没登录会转去登录页
                 try:
@@ -413,7 +456,12 @@ def worker(home, host, timeout=WINDOW_TIMEOUT, lms="canvas"):
                         if me:
                             _save_cookies(ctx, home)  # Canvas / Moodle 的登录连同学校统一登录一起存：以后过期了能在后台自己重进
                             now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
-                            jsave(_p(home, MARKER), {"host": host, "lms": lms, "name": me.get("name"), "user_id": me.get("id"), "at": now})
+                            info = {"host": host, "lms": lms, "name": me.get("name"), "user_id": me.get("id"), "at": now}
+                            old = read_login(home) or {}
+                            sso = seen[-1] if seen else (old.get("sso") if old.get("host") == host else None)
+                            if sso:
+                                info["sso"] = sso
+                            jsave(_p(home, MARKER), info)
                             st("done", f"登好了：{me.get('name') or '你的账号'}")
                             return 0
                     st("waiting", "登录窗口开着，等用户登录")
