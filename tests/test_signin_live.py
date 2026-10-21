@@ -171,6 +171,45 @@ class CanvasRelogin(unittest.TestCase):
             cc_session.close_all()
             shutil.rmtree(home, ignore_errors=True)
 
+    def test_先选登录方式的学校_照着学校登录的链接后台重进(self):
+        """有的学校 /login 先给「选怎么登录」的页面（学校账号 / 校外账号），页面上没有输入框。
+        后台重进要照着学校统一登录的链接走，走通了记进 login.json，下次直接从这里进。"""
+        home = tempfile.mkdtemp(prefix="stc-ssoch-")
+        try:
+            with mocksso.MockSSO() as sso, mockcanvas.MockCanvas("au_semester", session=True, sso=sso, chooser=True) as mock:
+                student_signs_in(home, mock.base_url + "/login/saml/1")  # 学生在选择页点了「学校账号」，再登学校账号
+                with open(os.path.join(home, cc_session.MARKER), "w", encoding="utf-8") as f:
+                    json.dump({"host": mock.base_url, "name": "Test Student", "user_id": 5001}, f)
+                self.assertEqual((1, 1), (mock.logins, sso.form_logins))
+
+                mock.expire_session()  # Canvas 的会话过期了，学校的还在
+                api = cc_session.SessionCanvas(mock.base_url, home)
+                t0 = time.time()
+                self.assertEqual("Test Student", api.get("/api/v1/users/self")["name"])
+                api.close()
+                self.assertLess(time.time() - t0, 15, "照着链接走，不在选择页上干等")
+                self.assertEqual((2, 1), (mock.logins, sso.form_logins), "后台自己重进了一次，学生没再输")
+                self.assertEqual("/login/saml/1", cc_session.read_login(home).get("sso"), "走通的入口记下来")
+
+                mock.expire_session()  # 再过期：直接从记下的入口进
+                api = cc_session.SessionCanvas(mock.base_url, home)
+                self.assertEqual("Test Student", api.get("/api/v1/users/self")["name"])
+                api.close()
+                self.assertEqual((3, 1), (mock.logins, sso.form_logins))
+
+                mock.expire_session()
+                sso.expire_idp()  # 学校也要重新输密码了：这时才报「重新登录」
+                api = cc_session.SessionCanvas(mock.base_url, home)
+                t0 = time.time()
+                with self.assertRaises(CanvasAuthError):
+                    api.get("/api/v1/users/self")
+                api.close()
+                self.assertLess(time.time() - t0, 15, "碰到要输密码的页面就停，不干等")
+                self.assertEqual(1, sso.form_logins)
+        finally:
+            cc_session.close_all()
+            shutil.rmtree(home, ignore_errors=True)
+
 
 def _browser_tests_on():
     if os.environ.get("JIUJIASTUDY_BROWSER_TESTS") != "1":
@@ -272,6 +311,53 @@ class SignedIn(unittest.TestCase):
         self.assertFalse(cc_session._signed_in_on(self.P("https://sso.example.edu/app/x/sso/saml"), t), "还在学校登录页")
         self.assertFalse(cc_session._signed_in_on(self.P("https://timetable.example.edu/login"), t))
         self.assertFalse(cc_session._signed_in_on(self.P("https://timetable.example.edu/even/student", inputs=[1]), t), "页面上还有登录框")
+
+
+class Chooser(unittest.TestCase):
+    """「选怎么登录」的页面：只认这个 Canvas 上唯一的学校统一登录链接；校外账号的表单、别的网站、好几条都不认。"""
+    H = "https://canvas.example.edu"
+
+    class P:
+        def __init__(self, hrefs=(), picker=False):
+            self.hrefs, self.picker = list(hrefs), picker
+
+        def eval_on_selector_all(self, sel, js):
+            return list(self.hrefs)
+
+        def query_selector_all(self, sel):
+            return [type("El", (), {"is_visible": lambda self: True})()] if self.picker and "#otherTile" in sel else []
+
+    def test_学校统一登录的入口(self):
+        H = self.H
+        self.assertEqual("/login/saml/12", cc_session._sso_path(H + "/login/saml/12", H))
+        self.assertEqual("/login/openid_connect", cc_session._sso_path(H + "/login/openid_connect", H))
+        for u in (H + "/login/canvas", H + "/login/ldap", H + "/login/samlx", "https://evil.example/login/saml/1", H + "/courses/1"):
+            self.assertIsNone(cc_session._sso_path(u, H), u)
+
+    def test_只有一条学校登录链接才走(self):
+        H = self.H
+        one = [H + "/login/saml/12", H + "/login/canvas", "https://www.example.edu/", H + "/help"]
+        self.assertEqual(H + "/login/saml/12", cc_session._sso_link(self.P(one), H))
+        self.assertEqual(H + "/login/saml/12", cc_session._sso_link(self.P(one + [H + "/login/saml/12"]), H), "同一条出现两次还是一条")
+        self.assertIsNone(cc_session._sso_link(self.P([H + "/login/saml/1", H + "/login/saml/2"]), H), "两个学校登录：不猜")
+        self.assertIsNone(cc_session._sso_link(self.P([H + "/login/canvas"]), H), "只有校外账号的表单")
+
+    def test_微软的选帐户页也算要学生动手(self):
+        self.assertTrue(cc_session._wants_input(self.P(picker=True)))
+        self.assertFalse(cc_session._wants_input(self.P()))
+
+    def test_走通的入口记进_login_json(self):
+        home = tempfile.mkdtemp(prefix="stc-sso-mark-")
+        try:
+            cc_session._remember_sso(home, "/login/saml/1")
+            self.assertFalse(cc_session.has_login(home), "没登录过就不凭空建 login.json")
+            with open(os.path.join(home, cc_session.MARKER), "w", encoding="utf-8") as f:
+                json.dump({"host": self.H, "name": "Test Student", "user_id": 5001}, f)
+            cc_session._remember_sso(home, "/login/saml/1")
+            info = cc_session.read_login(home)
+            self.assertEqual(("/login/saml/1", "Test Student"), (info.get("sso"), info.get("name")))
+        finally:
+            shutil.rmtree(home, ignore_errors=True)
 
 
 if __name__ == "__main__":
