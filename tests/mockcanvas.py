@@ -160,7 +160,13 @@ class _Handler(BaseHTTPRequestHandler):
         self._path, self._query, self._matched = parts.path, parse_qsl(parts.query, keep_blank_values=True), True
         self._session_auth = False
         if mock.session:
-            if self._path in ("/login", "/login/canvas") and mock.sso:  # 学校统一登录：转去学校登录页，带票回 /login/saml
+            if mock.chooser and self._path == "/login":  # 先选怎么登录：学校账号走学校统一登录，校外账号走 /login/canvas
+                return self._send(200, None, raw=b'<!doctype html><title>Log in</title><h1>Choose how to log in</h1>'
+                                  b'<a href="/login/saml/1">School users</a> <a href="/login/canvas">External users</a>'
+                                  b' <a href="/help">Login help</a>', ctype="text/html; charset=utf-8")
+            if mock.chooser and self._path == "/login/saml/1" and mock.sso:  # 学校统一登录的入口：转去学校登录页
+                return self._send(302, None, {"Location": mock.sso.login_url(f"{mock.base_url}/login/saml")}, raw=b"", ctype="text/html")
+            if self._path in ("/login", "/login/canvas") and mock.sso and not mock.chooser:  # 学校统一登录：转去学校登录页，带票回 /login/saml
                 return self._send(302, None, {"Location": mock.sso.login_url(f"{mock.base_url}/login/saml")}, raw=b"", ctype="text/html")
             if self._path == "/login/saml" and mock.sso:
                 if not mock.sso.redeem(self._q1("ticket")):
@@ -172,7 +178,7 @@ class _Handler(BaseHTTPRequestHandler):
             if self._path == "/login":  # Canvas 默认的登录入口
                 return self._send(302, None, {"Location": "/login/canvas"}, raw=b"", ctype="text/html")
             if self._path == "/login/canvas":  # 登录页：直接发会话 cookie（不带过期时间，浏览器一关就丢）
-                if not mock.auto_login:  # 学校要重新输密码：给登录表单（后台浏览器不会填）
+                if not mock.auto_login or mock.chooser:  # 学校要重新输密码 / 校外账号的表单：给登录表单（后台浏览器不会填）
                     return self._send(200, None, raw=b'<!doctype html><title>Log In</title><form method="post">'
                                       b'<input name="pseudonym_session[unique_id]"><input type="password" '
                                       b'name="pseudonym_session[password]"><button>Log In</button></form>',
@@ -467,13 +473,14 @@ _ROUTES = [
 class MockCanvas:
     """with MockCanvas("au_semester") as mock: ... mock.base_url ... mock.requests()"""
 
-    def __init__(self, scenario, host="127.0.0.1", port=0, session=False, sso=None):
+    def __init__(self, scenario, host="127.0.0.1", port=0, session=False, sso=None, chooser=False):
         if host not in LOOPBACK:
             raise ValueError("mockcanvas only binds to loopback")
         self.session = session  # True：另外接受浏览器登录（/login/canvas 发 cookie），测登录模式用
         self.session_cookie = uuid.uuid4().hex if session else None
         self.web_cookie = uuid.uuid4().hex  # session_token 换来的浏览器会话（token 方式读 Canvas 自己的页面）
         self.sso = sso  # tests/mocksso.MockSSO：登录走学校统一登录
+        self.chooser = chooser  # True：/login 先给「选怎么登录」的页面（学校账号 / 校外账号），没有输入框
         self.auto_login = True  # 不走 sso 时：True = 登录页直接发 cookie（当学生登好了）；False = 学校要重新输密码，给表单
         self.logins = 0
         self.scenario = scenario if isinstance(scenario, Scenario) else Scenario(scenario)
