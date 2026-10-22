@@ -8,7 +8,7 @@ import sys
 
 import brand
 from cc_paths import agent_kind, skill_dir
-from cc_store import jload
+from cc_store import jload, jsave
 
 
 def pip_install(pkg):
@@ -74,15 +74,25 @@ MAIN_LABEL = brand.NAME + "主文件夹："
 MAIN_LINE = re.compile("^" + re.escape(MAIN_LABEL) + "(.*)$", re.M)
 VERSION_TOKEN = "<和主文件夹一致>"
 
+# 整份收进来的技能（skills/<原作者起的名字>）：口令就用原名，文件一个字不改，全文在它自己的文件夹里、不读主文件夹，
+# 所以产品改名、主文件夹搬家，口令照样能用。认「这份是本技能装的」靠旁边的记号文件，记号里不写产品名，改名后的新版照样认得。
+BUNDLED = ("humanizer",)
+BUNDLED_MARK = "installed-by.json"
+
+
+def is_entry_name(name):
+    """本技能入口的文件夹名：jj- 开头，或整份收进来的技能（BUNDLED）。同名的别人的技能靠 entry_info 认出来，不碰。"""
+    return name.startswith(ENTRY_PREFIX) or name in BUNDLED
+
 
 def entry_sources(sd=None):
-    """主文件夹 skills/ 下带 SKILL.md 的 jj-* 文件夹（入口的源）。"""
+    """主文件夹 skills/ 下带 SKILL.md 的入口文件夹（jj-* 和整份收进来的，入口的源）。"""
     root = os.path.join(sd or skill_dir(), "skills")
     try:
         names = sorted(os.listdir(root))
     except OSError:
         return []
-    return [os.path.join(root, n) for n in names if n.startswith(ENTRY_PREFIX) and os.path.isfile(os.path.join(root, n, "SKILL.md"))]
+    return [os.path.join(root, n) for n in names if is_entry_name(n) and os.path.isfile(os.path.join(root, n, "SKILL.md"))]
 
 
 def _read(p):
@@ -94,7 +104,12 @@ def _read(p):
 
 
 def entry_info(d):
-    """装出去的入口：写着的主文件夹、版本、指向的 references 文件。不是本技能的入口（没有「<产品名>主文件夹：」那一行）返回 None。"""
+    """装出去的入口：写着的主文件夹、版本、指向的 references 文件。不是本技能的入口返回 None：
+    jj 入口认 SKILL.md 里「<产品名>主文件夹：」那一行，整份收进来的技能认旁边的记号文件（BUNDLED_MARK）。"""
+    mark = jload(os.path.join(d, BUNDLED_MARK))
+    if isinstance(mark, dict) and isinstance(mark.get("main"), str) and mark["main"]:
+        return {"name": os.path.basename(os.path.normpath(d)), "path": d, "main": mark["main"],
+                "version": mark.get("version"), "refs": []}
     text = _read(os.path.join(d, "SKILL.md"))
     m = MAIN_LINE.search(text or "")
     if not m:
@@ -106,6 +121,36 @@ def entry_info(d):
 
 def _same(a, b):
     return os.path.normcase(os.path.normpath(os.path.abspath(a))) == os.path.normcase(os.path.normpath(os.path.abspath(b)))
+
+
+def _linked(p):
+    """p 本身是链接（符号链接、Windows 目录联接）：别的工具搭的（比如 skills 命令行把 .claude 下的技能链到 .agents），不往里写、不删。"""
+    if not os.path.lexists(p):
+        return False
+    real_parent = os.path.realpath(os.path.dirname(os.path.abspath(p)))
+    return not _same(os.path.realpath(p), os.path.join(real_parent, os.path.basename(p)))
+
+
+def _copy_bundled(src, dst, sd):
+    """整份收进来的技能：先删掉自己装的旧的那份（调用前已经认过记号），再整份复制；
+    文字文件一律写成 LF，跟原作者仓库里一个字节都不差；最后写记号（主文件夹、版本）。"""
+    if os.path.isdir(dst):
+        shutil.rmtree(dst)
+    for d, dirs, files in os.walk(src):
+        dirs[:] = [x for x in dirs if x != "__pycache__"]
+        for f in files:
+            if f.endswith(".pyc") or f == BUNDLED_MARK:
+                continue
+            s = os.path.join(d, f)
+            t = os.path.join(dst, os.path.relpath(s, src))
+            os.makedirs(os.path.dirname(t), exist_ok=True)
+            with open(s, "rb") as fh:
+                data = fh.read()
+            if b"\0" not in data:
+                data = data.replace(b"\r\n", b"\n")
+            with open(t, "wb") as fh:
+                fh.write(data)
+    jsave(os.path.join(dst, BUNDLED_MARK), {"main": sd, "version": brand.VERSION})
 
 
 def install_entries(sd=None):
@@ -122,6 +167,13 @@ def install_entries(sd=None):
         name = os.path.basename(src)
         names.add(name)
         dst = os.path.join(skills, name)
+        if name in BUNDLED:
+            if _linked(dst) or (os.path.lexists(dst) and entry_info(dst) is None):
+                out["conflicts"].append(dst)  # 学生自己装过同名的（比如原作者那份）：口令照样叫得出，用那份
+                continue
+            _copy_bundled(src, dst, sd)
+            out["installed"].append(dst)
+            continue
         if os.path.isdir(dst) and entry_info(dst) is None:
             out["conflicts"].append(dst)
             continue
@@ -136,26 +188,30 @@ def install_entries(sd=None):
         out["installed"].append(dst)
     for name in sorted(os.listdir(skills)):
         d = os.path.join(skills, name)
-        info = entry_info(d) if name.startswith(ENTRY_PREFIX) and name not in names else None
-        if info and _same(info["main"], sd):
+        info = entry_info(d) if is_entry_name(name) and name not in names else None
+        if info and _same(info["main"], sd) and not _linked(d):
             shutil.rmtree(d)
             out["removed"].append(d)
     return out
 
 
 def installed_entries(sd=None):
-    """主文件夹旁边装着的本技能入口，加上源里有、还没装的：[{name, installed, main, version, refs}]。"""
+    """主文件夹旁边装着的本技能入口，加上源里有、还没装的：[{name, installed, taken, main, version, refs}]。
+    taken：没装，因为同名的别人的技能已经占着这个名字。"""
     sd = os.path.normpath(os.path.abspath(sd or skill_dir()))
     skills = os.path.dirname(sd)
+    located = skill_location_ok(sd)
     rows = {}
     for src in entry_sources(sd):
+        name = os.path.basename(src)
         info = entry_info(src) or {}
-        rows[os.path.basename(src)] = {"name": os.path.basename(src), "installed": False, "main": None, "version": None, "refs": info.get("refs", [])}
-    if skill_location_ok(sd):
+        rows[name] = {"name": name, "installed": False, "taken": located and os.path.lexists(os.path.join(skills, name)),
+                      "main": None, "version": None, "refs": info.get("refs", [])}
+    if located:
         for name in sorted(os.listdir(skills)):
-            info = entry_info(os.path.join(skills, name)) if name.startswith(ENTRY_PREFIX) else None
+            info = entry_info(os.path.join(skills, name)) if is_entry_name(name) else None
             if info:
-                rows[name] = dict(info, installed=True)
+                rows[name] = dict(info, installed=True, taken=False)
                 rows[name].pop("path", None)
     return [rows[k] for k in sorted(rows)]
 
@@ -166,8 +222,8 @@ def remove_entries(sd=None):
     skills, removed = os.path.dirname(sd), []
     for name in sorted(os.listdir(skills)) if skill_location_ok(sd) else []:
         d = os.path.join(skills, name)
-        info = entry_info(d) if name.startswith(ENTRY_PREFIX) else None
-        if info and _same(info["main"], sd):
+        info = entry_info(d) if is_entry_name(name) else None
+        if info and _same(info["main"], sd) and not _linked(d):
             shutil.rmtree(d)
             removed.append(d)
     return removed
@@ -185,6 +241,8 @@ def entry_problems(sd=None, home=None, display_coach=""):
     rows = installed_entries(sd)
     for r in rows:
         if not r["installed"]:
+            if r["taken"] and r["name"] in BUNDLED:
+                continue  # 学生自己装过同名的（比如原作者那份）：口令叫得出，不用提
             out.append(("info", f"/jj 入口 {r['name']} 还没装", f"装：{fix}"))
         elif not os.path.isdir(r["main"] or ""):
             out.append(("warn", f"入口 {r['name']} 写着的主文件夹 {r['main']} 已经不在了", f"重写路径：{fix}"))

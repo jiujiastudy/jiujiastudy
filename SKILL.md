@@ -44,6 +44,7 @@ description: 救驾（jiujiastudy）是留学生的 Canvas / Moodle 学习手帐
 | 「资料放哪」「换个文件夹」 | `paths` 报路径；换地方：`config set root <路径>` 再 `doctor`，它会把旧文件搬过去 | setup.md |
 | 「这门课还用 Ed / Padlet / 别的网站」；「还差 N 件」里列了外部平台 | `external 课` 看保底清单，公告和课程页面里提到的也找全；`browse 网址 --course 课` 只读打开（被带去登录页：问学生一句，同意就加 `--sign-in` 弹窗让学生自己登一次，以后不用再登）；读到的截止 `record deadline … --source "Ed（AI 读到的）"`；碰到人机验证就停；跟学生只说做了什么、情况是什么，不说「看不到」「你去看」 | learn.md |
 | 「做 X 这周的学习页」「更新 X 学习页」；第一次推荐后学生说「好」；学生打 /jj-learn（不说哪门就照 `study --json` 的 learn.order 全做，最急的先，每门都按完整标准，开始前说一句做哪几门、大概多久） | `learn prep 课`（要学习页就是同意读这门课的课件，它直接打开，不再问）→ 照 learn.md 找资料、做页面、写清单 → `learn check 课` → 刷新周报（`study --write --zh …`） | learn.md |
+| 学生打 /humanizer，或说「改得像人写的」「去 AI 味」 | 照 humanizer 的说明原样做（主文件夹旁边的 humanizer 技能；没加载就读主文件夹的 skills/humanizer/SKILL.md）：标出 AI 腔 → 改一稿 → 自查 → 在对话里给最终版；意思、数字、引用不改，缺细节就问，不编；不做网页 | skills/humanizer/SKILL.md |
 | 「这个作业到底要求什么」「草稿帮我对着评分标准看看」「帮我给老师写封信」「开不了头」 | 直接做，不套固定流程：作业要求读作业页和评分标准全文（Canvas 用 `api get`，Moodle 用 `browse`，Moodle 上去哪读见 moodle.md），课程页面、课程说明、公告里提到它的也找全，以 Canvas 为准，说法打架的写出来；草稿按评分标准一项项看，说哪一段还差什么；信给英文稿和中文意思，学生自己发；开不了头就把最急的那件拆成一小步 | — |
 | 导读课件、复习包、逐页精讲、做图、写东西、发帖、交作业、任何想法 | 直接做：先 `paths 课` 拿路径；课件原件在「课件」；课件文字默认不提取给 AI；学生要的东西得读课件（导读、复习包、逐页精讲），就当同意，直接开 `config course <课程代码> --materials-ai on`（学生明说过不读的除外），开了才有 text/<课>/；某周课件还没下就 `collect --materials 课 周`；产物一律写进「产出」；做页面先读 references/style.md；发帖交作业按规矩 5 | toolbox.md |
 
