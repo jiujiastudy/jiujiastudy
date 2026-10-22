@@ -18,4 +18,12 @@
 - `skills/jj-<名字>/SKILL.md`：入口，只写几行指路。格式照 jj-learn，`tests/test_jj_entries.py` 会查；
 - `references/<名字>.md`：这个功能的完整说明。
 
+**整份收一个外部的 skill（发起人 10-22 定的，/humanizer 就是这样收的）**：要它用起来跟原版一模一样、口令用原作者起的名字时这么收。
+
+- 收之前查三样：许可（读它仓库的 LICENSE）、安全（读完它的说明和要跑的每个脚本）、在自己电脑上真跑一次。
+- 原样放进 `skills/<原名>/`（用 `git -c core.autocrlf=false archive` 导出，保持原作者的 LF），SKILL.md 不改名、不加「主文件夹」那一行。它装出去就是一个独立的技能，不读主文件夹，产品改名、搬家都不影响它。
+- 名字加进 `tools/cc_install.py` 的 `BUNDLED`。装的时候整份复制到主文件夹旁边，旁边写记号 `installed-by.json`；学生自己装过同名的不覆盖。
+- `tests/fixtures/upstream/<原名>.json` 存每个文件的 sha256（照 `tests/test_humanizer.py`），`THIRD_PARTY_NOTICES.md` 写上来源和许可。
+- 每次发版前对一遍原作者的更新：有新 commit 就读改了什么，重新导出，更新清单，测好再跟着这一版发。
+
 发版时，在 GitHub Release 的说明里写「这次更新的新内容」，一句一条，学生听得懂的话。/jj-update 会原样转述给学生。版本号改 `tools/brand.py` 的 VERSION，打 tag `v<版本>`。

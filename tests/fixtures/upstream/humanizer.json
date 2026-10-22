@@ -1,0 +1,13 @@
+{
+ "folder": "humanizer",
+ "path": "skills/humanizer",
+ "repo": "blader/humanizer",
+ "commit": "8c307f367c91bd974002f10f2be2965d642c13df",
+ "version": "3.1.0",
+ "note": "blader/humanizer 的 SKILL.md、LICENSE、agents/openai.yaml，整份原样放在 skills/humanizer：口令就用原作者的名字 humanizer，SKILL.md 不改名、不加一个字。每个文件的 sha256 从原作者那个 commit 的 blob 直接算（LF）；合更新时重新生成（references/update.md）。",
+ "files": {
+  "LICENSE": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+  "SKILL.md": "0612f1dfb1672b0ea9b97e139bf1f06cabe98d8b27424fe8ff01e1fb4cc99cad",
+  "agents/openai.yaml": "9d87ff83149a04f86a372948b8ee35fa249de20923867bbc2a49304290aad736"
+ }
+}

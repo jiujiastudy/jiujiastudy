@@ -426,8 +426,14 @@ def cmd_jj(args):
         if not rows:
             print("没有 /jj 入口")
         for r in rows:
-            refs = "、".join("references/" + x for x in r["refs"]) or "（没写）"
-            state = f"已装（版本 {r['version'] or '?'}）" if r["installed"] else "没装（doctor --install 会装）"
+            whole = r["name"] in cc_install.BUNDLED
+            refs = "、".join("references/" + x for x in r["refs"]) or ("它自己文件夹里的 SKILL.md（整份收进来的）" if whole else "（没写）")
+            if r["installed"]:
+                state = f"已装（版本 {r['version'] or '?'}）"
+            elif r.get("taken"):
+                state = "同名的技能已经装着（不是这里装的），口令叫得出来，用的是那份"
+            else:
+                state = "没装（doctor --install 会装）"
             print(f"{r['name']}：{state} ｜ 读 {refs}")
     return 0, {"entries": rows}
 

@@ -148,10 +148,15 @@ class JjInstallThroughDoctor(unittest.TestCase):
         r = self.run_it("doctor", "--no-detect", "--host", self.mock.base_url, "--tz", "Australia/Sydney",
                         "--agent", "claude", "--all-courses", "--install", "--json")
         self.assertEqual(0, r.code, r.stdout[-600:] + r.stderr[-600:])
-        sources = sorted(n for n in os.listdir(os.path.join(self.skill, "skills")) if n.startswith("jj-"))
+        sources = sorted(n for n in os.listdir(os.path.join(self.skill, "skills")) if cc_install.is_entry_name(n))
         self.assertTrue(sources)
         for name in sources:
             with self.subTest(entry=name):
+                if name in cc_install.BUNDLED:  # 整份收进来的（humanizer）：SKILL.md 是原版，主文件夹和版本写在记号里
+                    info = cc_install.entry_info(os.path.join(self.skills, name))
+                    self.assertTrue(info and os.path.normpath(info["main"]) == os.path.normpath(self.skill), info)
+                    self.assertEqual(brand.VERSION, info["version"])
+                    continue
                 with io.open(os.path.join(self.skills, name, "SKILL.md"), encoding="utf-8") as f:
                     text = f.read()
                 self.assertIn("救驾主文件夹：" + os.path.normpath(self.skill), text)
